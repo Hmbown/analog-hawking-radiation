@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "validation_passed": true,
+  "osiris_results": {
+    "confidence_text": "Hawking Hunter Analysis Results\n===============================\n\nAnalysis time: 2025-10-04 23:42:55\n\nInput Parameters:\n  - Gas type: H2\n  - Pressure: 1.00e-05 Torr\n  - Laser intensity: 1.00e+17 W/cm\u00b2\n  - Laser duration: 1.00e-13 s\n\nTarget Hawking Temperature: 1.20e+09 K\nTarget Peak Energy: 360.0 eV\n\nBump Detection Results:\n  - Status: DETECTED\n  - Peak energy: 360.3 eV\n  - Significance: 6.26\u03c3\n  - Estimated temperature: 1.20e+09 K\n  - Peak width: 9.51% of peak energy\n\nBlack-body Fit Results:\n  - Fit status: SUCCESS\n  - Temperature: 1.00e+08 \u00b1 0.00e+00 K\n  - Reduced \u03c7\u00b2: 1.027\n  - R\u00b2: -0.000\n  - Good fit: YES\n\nConfidence Metrics:\n  - Overall confidence: 0.00%\n  - \u03c7\u00b2 confidence: 0.00%\n  - Temperature confidence: 0.00%\n  - R\u00b2 confidence: 0.00%\n  - Temperature difference from target: 91.7%\n\nFinal Assessment:\n  - Hawking-like signature: DETECTED\n  - Confidence level: 0.00%\n",
+    "detected": true,
+    "peak_energy": 360.3,
+    "significance": 6.26,
+    "temperature": 100000000.0,
+    "fit_success": true,
+    "good_fit": true
+  },
+  "smilei_results": {
+    "success": true,
+    "detected": true,
+    "peak_energy": 374.6231155778894,
+    "significance": 5.0,
+    "temperature": 100000000.0,
+    "fit_success": true,
+    "good_fit": true,
+    "fit_temperature": 1049041357.5659864
+  },
+  "sig_check": {
+    "valid": true,
+    "osiris_sig": 6.26,
+    "smilei_sig": 5.0,
+    "osiris_valid": true,
+    "smilei_valid": true
+  },
+  "temp_check": {
+    "valid": true,
+    "relative_diff": 0.0,
+    "osiris_temp": 100000000.0,
+    "smilei_temp": 100000000.0
+  },
+  "energy_check": {
+    "valid": true,
+    "relative_diff": 0.03975330440713123,
+    "osiris_energy": 360.3,
+    "smilei_energy": 374.6231155778894
+  },
+  "both_detected": true,
+  "both_fit_ok": true,
+  "timestamp": "2025-10-04T23:43:14.266977"
+}
