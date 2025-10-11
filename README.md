@@ -11,7 +11,7 @@ The unification of general relativity and quantum mechanics remains one of the m
 In 1974, Stephen Hawking predicted that black holes should emit thermal radiation, causing them to evaporate over immense timescales. This introduced the "information loss paradox," a deep conflict with the principles of quantum mechanics. Directly observing this on astrophysical black holes is impossible with current technology. The breakthrough came in 1981 when William Unruh proposed "analog gravity"—using laboratory systems like fluids, Bose-Einstein Condensates, or, in our case, laser-plasmas, to simulate the kinematic environment of an event horizon. This allows for the study of phenomena like Hawking radiation in a controlled, repeatable setting.
 
 <p align="center">
-  <img src="https://i.imgur.com/kS5x84d.jpeg" width="600" alt="Diagram of a black hole event horizon distorting spacetime">
+  <img src="results/E_field_plot.png" width="600" alt="Diagram of a black hole event horizon distorting spacetime">
 </p>
 
 ---

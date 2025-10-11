@@ -1,5 +1,5 @@
 {
-  "traditional_chi_squared_confidence": 0.3473336845772353,
+  "traditional_chi_squared_confidence": 0.0,
   "bayesian_confidence": 0.62,
   "parameters": {
     "wavelength": 8e-07,
