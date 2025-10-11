@@ -45,6 +45,10 @@ Our integrated methodology successfully reverses the null result obtained with t
 
 ## Reproducibility and Citation
 
+### Data Availability
+
+Simulation data for the foundational study this work is based on are openly archived on Zenodo (DOI: 10.5281/zenodo.7010698).
+
 ### How to Reproduce
 
 1.  **Clone the repository:**

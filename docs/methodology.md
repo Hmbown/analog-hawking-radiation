@@ -42,11 +42,13 @@ The Bayesian analysis yields a posterior probability distribution for the black-
 
 ## 5. References
 
-1.  "Hawking radiation and analogue experiments: A Bayesian approach" (ScienceDirect, 2021)
-2.  "AnaBHEL (Analog Black Hole Evaporation via Lasers)" (MDPI, 2022)
-3.  "Bayesian inference in physics" (Reviews of Modern Physics, 2011)
-4.  "Direct Comparison between Bayesian and Frequentist Uncertainty Quantification in Nuclear Physics" (Physical Review Letters, 2019)
-5.  "bayes_spec: A Bayesian Spectral Line Modeling Framework for Astrophysics" (arXiv, 2024)
-6.  "X-ray spectral fitting with Monte Carlo dropout neural networks" (Astronomy & Astrophysics, 2025)
-7.  "Bayesian Optimization of a Laser-Plasma Accelerator" (Physical Review Accelerators and Beams, 2021)
-8.  "Multitask Optimization of Laser-Plasma Accelerators Using Bayesian Methods" (JACoW, 2023)
+1.  Dardashti, R., Hartmann, S., Thébault, K., & Winsberg, E. (2019). "Hawking Radiation and Analogue Experiments: A Bayesian Analysis". *PhilSci-Archive*. (Later published in *The British Journal for the Philosophy of Science*, 2020).
+2.  "Hawking radiation and analogue experiments: A Bayesian approach" (ScienceDirect, 2021)
+3.  "AnaBHEL (Analog Black Hole Evaporation via Lasers)" (MDPI, 2022)
+4.  Jacquet, M., et al. (2022). "Analogue quantum simulation of the Hawking effect in a polariton superfluid". *The European Physical Journal D*, 76(8). (DOI: 10.1140/epjd/s10053-022-00477-5).
+5.  "Bayesian inference in physics" (Reviews of Modern Physics, 2011)
+6.  "Direct Comparison between Bayesian and Frequentist Uncertainty Quantification in Nuclear Physics" (Physical Review Letters, 2019)
+7.  "bayes_spec: A Bayesian Spectral Line Modeling Framework for Astrophysics" (arXiv, 2024)
+8.  "X-ray spectral fitting with Monte Carlo dropout neural networks" (Astronomy & Astrophysics, 2025)
+9.  "Bayesian Optimization of a Laser-Plasma Accelerator" (Physical Review Accelerators and Beams, 2021)
+10. "Multitask Optimization of Laser-Plasma Accelerators Using Bayesian Methods" (JACoW, 2023)
