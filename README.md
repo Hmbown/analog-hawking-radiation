@@ -41,7 +41,9 @@ We employed a global optimization algorithm (differential evolution) that system
 
 Our integrated methodology successfully reverses the null result obtained with traditional methods. By applying this triumvirate of innovations, we achieve a **62% detection confidence** for the analog Hawking signal, in contrast to the 0% confidence from a standard chi-squared analysis.
 
-*   ***Chart Placeholder:*** *A bar chart visually contrasting the "Traditional Chi-Squared Result (0% Confidence)" with the "Our Bayesian Result (62% Confidence)."*
+<p align="center">
+  <img src="results/confidence_comparison.png" width="600" alt="Bar chart comparing 0% confidence from traditional methods to 62% confidence from our Bayesian method">
+</p>
 
 ---
 
