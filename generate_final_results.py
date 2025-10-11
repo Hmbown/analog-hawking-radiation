@@ -84,6 +84,52 @@ def save_results_to_json(metrics, output_dir='results'):
     print(f"\nResults saved to: {filepath}")
     return filepath
 
+def create_strongest_signal_plot(metrics, fit_results, output_dir='results'):
+    """
+    Creates a publication-quality plot of the strongest detected signal,
+    showing the data, the Bayesian model fit, and the residuals.
+    """
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    energies = fit_results['energies_fit']
+    spectrum = fit_results['spectrum_fit']
+    model = fit_results['best_model']
+    residuals = fit_results['residuals']
+    
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), sharex=True, 
+                                  gridspec_kw={'height_ratios': [3, 1]})
+
+    # --- Top Plot: Spectrum and Bayesian Fit ---
+    ax1.plot(energies, spectrum, 'o', color='gray', label='Simulated Data', markersize=4, alpha=0.6)
+    ax1.plot(energies, model, color='#5cb85c', label='Bayesian Model Fit', linewidth=2.5)
+    ax1.set_ylabel('Intensity (Arbitrary Units)', fontsize=12)
+    ax1.set_title('Strongest Detected Analog Hawking Signal', fontsize=14, pad=15)
+    ax1.legend(loc='upper right')
+    ax1.grid(True, linestyle='--', alpha=0.5)
+    
+    T_fit = fit_results['T_fit']
+    info_text = (f"Fitted Temperature: {T_fit:.2e} K\n"
+                 f"Detection Confidence: {metrics['bayesian_confidence']:.0%}")
+    ax1.text(0.05, 0.95, info_text, transform=ax1.transAxes, fontsize=10, 
+             verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+    # --- Bottom Plot: Residuals ---
+    ax2.plot(energies, residuals, 'o', color='gray', markersize=4, alpha=0.6)
+    ax2.axhline(y=0, color='red', linestyle='--', linewidth=1.5)
+    ax2.set_xlabel('Energy (eV)', fontsize=12)
+    ax2.set_ylabel('Residuals', fontsize=12)
+    ax2.grid(True, linestyle='--', alpha=0.5)
+
+    plt.tight_layout(pad=1.0, h_pad=2.0)
+    
+    filepath = os.path.join(output_dir, 'strongest_hawking_signal.png')
+    plt.savefig(filepath, dpi=300)
+    
+    print(f"Strongest signal plot saved to: {filepath}")
+    return filepath
+
+
 def create_comparison_chart(metrics, output_dir='results'):
     """Creates and saves a bar chart comparing the confidence levels."""
     if not os.path.exists(output_dir):
@@ -123,11 +169,23 @@ def create_comparison_chart(metrics, output_dir='results'):
 
 def main():
     """Main function to generate and save final results and graphics."""
-    metrics = generate_results_for_optimal_params()
+    metrics, fit_results = generate_results_for_optimal_params()
     if metrics:
         save_results_to_json(metrics)
         create_comparison_chart(metrics)
+        create_strongest_signal_plot(metrics, fit_results)
         print("\n--- Final results generation complete ---")
 
 if __name__ == "__main__":
+    # Modify generate_results_for_optimal_params to return fit_results
+    original_func = generate_results_for_optimal_params
+    def patched_func():
+        metrics = original_func()
+        # This is a bit of a hack to get the full results dict out
+        # without refactoring the optimizer class.
+        optimizer = ParameterOptimizer()
+        fit_res = optimizer._evaluate_single_configuration(**metrics['parameters'])
+        return metrics, fit_res['fit_results']['bayesian']
+    
+    generate_results_for_optimal_params = patched_func
     main()
