@@ -2,10 +2,7 @@
   "traditional_chi_squared_confidence": 0.0,
   "bayesian_confidence": 0.62,
   "parameters": {
-    "wavelength": 8e-07,
-    "pulse_duration": 2.5e-14,
-    "focus_diameter": 1e-06,
-    "pressure": 1e-06,
-    "gas_type": "H2"
+    "true_temperature": 1300000000.0,
+    "fit_temperature": 828653484.6384971
   }
 }
