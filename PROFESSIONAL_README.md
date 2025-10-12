@@ -1,8 +1,8 @@
-# Analog Hawking Radiation: Research on Black Hole Glow Detection
+# Detection of the Hawking Radiation "Glow": Research in Analog Black Hole Physics
 
-## Overview
+## Executive Summary
 
-Our computational investigation of analog Hawking radiation in laser-plasma systems reveals that the challenge lies in creating the conditions for horizon formation, not in detecting the radiation. While the thermal Hawking radiation signature at 3.32 mK is detectable with current technology, our simulations demonstrate that analog horizon formation fails under typical experimental conditions, meaning no Hawking radiation is actually produced.
+Our computational investigation of analog Hawking radiation in laser-plasma systems has revealed a critical insight: the challenge lies in creating the conditions for horizon formation, not in detecting the radiation. While the thermal Hawking radiation signature at 3.32 mK is detectable with current technology, our simulations demonstrate that analog horizon formation fails under typical experimental conditions, meaning no Hawking radiation is actually produced.
 
 This research provides insights for future laboratory implementations of analog gravity systems.
 
@@ -13,24 +13,25 @@ Validated Physics Framework
 - Numerically stable methods: 4th-order Runge-Kutta integration with proper CFL control
 - Corrected approach: From flawed implementation to scientifically rigorous framework
 
-Horizon Formation Requirements
-- Detection vs. creation: The main challenge is creating the "glow," not detecting it
-- Formation conditions: Specific plasma configurations and laser pulse shapes required
-- Current limitations: Typical experimental parameters don't achieve needed gradients
+Critical Discovery: Horizon Formation Requirements
+- Detection vs. creation: Creating the "glow" is the real challenge, not detecting it
+- Horizon formation: Revealed the stringent requirements for analog horizon formation (velocity gradients approaching c)
+- Parameter optimization: Provided realistic experimental parameters and constraints
 
-Multi-Mirror Configurations
+Advanced Multi-Mirror Configurations
 - Enhancement breakthrough: Multi-mirror configurations provide 3-6x enhancement over single mirror systems
 - Optimized geometries: Pentagram and standing wave configurations offer maximum enhancement
 - Practical implementation: Configurations that balance enhancement with experimental feasibility
 
 ## Research Findings
 
-The "Glow" Characteristics
+The "Glow" is Detectable When Formed
 - Hawking temperature: 3.32 mK thermal signature
 - Peak frequency: 195 MHz (radio frequency range)
+- Detection feasibility: Detectable with sensitive bolometers
 - Photon energy: ~8x10⁻²⁵ J (extremely low but measurable)
 
-Horizon Formation Challenges
+The Real Challenge: Horizon Formation
 - Critical requirement: Velocity gradients approaching the speed of light (|dv/dx| ≈ c)
 - Formation conditions: Specific plasma configurations and laser pulse shapes required
 - Current limitations: Typical experimental parameters don't achieve needed gradients
@@ -184,6 +185,6 @@ See `CONTRIBUTING.md` for detailed guidelines.
 
 ## Acknowledgments
 
-We acknowledge the importance of rigorous peer review in maintaining the integrity of scientific research.
+We thank the anonymous reviewers whose thorough critique identified fundamental flaws in our initial implementation. The process of correcting these errors has resulted in a significantly more robust and scientifically valid framework. This experience underscores the critical importance of rigorous peer review in maintaining the integrity of scientific research.
 
 This repository represents research in analog Hawking radiation, providing both theoretical validation and practical guidance for laboratory implementation. The work shifts focus from detection sensitivity to the fundamental physics of horizon creation.
