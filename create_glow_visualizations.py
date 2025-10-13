@@ -24,9 +24,9 @@ def create_hawking_radiation_glow_visualization():
     # Plot 1: The Glow - Hawking Temperature Visualization
     ax1 = fig.add_subplot(gs[0, 0])
     T_H = 3.32e-3  # 3.32 mK from our latest results
-    frequencies = np.logspace(8, 18, 1000)  # Hz range
-    h_omega = h * frequencies
-    spectral_intensity = (2 * h_omega**3 / (c**2)) / (np.exp(h_omega / (k*T_H)) - 1)
+    frequencies = np.logspace(6, 12, 800)  # 1 MHz to 1 THz
+    h_nu = h * frequencies
+    spectral_intensity = (2 * h_nu**3 / (c**2)) / (np.exp(h_nu / (k*T_H)) - 1)
     
     ax1.loglog(frequencies, spectral_intensity, 'r-', linewidth=2, label='Hawking Spectrum')
     ax1.set_xlabel('Frequency (Hz)', fontsize=10)
@@ -143,10 +143,10 @@ def create_hawking_radiation_glow_visualization():
     ax8.axis('off')  # Turn off axis for text box
     
     summary_text = """
-    🎯 KEY DISCOVERY:
+    KEY FINDING:
     
-    The glow at 3.32 mK
-    is easily detectable when
+    The radiation at 3.32 mK
+    may be detectable when
     formed, but no horizon
     formation occurs under
     typical conditions.
@@ -186,8 +186,8 @@ def create_hawking_radiation_glow_visualization():
                     va='center', fontsize=9)
     
     plt.tight_layout()
-    plt.savefig('GLOW_DETECTION_FINDINGS.png', dpi=300, bbox_inches='tight')
-    print("Glow detection findings visualization saved as 'GLOW_DETECTION_FINDINGS.png'")
+    plt.savefig('hawking_radiation_detection_findings.png', dpi=300, bbox_inches='tight')
+    print("Hawking radiation detection findings visualization saved as 'hawking_radiation_detection_findings.png'")
     plt.show()
 
 def create_glow_focused_summary():
@@ -199,7 +199,7 @@ def create_glow_focused_summary():
                  fontsize=16, fontweight='bold')
 
     # Glow characteristics
-    ax1.text(0.05, 0.9, 'THE GLOW CHARACTERISTICS', 
+    ax1.text(0.05, 0.9, 'HAWKING RADIATION CHARACTERISTICS', 
              fontsize=14, fontweight='bold', color='darkblue', transform=ax1.transAxes)
     ax1.text(0.05, 0.8, '• Temperature: 3.32 mK', 
              fontsize=12, transform=ax1.transAxes)
@@ -209,7 +209,7 @@ def create_glow_focused_summary():
              fontsize=12, transform=ax1.transAxes)
     ax1.text(0.05, 0.65, '• Photon energy: 8×10⁻²⁵ J', 
              fontsize=12, transform=ax1.transAxes)
-    ax1.text(0.05, 0.6, '• Detection: EASILY MEASURABLE', 
+    ax1.text(0.05, 0.6, '• Detection: RADIO + CRYOGENICS + INTEGRATION', 
              fontsize=12, color='green', transform=ax1.transAxes)
     
     ax1.text(0.05, 0.4, 'THE FORMATION CHALLENGE', 
@@ -231,9 +231,9 @@ def create_glow_focused_summary():
 
     # Glow spectrum visualization
     T_H = 3.32e-3  # 3.32 mK
-    frequencies = np.logspace(8, 18, 1000)
-    h_omega = h * frequencies
-    spectral_intensity = (2 * h_omega**3 / (c**2)) / (np.exp(h_omega / (k*T_H)) - 1)
+    frequencies = np.logspace(6, 12, 800)
+    h_nu = h * frequencies
+    spectral_intensity = (2 * h_nu**3 / (c**2)) / (np.exp(h_nu / (k*T_H)) - 1)
     
     ax2.loglog(frequencies, spectral_intensity, 'r-', linewidth=2)
     ax2.set_xlabel('Frequency (Hz)', fontsize=12)
@@ -272,8 +272,8 @@ def create_glow_focused_summary():
                 f'{value}x', ha='center', va='bottom', fontweight='bold')
     
     plt.tight_layout()
-    plt.savefig('GLOW_FINDINGS_SUMMARY.png', dpi=300, bbox_inches='tight')
-    print("Glow findings summary visualization saved as 'GLOW_FINDINGS_SUMMARY.png'")
+    plt.savefig('hawking_radiation_findings_summary.png', dpi=300, bbox_inches='tight')
+    print("Hawking radiation findings summary visualization saved as 'hawking_radiation_findings_summary.png'")
     plt.show()
 
 def create_attractive_glow_flyer():
@@ -284,10 +284,10 @@ def create_attractive_glow_flyer():
     
     # Create a title area
     ax_title = plt.subplot2grid((4, 4), (0, 0), colspan=4, rowspan=1)
-    ax_title.text(0.5, 0.7, 'DETECTION OF THE HAWKING RADIATION "GLOW"', 
+    ax_title.text(0.5, 0.7, 'DETECTION OF HAWKING RADIATION', 
                   ha='center', va='center', fontsize=24, fontweight='bold',
                   transform=ax_title.transAxes, color='#2c3e50')
-    ax_title.text(0.5, 0.4, 'Breakthrough in Analog Black Hole Research', 
+    ax_title.text(0.5, 0.4, 'Research in Analog Black Hole Systems', 
                   ha='center', va='center', fontsize=16,
                   transform=ax_title.transAxes, color='#34495e')
     ax_title.axis('off')
@@ -297,11 +297,11 @@ def create_attractive_glow_flyer():
     ax_finding.axis('off')
     
     finding_text = """
-    🎯 KEY DISCOVERY:
+    KEY FINDING:
     
-    The black hole "glow" at 3.32 mK 
-    is EASILY DETECTABLE with current 
-    technology, but the real challenge 
+    The radiation at ~3.32 mK 
+    may be detectable with cryogenic radio 
+    instrumentation and sufficient integration, but the real challenge 
     lies in forming the analog horizons 
     that would produce this radiation.
     
@@ -364,20 +364,20 @@ def create_attractive_glow_flyer():
     implications_text = """
     RESEARCH IMPLICATIONS:
     
-    ✅ Glow is detectable when formed (3.32 mK, 195 MHz)
-    ✅ Multi-mirror configurations enhance signals (5-6×)
-    ✅ Validated computational framework established
-    ❌ Horizon formation is the limiting factor
-    🔬 Focus shifts to plasma dynamics and creation
-    🚀 Opportunity for experimental collaboration
+    - Radiation is detectable when formed (3.32 mK, 195 MHz)
+    - Multi-mirror configurations may enhance signals (5-6×)
+    - Validated computational framework established
+    - Horizon formation is the limiting factor
+    - Focus shifts to plasma dynamics and creation
+    - Opportunity for experimental collaboration
     """
     ax_implications.text(0.02, 0.95, implications_text, transform=ax_implications.transAxes,
                          fontsize=12, verticalalignment='top',
                          bbox=dict(boxstyle="round,pad=0.8", facecolor="#f0f8ff", alpha=0.9))
     
     plt.tight_layout()
-    plt.savefig('GLOW_RESEARCH_FLYER.png', dpi=300, bbox_inches='tight')
-    print("Glow research flyer saved as 'GLOW_RESEARCH_FLYER.png'")
+    plt.savefig('hawking_radiation_research_summary.png', dpi=300, bbox_inches='tight')
+    print("Hawking radiation research summary saved as 'hawking_radiation_research_summary.png'")
     plt.show()
 
 if __name__ == "__main__":
@@ -388,8 +388,8 @@ if __name__ == "__main__":
     print()
     create_attractive_glow_flyer()
     print()
-    print("All glow-focused visualizations created successfully!")
+    print("All visualizations created successfully!")
     print("Files generated:")
-    print("- GLOW_DETECTION_FINDINGS.png")
-    print("- GLOW_FINDINGS_SUMMARY.png") 
-    print("- GLOW_RESEARCH_FLYER.png")
+    print("- hawking_radiation_detection_findings.png")
+    print("- hawking_radiation_findings_summary.png") 
+    print("- hawking_radiation_research_summary.png")

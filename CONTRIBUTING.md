@@ -1,25 +1,43 @@
-# Contributing to Bayesian Re-Analysis of Analog Hawking Radiation
+# Contributing to Analog Hawking Radiation Simulation
 
-Thank you for your interest in contributing to this project! We welcome contributions from the community. Whether you're reporting a bug, suggesting an improvement, or submitting a pull request, your input is valuable.
+Thank you for your interest in contributing to this research project. This repository contains a computational framework for simulating analog Hawking radiation in laser-plasma systems.
 
-## How to Contribute
+## Scientific Standards
 
-### Reporting Issues
+All contributions should maintain rigorous scientific standards:
 
-If you find a bug, have a question, or want to suggest an enhancement, please open an issue on GitHub. When reporting an issue, please provide as much detail as possible, including:
+- Implement physics models with proper validation against analytical solutions
+- Include appropriate error handling and uncertainty quantification
+- Follow established computational physics best practices
+- Maintain reproducible and well-documented code
+- Use appropriate statistical methods for data analysis
 
-*   A clear and descriptive title.
-*   A detailed description of the issue or suggestion.
-*   Steps to reproduce the issue, if applicable.
-*   Information about your environment (e.g., operating system, Python version).
+## Code Quality
 
-### Submitting Pull Requests
+- Follow PEP 8 style guidelines for Python code
+- Include comprehensive unit tests for new functionality
+- Document physics models with references to relevant literature
+- Use clear variable names that reflect physical quantities
+- Include appropriate comments explaining complex physics calculations
 
-If you would like to contribute code, please follow these steps:
+## Pull Request Process
 
-1.  **Fork the repository** and create your branch from `main`.
-2.  **Make your changes.** Please ensure your code follows the existing style and is well-commented where necessary.
-3.  **Test your changes** to ensure they work as expected and do not introduce any new issues.
-4.  **Submit a pull request** with a clear description of the changes you have made.
+1. Fork the repository and create your branch from `main`
+2. Add tests for any new functionality
+3. Ensure all tests pass
+4. Update documentation as appropriate
+5. Submit a pull request with a clear description of the changes and their scientific justification
 
-We will review your pull request as soon as possible. Thank you for your contribution!
+## Research Ethics
+
+This project aims to advance understanding of analog gravity systems through rigorous computational modeling. All contributions should:
+
+- Present results with appropriate statistical analysis
+- Acknowledge limitations of the models
+- Cite relevant literature appropriately
+- Avoid overstating the implications of results
+- Maintain scientific objectivity in all documentation
+
+## Questions?
+
+If you have questions about contributing to this research project, please open an issue for discussion.
