@@ -1,5 +1,16 @@
 # Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling
 
+## A quick tour
+
+- **What this is**: A reproducible toolkit to model analog Hawking radiation in laser–plasma flows, detect sonic horizons, and assess detectability with radio-style radiometers.
+- **How it works**: We simulate flow profiles, find horizons where `|v(x)| = c_s(x)`, compute surface gravity `κ` and Hawking temperature `T_H`, and generate a physically normalized spectrum using Planck’s law `B_ν` with optional graybody transmission and instrument coupling.
+- **What you get**:
+  - Maps of horizon probability, `κ`, and `T_H` across parameter space.
+  - Detection-time heatmaps from the spectrum (conservative PSD-based) and from a `T_H` brightness surrogate (upper bound).
+  - A paper-ready bundle under `paper/` and an arXiv zip (published as a Release asset).
+- **What to tune**: In `calculate_hawking_spectrum(...)`, set `emitting_area_m2`, `solid_angle_sr`, and `coupling_efficiency` to reflect your instrument; figures will rescale accordingly.
+- **Why it matters**: It reframes the problem from “how to detect” to “how to form” horizons, helping focus experiments on regimes with the best chance of success.
+
 ## Abstract
 
 This repository provides a computational framework for simulating analog Hawking radiation in laser-plasma systems, with a focus on robust horizon detection, realistic multi-beam configurations, and practical detection feasibility assessment. The framework quantifies horizon formation as the primary experimental bottleneck, provides realistic enhancement expectations through power-conserving, coarse-grained modeling, and offers practical detection feasibility assessments based on first principles. By focusing on formation probability, envelope-scale gradients, and radio-band detection feasibility, this work shifts the research emphasis from "how to detect" to "how to form" analog horizons, providing principled tools that help concentrate experimental effort where it matters most.
