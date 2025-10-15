@@ -17,10 +17,11 @@ We demonstrate horizon formation in an analog Hawking radiation platform based o
 \end{abstract}
 
 \section{Introduction}
-Analog gravity platforms enable tabletop studies of horizon physics \cite{Hawking1974,Hawking1975,Unruh1981,Barcelo2011}. Here we use a laser--plasma flow to realize sonic horizons where $|v(x)| = c_s(x)$. The surface gravity $\kappa$ governs the Hawking temperature $T_H = \hbar \kappa/(2\pi k_B)$ and sets the characteristic emission scale.
+Analog gravity platforms enable tabletop studies of horizon physics \cite{Hawking1974,Hawking1975,Unruh1981,Barcelo2011,Weinfurtner2011,Steinhauer2016,Drori2019}. Here we use a laser--plasma flow to realize sonic horizons where $|v(x)| = c_s(x)$. The surface gravity $\kappa$ governs the Hawking temperature $T_H = \hbar \kappa/(2\pi k_B)$ and sets the characteristic emission scale.
 
 \section{Methods}
-We couple a fluid backend with intensity scaling to a horizon detector and a quantum-field-theory (QFT) module that computes the Hawking spectrum with graybody transmission. Parameter sweeps span intensity $I$, density $n_e$, temperature $T$, and magnetic field $B$. We compute detection-time heatmaps using a radiometer model.
+We couple a fluid backend with intensity scaling to a horizon detector and a quantum-field-theory (QFT) module that computes the Hawking spectrum with graybody transmission \cite{Planck1901,Page1976}. Parameter sweeps span intensity $I$, density $n_e$, temperature $T$, and magnetic field $B$. We compute detection-time heatmaps using a radiometer model \cite{Wilson2013}.
+Plasma parameters follow standard definitions for the dimensionless vector potential $a_0$, plasma frequency $\omega_p$, the underdense criterion, and the magnetosonic speed \cite{Esarey2009,Chen2016}.
 
 \section{Results}
 \subsection{Horizon formation probability}
@@ -61,7 +62,7 @@ We couple a fluid backend with intensity scaling to a horizon detector and a qua
 \end{figure}
 
 \section{Discussion}
-We achieved robust horizon formation with $\kappa\gg 10^{10}\,\mathrm{s^{-1}}$. PSD-based radio detectability is challenging for THz-peaked spectra; the $T_H$ surrogate highlights potential feasibility pending normalization and coupling calibration. A radio-targeted sweep mode ($\kappa \sim 10^{10-11}\,\mathrm{s^{-1}}$) is provided to shift $T_H$ into radio and explore instrument trade-offs. By default our PSD normalization uses unit area and solid angle (or provided instrument parameters), so detectability scales directly with aperture, field of view, and coupling.
+We achieved robust horizon formation with $\kappa\gg 10^{10}\,\mathrm{s^{-1}}$. PSD-based radio detectability is challenging for THz-peaked spectra \cite{Tonouchi2007}; the $T_H$ surrogate highlights potential feasibility pending normalization and coupling calibration. A radio-targeted sweep mode ($\kappa \sim 10^{10-11}\,\mathrm{s^{-1}}$) is provided to shift $T_H$ into radio and explore instrument trade-offs. By default our PSD normalization uses unit area and solid angle (or provided instrument parameters), so detectability scales directly with aperture, field of view, and coupling.
 
 \section{Code and Data}
 Key scripts and modules are included as ancillary files:
