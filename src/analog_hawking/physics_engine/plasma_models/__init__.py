@@ -6,7 +6,7 @@ from .backend import (
     PlasmaBackend,
     PlasmaState,
 )
-from .fluid_backend import FluidBackend
+from .fluid_backend import FluidBackend, EquilibriumFluidModel, StaticPonderomotiveModel
 from .warpx_backend import WarpXBackend
 from .adaptive_sigma import estimate_sigma_map
 from .fluctuation_injector import FluctuationConfig, QuantumFluctuationInjector

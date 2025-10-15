@@ -6,18 +6,21 @@ import shutil
 from pathlib import Path
 
 FIGS = [
-    # Results figures referenced in paper/main.tex
-    "formation_frontier.png",
-    "graybody_impact.png",
-    "geometry_vs_kappa.png",
-    "horizon_probability_bands.png",
-    # Existing paper figures
+    # Primary figures in main paper (Figs 1-4)
+    "formation_frontier.png",              # Figure 1: Formation frontier
+    "graybody_impact.png",                 # Figure 2: Profile-derived graybody
+    "horizon_probability_bands.png",       # Figure 3: Uncertainty quantification
+    "horizon_analysis_detection_time.png",  # Figure 4 (left): PSD-based detection time
+    "horizon_analysis_detection_time_TH.png", # Figure 4 (right): T_H surrogate
+    # Supplementary figures (available in repo, referenced in Code section)
     "horizon_analysis_probability_map.png",
     "horizon_analysis_kappa_map.png",
     "horizon_analysis_TH_map.png",
-    "horizon_analysis_detection_time.png",
-    "horizon_analysis_detection_time_TH.png",
     "horizon_analysis_detection_time_radio.png",
+    "geometry_vs_kappa.png",
+    "horizon_analysis_profile_00.png",
+    "horizon_analysis_profile_01.png",
+    "horizon_analysis_profile_02.png",
 ]
 
 ROOT = Path(__file__).resolve().parents[1]

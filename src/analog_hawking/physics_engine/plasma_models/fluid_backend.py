@@ -1,4 +1,9 @@
-"""Fluid solver backend implementing the PlasmaBackend interface."""
+"""Steady-state (quasi-static) ponderomotive equilibrium backend implementing the PlasmaBackend interface.
+
+This backend computes a 1D steady profile under a prescribed laser envelope. It does not time-step the
+fluid; the `step(dt)` method ignores dt and returns an equilibrium response (density, velocity, sound
+speed) derived from the instantaneous ponderomotive drive.
+"""
 
 from __future__ import annotations
 
@@ -12,7 +17,7 @@ from .plasma_physics import PlasmaPhysicsModel
 
 
 class FluidBackend(PlasmaBackend):
-    """Adapter exposing existing fluid model via generic backend API."""
+    """Equilibrium fluid adapter (steady-state; dt ignored) via generic backend API."""
 
     def __init__(self) -> None:
         self._model: Optional[PlasmaPhysicsModel] = None
@@ -60,6 +65,7 @@ class FluidBackend(PlasmaBackend):
         self._sink = sink or NullDiagnosticsSink()
 
     def step(self, dt: float) -> PlasmaState:  # pylint: disable=unused-argument
+        """Return quasi-steady response; dt is unused (no time evolution)."""
         assert self._model is not None and self._x is not None
 
         t = np.array([0.0])
@@ -161,5 +167,8 @@ class FluidBackend(PlasmaBackend):
         self._model = None
         self._x = None
         self._last_state = None
-
+        
+# Backward-compatible aliases with more descriptive names
+EquilibriumFluidModel = FluidBackend
+StaticPonderomotiveModel = FluidBackend
 

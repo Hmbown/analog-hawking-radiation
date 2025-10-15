@@ -4,7 +4,11 @@ Horizon finding utilities for analog Hawking radiation in 1D profiles.
 Provides:
 - sound_speed(T_e, ion_mass=m_p, gamma=5/3)
 - find_horizons_with_uncertainty(x, v, c_s): robust root finding on f(x)=|v|-c_s
-  with simple uncertainty estimates from multi-scale finite differences.
+  with simple numerical uncertainty estimates from multi-scale finite differences.
+
+Notes on uncertainty: the returned uncertainty on the surface gravity (kappa) is a
+numerical estimate from varying the finite-difference stencil (grid sensitivity),
+not a propagation of physical uncertainties in the underlying model parameters.
 """
 
 from __future__ import annotations
@@ -45,7 +49,7 @@ def fast_magnetosonic_speed(T_e,
 class HorizonResult:
     positions: np.ndarray        # horizon x-positions
     kappa: np.ndarray            # surface gravity estimates at horizons (s^-1)
-    kappa_err: np.ndarray        # simple uncertainty estimates
+    kappa_err: np.ndarray        # numerical (grid) uncertainty estimates
     dvdx: np.ndarray             # dv/dx at horizon
     dcsdx: np.ndarray            # dc_s/dx at horizon
 
@@ -154,3 +158,6 @@ def find_horizons_with_uncertainty(x: np.ndarray,
         dvdx=np.array(dvdx_list),
         dcsdx=np.array(dcsdx_list)
     )
+
+# Backward-compatible alias for clarity in downstream code/documentation
+setattr(HorizonResult, "kappa_numerical_err", property(lambda self: self.kappa_err))
