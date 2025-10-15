@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Paper bundle (upload as Release asset; keep sources tracked)
+arxiv_package.zip
+
 # C extensions
 *.so
 

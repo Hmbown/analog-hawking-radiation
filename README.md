@@ -10,8 +10,8 @@ This repository provides a computational framework for simulating analog Hawking
 
 ```bash
 # Clone repository
-git clone https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation.git
-cd bayesian-analysis-hawking-radiation
+git clone https://github.com/hmbown/analog-hawking-radiation.git
+cd analog-hawking-radiation
 
 # Install package and dependencies
 pip install -e .
@@ -279,7 +279,7 @@ By focusing on formation probability, envelope-scale gradients, and radio-band d
 
 If you use this repository, please cite it as:
 
-Bown, Hunter. (2025). Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling (Version 0.1.0) [Computer software]. https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation
+Bown, Hunter. (2025). Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling (Version 0.1.0) [Computer software]. https://github.com/hmbown/analog-hawking-radiation
 
 For BibTeX citation, see [`CITATION.cff`](CITATION.cff).
 
