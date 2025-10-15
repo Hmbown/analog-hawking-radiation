@@ -10,6 +10,16 @@
 - **What to tune**: In `calculate_hawking_spectrum(...)`, set `emitting_area_m2`, `solid_angle_sr`, and `coupling_efficiency` to reflect your instrument; figures will rescale accordingly.
 - **Why it matters**: It reframes the problem from “how to detect” to “how to form” horizons, helping focus experiments on regimes with the best chance of success.
 
+## Horizon feasibility-first: what we mean
+
+We prioritize proving the horizon can exist and emit before optimizing detectors. Concretely:
+
+- **Attainability (frontier)**: Map where horizons exist in parameter space (minimum intensity vs. density/temperature).
+- **Steepness (κ)**: Quantify surface gravity at threshold and above; κ sets the temperature scale.
+- **Transmittance (graybody)**: Use the actual local profile `(x, v, c_s)` near the horizon to compute frequency-dependent escape.
+- **Robustness (probability)**: Estimate horizon probability and κ error bars under parameter scatter.
+- **Detection (last)**: Once the above are favorable, evaluate PSD-based detection times and instrument trade-offs.
+
 ## Abstract
 
 This repository provides a computational framework for simulating analog Hawking radiation in laser-plasma systems, with a focus on robust horizon detection, realistic multi-beam configurations, and practical detection feasibility assessment. The framework quantifies horizon formation as the primary experimental bottleneck, provides realistic enhancement expectations through power-conserving, coarse-grained modeling, and offers practical detection feasibility assessments based on first principles. By focusing on formation probability, envelope-scale gradients, and radio-band detection feasibility, this work shifts the research emphasis from "how to detect" to "how to form" analog horizons, providing principled tools that help concentrate experimental effort where it matters most.
@@ -32,7 +42,7 @@ pip install -e .
 Execute the complete simulation pipeline (plasma backend → horizon detection → QFT spectrum → radio detectability):
 
 ```bash
-python scripts/run_full_pipeline.py
+python scripts/run_full_pipeline.py --demo
 ```
 
 **Output**: `results/full_pipeline_summary.json` containing:
@@ -41,7 +51,7 @@ python scripts/run_full_pipeline.py
 - Hawking spectrum characteristics (peak frequency, in-band power)
 - Radio detection metrics (signal temperature T_sig, 5σ integration time t_5σ)
 
-**Configuration**: Modify parameters by editing `run_full_pipeline()` arguments in `scripts/run_full_pipeline.py`.
+**Configuration**: Use `--intensity`, `--temperature`, and `--window-cells` CLI flags or edit defaults in `scripts/run_full_pipeline.py`.
 
 ### Parameter Space Exploration
 
@@ -76,22 +86,32 @@ python scripts/run_param_sweep.py
   - `solid_angle_sr` (default used: 5e-2)
   - `coupling_efficiency` (default used: 0.1)
 
-### Initial Findings
+### Initial Findings (Oct 2025)
 
-**Baseline Configuration Results** (from `results/full_pipeline_summary.json`):
-- **Plasma Parameters**: n_e = 5×10¹⁷ cm⁻³, λ = 800 nm, I = 5×10¹⁶ W/cm², T = 5×10⁵ K, B = 0.01 T
-- **Horizon Status**: No horizons detected under default configuration
-- **Implication**: Default regime does not satisfy |v(x)| = c_s(x)
+- **Demo pipeline** (`--demo`) forms horizons with multiple crossings and κ ~ 1.8×10¹²–3.7×10¹² s⁻¹.
+  - See `results/full_pipeline_summary.json` for positions and κ, and `figures/graybody_impact.png` for profile-derived vs fallback transmission.
+- **Formation frontier** shows minimum intensity vs `(n_e, T)` where horizons appear; κ at threshold is reported.
+  - See `results/formation_frontier.json`, `figures/formation_frontier.png`.
+- **Geometry under power constraint** yields modest envelope-scale gains; bars align with |∇I| enhancement.
+  - See `results/geometry_vs_kappa.json`, `figures/geometry_vs_kappa.png`.
+- **Uncertainty Monte Carlo** indicates high horizon probability near nominal, with κ mean/std bands.
+  - See `results/horizon_probability_bands.json`, `figures/horizon_probability_bands.png`.
 
-**Extended Sweep Results (Oct 2025)**:
-- See `results/extended_param_sweep.json` and `results/horizon_success_cases.json`
-- **Parameter Ranges**: I = 10¹⁷–10¹⁹ W/cm², n_e = 10¹⁷–10¹⁹ cm⁻³, T = 10⁴–10⁶ K, B = 0–0.1 T
-- **Horizon Formation**: Horizons detected across wide regions when intensity scaling is enabled (`scale_with_intensity=True`)
-- **Surface Gravity**: κ up to ~8×10¹³ s⁻¹ (≫ 10¹⁰ s⁻¹ threshold) in multiple configurations
-- **Figures**: `figures/horizon_analysis_probability_map.png`, `figures/horizon_analysis_kappa_map.png`, `figures/horizon_analysis_TH_map.png`, `figures/horizon_analysis_profile_*.png`
-- **Detection Times**: With physically motivated normalization (A = 1e-6 m², Ω = 0.05 sr, η = 0.1), PSD-based heatmaps centered on the spectral peak yield very short `t_5σ`; a radio-only map at 1 GHz shows effectively infinite times; the `T_H`-surrogate map provides an upper-bound feasibility view. See `figures/horizon_analysis_detection_time.png`, `figures/horizon_analysis_detection_time_TH.png`, and `figures/horizon_analysis_detection_time_radio.png`.
+### Reproducing the four core figures
 
-See `docs/Successful_Configurations.md` for a ranked table of successful cases and notes.
+```bash
+# 1) Profile-derived graybody comparison
+python scripts/run_full_pipeline.py --demo
+
+# 2) Formation frontier map
+python scripts/compute_formation_frontier.py
+
+# 3) Geometry vs κ surrogate (power-conserving)
+python scripts/geometry_optimize_kappa.py
+
+# 4) Horizon probability bands (uncertainty)
+python scripts/monte_carlo_horizon_uncertainty.py
+```
 
 <!-- Paper/preprint materials are managed separately and not part of this repository at this time. -->
 

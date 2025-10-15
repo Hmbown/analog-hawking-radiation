@@ -22,12 +22,13 @@ def _effective_potential(x: np.ndarray, v: np.ndarray, c_s: np.ndarray) -> np.nd
 
 def _wkb_transmission(omega: float, potential: Callable[[float], float], x_bounds: Tuple[float, float]) -> float:
     def integrand(x: float) -> float:
-        V = potential(x)
-        if omega <= V:
-            return np.sqrt(V - omega)
+        V = float(potential(x))
+        if V > omega:
+            dv = V - omega
+            return float(np.sqrt(dv if dv > 0.0 else 0.0))
         return 0.0
 
-    integral, _ = quad(integrand, x_bounds[0], x_bounds[1], limit=200)
+    integral, _ = quad(integrand, x_bounds[0], x_bounds[1], limit=200, epsabs=1e-8, epsrel=1e-6)
     if not np.isfinite(integral):
         return 0.0
     return float(np.exp(-2.0 * integral))

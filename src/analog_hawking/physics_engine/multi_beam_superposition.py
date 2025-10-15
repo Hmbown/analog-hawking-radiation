@@ -245,7 +245,7 @@ def simulate_gradient_enhancement(config_name: str,
     enhancement = grad_max_multi / grad_max_single if grad_max_single > 0 else np.nan
 
     # Optional κ surrogate mapping via ponderomotive-like response
-    # U_p ~ E^2/ω^2; a ~ -∇U_p/m_e; v ~ a * tau_response; κ ~ 0.5|∂(|v|-c_s)/∂x|
+    # U_p ~ E^2/ω^2; a ~ -∇U_p/m_e; v ~ a * tau_response; κ ~ 0.5 |∇|v||
     kappa_surr_single = np.nan
     kappa_surr_multi = np.nan
     kappa_surr_enh = np.nan
@@ -253,33 +253,27 @@ def simulate_gradient_enhancement(config_name: str,
         omega = 2 * pi * c / wavelength
         U_single = I_single / (omega**2)  # proportional
         U_multi = I_multi / (omega**2)
-        # acceleration fields (proportional), in x-direction derivative
-        dUdx_single = np.gradient(U_single, dx, axis=1)
-        dUdx_multi = np.gradient(U_multi, dx, axis=1)
-        a_single = - dUdx_single
-        a_multi = - dUdx_multi
-        v_single = a_single * tau_response
-        v_multi = a_multi * tau_response
-        # compute κ surrogate field (center row) and take max within radius
-        row = v_single.shape[0] // 2
-        vs_row = v_single[row, :]
-        vm_row = v_multi[row, :]
-        # c_s constant across x for surrogate
-        cs = c_s_value
-        # κ_surr(x) = 0.5 |d/dx(|v|-c_s)| = 0.5 |d|v|/dx| (since c_s const)
-        dvs_dx = np.gradient(np.abs(vs_row), dx)
-        dvm_dx = np.gradient(np.abs(vm_row), dx)
-        kappa_s_row = 0.5 * np.abs(dvs_dx)
-        kappa_m_row = 0.5 * np.abs(dvm_dx)
-        # max within radius
-        col_center = v_single.shape[1] // 2
-        # map radius in meters to columns
-        cols_radius = int(max(radius_for_max / dx, 1))
-        sl = slice(max(col_center - cols_radius, 0), min(col_center + cols_radius + 1, v_single.shape[1]))
-        kappa_surr_single = float(np.max(kappa_s_row[sl]))
-        kappa_surr_multi = float(np.max(kappa_m_row[sl]))
-        if kappa_surr_single > 0:
-            kappa_surr_enh = kappa_surr_multi / kappa_surr_single
+        # Acceleration fields (proportional)
+        dUdx_single, dUdy_single = np.gradient(U_single, dx, dy)
+        dUdx_multi, dUdy_multi = np.gradient(U_multi, dx, dy)
+        a_single_x, a_single_y = -dUdx_single, -dUdy_single
+        a_multi_x, a_multi_y = -dUdx_multi, -dUdy_multi
+        v_single_mag = np.sqrt((a_single_x**2 + a_single_y**2)) * tau_response
+        v_multi_mag = np.sqrt((a_multi_x**2 + a_multi_y**2)) * tau_response
+        # κ surrogate field: 0.5 * |∇|v||
+        dvx_s, dvy_s = np.gradient(np.abs(v_single_mag), dx, dy)
+        dvx_m, dvy_m = np.gradient(np.abs(v_multi_mag), dx, dy)
+        kappa_s_field = 0.5 * np.sqrt(dvx_s**2 + dvy_s**2)
+        kappa_m_field = 0.5 * np.sqrt(dvx_m**2 + dvy_m**2)
+        # Robust statistic within radius: 95th percentile
+        perc = 95.0
+        ks_vals = kappa_s_field[mask]
+        km_vals = kappa_m_field[mask]
+        if ks_vals.size and km_vals.size:
+            kappa_surr_single = float(np.percentile(ks_vals, perc))
+            kappa_surr_multi = float(np.percentile(km_vals, perc))
+            denom = max(kappa_surr_single, 1e-16)
+            kappa_surr_enh = kappa_surr_multi / denom
 
     return {
         'config_name': config_name,

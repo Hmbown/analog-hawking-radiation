@@ -3,9 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Paper bundle and sources
+# Paper bundle (keep ignored); track sources again
 arxiv_package.zip
-paper/
 
 # C extensions
 *.so

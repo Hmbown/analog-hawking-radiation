@@ -1,0 +1,20 @@
+{
+  "config": {
+    "n_samples": 200,
+    "density_mean": 5e+17,
+    "density_spread_frac": 0.2,
+    "temperature_mean": 500000.0,
+    "temperature_spread_frac": 0.3,
+    "magnetic_field": 0.01,
+    "wavelength": 8e-07,
+    "intensity": 5e+16,
+    "use_fast_magnetosonic": true,
+    "scale_with_intensity": true,
+    "grid_min": 0.0,
+    "grid_max": 5e-05,
+    "grid_points": 512
+  },
+  "horizon_probability": 1.0,
+  "kappa_mean": 254344047690.05804,
+  "kappa_std": 254562307180.5366
+}
