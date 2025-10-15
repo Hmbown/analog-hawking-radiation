@@ -1,0 +1,8 @@
+[
+  {
+    "step": 0,
+    "density_mean": 1.0527183750063613,
+    "sigma_policy": "adaptive",
+    "horizon_count": 0
+  }
+]

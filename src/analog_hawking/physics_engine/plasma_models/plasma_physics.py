@@ -207,7 +207,7 @@ class AnalogHorizonPhysics:
             Dictionary containing metric components
         """
         # For acoustic metric: ds^2 = g_μν dx^μ dx^ν
-        # In 1+1D: ds^2 = -(c_s^2 - v^2)dt^2 + 2v dtdx + dx^2
+        # In 1+1D with (-,+) signature: ds^2 = -(c_s^2 - v^2) dt^2 + 2 v dt dx - dx^2
         
         c_s = sound_speed
         v = flow_velocity
@@ -215,14 +215,14 @@ class AnalogHorizonPhysics:
         # Metric components
         g_tt = -(c_s**2 - v**2)
         g_tx = g_xt = v
-        g_xx = 1.0
+        g_xx = -1.0
         
         return {
             'g_tt': g_tt,
             'g_tx': g_tx,
             'g_xt': g_xt,
             'g_xx': g_xx,
-            'det_g': -(c_s**2 - v**2)  # Determinant
+            'det_g': -(c_s**2 - v**2)  # Determinant (up to overall conformal factor)
         }
     
     def horizon_condition(self, flow_velocity, sound_speed):

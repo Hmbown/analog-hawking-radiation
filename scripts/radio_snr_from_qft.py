@@ -23,7 +23,16 @@ def default_kappa_for_radio(T_H=0.01):
 
 def main():
     kappa = default_kappa_for_radio(0.01)
-    spec = calculate_hawking_spectrum(kappa)
+    graybody_profile = None
+    sidecar_path = os.path.join('results', 'warpx_profiles.npz')
+    if os.path.exists(sidecar_path):
+        npz = np.load(sidecar_path)
+        graybody_profile = {
+            'x': npz['grid'],
+            'v': npz['velocity'],
+            'c_s': npz['sound_speed'],
+        }
+    spec = calculate_hawking_spectrum(kappa, graybody_profile=graybody_profile)
     if not spec.get('success', False):
         print('Spectrum calculation failed')
         return

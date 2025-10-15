@@ -1,0 +1,54 @@
+{
+  "single": {
+    "enhancement": 1.0,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "two_opposed": {
+    "enhancement": 1.000006640885858,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "triangular": {
+    "enhancement": 0.5454207811652438,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "square": {
+    "enhancement": 0.5680739712965583,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "pentagram": {
+    "enhancement": 0.5444165091906389,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "hexagon": {
+    "enhancement": 0.5454173199653266,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "standing_wave": {
+    "enhancement": 1.000006640885858,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "ring_{'ring_N': 8}": {
+    "enhancement": 0.5443883338175333,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "ring_{'ring_N': 12}": {
+    "enhancement": 0.5443804203049883,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "angled_crossing_{'angle_deg': 10.0}": {
+    "enhancement": 1.1782549176567698,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "angled_crossing_{'angle_deg': 20.0}": {
+    "enhancement": 0.9766246354219128,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "angled_crossing_{'angle_deg': 40.0}": {
+    "enhancement": 0.9072556185521737,
+    "kappa_surrogate_enhancement": NaN
+  },
+  "square_{'weights': [0.35, 0.35, 0.15, 0.15]}": {
+    "enhancement": 0.5680703594112249,
+    "kappa_surrogate_enhancement": NaN
+  }
+}

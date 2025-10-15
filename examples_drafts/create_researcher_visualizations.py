@@ -1,6 +1,9 @@
 """
-Enhanced Visualizations for Analog Hawking Radiation Research
-Created for research presentation and outreach purposes
+Illustrative Visualizations (Draft / Not Data-Derived)
+
+These figures are illustrative mockups intended for presentations. They are not
+generated from the validated pipeline in this repository and contain placeholder
+numbers and qualitative narratives. Do not treat them as results.
 """
 
 import numpy as np

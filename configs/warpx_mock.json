@@ -1,0 +1,28 @@
+{
+  "species": [
+    {"name": "electrons", "charge": -1.0, "mass": 1.0},
+    {"name": "ions", "charge": 1.0, "mass": 1836.0}
+  ],
+  "grid": [0.0, 1.0, 2.0, 3.0],
+  "electron_species": "electrons",
+  "ion_species": "ions",
+  "mock": true,
+  "field_getters": {
+    "Ex": {"type": "pywarpx", "field": "Ex"},
+    "Bx": {"type": "pywarpx", "field": "Bx"}
+  },
+  "moment_getters": {
+    "electrons": {
+      "density": {"type": "pywarpx", "species": "electrons", "moment": "density"},
+      "bulk_velocity": {"type": "pywarpx", "species": "electrons", "moment": "bulk_velocity"},
+      "sound_speed": {"type": "pywarpx", "species": "electrons", "moment": "sound_speed"}
+    },
+    "ions": {
+      "density": {"type": "pywarpx", "species": "ions", "moment": "density"}
+    }
+  },
+  "smoothing": {
+    "sigma": 2.0,
+    "adaptive": false
+  }
+}

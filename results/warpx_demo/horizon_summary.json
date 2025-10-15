@@ -1,0 +1,82 @@
+[
+  {
+    "step": 0,
+    "density_mean": 0.43250632662918903,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 1,
+    "density_mean": 0.4424220567643272,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 2,
+    "density_mean": 0.7981143508447476,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 3,
+    "density_mean": 0.8178422764893648,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 4,
+    "density_mean": 0.37384445590171667,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 5,
+    "density_mean": 0.8652068525180385,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 6,
+    "density_mean": 0.31053626909842663,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 7,
+    "density_mean": 0.6871578780461379,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 8,
+    "density_mean": 0.26875138463418047,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  },
+  {
+    "step": 9,
+    "density_mean": 0.48793419277689243,
+    "sigma_policy": "adaptive",
+    "horizon_count": 1,
+    "kappa_mean": 0.15,
+    "kappa_std": 0.0
+  }
+]

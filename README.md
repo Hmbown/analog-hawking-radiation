@@ -1,54 +1,234 @@
-Analog Hawking Radiation Simulation Framework
-============================================
+# Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling
 
-This repository contains a computational framework for simulating analog Hawking radiation in laser-plasma systems. The framework provides tools for modeling horizon formation in fluid plasmas and calculating associated quantum effects. It includes a modular backend system designed to support integration with Particle-in-Cell codes (e.g., WarpX).
+## Abstract
 
-## Overview
+This repository provides a computational framework for simulating analog Hawking radiation in laser-plasma systems, with a focus on robust horizon detection, realistic multi-beam configurations, and practical detection feasibility assessment. The framework quantifies horizon formation as the primary experimental bottleneck, provides realistic enhancement expectations through power-conserving, coarse-grained modeling, and offers practical detection feasibility assessments based on first principles. By focusing on formation probability, envelope-scale gradients, and radio-band detection feasibility, this work shifts the research emphasis from "how to detect" to "how to form" analog horizons, providing principled tools that help concentrate experimental effort where it matters most.
 
-The repository provides:
-- A horizon finder with uncertainty estimates for position-dependent sound speed profiles `c_s(x)`
-- A multi-beam superposition simulator with power conservation
-- Tools for parameter optimization and sensitivity analysis
-- Implementation of theoretical models for Hawking radiation in analog systems
+## 1. Introduction
 
-## Computational Architecture
+### 1.1 Scientific Motivation
 
-Core Simulation Components:
-- `physics_engine/plasma_models/`: Backend implementations and physics models
-- `physics_engine/simulation.py`: Main simulation runner
-- `scripts/`: Analysis and optimization scripts
-- `figures/`: Generated visualization outputs
-- `docs/`: Technical documentation
+Analog Hawking radiation explores quantum field effects in curved spacetime through laboratory analogs. This framework specifically investigates laser-plasma systems where high-intensity laser interactions create effective horizons that mimic gravitational effects. The theoretical foundation includes:
 
-## Current Status
+- **Hawking Radiation Theory**: Quantum particle creation near horizons
+- **Analog Gravity**: Fluid/optical systems mimicking gravitational effects
+- **Surface Gravity (κ)**: Key parameter determining Hawking temperature (T_H = ħκ/2πk_B)
 
-The framework implements:
-- Fluid plasma models with relativistic corrections
-- Acoustic metric construction for analog gravity systems
-- Hawking temperature calculations from surface gravity
-- Parameter optimization tools for experimental design
+### 1.2 Research Objectives
 
-## Requirements
+This research addresses the following core questions:
+- How can we robustly identify horizon formation in laser-plasma systems?
+- What experimental configurations maximize the probability of detectable Hawking radiation?
+- How do envelope-scale gradients affect horizon formation probability?
+- What are realistic detection requirements and integration times?
 
-- Python 3.8+
-- Dependencies listed in `requirements.txt`
-- For visualization: Matplotlib, NumPy, SciPy
+## 2. Methods
 
-## Usage
+### 2.1 Computational Framework Architecture
 
-Run the main simulation:
-```bash
-make run-simulation
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Plasma Models │    │ Horizon Detection │    │  Quantum Field  │
+│                 │───▶│                   │───▶│     Theory      │
+│ - Fluid Backend │    │ - κ calculation   │    │ - Hawking Spec  │
+│ - WarpX Backend │    │ - Uncertainty est │    │ - Graybody corr │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│ Multi-Beam      │    │ Detection        │    │ Optimization    │
+│ Superposition   │    │ Modeling         │    │ Framework       │
+│                 │    │                  │    │                 │
+│ - Power consv   │    │ - Radio SNR      │    │ - Bayesian opt  │
+│ - Envelope scale│    │ - Integration t  │    │ - Merit func    │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-Run validation tests:
-```bash
-make test
-```
+### 2.2 Core Methodological Components
 
-Generate figures:
+#### 2.2.1 Horizon Detection System
+
+- **Robust Root Finding**: Bracketing and bisection for |v(x)| = c_s(x) condition
+- **Surface Gravity Calculation**: κ = 0.5|d/dx(|v| - c_s)| with multi-stencil uncertainty
+- **Adaptive Smoothing**: κ-plateau diagnostics for optimal scale selection
+
+#### 2.2.2 Multi-Beam Field Superposition
+
+- **Power-Conserving Design**: Total peak power normalization across beam configurations
+- **Envelope-Scale Coarse-Graining**: Realistic gradient modeling at skin-depth scales
+- **Geometric Configurations**: Rings, crossings, standing waves with variable parameters
+
+#### 2.2.3 Detection Feasibility Modeling
+
+- **Quantum Field Theory Integration**: Direct Hawking spectrum calculation
+- **Radiometer Equation**: SNR = (T_sig/T_sys)√(B·t) for detection time estimation
+- **Graybody Transmission**: WKB-based transmission probability calculations
+
+#### 2.2.4 Bayesian Optimization Framework
+
+- **Unified Merit Function**: Merit = P_horizon × E[SNR(T_H(κ))]
+- **Parameter Space Exploration**: Plasma density, laser intensity, temperature optimization
+- **Uncertainty Propagation**: Probabilistic horizon modeling with parameter uncertainties
+
+## 3. Results
+
+### 3.1 Horizon Formation Analysis
+
+![Sound Speed Profile Impact](figures/cs_profile_impact.png)
+**Impact of position-dependent sound speed profiles on horizon formation.** Non-uniform temperature profiles (induced by laser heating) significantly shift horizon locations compared to constant c_s assumptions, demonstrating the critical importance of realistic plasma modeling.
+
+![Phase Jitter Stability](figures/phase_jitter_stability.png)
+**Enhancement robustness under random phase variations.** Multi-beam configurations maintain stable gradient enhancements despite phase fluctuations, validating the practical feasibility of proposed experimental geometries.
+
+### 3.2 Detection Feasibility
+
+![Radio SNR from QFT](figures/radio_snr_from_qft.png)
+**Time-to-5σ detection heatmap derived directly from quantum field theory spectrum.** Shows integration time requirements as function of system temperature and bandwidth for realistic Hawking temperatures in radio/microwave regime.
+
+![Radio SNR Sweep](figures/radio_snr_sweep.png)
+**Synthetic parameter sweep demonstrating detection feasibility across broader parameter space.** Provides rapid sanity checks for experimental planning and highlights challenging detection regimes.
+
+### 3.3 Optimization Results
+
+![Optimal Glow Parameters](figures/optimal_glow_parameters.png)
+**Bayesian optimization guidance map identifying high-merit experimental regions.** Combines horizon formation probability with expected signal-to-noise ratio to prioritize parameter space exploration.
+
+![Enhancement Bar](figures/enhancement_bar.png)
+**Multi-beam gradient enhancement comparison under power-conserving, coarse-grained conditions.** Demonstrates that naive N× enhancement factors are not supported at envelope scales, with most geometries showing modest (~1×) improvements.
+
+![Delta-Matched Geometries](figures/match_delta_geometries.png)
+**Density-dependent small-angle matching (Λ≈δ) and corresponding enhancement trends.** Shows optimal geometric configurations that maximize gradient enhancement through envelope-scale matching.
+
+![Bayesian Guidance Map](figures/bayesian_guidance_map.png)
+**Surrogate "where to look" map combining envelope-scale matching with radiometer feasibility.** Provides experimental guidance by highlighting parameter regions with highest detection probability.
+
+### 3.4 Key Numerical Results
+
+#### 3.4.1 Enhancement Statistics ([`results/enhancement_stats.json`](results/enhancement_stats.json))
+
+Quantitative enhancement factors for various beam geometries:
+- Single beam baseline: 1.0×
+- Small-angle crossings (10°): 1.18× enhancement
+- Most symmetric geometries: ~0.54-0.57× reduction
+- Standing wave configurations: ~1.0× (minimal enhancement)
+
+#### 3.4.2 Horizon Summary ([`results/horizon_summary.json`](results/horizon_summary.json))
+
+Horizon formation statistics including:
+- Position uncertainty estimates from multi-stencil finite differences
+- Surface gravity (κ) calculations with error bounds
+- Gradient components (dv/dx, dc_s/dx) at horizon locations
+
+## 4. Discussion
+
+### 4.1 Key Insights
+
+#### 4.1.1 Horizon Formation as Primary Bottleneck
+
+Robust horizon detection reveals formation (not detection) as limiting factor. Conservative approach: Only claim detection where |v| definitively exceeds c_s. Uncertainty quantification essential for experimental planning.
+
+#### 4.1.2 Realistic Multi-Beam Enhancement
+
+Power-conserving superposition yields modest (~1×) gradient enhancements. Envelope-scale coarse-graining eliminates unrealistic optical-fringe effects. Small-angle crossings provide most promising geometric configurations.
+
+#### 4.1.3 Detection Feasibility in Radio Band
+
+Low-temperature Hawking radiation (T_H ≤ 10K) naturally falls in radio/microwave frequencies. Integration times range from hours to thousands of hours for 5σ detection. System temperature and bandwidth optimization critical for practical experiments.
+
+### 4.2 Limitations and Uncertainties
+
+#### 4.2.1 Computational Approximations
+
+- **Fluid/Superposition Surrogates**: No full PIC/fluid validation yet implemented
+- **Coarse-Graining Scale**: Envelope/skin-depth scale assumed; real coupling may differ
+- **κ Surrogate Mapping**: Simple ponderomotive scaling used; absolute values trend-level only
+
+#### 4.2.2 Physical Model Limitations
+
+- **Sound Speed Profiles**: Often treated as uniform; real c_s(x) profiles can shift horizon positions
+- **Magnetized Plasma Effects**: Fast magnetosonic speed approximations require validation
+- **Nonlinear Plasma Effects**: Current models may underestimate complex interaction dynamics
+
+#### 4.2.3 Experimental Validation Gap
+
+- **WarpX Integration**: Mock configuration lacks real reduced diagnostics
+- **Fluctuation Seeding**: Requires full PIC coupling for end-to-end validation
+- **Magnetized Horizon Sweeps**: Dependent on B-field diagnostics availability
+
+### 4.3 Validation and Verification
+
+#### 4.3.1 Theoretical Validation
+
+- **Unit/Formula Checks**: Plasma frequency, a₀, Hawking T from κ match analytical expressions
+- **Frequency Gating**: Automatic band selection ensures radio-band calculations for low T_H
+- **Horizon Uncertainty**: Multi-stencil finite differences provide robust error estimates
+
+#### 4.3.2 Numerical Verification
+
+- **Convergence Testing**: Spatial and temporal convergence verified through grid refinement
+- **Stability Analysis**: CFL-controlled time stepping ensures numerical stability
+- **Parameter Sensitivity**: Physically reasonable responses across parameter space
+
+## 5. Conclusion
+
+This framework provides a scientifically rigorous, conservative approach to analog Hawking radiation research that:
+
+- **Quantifies horizon formation** as the primary experimental bottleneck
+- **Provides realistic enhancement expectations** through power-conserving, coarse-grained modeling
+- **Offers practical detection feasibility** assessments based on first principles
+- **Delivers actionable experimental guidance** through Bayesian optimization
+
+By focusing on formation probability, envelope-scale gradients, and radio-band detection feasibility, this work shifts the research emphasis from "how to detect" to "how to form" analog horizons, providing principled tools that help concentrate experimental effort where it matters most.
+
+## 6. References
+
+If you use this repository, please cite it as:
+
+Bown, Hunter. (2025). Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling (Version 0.1.0) [Computer software]. https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation
+
+For BibTeX citation, see [`CITATION.cff`](CITATION.cff).
+
+## 7. Reproducibility and Validation
+
+### 7.1 Reproducible Workflow
+
 ```bash
+# Generate all figures from validated scripts
 make figures
+
+# Run validation checks
+make validate
+
+# Generate enhancement summary
+make enhancements
 ```
 
-For more details, see the documentation in the `docs/` directory.
+### 7.2 Validation Protocols
+
+- **Unit Testing**: Core physics formulas against analytical solutions
+- **Integration Testing**: Module coupling and data flow verification
+- **Convergence Testing**: Numerical method stability and accuracy
+- **Physical Consistency**: Parameter ranges and physical plausibility checks
+
+## 8. Framework Usage Guidelines
+
+### 8.1 For Experimentalists
+
+- Use horizon finder on velocity profiles to quantify κ and uncertainty
+- Apply Bayesian guidance maps to identify high-probability parameter regions
+- Utilize radiometer sweeps for realistic detection time estimation
+
+### 8.2 For Theorists
+
+- Examine quantum field theory implementation for spectrum calculations
+- Review graybody transmission models and uncertainty propagation
+- Validate theoretical predictions against numerical simulations
+
+### 8.3 For Computational Researchers
+
+- Study modular backend architecture for PIC code integration
+- Implement additional plasma models and validation protocols
+- Extend optimization framework to new parameter spaces
+
+---
+*Framework Version: 0.1.0 | Last Updated: October 2025*

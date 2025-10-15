@@ -1,9 +1,9 @@
 """
-Testing the Revitalized Model as a Digital Twin of AnaBHEL
+Draft Digital Twin Script (Depends on missing modules)
 
-This script runs a complete simulation experiment to test if the 
-revitalized model can detect the Hawking radiation "glow" in 
-a realistic AnaBHEL-like setup.
+This script references classes and modules that are not part of the validated
+pipeline and will not run as-is. It is retained here for future exploration or
+as a template for downstream integration work.
 """
 
 import numpy as np

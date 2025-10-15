@@ -1,0 +1,6 @@
+{
+  "mean_amplitude": 0.1,
+  "std_amplitude": 9.0472107655596e-18,
+  "target_temperature": 0.01,
+  "mode_cutoff": "3.14e7"
+}

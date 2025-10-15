@@ -1,7 +1,8 @@
 """
-Realistic Feasible AnaBHEL Configuration
+Draft Feasibility Exploration (Illustrative)
 
-Based on our analysis, finding an actually feasible configuration for Hawking radiation detection.
+This exploratory script includes illustrative thresholds and placeholders and
+is not part of the validated, reproducible code path.
 """
 
 import numpy as np

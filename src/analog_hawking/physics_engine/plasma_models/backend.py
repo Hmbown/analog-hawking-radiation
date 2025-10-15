@@ -8,7 +8,7 @@ from specific numerical implementations (fluid solver, PIC engines).
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, Iterable, Mapping, Optional, Protocol
 
 import numpy as np
@@ -43,6 +43,7 @@ class PlasmaState:
     electric_field: Optional[np.ndarray] = None
     magnetic_field: Optional[np.ndarray] = None
     grid: Optional[np.ndarray] = None
+    observables: Dict[str, np.ndarray] = field(default_factory=dict)
 
 
 class DiagnosticsSink(Protocol):

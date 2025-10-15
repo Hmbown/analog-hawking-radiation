@@ -1,6 +1,9 @@
 """
-Enhanced Visualizations for Analog Hawking Radiation Research
-Focusing on the latest "glow" detection findings
+Illustrative Visualizations (Draft / Not Data-Derived)
+
+These figures are illustrative mockups related to a "glow" narrative. They are
+not generated from the validated code paths and may include placeholder values.
+Use for concept discussion only, not as scientific results.
 """
 
 import numpy as np

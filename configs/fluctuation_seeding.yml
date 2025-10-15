@@ -1,0 +1,9 @@
+seed: 12345
+target_temperature: 0.01
+mode_cutoff: 3.14e7
+amplitude_scale: 1.0
+cadence: 5
+band_min: 1.0e6
+band_max: 1.0e9
+background_psd: 1.0e-6
+

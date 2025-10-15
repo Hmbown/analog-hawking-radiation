@@ -10,7 +10,7 @@ Provides:
 from __future__ import annotations
 import numpy as np
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import List, Dict, Optional
 from scipy.constants import k, m_p, mu_0
 
 
@@ -76,7 +76,8 @@ def _finite_grad(x, y, idx, stencil=1):
 
 def find_horizons_with_uncertainty(x: np.ndarray,
                                     v: np.ndarray,
-                                    c_s: np.ndarray) -> HorizonResult:
+                                    c_s: np.ndarray,
+                                    sigma_cells: Optional[np.ndarray] = None) -> HorizonResult:
     """
     Find positions where |v| = c_s using sign changes in f(x)=|v|-c_s.
     Return kappa = 0.5*|d/dx(|v|-c_s)| at horizon with simple uncertainty from
@@ -125,6 +126,9 @@ def find_horizons_with_uncertainty(x: np.ndarray,
     dcsdx_list = []
     for r in roots:
         idx = int(np.clip(np.searchsorted(x, r), 1, len(x)-2))
+        local_sigma = None
+        if sigma_cells is not None and sigma_cells.size == len(x):
+            local_sigma = float(sigma_cells[idx])
         # multi-stencil estimates
         grads = []
         for st in (1, 2, 3):
