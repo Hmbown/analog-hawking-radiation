@@ -19,6 +19,11 @@ We demonstrate horizon formation in an analog Hawking radiation platform based o
 \section{Introduction}
 Analog gravity platforms enable tabletop studies of horizon physics \cite{Hawking1974,Hawking1975,Unruh1981,Barcelo2011,Weinfurtner2011,Steinhauer2016,Drori2019}. Here we use a laser--plasma flow to realize sonic horizons where $|v(x)| = c_s(x)$. The surface gravity $\kappa$ governs the Hawking temperature $T_H = \hbar \kappa/(2\pi k_B)$ and sets the characteristic emission scale.
 
+\paragraph{What we mean by ``analog'' (heuristic).}
+In this context, an \emph{analog black hole} is a laboratory system that obeys the same horizon mathematics as a gravitational event horizon, but for a different kind of wave. A classic example is an \emph{acoustic black hole} (``dumb hole''): consider a river accelerating toward a waterfall. The medium (water) plays the role of spacetime; the waves are sound at the speed $c_s$; and the bulk flow is $v(x)$. Far upstream, sound can propagate against the current. Closer to the drop, the flow outpaces sound. The location where $|v| = c_s$ is an \emph{acoustic horizon}; sound generated beyond it cannot escape upstream.
+
+In this work, the medium is a laser-driven plasma and the waves are collective modes. We shape a flow profile so that the bulk speed $|v(x)|$ crosses the local wave speed $c_s(x)$, creating a sonic horizon. The near-horizon gradient sets the surface gravity $\kappa$, hence $T_H$. The detailed profile around the horizon acts like a frequency-dependent barrier; we model its graybody transmission and apply it to the Hawking-like spectrum.
+
 \section{Methods}
 We couple a fluid backend with intensity scaling to a horizon detector and a quantum-field-theory (QFT) module that computes the Hawking spectrum with graybody transmission \cite{Planck1901,Page1976}. Parameter sweeps span intensity $I$, density $n_e$, temperature $T$, and magnetic field $B$. We compute detection-time heatmaps using a radiometer model \cite{Wilson2013}.
 Plasma parameters follow standard definitions for the dimensionless vector potential $a_0$, plasma frequency $\omega_p$, the underdense criterion, and the magnetosonic speed \cite{Esarey2009,Chen2016}.
@@ -171,6 +176,26 @@ Key scripts and modules are included as ancillary files:
   \item \texttt{src/analog\_hawking/detection/radio\_snr.py}
 \end{itemize}
 See \texttt{results/} for sweep and validation JSON summaries.
+
+\section*{Appendix: Reproducibility and Figure Generation}
+All figures are generated from the version-controlled scripts in the repository root. Example commands:
+\begin{verbatim}
+# Set module path (if needed)
+export PYTHONPATH="${PYTHONPATH}:src"
+
+# Profile-derived graybody comparison (Figure: figures/graybody_impact.png)
+python scripts/run_full_pipeline.py --demo
+
+# Formation frontier and kappa at threshold
+python scripts/compute_formation_frontier.py
+
+# Geometry vs kappa surrogate (power-conserving)
+python scripts/geometry_optimize_kappa.py
+
+# Horizon probability bands under parameter uncertainty
+python scripts/monte_carlo_horizon_uncertainty.py
+\end{verbatim}
+The \texttt{paper/} directory contains only the manuscript (\texttt{main.tex}), bibliography (\texttt{refs.bib}), and copied figures under \texttt{paper/figures/}. Source code lives exclusively under \texttt{scripts/} and \texttt{src/}.
 
 \section*{Acknowledgments}
 We thank collaborators and reviewers for insightful feedback.

@@ -20,6 +20,25 @@ We prioritize proving the horizon can exist and emit before optimizing detectors
 - **Robustness (probability)**: Estimate horizon probability and κ error bars under parameter scatter.
 - **Detection (last)**: Once the above are favorable, evaluate PSD-based detection times and instrument trade-offs.
 
+## What is an analog black hole?
+
+In this context, “analog” means creating a laboratory system that behaves analogously to a black hole horizon for some kind of wave. You are not making a real gravitational black hole. Instead, you build a physical system that follows the same equations a horizon obeys, but for different waves (e.g., sound waves, plasma waves, or light in a moving medium).
+
+The classic example is the “acoustic black hole” (a “dumb hole”):
+
+- **The medium** is like spacetime (e.g., water in a river).
+- **The waves** are sound waves in that medium (their speed is the “speed of light” for this analogy).
+- **The flow** accelerates toward a waterfall.
+
+Far from the waterfall, the river is slow; sound can travel upstream. Closer in, the river speeds up. At some point the flow becomes faster than sound can travel upstream. That point is an analog event horizon. Any sound made past that point can’t escape upstream—just as light can’t escape a gravitational event horizon.
+
+How this maps to this project:
+
+- We simulate a medium (a laser-driven plasma) and waves (collective/phonon-like modes).
+- We create a “flow” profile where the bulk speed |v(x)| crosses the local wave speed c_s(x).
+- The crossing defines an analog horizon; the local gradient sets the surface gravity κ, which sets the Hawking temperature T_H.
+- The near-horizon profile also acts like a filter (graybody transmission), shaping which frequencies can escape.
+
 ## Abstract
 
 This repository provides a computational framework for simulating analog Hawking radiation in laser-plasma systems, with a focus on robust horizon detection, realistic multi-beam configurations, and practical detection feasibility assessment. The framework quantifies horizon formation as the primary experimental bottleneck, provides realistic enhancement expectations through power-conserving, coarse-grained modeling, and offers practical detection feasibility assessments based on first principles. By focusing on formation probability, envelope-scale gradients, and radio-band detection feasibility, this work shifts the research emphasis from "how to detect" to "how to form" analog horizons, providing principled tools that help concentrate experimental effort where it matters most.
