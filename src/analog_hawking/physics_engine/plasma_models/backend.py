@@ -43,6 +43,8 @@ class PlasmaState:
     electric_field: Optional[np.ndarray] = None
     magnetic_field: Optional[np.ndarray] = None
     grid: Optional[np.ndarray] = None
+    temperature: Optional[np.ndarray] = None
+    magnetosonic_speed: Optional[np.ndarray] = None
     observables: Dict[str, np.ndarray] = field(default_factory=dict)
 
 

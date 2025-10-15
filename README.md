@@ -4,6 +4,79 @@
 
 This repository provides a computational framework for simulating analog Hawking radiation in laser-plasma systems, with a focus on robust horizon detection, realistic multi-beam configurations, and practical detection feasibility assessment. The framework quantifies horizon formation as the primary experimental bottleneck, provides realistic enhancement expectations through power-conserving, coarse-grained modeling, and offers practical detection feasibility assessments based on first principles. By focusing on formation probability, envelope-scale gradients, and radio-band detection feasibility, this work shifts the research emphasis from "how to detect" to "how to form" analog horizons, providing principled tools that help concentrate experimental effort where it matters most.
 
+## Quickstart
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation.git
+cd bayesian-analysis-hawking-radiation
+
+# Install package and dependencies
+pip install -e .
+```
+
+### Running the End-to-End Pipeline
+
+Execute the complete simulation pipeline (plasma backend → horizon detection → QFT spectrum → radio detectability):
+
+```bash
+python scripts/run_full_pipeline.py
+```
+
+**Output**: `results/full_pipeline_summary.json` containing:
+- Plasma configuration parameters (density, laser wavelength/intensity, temperature, magnetic field)
+- Horizon detection results (positions, surface gravity κ)
+- Hawking spectrum characteristics (peak frequency, in-band power)
+- Radio detection metrics (signal temperature T_sig, 5σ integration time t_5σ)
+
+**Configuration**: Modify parameters by editing `run_full_pipeline()` arguments in `scripts/run_full_pipeline.py`.
+
+### Parameter Space Exploration
+
+Run a systematic sweep over temperature and magnetic field configurations:
+
+```bash
+python scripts/run_param_sweep.py
+```
+
+**Output**: `results/param_sweep_summary.json` containing grid of simulation results across:
+- Temperature values: [10⁵, 3×10⁵, 10⁶] K
+- Magnetic field values: [None, 0.0, 0.005, 0.02] T
+
+**Configuration**: Modify sweep arrays in `run_sweep()` function within `scripts/run_param_sweep.py`.
+
+### Interpreting Results
+
+**Critical Metrics**:
+- **Horizon Formation**: Check `horizon_positions` array (empty = no horizon detected)
+- **Surface Gravity**: `kappa` values determine Hawking temperature via T_H = ħκ/(2πk_B)
+- **Detection Feasibility**: 
+  - `spectrum_peak_frequency`: Expected radiation frequency
+  - `inband_power_W`: Power within detection bandwidth
+  - `T_sig_K`: Equivalent signal temperature
+  - `t5sigma_s`: Integration time for 5σ detection (at T_sys=30K, B=100MHz)
+
+### Initial Findings
+
+**Baseline Configuration Results** (from `results/full_pipeline_summary.json`):
+- **Plasma Parameters**: n_e = 5×10¹⁷ cm⁻³, λ = 800 nm, I = 5×10¹⁶ W/cm², T = 5×10⁵ K, B = 0.01 T
+- **Horizon Status**: No horizons detected under default configuration
+- **Implication**: Current parameter regime does not satisfy |v(x)| = c_s(x) condition
+
+**Parameter Sweep Results** (from `results/param_sweep_summary.json`):
+- **Temperature Range**: 10⁵ - 10⁶ K
+- **Magnetic Field Range**: 0 - 0.02 T (including unmagnetized case)
+- **Horizon Formation**: No horizons detected across 12 tested configurations
+- **Critical Insight**: Horizon formation remains the primary experimental bottleneck, confirming the need for optimized parameter selection guided by Bayesian optimization framework
+
+**Next Steps for Horizon Formation**:
+1. Increase laser intensity to enhance ponderomotive velocity gradients
+2. Optimize plasma density profiles for sharper sound speed transitions
+3. Explore lower temperature regimes to reduce sound speed threshold
+4. Utilize Bayesian optimization guidance maps (Section 3.3) to identify high-probability parameter regions
+
 ## 1. Introduction
 
 ### 1.1 Scientific Motivation

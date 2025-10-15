@@ -1,6 +1,6 @@
 import numpy as np
 
-from physics_engine.plasma_models.adaptive_sigma import estimate_sigma_map, apply_sigma_smoothing
+from analog_hawking.physics_engine.plasma_models.adaptive_sigma import estimate_sigma_map, apply_sigma_smoothing
 
 def test_estimate_sigma_map_plateau_detection():
     x = np.linspace(0, 1, 100)

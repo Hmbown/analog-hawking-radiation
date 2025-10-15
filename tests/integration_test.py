@@ -6,6 +6,7 @@ horizon detection, quantum field theory calculations, and detection modeling.
 """
 
 import numpy as np
+import numpy.testing as npt
 import json
 import os
 import sys
@@ -14,14 +15,15 @@ from pathlib import Path
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "src"))
 
-from physics_engine.plasma_models.fluid_backend import FluidBackend
-from physics_engine.plasma_models.warpx_backend import WarpXBackend
-from physics_engine.plasma_models.adaptive_sigma import estimate_sigma_map
-from physics_engine.plasma_models.fluctuation_injector import QuantumFluctuationInjector, FluctuationConfig
-from physics_engine.simulation import SimulationRunner
-from physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
-from detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
+from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
+from analog_hawking.physics_engine.plasma_models.adaptive_sigma import estimate_sigma_map
+from analog_hawking.physics_engine.plasma_models.fluctuation_injector import QuantumFluctuationInjector, FluctuationConfig
+from analog_hawking.physics_engine.simulation import SimulationRunner
+from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
+from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
 from scripts.hawking_detection_experiment import calculate_hawking_spectrum
 
 
@@ -47,11 +49,14 @@ def test_plasma_models_to_horizon_detection():
     assert state.velocity is not None, "Velocity should not be None"
     assert state.sound_speed is not None, "Sound speed should not be None"
     assert state.grid is not None, "Grid should not be None"
+    assert state.temperature is not None, "Temperature profile should be populated"
+    assert state.temperature.shape == state.density.shape, "Temperature profile shape mismatch"
+    assert state.magnetosonic_speed is None, "Magnetosonic speed should be None without magnetic field"
     
     print("✓ FluidBackend produces valid plasma state")
     
     # Test horizon detection with this state
-    from physics_engine.horizon import find_horizons_with_uncertainty
+    from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
     horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed)
     
     assert horizons is not None, "Horizon detection should return results"
@@ -143,11 +148,41 @@ def test_parameter_passing():
     print("✓ Parameters are correctly passed between modules")
 
 
+def test_fluid_backend_temperature_and_magnetic_profiles():
+    """Ensure FluidBackend supports configured temperature and magnetic field profiles."""
+    backend = FluidBackend()
+    grid = np.linspace(0.0, 50e-6, 512)
+    const_temperature = 5e5
+    config = {
+        "plasma_density": 5e17,
+        "laser_wavelength": 800e-9,
+        "laser_intensity": 5e16,
+        "grid": grid,
+        "temperature_settings": {"constant": const_temperature},
+        "magnetic_field": 0.01,
+        "use_fast_magnetosonic": True,
+    }
+    backend.configure(config)
+    state = backend.step(0.0)
+
+    assert state.temperature is not None, "Configured temperature profile missing"
+    npt.assert_allclose(state.temperature, const_temperature)
+
+    assert state.magnetosonic_speed is not None, "Magnetosonic speed should be computed when magnetic field supplied"
+    npt.assert_allclose(state.sound_speed, state.magnetosonic_speed)
+
+    # Magnetosonic speed should exceed or equal the adiabatic sound speed without magnetic contribution
+    adiabatic_sound_speed = backend._model.sound_speed(const_temperature)  # type: ignore[attr-defined]
+    assert np.all(state.magnetosonic_speed >= adiabatic_sound_speed)
+
+    print("✓ FluidBackend applies temperature and magnetic field profiles")
+
+
 def test_error_handling():
     """Check error handling and edge cases."""
     print("\nTesting error handling and edge cases...")
     
-    from physics_engine.horizon import find_horizons_with_uncertainty
+    from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
     
     # Test with empty arrays
     try:

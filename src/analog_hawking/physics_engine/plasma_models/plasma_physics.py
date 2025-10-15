@@ -6,7 +6,7 @@ relevant to creating analog black holes and detecting Hawking radiation.
 """
 
 import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p
+from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p, mu_0
 from scipy.special import gamma
 import warnings
 
@@ -29,6 +29,8 @@ class PlasmaPhysicsModel:
         self.n_e = plasma_density  # electron density (m^-3)
         self.lambda_l = laser_wavelength  # laser wavelength (m)
         self.I_0 = laser_intensity  # laser intensity (W/m^2)
+        self.m_i = ion_mass  # ion mass (kg)
+        self.gamma_e = gamma_e  # adiabatic index
         
         # Derived parameters
         self.omega_pe = np.sqrt(e**2 * self.n_e / (epsilon_0 * m_e))  # Plasma frequency
@@ -104,6 +106,11 @@ class PlasmaPhysicsModel:
         """
         return np.sqrt(epsilon_0 * k * T_e / (e**2 * self.n_e))
 
+    def mass_density(self, density: np.ndarray | float | None = None) -> np.ndarray:
+        rho = self.n_e if density is None else density
+        rho = np.asarray(rho, dtype=float)
+        return rho * self.m_i
+
     def sound_speed(self, T_e):
         """
         Adiabatic sound speed c_s = sqrt(gamma k T_e / m_i)
@@ -113,6 +120,17 @@ class PlasmaPhysicsModel:
         """
         T_e = np.asarray(T_e)
         return np.sqrt(np.maximum(self.gamma_e * k * T_e / self.m_i, 0.0))
+
+    def fast_magnetosonic_speed(self, T_e, density=None, B=None):
+        c_s = self.sound_speed(T_e)
+        if density is None:
+            density = self.n_e
+        rho = self.mass_density(density)
+        if B is None:
+            return c_s
+        B = np.asarray(B)
+        v_A = np.where(rho > 0, B / np.sqrt(mu_0 * rho), 0.0)
+        return np.sqrt(c_s**2 + v_A**2)
     
     def skin_depth(self):
         """

@@ -49,7 +49,7 @@ WarpX Diagnostics Enhancements
 
 Enhanced diagnostics capabilities have been added to the WarpX backend:
 
-* Adaptive sigma estimation via `physics_engine/plasma_models/adaptive_sigma.py`, selecting smoothing scales using plasma lengths and κ plateaus
+* Adaptive sigma estimation via `analog_hawking.physics_engine.plasma_models.adaptive_sigma`, selecting smoothing scales using plasma lengths and κ plateaus
 * `WarpXBackend` supports adaptive smoothing, exports raw versus smoothed observables, and records sigma diagnostics
 
 Graybody Solver Integration
@@ -57,7 +57,7 @@ Graybody Solver Integration
 
 Implementation of graybody corrections for more accurate Hawking radiation modeling:
 
-* `physics_engine/optimization/graybody_1d.py` provides WKB transmission estimates with uncertainties
+* `analog_hawking.physics_engine.optimization.graybody_1d` provides WKB transmission estimates with uncertainties
 * `scripts/hawking_detection_experiment.py` incorporates graybody profiles when provided (via `results/warpx_last_profile.npz`)
 * `scripts/radio_snr_from_qft.py` consumes graybody-adjusted spectra when available
 
@@ -73,7 +73,7 @@ Fluctuation Seeding
 
 Enhanced fluctuation injection capabilities:
 
-* Extended `physics_engine/plasma_models/fluctuation_injector.py` to support cadence and band-limited sampling
+* Extended `analog_hawking.physics_engine.plasma_models.fluctuation_injector` to support cadence and band-limited sampling
 * Configuration stored in `configs/fluctuation_seeding.yml`
 * Validation via `scripts/validate_fluctuation_statistics.py`
 
@@ -86,3 +86,72 @@ Comprehensive testing protocols ensure reliability:
 * Unit tests validate core physics formulas against analytical solutions
 * Integration tests verify module coupling and data flow
 * Convergence tests ensure numerical stability and accuracy
+
+Integration Testing and Validation
+---------------------------------
+
+* `tests/integration_test.py` steps the `FluidBackend` and `WarpXBackend` mocks through the full workflow, asserting that plasma states expose density, velocity, sound speed, and grid data required by downstream modules.
+* The same suite pipes horizon locations from `find_horizons_with_uncertainty()` into quantum field theory utilities and radio detection models, checking spectra, signal power, and integration time calculations.
+* Error-handling coverage includes empty inputs, mismatched array lengths, and sanity checks on adaptive smoothing diagnostics to ensure graceful failure modes.
+* `analog_hawking.physics_engine.plasma_models.validation_protocols` implements the `PhysicsValidationFramework`, combining conservation laws, physical bounds, numerical stability, and theoretical consistency checks for post-processing simulation outputs.
+
+Detection Pipeline Overview
+---------------------------
+
+* Plasma solvers such as `analog_hawking.physics_engine.plasma_models.fluid_backend` produce one-dimensional profiles of density, velocity, and sound speed on configurable grids.
+* `analog_hawking.physics_engine.simulation` orchestrates backend stepping, invokes `find_horizons_with_uncertainty()` to locate analog horizons, and optionally records horizon metadata sidecars.
+* `scripts/hawking_detection_experiment.py` and `analog_hawking.physics_engine.plasma_models.quantum_field_theory` translate surface gravity κ into Hawking spectra, optionally folding in graybody transmission maps.
+* Detection utilities in `analog_hawking.detection.radio_snr` integrate spectra over radio bands, convert to equivalent signal temperatures, and estimate integration times for 5σ detection scenarios.
+
+Physics Engine Architecture
+---------------------------
+
+* The `SimulationRunner` coordinates any `PlasmaBackend` implementation, persisting last-step observables and exporting user-requested diagnostics.
+* `PlasmaBackend` adapters (e.g., `FluidBackend`, `WarpXBackend`) encapsulate configuration, stepping, and shutdown logic while emitting standardized `PlasmaState` data structures.
+* Horizon diagnostics encapsulate kappa estimates, finite-difference gradients, and optional uncertainty metrics, ensuring consistent inputs for quantum field theory modules.
+* Validation and optimization layers consume these outputs to inform experiment design, from adaptive smoothing (`analog_hawking.physics_engine.plasma_models.adaptive_sigma`) to radio SNR feasibility analyses (`scripts/generate_radio_snr_sweep.py`).
+
+Fluid Backend Configuration
+--------------------------
+
+The `FluidBackend` accepts the following configuration keys via `backend.configure({...})`:
+
+- `plasma_density` (float)
+- `laser_wavelength` (float, meters)
+- `laser_intensity` (float, W/m²)
+- `grid` (array of positions)
+- `temperature_settings`:
+  - `{ "constant": <K> }` or `{ "profile": <array|callable> }` or `{ "file": <path> }`
+- `magnetic_field`:
+  - scalar Tesla, array over `grid`, or callable `B(x)`
+- `use_fast_magnetosonic` (bool): when true, `sound_speed` is set to fast magnetosonic speed
+- `velocity_profile` (array or callable): overrides model velocity if provided
+
+Example:
+
+```python
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
+import numpy as np
+
+backend = FluidBackend()
+grid = np.linspace(0.0, 50e-6, 512)
+backend.configure({
+    "plasma_density": 5e17,
+    "laser_wavelength": 800e-9,
+    "laser_intensity": 5e16,
+    "grid": grid,
+    "temperature_settings": {"constant": 5e5},
+    "magnetic_field": 0.01,  # Tesla
+    "use_fast_magnetosonic": True,
+})
+state = backend.step(0.0)
+```
+
+PlasmaState Fields
+------------------
+
+`analog_hawking.physics_engine.plasma_models.backend.PlasmaState` now includes:
+
+- `density`, `velocity`, `sound_speed`, `grid` (unchanged core fields)
+- `temperature` (optional array): electron temperature used to compute sound speed
+- `magnetosonic_speed` (optional array): fast magnetosonic speed when B-field is provided
