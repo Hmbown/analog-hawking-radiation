@@ -10,6 +10,13 @@ paper/
 # C extensions
 *.so
 
+# Local environments and OS cruft
+.venv/
+.env
+.DS_Store
+*.log
+firebase-debug.log
+
 # Distribution / packaging
 .Python
 build/
@@ -146,3 +153,4 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+figures/radio_snr_sweep.png
