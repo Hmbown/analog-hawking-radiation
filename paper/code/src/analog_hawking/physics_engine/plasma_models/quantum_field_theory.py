@@ -41,7 +41,7 @@ class QuantumFieldTheory:
             omega (array or float): Angular frequency in rad/s
             
         Returns:
-            Power spectrum in W·sr⁻¹·m⁻²·Hz⁻¹
+            Power spectrum (W·Hz⁻¹ if emitting_area_m2 and solid_angle_sr are provided; otherwise radiance per Hz)
         """
         # The correct Hawking spectrum follows the Planck distribution with proper units
         # P(ω) = (ħω³) / (2π²c²) * 1 / (exp(ħω/kT) - 1)  (power per unit frequency)

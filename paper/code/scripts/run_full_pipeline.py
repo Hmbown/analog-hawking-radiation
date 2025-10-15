@@ -92,12 +92,7 @@ def run_full_pipeline(
     t5sigma_TH = None
 
     if kappa:
-        spec = calculate_hawking_spectrum(
-            float(kappa[0]),
-            emitting_area_m2=1e-6,       # 1 mm^2
-            solid_angle_sr=5e-2,         # 0.05 sr
-            coupling_efficiency=0.1,     # 10% overall
-        )
+        spec = calculate_hawking_spectrum(float(kappa[0]))
         if spec.get("success"):
             freqs = spec["frequencies"]
             P = spec["power_spectrum"]

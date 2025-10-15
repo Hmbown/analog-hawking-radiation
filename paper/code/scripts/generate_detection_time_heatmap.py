@@ -95,43 +95,6 @@ def main() -> int:
         print(f"Saved {out2}")
         t_min_th = float(np.nanmin(Tgrid_TH))
         print(f"Min t_5sigma (T_H surrogate): {t_min_th:.3e} s ({t_min_th/3600:.3e} hours)")
-
-    # Produce a radio-only heatmap by integrating at a fixed radio center for each bandwidth
-    f_radio = 1e9  # 1 GHz center
-    Tgrid_radio = np.empty((T_sys_vals.size, B_vals.size), dtype=float)
-    for j, B in enumerate(B_vals):
-        f_lo = f_radio - 0.5 * B
-        f_hi = f_radio + 0.5 * B
-        if f_lo >= f_hi:
-            Tgrid_radio[:, j] = np.inf
-            continue
-        # Clamp to available spectrum to avoid empty masks
-        f_band = np.linspace(max(f_lo, float(freqs[0])), min(f_hi, float(freqs[-1])), 2001)
-        if f_band[0] >= f_band[-1]:
-            # Entire radio band outside simulated spectrum
-            Tgrid_radio[:, j] = np.inf
-            continue
-        psd_band = np.interp(f_band, freqs, P)
-        P_sig_j = float(np.trapezoid(psd_band, x=f_band))
-        T_sig_j = equivalent_signal_temperature(P_sig_j, float(B))
-        if not np.isfinite(T_sig_j) or T_sig_j <= 0.0:
-            Tgrid_radio[:, j] = np.inf
-        else:
-            for i, T_sys in enumerate(T_sys_vals):
-                Tgrid_radio[i, j] = (5.0 * T_sys / (T_sig_j * np.sqrt(B))) ** 2
-
-    plt.figure(figsize=(8, 5))
-    im3 = plt.contourf(B_vals * 1e-6, T_sys_vals, np.log10(Tgrid_radio / 3600.0), levels=24, cmap='cividis')
-    plt.colorbar(im3, label='log10(t_5σ) [hours] (1 GHz center)')
-    plt.xlabel('Bandwidth [MHz]')
-    plt.ylabel('System Temperature T_sys [K]')
-    plt.title('Detection time heatmap (radio-only, 1 GHz center)')
-    plt.tight_layout()
-    out3 = Path('figures') / 'horizon_analysis_detection_time_radio.png'
-    plt.savefig(out3, dpi=200)
-    print(f"Saved {out3}")
-    t_min_radio = float(np.nanmin(Tgrid_radio))
-    print(f"Min t_5sigma (radio-only): {t_min_radio:.3e} s ({t_min_radio/3600:.3e} hours)")
     return 0
 
 

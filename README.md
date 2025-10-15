@@ -58,6 +58,14 @@ python scripts/run_param_sweep.py
   - `T_sig_K`: Equivalent signal temperature
   - `t5sigma_s`: Integration time for 5σ detection (at T_sys=30K, B=100MHz)
 
+### Normalization controls (PSD)
+
+- **Where**: `scripts/generate_detection_time_heatmap.py`, `scripts/run_full_pipeline.py`
+- **Params** in `calculate_hawking_spectrum(...)`:
+  - `emitting_area_m2` (default used: 1e-6)
+  - `solid_angle_sr` (default used: 5e-2)
+  - `coupling_efficiency` (default used: 0.1)
+
 ### Initial Findings
 
 **Baseline Configuration Results** (from `results/full_pipeline_summary.json`):
@@ -71,9 +79,19 @@ python scripts/run_param_sweep.py
 - **Horizon Formation**: Horizons detected across wide regions when intensity scaling is enabled (`scale_with_intensity=True`)
 - **Surface Gravity**: κ up to ~8×10¹³ s⁻¹ (≫ 10¹⁰ s⁻¹ threshold) in multiple configurations
 - **Figures**: `figures/horizon_analysis_probability_map.png`, `figures/horizon_analysis_kappa_map.png`, `figures/horizon_analysis_TH_map.png`, `figures/horizon_analysis_profile_*.png`
-- **Detection Times**: Under current PSD-based mapping to T_sig, `t_5σ` values are extremely large. The merit/SNR model uses T_H directly (brightness temperature surrogate), which predicts feasible times; further calibration of PSD normalization and coupling is recommended.
+- **Detection Times**: With physically motivated normalization (A = 1e-6 m², Ω = 0.05 sr, η = 0.1), PSD-based heatmaps centered on the spectral peak yield very short `t_5σ`; a radio-only map at 1 GHz shows effectively infinite times; the `T_H`-surrogate map provides an upper-bound feasibility view. See `figures/horizon_analysis_detection_time.png`, `figures/horizon_analysis_detection_time_TH.png`, and `figures/horizon_analysis_detection_time_radio.png`.
 
 See `docs/Successful_Configurations.md` for a ranked table of successful cases and notes.
+
+## Paper and arXiv package
+
+- **Manuscript**: `paper/main.tex`
+- **Bibliography**: `paper/refs.bib`
+- **Figures**: `paper/figures/`
+- **Results**: `paper/results/`
+- **Build**: `pdflatex main && bibtex main && pdflatex main && pdflatex main` (from `paper/`)
+- **ArXiv bundle**: `arxiv_package.zip`
+- **Suggested categories**: primary `physics.plasm-ph`, cross-list `gr-qc` (optionally `hep-th`, `physics.optics`, `physics.flu-dyn`, `physics.ins-det`)
 
 **Next Steps for Horizon Formation**:
 1. Increase laser intensity to enhance ponderomotive velocity gradients
