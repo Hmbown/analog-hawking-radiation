@@ -1,0 +1,6077 @@
+[
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.6547978768843264e-11,
+      4.999997345202123e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.953404316463582e-11,
+      4.999997046595683e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.08570249673205e-11,
+      4.9999919142975036e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.188348460337418e-11,
+      4.99999181165154e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547952760222374e-10,
+      4.999974520472397e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.550752195593429e-10,
+      4.999974492478044e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5801462669895122e-11,
+      4.999997419853733e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.6827922305948817e-11,
+      4.999997317207769e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.067039594258347e-11,
+      4.9999919329604055e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.095033947968903e-11,
+      4.999991904966052e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547952760222374e-10,
+      4.999974520472397e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5614833645158085e-11,
+      4.999997438516635e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5894777182263637e-11,
+      4.9999974105222815e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.067039594258347e-11,
+      4.9999919329604055e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5614833645158085e-11,
+      4.999997438516635e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.547019615098689e-10,
+      4.999974529803849e-05
+    ],
+    "kappa": [
+      81954357432709.17,
+      81954357432713.14
+    ],
+    "spectrum_peak_frequency": 5897150369276.548,
+    "inband_power_W": 2.0780609239577147e-73,
+    "T_sig_K": 1.5051334002760402e-58,
+    "t5sigma_s": 9.93190442387713e+111,
+    "input_intensity_Wcm2": 1e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 81954357432713.14,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.488366472277856e-11,
+      4.9999985116335274e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.665664045778039e-11,
+      4.9999983343359546e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.549082477965234e-11,
+      4.9999954509175225e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.6050711853863445e-11,
+      4.9999953949288154e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4328443374185878e-10,
+      4.999985671556625e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4347106276659581e-10,
+      4.9999856528937234e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.451040667330449e-11,
+      4.9999985489593325e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.5070293747515598e-11,
+      4.999998492970624e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.549082477965234e-11,
+      4.9999954509175225e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4328443374185878e-10,
+      4.999985671556625e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4417092160935971e-11,
+      4.999998558290784e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4603721185673008e-11,
+      4.999998539627881e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.539751026728382e-11,
+      4.999995460248974e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4417092160935971e-11,
+      4.999998558290784e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683794e+21,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4319111922949028e-10,
+      4.999985680888077e-05
+    ],
+    "kappa": [
+      145737746385557.1,
+      145737746385564.16
+    ],
+    "spectrum_peak_frequency": 10491817047727.188,
+    "inband_power_W": 1.1685805861765522e-72,
+    "T_sig_K": 8.463994731293415e-58,
+    "t5sigma_s": 3.14073829142833e+110,
+    "input_intensity_Wcm2": 3.1622776601683795e+17,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 145737746385564.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.351648856982326e-12,
+      4.999999164835114e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      9.378108493036019e-12,
+      4.9999990621891503e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5614833645158085e-11,
+      4.999997438516635e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5894777182263637e-11,
+      4.9999974105222815e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.067039594258347e-11,
+      4.9999919329604055e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.16501983224529e-12,
+      4.9999991834980174e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.444963369350843e-12,
+      4.999999155503664e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5614833645158085e-11,
+      4.999997438516635e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.16501983224529e-12,
+      4.9999991834980174e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.048376691784644e-11,
+      4.999991951623309e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.057708143021494e-11,
+      4.999991942291857e-05
+    ],
+    "kappa": [
+      259162433662910.6,
+      259162433662923.16
+    ],
+    "spectrum_peak_frequency": 18666341888867.84,
+    "inband_power_W": 6.57141348965598e-72,
+    "T_sig_K": 4.759655415428527e-57,
+    "t5sigma_s": 9.931880685078433e+108,
+    "input_intensity_Wcm2": 1e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 259162433662923.16,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.712382874610139e-12,
+      4.999999528761713e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      5.272269948821245e-12,
+      4.999999472773006e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4417092160935971e-11,
+      4.999998558290784e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4603721185673008e-11,
+      4.999998539627881e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.539751026728382e-11,
+      4.999995460248974e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.6190683622416215e-12,
+      4.9999995380931644e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.805697386978657e-12,
+      4.9999995194302625e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4417092160935971e-11,
+      4.999998558290784e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.6190683622416215e-12,
+      4.9999995380931644e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.5257538498731045e-12,
+      4.999999547424616e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      1.4323777648567454e-11,
+      4.9999985676222344e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 3.1622776601683792e+22,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      4.53041957549153e-11,
+      4.9999954695804244e-05
+    ],
+    "kappa": [
+      460863219638332.06,
+      460863219638354.5
+    ],
+    "spectrum_peak_frequency": 33209911870087.438,
+    "inband_power_W": 3.695376237386573e-71,
+    "T_sig_K": 2.6765501133065485e-56,
+    "t5sigma_s": 3.1407383668765796e+107,
+    "input_intensity_Wcm2": 3.1622776601683794e+18,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 460863219638354.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.6594636025027518e-12,
+      4.9999997340536404e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.9394071396083047e-12,
+      4.999999706059287e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.16501983224529e-12,
+      4.9999991834980174e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.6594636025027518e-12,
+      4.9999997340536404e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.162277660168379e+23,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.552151913278957e-11,
+      4.9999974478480866e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683795e+17,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 3.1622776601683796e+24,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 3.1622776601683794e+18,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 10000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.566149090134234e-12,
+      4.999999743385092e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 10000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 100000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      8.071705319876774e-12,
+      4.999999192829469e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 100000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.0,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.0,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.05,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.05,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  },
+  {
+    "plasma_density": 1e+25,
+    "laser_wavelength": 8e-07,
+    "laser_intensity": 1e+23,
+    "temperature_constant": 1000000.0,
+    "magnetic_field": 0.1,
+    "use_fast_magnetosonic": true,
+    "grid_points": 512,
+    "horizon_positions": [
+      2.5428204620421048e-11,
+      4.999997457179538e-05
+    ],
+    "kappa": [
+      819543574327091.8,
+      819543574327131.5
+    ],
+    "spectrum_peak_frequency": 59084862635925.27,
+    "inband_power_W": 2.0780608899038873e-70,
+    "T_sig_K": 1.5051333756109535e-55,
+    "t5sigma_s": 9.93190474939152e+105,
+    "input_intensity_Wcm2": 1e+19,
+    "input_density_cm3": 1e+19,
+    "input_temperature_K": 1000000.0,
+    "input_B_T": 0.1,
+    "kappa_max": 819543574327131.5,
+    "meets_kappa_1e10": true
+  }
+]

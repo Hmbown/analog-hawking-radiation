@@ -21,6 +21,7 @@ from analog_hawking.detection.radio_snr import (
     equivalent_signal_temperature,
     sweep_time_for_5sigma,
 )
+from scipy.constants import hbar, k, pi
 
 
 @dataclass
@@ -40,6 +41,8 @@ class FullPipelineSummary:
     inband_power_W: Optional[float]
     T_sig_K: Optional[float]
     t5sigma_s: Optional[float]
+    T_H_K: Optional[float]
+    t5sigma_TH_s: Optional[float]
 
 
 def run_full_pipeline(
@@ -49,6 +52,7 @@ def run_full_pipeline(
     temperature_constant: float = 5e5,
     magnetic_field: Optional[float] = 0.01,  # Tesla; set None to disable
     use_fast_magnetosonic: bool = True,
+    scale_with_intensity: bool = False,
     grid_min: float = 0.0,
     grid_max: float = 50e-6,
     grid_points: int = 512,
@@ -65,6 +69,7 @@ def run_full_pipeline(
         "grid": grid,
         "temperature_settings": {"constant": temperature_constant},
         "use_fast_magnetosonic": bool(use_fast_magnetosonic),
+        "scale_with_intensity": bool(scale_with_intensity),
     }
     if magnetic_field is not None:
         cfg["magnetic_field"] = float(magnetic_field)
@@ -83,6 +88,8 @@ def run_full_pipeline(
     inband_power = None
     T_sig = None
     t5sigma = None
+    T_H = None
+    t5sigma_TH = None
 
     if kappa:
         spec = calculate_hawking_spectrum(float(kappa[0]))
@@ -91,9 +98,24 @@ def run_full_pipeline(
             P = spec["power_spectrum"]
             peak_frequency = float(spec["peak_frequency"]) if "peak_frequency" in spec else float(freqs[np.argmax(P)])
             inband_power = band_power_from_spectrum(freqs, P, peak_frequency, B_ref)
+            if inband_power == 0.0:
+                f_lo = peak_frequency - 0.5 * B_ref
+                f_hi = peak_frequency + 0.5 * B_ref
+                fb = np.linspace(f_lo, f_hi, 2001)
+                fb = np.clip(fb, float(freqs[0]), float(freqs[-1]))
+                psd_band = np.interp(fb, freqs, P)
+                inband_power = float(np.trapezoid(psd_band, x=fb))
             T_sig = equivalent_signal_temperature(inband_power, B_ref)
+            if not np.isfinite(T_sig) or T_sig <= 0.0:
+                # Fallback: use Hawking temperature as an effective signal temperature
+                T_sig = float(spec.get("temperature", 0.0))
             t_grid = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig)
             t5sigma = float(t_grid[0, 0])
+        # Compute Hawking temperature and TH-based detection time surrogate
+        T_H = float(hbar * float(kappa[0]) / (2.0 * pi * k))
+        if T_H > 0:
+            t_grid_TH = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), float(T_H))
+            t5sigma_TH = float(t_grid_TH[0, 0])
 
     return FullPipelineSummary(
         plasma_density=plasma_density,
@@ -109,6 +131,8 @@ def run_full_pipeline(
         inband_power_W=inband_power,
         T_sig_K=T_sig,
         t5sigma_s=t5sigma,
+        T_H_K=T_H,
+        t5sigma_TH_s=t5sigma_TH,
     )
 
 

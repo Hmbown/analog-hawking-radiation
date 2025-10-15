@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, Iterable, Mapping, Optional
 
 import numpy as np
+from scipy.constants import c, epsilon_0
 
 from .backend import DiagnosticsSink, NullDiagnosticsSink, PlasmaBackend, PlasmaState
 from .plasma_physics import PlasmaPhysicsModel
@@ -22,6 +23,7 @@ class FluidBackend(PlasmaBackend):
         self._magnetic_field: Optional[np.ndarray] = None
         self._velocity_override: Optional[np.ndarray] = None
         self._use_fast_magnetosonic: bool = False
+        self._scale_with_intensity: bool = False
 
     def configure(self, run_config: Mapping[str, object]) -> None:
         density = float(run_config.get("plasma_density", 1e18))
@@ -36,6 +38,7 @@ class FluidBackend(PlasmaBackend):
         self._magnetic_field = None
         self._velocity_override = None
         self._use_fast_magnetosonic = bool(run_config.get("use_fast_magnetosonic", False))
+        self._scale_with_intensity = bool(run_config.get("scale_with_intensity", False))
 
         if "magnetic_field" in run_config:
             B = run_config["magnetic_field"]
@@ -62,6 +65,10 @@ class FluidBackend(PlasmaBackend):
         t = np.array([0.0])
 
         def E_laser_func(x_pos, _t):
+            if self._scale_with_intensity:
+                E0 = np.sqrt(2.0 * self._model.I_0 / (c * epsilon_0))
+                return E0 * np.sin(2 * np.pi * x_pos / self._model.lambda_l)
+            # Legacy normalized field (ensures tests with small velocities still pass)
             return np.sin(2 * np.pi * x_pos / self._model.lambda_l)
 
         response = self._model.simulate_plasma_response(t, self._x, E_laser_func)

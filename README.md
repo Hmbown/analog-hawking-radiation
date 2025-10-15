@@ -63,13 +63,17 @@ python scripts/run_param_sweep.py
 **Baseline Configuration Results** (from `results/full_pipeline_summary.json`):
 - **Plasma Parameters**: n_e = 5×10¹⁷ cm⁻³, λ = 800 nm, I = 5×10¹⁶ W/cm², T = 5×10⁵ K, B = 0.01 T
 - **Horizon Status**: No horizons detected under default configuration
-- **Implication**: Current parameter regime does not satisfy |v(x)| = c_s(x) condition
+- **Implication**: Default regime does not satisfy |v(x)| = c_s(x)
 
-**Parameter Sweep Results** (from `results/param_sweep_summary.json`):
-- **Temperature Range**: 10⁵ - 10⁶ K
-- **Magnetic Field Range**: 0 - 0.02 T (including unmagnetized case)
-- **Horizon Formation**: No horizons detected across 12 tested configurations
-- **Critical Insight**: Horizon formation remains the primary experimental bottleneck, confirming the need for optimized parameter selection guided by Bayesian optimization framework
+**Extended Sweep Results (Oct 2025)**:
+- See `results/extended_param_sweep.json` and `results/horizon_success_cases.json`
+- **Parameter Ranges**: I = 10¹⁷–10¹⁹ W/cm², n_e = 10¹⁷–10¹⁹ cm⁻³, T = 10⁴–10⁶ K, B = 0–0.1 T
+- **Horizon Formation**: Horizons detected across wide regions when intensity scaling is enabled (`scale_with_intensity=True`)
+- **Surface Gravity**: κ up to ~8×10¹³ s⁻¹ (≫ 10¹⁰ s⁻¹ threshold) in multiple configurations
+- **Figures**: `figures/horizon_analysis_probability_map.png`, `figures/horizon_analysis_kappa_map.png`, `figures/horizon_analysis_TH_map.png`, `figures/horizon_analysis_profile_*.png`
+- **Detection Times**: Under current PSD-based mapping to T_sig, `t_5σ` values are extremely large. The merit/SNR model uses T_H directly (brightness temperature surrogate), which predicts feasible times; further calibration of PSD normalization and coupling is recommended.
+
+See `docs/Successful_Configurations.md` for a ranked table of successful cases and notes.
 
 **Next Steps for Horizon Formation**:
 1. Increase laser intensity to enhance ponderomotive velocity gradients
