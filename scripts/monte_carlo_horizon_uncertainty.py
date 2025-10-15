@@ -104,7 +104,7 @@ def run_mc(cfg: MCConfig):
     plt.yscale("log")
     plt.xlabel("density n_e")
     plt.ylabel("temperature T")
-    plt.title(f"Horizon probability ≈ {prob:.2f}; κ_mean={kappa_mean:.2e} s^-1 ± {kappa_std:.2e}")
+    plt.title(f"Horizon probability ≈ {prob:.2f}; κ_mean={kappa_mean:.2e} ± {kappa_std:.2e} s$^{{-1}}$")
     plt.legend(markerscale=2)
     plt.tight_layout()
     plt.savefig("figures/horizon_probability_bands.png", dpi=200)

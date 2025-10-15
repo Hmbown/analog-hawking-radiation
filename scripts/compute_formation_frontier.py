@@ -174,17 +174,17 @@ def compute_frontier(cfg: FrontierConfig):
     im0 = ax[0].imshow(np.log10(Imin), origin="lower", aspect="auto",
                        extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
                        cmap="magma")
-    ax[0].set_title("log10 I_min")
+    ax[0].set_title("log10 I_min [W/m²]")
     ax[0].set_xlabel("log10 T [K]")
-    ax[0].set_ylabel("log10 n_e")
+    ax[0].set_ylabel("log10 n_e [m⁻³]")
     fig.colorbar(im0, ax=ax[0])
 
     im1 = ax[1].imshow(np.log10(np.clip(Kmin, 1e-30, None)), origin="lower", aspect="auto",
                        extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
                        cmap="viridis")
-    ax[1].set_title("log10 κ at frontier")
+    ax[1].set_title("log10 κ at frontier [s⁻¹]")
     ax[1].set_xlabel("log10 T [K]")
-    ax[1].set_ylabel("log10 n_e")
+    ax[1].set_ylabel("log10 n_e [m⁻³]")
     fig.colorbar(im1, ax=ax[1])
     plt.tight_layout()
     plt.savefig("figures/formation_frontier.png", dpi=200)
