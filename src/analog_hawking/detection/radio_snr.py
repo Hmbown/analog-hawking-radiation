@@ -35,7 +35,8 @@ def band_power_from_spectrum(frequencies: np.ndarray,
     mask = (frequencies >= f_lo) & (frequencies <= f_hi)
     if not np.any(mask):
         return 0.0
-    return float(np.trapezoid(power_spectrum[mask], x=frequencies[mask]))
+    # Use NumPy's widely-available trapezoidal integrator for compatibility
+    return float(np.trapz(power_spectrum[mask], x=frequencies[mask]))
 
 
 def equivalent_signal_temperature(P_sig: float, bandwidth: float) -> float:
