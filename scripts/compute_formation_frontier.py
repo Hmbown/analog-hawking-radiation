@@ -171,17 +171,27 @@ def compute_frontier(cfg: FrontierConfig):
     # Figure
     os.makedirs("figures", exist_ok=True)
     fig, ax = plt.subplots(1, 2, figsize=(10, 4))
-    im0 = ax[0].imshow(np.log10(Imin), origin="lower", aspect="auto",
+    # Prepare masked arrays to handle regions with no horizon (NaNs)
+    Imin_log = np.log10(Imin)
+    Kmin_log = np.log10(np.clip(Kmin, 1e-30, None))
+    Imin_m = np.ma.array(Imin_log, mask=~np.isfinite(Imin_log))
+    Kmin_m = np.ma.array(Kmin_log, mask=~np.isfinite(Kmin_log))
+    cmap0 = plt.get_cmap("magma").copy()
+    cmap1 = plt.get_cmap("viridis").copy()
+    cmap0.set_bad(color="#f0f0f0")
+    cmap1.set_bad(color="#f0f0f0")
+
+    im0 = ax[0].imshow(Imin_m, origin="lower", aspect="auto",
                        extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
-                       cmap="magma")
+                       cmap=cmap0)
     ax[0].set_title("log10 I_min [W/m²]")
     ax[0].set_xlabel("log10 T [K]")
     ax[0].set_ylabel("log10 n_e [m⁻³]")
     fig.colorbar(im0, ax=ax[0])
 
-    im1 = ax[1].imshow(np.log10(np.clip(Kmin, 1e-30, None)), origin="lower", aspect="auto",
+    im1 = ax[1].imshow(Kmin_m, origin="lower", aspect="auto",
                        extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
-                       cmap="viridis")
+                       cmap=cmap1)
     ax[1].set_title("log10 κ at frontier [s⁻¹]")
     ax[1].set_xlabel("log10 T [K]")
     ax[1].set_ylabel("log10 n_e [m⁻³]")
