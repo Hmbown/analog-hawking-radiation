@@ -1,4 +1,6 @@
+\pdfoutput=1
 \documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{amsmath, amssymb}
@@ -7,13 +9,13 @@
 \usepackage{siunitx}
 \title{A Computational Framework for Simulating Analog Hawking Radiation in Laser--Plasma Flows: Horizon Formation, Parameter Exploration, and Theoretical Detectability}
 \author{Hunter Bown}
-\date{October 15, 2025}
+\date{\today}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We present a computational framework that models horizon formation in laser-driven plasma flows and estimates the theoretical detectability of analog Hawking radiation. By sweeping plasma density, laser intensity, temperature, and magnetic field, the simulations predict sonic horizons across broad regions of parameter space and compute associated surface gravity values $\kappa \sim 10^{13}{-}10^{14}\,\mathrm{s^{-1}}$ (well above a $10^{10}\,\mathrm{s^{-1}}$ target). We estimate integration times using two complementary metrics: (i) a conservative power-spectral-density (PSD) integration in radio bands, and (ii) an upper-bound surrogate that treats the Hawking temperature $T_H$ as a brightness temperature. Analysis of model parameters indicates operation in physically relevant underdense regimes with appropriate $a_0$ and sound speeds. We discuss detectability and outline normalization/coupling refinements required for experimental realization.
+We present a computational framework that models horizon formation in laser-driven plasma flows and estimates the theoretical detectability of analog Hawking radiation. By sweeping plasma density, laser intensity, temperature, and magnetic field, the simulations predict sonic horizons across broad regions of parameter space and compute associated surface gravity values $\kappa \sim 10^{11}{-}10^{13}\,\mathrm{s^{-1}}$ (well above a $10^{10}\,\mathrm{s^{-1}}$ target). We estimate integration times using two complementary metrics: (i) a conservative power-spectral-density (PSD) integration in radio bands, and (ii) an upper-bound surrogate that treats the Hawking temperature $T_H$ as a brightness temperature. Analysis of model parameters indicates operation in physically relevant underdense regimes with appropriate $a_0$ and sound speeds. We discuss detectability and outline normalization/coupling refinements required for experimental realization.
 \end{abstract}
 
 \section{Introduction}
@@ -106,28 +108,16 @@ We present results organized by the feasibility-first framework outlined in Meth
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.95\linewidth]{figures/formation_frontier.png}
-  \caption{Formation frontier: $\log_{10} I_{\min}$ for horizon existence across $(\log_{10} T,\, \log_{10} n_e)$ (left) and $\log_{10} \kappa$ at the frontier (right). Horizons form at modest intensities ($I_{\min} \sim 10^{15}$--$10^{17}$ W/m² at accessible densities), with surface gravities reaching $\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$ at threshold.}
+  \caption{Formation frontier: $\log_{10} I_{\min}$ for horizon existence across $(\log_{10} T,\, \log_{10} n_e)$ (left) and $\log_{10} \kappa$ at the frontier (right). Gray areas indicate parameter points where no horizon was found up to the maximum intensity tested. Horizons form at modest intensities ($I_{\min} \sim 10^{15}$--$10^{17}$ \si{W/m^2} at accessible densities), with surface gravities reaching $\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$ at threshold.}
 \end{figure}
 
-Figure~1 shows that sonic horizons are attainable across a broad region of parameter space. At densities $n_e \sim 10^{17}$--$10^{18}$ m$^{-3}$ and temperatures $T \sim 10^4$--$10^5$ K, the minimum laser intensity required drops below $10^{16}$ W/m², accessible to tabletop laser systems. The corresponding surface gravity at threshold reaches $\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$, well above the target of $10^{10}$ s$^{-1}$ for practical detectability. Higher densities and temperatures demand increased intensity but yield higher $\kappa$ values.
+Figure~1 shows that sonic horizons are attainable across a broad region of parameter space. At densities $n_e \sim 10^{17}$--$10^{18}$ m$^{-3}$ and temperatures $T \sim 10^4$--$10^5$ K, the minimum laser intensity required drops below $10^{16}$ \si{W/m^2}, accessible to tabletop laser systems. The corresponding surface gravity at threshold reaches $\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$, well above the target of $10^{10}$ s$^{-1}$ for practical detectability. Higher densities and temperatures demand increased intensity but yield higher $\kappa$ values.
 
 \subsection{Profile-dependent graybody transmission}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.8\linewidth]{figures/graybody_impact.png}
-  \caption{Comparison of fallback and profile-derived graybody transmission applied to the Hawking spectrum. The profile-derived transmission departs from the $\omega^2/(\omega^2+\kappa^2)$ fallback, especially at low frequencies; net in-band power can increase or decrease depending on the local barrier.}
-\end{figure}
-
-To refine spectral predictions beyond the conservative fallback approximation, we extract the local velocity and sound-speed profile in a window around each detected horizon and compute a WKB-based graybody transmission (Methods §2.4.3). Figure~2 compares the resulting power spectral density with the fallback case. The profile-derived transmission is systematically less suppressive at low frequencies, increasing the predicted in-band power by up to an order of magnitude in radio/microwave regimes. This underscores the importance of profile-aware graybody modeling for quantitative detectability assessments.
+To refine spectral predictions beyond the conservative fallback approximation, we extract the local velocity and sound-speed profile in a window around each detected horizon and compute a WKB-based graybody transmission (see Methods). Relative to the conservative fallback, the profile-derived transmission is systematically less suppressive at low frequencies, increasing the predicted in-band power by up to an order of magnitude in radio/microwave regimes. This underscores the importance of profile-aware graybody modeling for quantitative detectability assessments.
 
 \subsection{Uncertainty quantification and robustness}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.75\linewidth]{figures/horizon_probability_bands.png}
-  \caption{Uncertainty Monte Carlo: samples colored by horizon outcome with overall formation probability and $\kappa$ statistics. All 200 samples yield horizons (probability $\approx 1.0$), with $\kappa$ mean and standard deviation both $\sim 2.5 \times 10^{11}$ s$^{-1}$, indicating robust formation but significant variability in surface gravity.}
-\end{figure}
-
-Monte Carlo sampling around nominal plasma parameters (density $\pm$20\%, temperature $\pm$30\% log-normal spreads; Methods §2.4.4) confirms robust horizon formation: all 200 samples produce at least one horizon (Figure~3). However, the surface gravity exhibits substantial variability ($\kappa_{\text{mean}} = 2.54 \times 10^{11}$ s$^{-1}$, $\kappa_{\text{std}} = 2.55 \times 10^{11}$ s$^{-1}$), spanning roughly an order of magnitude. This spread translates directly to Hawking temperature and detection-time uncertainties, highlighting the need for tight control of experimental parameters or post-selection on measured $\kappa$ values.
+Monte Carlo sampling around nominal plasma parameters (density $\pm$20\%, temperature $\pm$30\% log-normal spreads; see Methods) confirms robust horizon formation: all 200 samples produce at least one horizon. However, the surface gravity exhibits substantial variability ($\kappa_{\text{mean}} = 2.54 \times 10^{11}$ s$^{-1}$, $\kappa_{\text{std}} = 2.55 \times 10^{11}$ s$^{-1}$), spanning roughly an order of magnitude. This spread translates directly to Hawking temperature and detection-time uncertainties, highlighting the need for tight control of experimental parameters or post-selection on measured $\kappa$ values.
 
 \subsection{Detection-time estimates}
 \begin{figure}[h]
@@ -137,12 +127,12 @@ Monte Carlo sampling around nominal plasma parameters (density $\pm$20\%, temper
   \caption{Left: estimated integration time to $5\sigma$ SNR based on calculated power spectral density (PSD) and an ideal radiometer model. Right: detection-time estimate from a $T_H$ brightness-temperature surrogate (upper bound). Both maps span system temperature $T_{\text{sys}}$ and bandwidth $B$.}
 \end{figure}
 
-Figure~4 presents complementary detectability metrics. The left panel integrates the profile-derived PSD in-band (centered on the spectral peak) and computes radiometer integration times; the right panel treats the Hawking temperature $T_H$ as a brightness temperature for an upper-bound estimate (Methods §2.2). For typical parameters ($\kappa \sim 10^{12}$--$10^{13}$ s$^{-1}$), spectra peak in the THz regime, yielding challenging radio detection times (hours to days at $T_{\text{sys}} = 30$ K, $B = 100$ MHz). The $T_H$ surrogate suggests order-of-magnitude shorter times, pending experimental normalization of coupling efficiency $\eta$ and acceptance solid angle $\Omega$.
+Figure~2 presents complementary detectability metrics. The left panel integrates the profile-derived PSD in-band (centered on the spectral peak) and computes radiometer integration times; the right panel treats the Hawking temperature $T_H$ as a brightness temperature for an upper-bound estimate. For typical parameters ($\kappa \sim 10^{12}$--$10^{13}$ s$^{-1}$), spectra peak in the THz regime, yielding challenging radio detection times (hours to days at $T_{\text{sys}} = 30$ K, $B = 100$ MHz). The $T_H$ surrogate suggests order-of-magnitude shorter times, pending experimental normalization of coupling efficiency $\eta$ and acceptance solid angle $\Omega$.
 
 \section{Discussion}
-The formation frontier (Figure~1) establishes that sonic horizons with $\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$ are attainable at modest laser intensities across accessible regions of plasma parameter space. Profile-dependent graybody modeling (Figure~2) refines spectral predictions, showing that the local horizon geometry yields systematically higher transmission than conservative fallback approximations, increasing predicted signal power by up to an order of magnitude at low frequencies. Uncertainty quantification (Figure~3) confirms robust formation (100\% horizon probability under $\pm$20--30\% parameter variations) but reveals significant $\kappa$ variability, underscoring the need for either tight experimental control or post-selection on measured surface gravity.
+The formation frontier (Figure~1) establishes that sonic horizons with $\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$ are attainable at modest laser intensities across accessible regions of plasma parameter space. Profile-dependent graybody modeling refines spectral predictions, showing that the local horizon geometry yields systematically higher transmission than conservative fallback approximations, increasing predicted signal power by up to an order of magnitude at low frequencies. Monte Carlo uncertainty analysis confirms robust formation (100\% horizon probability under $\pm$20--30\% parameter variations) but reveals significant $\kappa$ variability, underscoring the need for either tight experimental control or post-selection on measured surface gravity.
 
-Detection-time estimates (Figure~4) highlight the central challenge: for $\kappa \sim 10^{12}$--$10^{13}$ s$^{-1}$ (typical of high-intensity regimes), Hawking spectra peak in the THz, yielding long radio integration times (hours to days). The $T_H$ brightness-temperature surrogate provides an upper-bound estimate suggesting shorter times, but experimental realization depends critically on coupling efficiency $\eta$ and optical collection solid angle $\Omega$. A radio-targeted parameter regime ($\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$) is accessible near the formation frontier and shifts emission into microwave bands, enabling more favorable radiometer performance.
+Detection-time estimates (Figure~2) highlight the central challenge: for $\kappa \sim 10^{12}$--$10^{13}$ s$^{-1}$ (typical of high-intensity regimes), Hawking spectra peak in the THz, yielding long radio integration times (hours to days). The $T_H$ brightness-temperature surrogate provides an upper-bound estimate suggesting shorter times, but experimental realization depends critically on coupling efficiency $\eta$ and optical collection solid angle $\Omega$. A radio-targeted parameter regime ($\kappa \sim 10^{10}$--$10^{11}$ s$^{-1}$) is accessible near the formation frontier and shifts emission into microwave bands, enabling more favorable radiometer performance.
 
 Where single-valued detection times are quoted in the text, we assume an ideal radiometer with $T_{\mathrm{sys}}=\SI{30}{K}$ and $B=\SI{100}{MHz}$. Detectability scales linearly with emitting area, acceptance solid angle, and coupling efficiency; realistic systems will require careful calibration of these normalization factors.
 
@@ -150,11 +140,11 @@ Where single-valued detection times are quoted in the text, we assume an ideal r
 Our graybody fallback is a conservative proxy when profile-based transmission is unavailable; full wave calculations and measured optical coupling will refine normalization. Envelope-scale coarse graining neglects sub-structure that could modify $\kappa$ locally; end-to-end PIC/fluid coupling is a priority. Finally, instrument responses (bandpass, calibration) can be folded into $\eta$ and $\Omega$ to specialize the detectability maps to specific receivers.
 
 \section{Code and Data}
-The full source code for this project is available at \href{https://github.com/hmbown/analog-hawking-radiation}{github.com/hmbown/analog-hawking-radiation}. All primary figures (1--4) are generated by the scripts listed in the Appendix. Additional supplementary figures showing parameter-space heatmaps (formation probability, $\kappa$ and $T_H$ maps, radio-only detection times, and multi-beam geometry comparisons) are available in the repository \texttt{figures/} directory and generated by the extended sweep scripts documented in the codebase.
+The full source code for this project is available at \href{https://github.com/hmbown/analog-hawking-radiation}{github.com/hmbown/analog-hawking-radiation}. All primary figures (1--2) are generated by the scripts listed in the Appendix. Additional supplementary figures showing parameter-space heatmaps (formation probability, $\kappa$ and $T_H$ maps, radio-only detection times, and multi-beam geometry comparisons) are available in the repository \texttt{figures/} directory and generated by the extended sweep scripts documented in the codebase.
 
 \appendix
 \section*{Appendix: Code Availability and Reproducibility}
-The complete codebase is hosted at \href{https://github.com/hmbown/analog-hawking-radiation}{github.com/hmbown/analog-hawking-radiation}. All primary figures (1--4) are generated from the version-controlled scripts in the repository root. Commands to reproduce the main results:
+The complete codebase is hosted at \href{https://github.com/hmbown/analog-hawking-radiation}{github.com/hmbown/analog-hawking-radiation}. All primary figures (1--2) are generated from the version-controlled scripts in the repository root. Commands to reproduce the main results:
 \begin{verbatim}
 # Set module path (if needed)
 export PYTHONPATH="${PYTHONPATH}:src"
@@ -162,14 +152,9 @@ export PYTHONPATH="${PYTHONPATH}:src"
 # Figure 1: Formation frontier and kappa at threshold
 python scripts/compute_formation_frontier.py --max-iters 12
 
-# Figure 2: Profile-derived graybody (graybody_impact.png)
-python scripts/run_full_pipeline.py --demo
-
-# Figure 3: Uncertainty quantification (horizon_probability_bands.png)
-python scripts/monte_carlo_horizon_uncertainty.py
-
-# Figure 4: Detection-time heatmaps (horizon_analysis_detection_time*.png)
-# Generated by extended parameter sweep (see scripts/param_sweep_*.py)
+# Figure 2: Detection-time heatmaps (horizon_analysis_detection_time*.png)
+python scripts/run_param_sweep.py
+python scripts/generate_detection_time_heatmap.py
 \end{verbatim}
 Additional supplementary figures (formation probability maps, $\kappa$/T$_H$ heatmaps, multi-beam geometry comparisons) are generated by scripts in \texttt{scripts/} prefixed with \texttt{param\_sweep\_} or \texttt{geometry\_}; see README for details. The \texttt{paper/} directory contains only the manuscript (\texttt{main.tex}), bibliography (\texttt{refs.bib}), and copied figures under \texttt{paper/figures/}. Source code lives exclusively under \texttt{scripts/} and \texttt{src/}.
 

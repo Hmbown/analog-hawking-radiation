@@ -6,21 +6,10 @@ import shutil
 from pathlib import Path
 
 FIGS = [
-    # Primary figures in main paper (Figs 1-4)
-    "formation_frontier.png",              # Figure 1: Formation frontier
-    "graybody_impact.png",                 # Figure 2: Profile-derived graybody
-    "horizon_probability_bands.png",       # Figure 3: Uncertainty quantification
-    "horizon_analysis_detection_time.png",  # Figure 4 (left): PSD-based detection time
-    "horizon_analysis_detection_time_TH.png", # Figure 4 (right): T_H surrogate
-    # Supplementary figures (available in repo, referenced in Code section)
-    "horizon_analysis_probability_map.png",
-    "horizon_analysis_kappa_map.png",
-    "horizon_analysis_TH_map.png",
-    "horizon_analysis_detection_time_radio.png",
-    "geometry_vs_kappa.png",
-    "horizon_analysis_profile_00.png",
-    "horizon_analysis_profile_01.png",
-    "horizon_analysis_profile_02.png",
+    # Minimal figure set used in the reduced paper
+    "formation_frontier.png",                 # Figure 1
+    "horizon_analysis_detection_time.png",    # Figure 2 (left)
+    "horizon_analysis_detection_time_TH.png", # Figure 2 (right)
 ]
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,15 +23,19 @@ def main() -> int:
     PAPER_FIG.mkdir(parents=True, exist_ok=True)
     BUILD.mkdir(parents=True, exist_ok=True)
 
-    # Copy figures
-    copied = []
+    # Ensure required figures exist in paper/figures; copy from root figures/ if needed
+    selected: list[str] = []
     for fname in FIGS:
-        src = FIG_SRC / fname
-        if src.exists():
-            shutil.copy2(src, PAPER_FIG / fname)
-            copied.append(fname)
+        dst_pf = PAPER_FIG / fname
+        if dst_pf.exists():
+            selected.append(fname)
+            continue
+        src_root = FIG_SRC / fname
+        if src_root.exists():
+            shutil.copy2(src_root, dst_pf)
+            selected.append(fname)
         else:
-            print(f"[warn] missing figure: {src}")
+            print(f"[warn] missing figure in both locations: {fname}")
 
     # Copy TeX and bib to build dir
     for item in ["main.tex", "refs.bib"]:
@@ -52,11 +45,15 @@ def main() -> int:
             return 1
         shutil.copy2(src, BUILD / item)
 
-    # Copy figures dir into build dir
+    # Copy only selected figures into build dir
     dest_fig_dir = BUILD / "figures"
     if dest_fig_dir.exists():
         shutil.rmtree(dest_fig_dir)
-    shutil.copytree(PAPER_FIG, dest_fig_dir)
+    dest_fig_dir.mkdir(parents=True, exist_ok=True)
+    for fname in selected:
+        src_pf = PAPER_FIG / fname
+        if src_pf.exists():
+            shutil.copy2(src_pf, dest_fig_dir / fname)
 
     # Create zip
     out_zip = PAPER / "arxiv_package"

@@ -1,5 +1,12 @@
 # Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling
 
+## Launch Next Steps
+
+1. **Close validation checklist** — Drive the role-based sign-off in `docs/launch_readiness_plan.md` (all phases of `TESTING_PLAN.md` need evidence logged under `results/testing_signoff/`).
+2. **Bring WarpX online** — Install/configure WarpX + pywarpx on target compute, then extend `scripts/run_trans_planckian_experiment.py` beyond mock mode for full PIC runs.
+3. **Secure resources** — Lock in multi-GPU time (≥8×H100/A100) and 10 TB fast storage to sustain Trans-Planckian campaigns.
+4. **Run pre-launch studies** — Execute envelope-matched geometry sweeps, magnetized horizon scans, and reduced PIC/fluid cross-checks; fold results back into docs and readiness plan.
+
 ## Overview
 
 **Purpose**: A comprehensive computational framework for modeling analog Hawking radiation in laser-plasma systems, featuring robust horizon detection, realistic multi-beam configurations, and practical detection feasibility assessment.
@@ -286,8 +293,6 @@ This computational framework addresses four fundamental questions in experimenta
 ![Radio SNR from QFT](figures/radio_snr_from_qft.png)
 **Time-to-5σ detection heatmap derived directly from quantum field theory spectrum.** Shows integration time requirements as function of system temperature and bandwidth for realistic Hawking temperatures in radio/microwave regime.
 
-![Radio SNR Sweep](figures/radio_snr_sweep.png)
-**Synthetic parameter sweep demonstrating detection feasibility across broader parameter space.** Provides rapid sanity checks for experimental planning and highlights challenging detection regimes.
 
 ### 3.3 Optimization Results
 

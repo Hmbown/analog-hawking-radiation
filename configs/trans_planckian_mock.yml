@@ -1,0 +1,39 @@
+# Minimal mock configuration for the Trans-Planckian experiment driver.
+# This runs against the built-in WarpXBackend mock without requiring pywarpx.
+#
+# Usage:
+#   python3 scripts/run_trans_planckian_experiment.py \
+#       --config configs/trans_planckian_mock.yml \
+#       --mock \
+#       --steps 5 \
+#       --spectrum \
+#       --results-dir results/trans_planckian_mock_run
+#
+# The driver will emit per-step horizon summaries and, if --spectrum is passed,
+# a Hawking spectrum JSON for the highest-κ step.
+mock: true
+grid_points: 512
+results_dir: results/trans_planckian_mock_run
+write_sidecar: true
+sigma_smoothing:
+  adaptive: true
+  gamma_e: 1.0
+  gamma_i: 1.0
+  ion_temperature_fraction: 0.01
+field_getters:
+  Ex:
+    type: pywarpx
+    field: Ex
+moment_getters:
+  electrons:
+    density:
+      type: pywarpx
+      moment: density
+    bulk_velocity:
+      type: pywarpx
+      moment: bulk_velocity
+    sound_speed:
+      type: pywarpx
+      moment: sound_speed
+electron_species: electrons
+ion_species: ions
