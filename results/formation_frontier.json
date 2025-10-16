@@ -295,7 +295,7 @@
     "intensity_min": 1000000000000000.0,
     "intensity_max": 1e+19,
     "intensity_tol": 0.05,
-    "max_bisection_iter": 12,
+    "max_bisection_iter": 10,
     "wavelength": 8e-07,
     "magnetic_field": 0.01,
     "use_fast_magnetosonic": false,

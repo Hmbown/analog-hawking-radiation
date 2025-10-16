@@ -21,11 +21,11 @@ classifiers = [
 ]
 requires-python = ">=3.8"
 dependencies = [
-    "numpy",
-    "scipy",
-    "matplotlib",
-    "h5py",
-    "emcee",
+    "numpy>=1.21",
+    "scipy>=1.8",
+    "matplotlib>=3.6",
+    "h5py>=3.8",
+    "emcee>=3.1",
 ]
 dynamic = ["version"]
 
@@ -36,9 +36,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation"
-Repository = "https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation"
-"Bug Tracker" = "https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation/issues"
+Homepage = "https://github.com/hmbown/analog-hawking-radiation"
+Repository = "https://github.com/hmbown/analog-hawking-radiation"
+"Bug Tracker" = "https://github.com/hmbown/analog-hawking-radiation/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

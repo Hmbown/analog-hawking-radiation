@@ -88,19 +88,17 @@ class QuantumFieldTheory:
         Returns:
             Spectral density in W·sr⁻¹·m⁻²·Hz⁻¹
         """
-        omega = 2 * np.pi * frequency
-        h_omega = hbar * omega
-        
         # Planck's law: B_ν(T) = (2hν³/c²) / (exp(hν/kT) - 1)
-        exp_factor = np.exp(h_omega / (k * self.T_H))
-        
-        with np.errstate(over='ignore'):
+        nu = np.asarray(frequency, dtype=float)
+        x = (h * nu) / (k * self.T_H)
+        pre = (2.0 * h * nu**3) / (c**2)
+        with np.errstate(over='ignore', under='ignore', invalid='ignore'):
+            # Use expm1 for small x; for large x use e^{-x} asymptotic
             spectral_density = np.where(
-                exp_factor > 1e10,
-                (2 * h * frequency**3 / c**2) * np.exp(-h * frequency / (k * self.T_H)),
-                (2 * h * frequency**3 / c**2) / (exp_factor - 1)
+                x > 50.0,
+                pre * np.exp(-x),
+                pre / np.expm1(x)
             )
-        
         return spectral_density
     
     def hawking_temperature_from_kappa(self, surface_gravity):
@@ -138,18 +136,16 @@ class QuantumFieldTheory:
             Energy distribution
         """
         # dE/dln(ω) = ω * dN/dω where dN/dω is the occupation number
-        h_omega = hbar * omega
-        exp_factor = np.exp(h_omega / (k * self.T_H))
-        
-        with np.errstate(over='ignore'):
+        x = (hbar * omega) / (k * self.T_H)
+        with np.errstate(over='ignore', under='ignore', invalid='ignore'):
             occupation = np.where(
-                exp_factor > 1e10,
-                np.exp(-h_omega / (k * self.T_H)),
-                1.0 / (exp_factor - 1)
+                x > 50.0,
+                np.exp(-x),
+                1.0 / np.expm1(x)
             )
         
-        # Energy per mode is hbar*omega, so total energy distribution:
-        return h_omega * occupation * self.density_of_states(omega)
+        # Energy per mode is ħ·ω, so total energy distribution:
+        return (hbar * omega) * occupation * self.density_of_states(omega)
     
     def density_of_states(self, omega):
         """
@@ -174,14 +170,12 @@ class QuantumFieldTheory:
         Returns:
             Occupation number (average number of photons per mode)
         """
-        h_omega = hbar * omega
-        exp_factor = np.exp(h_omega / (k * self.T_H))
-        
-        with np.errstate(over='ignore'):
+        x = (hbar * omega) / (k * self.T_H)
+        with np.errstate(over='ignore', under='ignore', invalid='ignore'):
             return np.where(
-                exp_factor > 1e10,
-                np.exp(-h_omega / (k * self.T_H)),
-                1.0 / (exp_factor - 1)
+                x > 50.0,
+                np.exp(-x),
+                1.0 / np.expm1(x)
             )
 
 class BogoliubovTransformations:
@@ -262,13 +256,13 @@ class BogoliubovTransformations:
         # For Hawking radiation: |β_ω|² = 1 / (exp(ħω/kT) - 1)
         
         h_omega = hbar * omega
-        exp_factor = np.exp(h_omega / (k * hbar * surface_gravity / (2 * np.pi * k)))
-        
-        with np.errstate(over='ignore'):
+        # Using T = ħκ/(2πk), exponent argument x = ħω/(kT) = 2π ω / κ
+        x = (2.0 * np.pi * omega) / float(surface_gravity)
+        with np.errstate(over='ignore', under='ignore', invalid='ignore'):
             return np.where(
-                exp_factor > 1e10,
-                np.exp(-h_omega / (k * hbar * surface_gravity / (2 * np.pi * k))),
-                1.0 / (exp_factor - 1)
+                x > 50.0,
+                np.exp(-x),
+                1.0 / np.expm1(x)
             )
     
     def total_particle_flux(self, omega_range, surface_gravity):
@@ -354,7 +348,7 @@ class HawkingRadiationModel:
         spectrum_data = self.calculate_spectrum(freq_range)
         
         # Integrate power over detector band with efficiency
-        total_power = np.trapz(spectrum_data['power_spectrum'] * efficiency, 
+        total_power = np.trapezoid(spectrum_data['power_spectrum'] * efficiency, 
                               x=spectrum_data['frequencies'])
         
         # Calculate signal-to-noise ratio (simplified)

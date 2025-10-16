@@ -62,6 +62,7 @@ def run_full_pipeline(
     B_ref: float = 1e8,  # 100 MHz
     T_sys: float = 30.0,
     graybody_window_cells: Optional[int] = None,
+    save_graybody_figure: bool = True,
 ) -> FullPipelineSummary:
     # 1) Configure backend
     grid = np.linspace(grid_min, grid_max, grid_points)
@@ -158,32 +159,33 @@ def run_full_pipeline(
                 fb = np.linspace(f_lo, f_hi, 2001)
                 fb = np.clip(fb, float(freqs[0]), float(freqs[-1]))
                 psd_band = np.interp(fb, freqs, P)
-                inband_power = float(np.trapz(psd_band, x=fb))
+                inband_power = float(np.trapezoid(psd_band, x=fb))
             T_sig = equivalent_signal_temperature(inband_power, B_ref)
             if not np.isfinite(T_sig) or T_sig <= 0.0:
                 T_sig = float(spec.get("temperature", 0.0))
             t_grid = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig)
             t5sigma = float(t_grid[0, 0])
 
-        # Save comparison figure (profile vs fallback)
-        try:
-            if spec_prof.get("success") and spec_fallback.get("success"):
-                freqs_prof = spec_prof["frequencies"]
-                P_prof = spec_prof["power_spectrum"]
-                freqs_fb = spec_fallback["frequencies"]
-                P_fb = spec_fallback["power_spectrum"]
-                plt.figure(figsize=(7, 4))
-                plt.loglog(freqs_fb, P_fb, label="fallback graybody", alpha=0.8)
-                plt.loglog(freqs_prof, P_prof, label="profile graybody", alpha=0.8)
-                plt.xlabel("Frequency [Hz]")
-                plt.ylabel("PSD [W/Hz]")
-                plt.legend()
-                plt.tight_layout()
-                os.makedirs("figures", exist_ok=True)
-                plt.savefig(os.path.join("figures", "graybody_impact.png"), dpi=200)
-                plt.close()
-        except Exception:
-            pass
+        # Save comparison figure (profile vs fallback) unless suppressed (e.g. during sweeps)
+        if save_graybody_figure:
+            try:
+                if spec_prof.get("success") and spec_fallback.get("success"):
+                    freqs_prof = spec_prof["frequencies"]
+                    P_prof = spec_prof["power_spectrum"]
+                    freqs_fb = spec_fallback["frequencies"]
+                    P_fb = spec_fallback["power_spectrum"]
+                    plt.figure(figsize=(7, 4))
+                    plt.loglog(freqs_fb, P_fb, label="fallback graybody", alpha=0.8)
+                    plt.loglog(freqs_prof, P_prof, label="profile graybody", alpha=0.8)
+                    plt.xlabel("Frequency [Hz]")
+                    plt.ylabel("PSD [W/Hz]")
+                    plt.legend()
+                    plt.tight_layout()
+                    os.makedirs("figures", exist_ok=True)
+                    plt.savefig(os.path.join("figures", "graybody_impact.png"), dpi=200)
+                    plt.close()
+            except Exception:
+                pass
         # Compute Hawking temperature and TH-based detection time surrogate
         T_H = float(hbar * float(kappa[0]) / (2.0 * pi * k))
         if T_H > 0:
