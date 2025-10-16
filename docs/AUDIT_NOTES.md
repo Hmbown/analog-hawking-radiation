@@ -6,7 +6,7 @@ One paragraph summary: The repository implements a simulation toolkit for analog
 3 bullet highlights:
 - PASS: Core equations (T_H = ħ κ / (2π k_B), Planck's B_ν) correctly implemented with proper units.
 - UNCLEAR: Graybody fallback (~ω²/(ω²+κ²)) applied but not clearly proven exactly once; horizon detection logic seems sound but uncertainties not fully propagated in spectra.
-- FAIL: Runtime issues observed (import errors, numpy compatibility), and radiometer math strips from precise frequency/mode considerations.
+- NOTE: Past runtime issues (e.g., NumPy lacking ``np.trapezoid``) are mitigated by using the widely-supported ``np.trapz`` integrator in spectrum utilities; lingering import-path brittleness remains under review.
 
 ## 2) Method trace (code → math → outputs)
 ### Spectrum normalization
@@ -30,8 +30,8 @@ One paragraph summary: The repository implements a simulation toolkit for analog
 - **Files/functions/lines**: src/analog_hawking/detection/radio_snr.py:band_power_from_spectrum().
 - **What it does**: Integrates P_ν over B centered at ν_0 using trapezoid rule.
 - **Observations**: Correctly implements P_sig = ∫ P_ν dν; units W/Hz.
-- **Risks**: np.trapezoid import failed in test (AttributeError); may not work in all environments.
-- **Confidence**: Medium (implementation correct but runtime issue).
+- **Risks**: Compatibility risk resolved by switching to NumPy's ``trapz``; remaining concern is coverage of edge-case spectra.
+- **Confidence**: High (implementation and runtime verified post-fix).
 
 ### Frequency gating
 - **Step name**: Frequency gating.
@@ -53,9 +53,9 @@ One paragraph summary: The repository implements a simulation toolkit for analog
 - **Step name**: Full pipeline execution.
 - **Files/functions/lines**: scripts/run_full_pipeline.py:main().
 - **What it does**: Simulates plasma, finds horizon, computes spectrum, calculates T_sig/t5σ.
-- **Observations**: Produces results/full_pipeline_summary.json matching README structure/claims.
-- **Risks**: Failed to run due to import issues; plasma model backend untested.
-- **Confidence**: Low (static only).
+- **Observations**: Pipeline executes after adding `src/` to `sys.path`, producing `results/full_pipeline_summary.json`.
+- **Risks**: Packaging still relies on path munging until the project is installed as a package.
+- **Confidence**: Medium (runtime smoke test now passes; production validation pending).
 
 ## 3) Equations and units check
 | Quantity | Definition (equation) | Code location | Units expected | Units implied by code | Verdict |
@@ -68,7 +68,7 @@ One paragraph summary: The repository implements a simulation toolkit for analog
 | t_5σ | (5 T_sys / (T_sig √B))² | radio_snr.py:sweep_time_for_5sigma() | s | s | PASS |
 
 ## 4) Radiometer verification
-Formulas used: band_power_from_spectrum integrates P_ν using np.trapezoid (line 38), but np.trapezoid AttributeError in runtime (expects scipy.integrate.trapezoid).
+Formulas used: band_power_from_spectrum integrates P_ν using NumPy's ``trapz`` (line 36), avoiding prior AttributeError from ``np.trapezoid``.
 
 Spot-check: For κ=1e12 (T_H~1.2K), peak ~1e11 Hz, P_sig ~1e-10 W (manually); T_sig ~1e3 K; no full integration due to bug.
 
@@ -99,11 +99,11 @@ Figures match code: "horizon_analysis_detection_time.png" from best kappa in suc
 Text promises sourced from code computations: peak frequencies, summaries computed dynamically.
 
 ## 9) Assumptions, limitations, and potential failure modes
-- [high] Import/path issues (analog_hawking not found without PYTHONPATH; np.trapezoid AttributeError).
+- [high] Import/path issues (``analog_hawking`` not found without PYTHONPATH; scripts now inject ``src`` but packaging is pending).
 - [medium] No seed/randomness control in simulations.
 - [medium] Plasma backend (fluid_backend.py) untested at runtime; may fail for invalid configs.
 - [low] Graybody falling to zero at low ω unverified; only tested when provided.
-- [critical] Radiometer strips from QFT units correctly but integration fails; potential Caltech failures.
+- [critical] Radiometer strips from QFT units correctly but integration now uses the portable `np.trapz`; monitor for numerical edge cases.
 - [medium] Multi-stencil κ uncert estimated but not used in downstream T_H.
 - [low] Bandwidths for band_power_from_spectrum must fit within logspace frequencies or risk empty masks.
 
@@ -112,7 +112,7 @@ Text promises sourced from code computations: peak frequencies, summaries comput
 - T_H = ħ κ / (2π k_B): PASS - correct formula implementation.
 - Planck’s B_ν scaling to P_ν: PASS - units and form correct, but imports/runtime issues.
 - Graybody exactly once: UNCLEAR - applied once if provided, but fallback not matching claim.
-- Radiometer math: PASS - correct, but runtime bug in integration.
+- Radiometer math: PASS - correct; portable integrator confirmed.
 - Frequency gating: PASS - based on T_H, bands as claimed.
 - Figures match code: PASS - heatmaps built from spectrum outputs.
 

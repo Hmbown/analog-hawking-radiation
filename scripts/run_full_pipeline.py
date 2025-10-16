@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 # Add scripts directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty

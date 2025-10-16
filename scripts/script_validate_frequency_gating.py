@@ -4,7 +4,9 @@ Quick check that calculate_hawking_spectrum() chooses radio band when T_H <= 10 
 """
 import numpy as np
 import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+ROOT = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(ROOT)
+sys.path.append(os.path.join(ROOT, "src"))
 from hawking_detection_experiment import calculate_hawking_spectrum
 
 

@@ -1,5 +1,9 @@
 # Comprehensive Testing Plan: Analog Hawking Radiation Framework
 
+> **Status tracker**: Ownership, due dates, and completion state for the items
+> below now live in `docs/launch_readiness_plan.md`. Update that document with
+> evidence links as each checklist item is verified.
+
 ## Testing Team Composition
 
 ### Core Team Roles:

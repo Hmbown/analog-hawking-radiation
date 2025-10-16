@@ -1,5 +1,12 @@
 # Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling
 
+## Launch Next Steps
+
+1. **Close validation checklist** — Drive the role-based sign-off in `docs/launch_readiness_plan.md` (all phases of `TESTING_PLAN.md` need evidence logged under `results/testing_signoff/`).
+2. **Bring WarpX online** — Install/configure WarpX + pywarpx on target compute, then extend `scripts/run_trans_planckian_experiment.py` beyond mock mode for full PIC runs.
+3. **Secure resources** — Lock in multi-GPU time (≥8×H100/A100) and 10 TB fast storage to sustain Trans-Planckian campaigns.
+4. **Run pre-launch studies** — Execute envelope-matched geometry sweeps, magnetized horizon scans, and reduced PIC/fluid cross-checks; fold results back into docs and readiness plan.
+
 ## A quick tour
 
 - **What this is**: A reproducible toolkit to model analog Hawking radiation in laser–plasma flows, detect sonic horizons, and assess detectability with radio-style radiometers.

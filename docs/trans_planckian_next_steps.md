@@ -14,11 +14,11 @@
    - Integrate `QuantumFluctuationInjector` with WarpX callbacks for mode seeding.
 
 2. **High-Fidelity Experiment Script**
-   - Finalize `scripts/run_trans_planckian_experiment.py` to: load optimized parameters, configure WarpX domain (≥512×256×256), enable fluctuation seeding, and register high-cadence diagnostics.
+   - **Progress**: `scripts/run_trans_planckian_experiment.py` now loads YAML/JSON configs, supports mock runs, emits horizon sidecars, and optionally saves Hawking spectra. Extend it with WarpX domain setup (≥512×256×256), fluctuation seeding, and checkpointing hooks when hardware is available.
    - Establish checkpointing and streaming of diagnostics to cloud storage to handle multi-terabyte outputs.
 
 3. **Spectrum Analysis Pipeline**
-   - Implement `analysis/analyze_trans_planckian_spectrum.py` to generate Fourier spectra, compare to Hawking thermal predictions, and produce `figures/trans_planckian_spectrum_comparison.png`.
+   - **Progress**: Initial tooling lives at `analysis/analyze_trans_planckian_spectrum.py`, generating comparison plots and L2 metrics against Planck references. Upgrade it to ingest openPMD FFT dumps and to output `figures/trans_planckian_spectrum_comparison.png`.
    - Validate pipeline on downsampled/analytic datasets before processing full PIC outputs.
 
 4. **Resource Provisioning**
@@ -38,5 +38,4 @@
   - Publishable insight into Trans-Planckian signatures and groundwork for analog information-paradox studies.
 
 If your team is interested in partnering, please contact the maintainers via the repository discussion board or email listed in `README.md`. We are ready to share detailed design documents, preliminary scripts, and validation results to accelerate collaboration.
-
 
