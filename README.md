@@ -221,8 +221,6 @@ This research addresses the following core questions:
 ![Radio SNR from QFT](figures/radio_snr_from_qft.png)
 **Time-to-5σ detection heatmap derived directly from quantum field theory spectrum.** Shows integration time requirements as function of system temperature and bandwidth for realistic Hawking temperatures in radio/microwave regime.
 
-![Radio SNR Sweep](figures/radio_snr_sweep.png)
-**Synthetic parameter sweep demonstrating detection feasibility across broader parameter space.** Provides rapid sanity checks for experimental planning and highlights challenging detection regimes.
 
 ### 3.3 Optimization Results
 
