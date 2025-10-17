@@ -181,6 +181,7 @@ src/**/.egg-info/
 firebase-debug.log
 
 # === Repository meta/internal documentation (not for public) ===
+CLAUDE.md
 PUBLIC_RELEASE_CHECKLIST.md
 REPOSITORY_CLEANUP_SUMMARY.md
 ZENODO_DOI_GUIDE.md
