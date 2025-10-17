@@ -69,7 +69,7 @@ Where the laser essentially "paints" accelerating plasma mirrors onto the existi
 ### Core Capabilities
 1. **Horizon Detection**: Identifies sonic horizon formation regions in plasma flow profiles
 2. **Quantum Spectra**: Calculates Hawking radiation using near-horizon WKB graybody factors
-3. **Hybrid Coupling**: Novel plasma mirror enhancement of fluid horizons 
+3. **Speculative Hybrid Coupling**: Explores laser-painted plasma mirror enhancement of fluid horizons 
 4. **Radio Detection**: Estimates detectability with realistic antenna parameters
 
 ### Key Innovation: Speculative Laser-Enhanced Horizons
@@ -101,7 +101,7 @@ w(x) = coupling_strength * exp(-|x - x_mirror|/L_coupling) * alignment_factor
 src/analog_hawking/     # Core physics library
 ├── physics/           # Horizon detection, QFT calculations
 ├── detection/         # Radio detection modeling  
-└── hybrid/            # Plasma mirror coupling
+└── hybrid/            # Speculative plasma mirror coupling
 
 scripts/               # Analysis and figure generation
 tests/                # Comprehensive test suite  
