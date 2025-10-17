@@ -1,5 +1,23 @@
 from __future__ import annotations
 
+"""
+Plasma Mirror Dynamics for Analog Hawking Radiation
+
+This module implements plasma mirror acceleration calculations based on the
+AnaBHEL (Analog Black Hole Evaporation via Lasers) framework developed by:
+
+- Prof. Pisin Chen (National Taiwan University, LeCosPA) 
+- Prof. Gerard Mourou (École Polytechnique, IZEST) - Nobel Laureate
+- AnaBHEL Collaboration
+
+Key References:
+- Chen & Mourou (2015). Phys. Rev. Lett. 118, 045001
+- Chen et al. (2022). Photonics 9(12), 1003
+
+IMPORTANT: This implementation explores speculative hybrid coupling with fluid
+systems that extends beyond established AnaBHEL theory.
+"""
+
 from dataclasses import dataclass
 from typing import Optional
 
