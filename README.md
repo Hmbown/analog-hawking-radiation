@@ -42,14 +42,27 @@ Just as black holes emit Hawking radiation due to quantum vacuum fluctuations ne
 T_H = ħκ/(2πk_B)
 ```
 
-### AnaBHEL Model
-**AnaBHEL** (Analog Black Hole Evaporation in Lasers) provides a phenomenological mapping between accelerating plasma mirrors and effective surface gravity. For a plasma mirror with diameter **D** and acceleration efficiency **η_a**:
+### Speculative Hybrid Enhancement: Laser-Painted Plasma Mirrors
 
+**⚠️ Note: This is a speculative, non-physical model for computational exploration**
+
+The framework explores a novel scenario where high-intensity laser pulses create **localized plasma mirrors** within an existing fluid flow:
+
+1. **Background Fluid**: A flowing medium (gas jet, liquid stream, or pre-existing plasma) with sonic horizon formation
+2. **Laser Ionization**: Ultra-intense laser pulses (>10¹⁸ W/m²) instantly ionize matter, creating dense electron clouds
+3. **Plasma Mirror Formation**: Free electrons oscillate in the laser field, creating a reflective "mirror" that can be accelerated
+4. **Hybrid Coupling**: The accelerating plasma mirror locally enhances the fluid's surface gravity
+
+**Speculative Physics Model**:
 ```
-κ_mirror = 2π * η_a / D
+κ_eff(x) = κ_fluid(x) + w(x) * κ_mirror
+
+w(x) = coupling_strength * exp(-|x - x_mirror|/L_coupling) * alignment_factor
 ```
 
-This framework allows systematic exploration of how plasma mirror dynamics might enhance analog Hawking signatures.
+Where the laser essentially "paints" accelerating plasma mirrors onto the existing fluid background to enhance Hawking radiation signatures.
+
+**Important**: This coupling mechanism lacks established theoretical foundation and should be considered a computational thought experiment rather than a physics prediction.
 
 ## What This Framework Does
 
@@ -59,16 +72,22 @@ This framework allows systematic exploration of how plasma mirror dynamics might
 3. **Hybrid Coupling**: Novel plasma mirror enhancement of fluid horizons 
 4. **Radio Detection**: Estimates detectability with realistic antenna parameters
 
-### Key Innovation: Hybrid Fluid-Mirror Coupling
-The framework's primary contribution is systematic exploration of **hybrid coupling** between fluid sonic horizons and accelerating plasma mirrors. The effective surface gravity becomes:
+### Key Innovation: Speculative Laser-Enhanced Horizons
+The framework's primary contribution is systematic exploration of **speculative hybrid coupling** between fluid sonic horizons and laser-created plasma mirrors:
 
+**The Concept**:
+- **Fluid Background**: Flowing medium with natural sonic horizon formation
+- **Laser Intervention**: Ultra-intense pulses create localized plasma mirrors via ionization
+- **Hybrid Enhancement**: Accelerating mirrors locally boost the effective surface gravity
+
+**Mathematical Model**:
 ```
 κ_eff(x) = κ_fluid(x) + w(x) * κ_mirror
 
 w(x) = coupling_strength * exp(-|x - x_mirror|/L_coupling) * alignment_factor
 ```
 
-This allows comparative analysis of enhanced vs. baseline configurations under controlled assumptions.
+**⚠️ Speculative Nature**: This approach represents a computational thought experiment exploring whether laser-painted plasma mirrors could enhance analog Hawking signatures. The coupling mechanism lacks established theoretical foundation.
 
 ## System Requirements
 
@@ -144,14 +163,15 @@ This framework implements a **conservative, physics-based** approach to analog H
 
 ## Limitations and Scope
 
-This is a **computational modeling framework** designed for comparative studies under controlled assumptions:
+This is a **computational modeling framework** for exploring speculative physics scenarios:
 
-- **No experimental validation**: PIC/fluid cross-validation is pending
-- **Phenomenological mapping**: Absolute calibration of hybrid coupling uncertain  
-- **Order-of-magnitude guidance**: Results are not definitive performance predictions
-- **Hardware considerations**: Real observatory geometry and noise may shift detectability
+- **Speculative coupling**: The hybrid fluid-mirror interaction lacks established theoretical foundation
+- **Phenomenological mapping**: Plasma mirror → surface gravity relation is empirical (AnaBHEL model)
+- **No experimental validation**: Pure computational exploration of "what if" scenarios
+- **Order-of-magnitude estimates**: Results indicate trends, not precise predictions
+- **Hardware considerations**: Real implementation would face numerous practical challenges
 
-**Intended use**: Structured comparative analysis within stated modeling assumptions, not extrapolation beyond scope.
+**Intended use**: Computational thought experiment to explore whether laser-enhanced analog systems could theoretically boost Hawking radiation signatures. **Not** a prediction of experimental feasibility.
 
 ## Documentation
 
