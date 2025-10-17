@@ -9,244 +9,187 @@
 
 A computational framework for modeling analog Hawking radiation in laser-plasma systems. Simulates sonic horizons in flowing plasmas and calculates quantum field theory spectra with novel hybrid fluid-plasma mirror coupling.
 
----
-
-## TL;DR
-
-- **What**: A reproducible modeling toolkit for analog Hawking radiation in laser–plasma flows.
-- **Focus**: Horizon identification, spectra, and radio-band detectability. Includes an optional hybrid fluid–mirror coupling model to explore configuration space.
-- **Run a demo**:
-
-```bash
-pip install -e .
-python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
-cat results/full_pipeline_summary.json | head -n 20
-```
-
----
-
-<details>
-<summary><h2>Scope and Claims</h2></summary>
-
-- This repository is a reproducible modeling and analysis framework.
-- It explores a hybrid fluid + plasma “flying mirror” coupling under controlled assumptions.
-- Results are comparative and demo-focused, not experimental performance claims.
-- See `docs/Limitations.md` and the “Limitations and Uncertainties” section below for caveats.
-</details>
-
-<details>
-<summary><h2>Core Assumptions</h2></summary>
-
-- Profiles: envelope-/skin-depth–scale modeling; no full PIC validation in this repo.
-- Transmission: near-horizon WKB graybody when profiles exist; conservative fallback otherwise.
-- Detection model: radiometer-style SNR with user-configurable `T_sys` and bandwidth.
-- Hybrid mapping: phenomenological mirror→κ mapping (e.g., AnaBHEL), used for comparative analysis.
-</details>
-
-<details>
-<summary><h2>Reproducibility and What to Run</h2></summary>
-
-- Install: `pip install -e .`
-- Demo pipeline (fluid-only): `python scripts/run_full_pipeline.py --demo`
-- Demo with hybrid model: `python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0`
-- Outputs: `results/full_pipeline_summary.json` (inspect key fields: `kappa`, `T_sig_K`, `t5sigma_s`, flags for hybrid use)
-- README image: `make readme-images` generates only `docs/img/workflow_diagram.png`
-</details>
-
-<details>
-<summary><h2>Interpreting Outputs</h2></summary>
-
-- Horizon detection: presence and positions indicate modeled formation conditions.
-- κ and spectra: indicate trend-level changes under the stated assumptions.
-- Detection metrics: order-of-magnitude guidance; sensitive to `T_sys`, bandwidth, geometry.
-- Comparative use: compare settings within the same modeling assumptions; do not generalize beyond scope.
-</details>
-
-<details>
-<summary><h2>Limitations (Short)</h2></summary>
-
-- No end-to-end experimental validation here; PIC/fluid cross-validation pending.
-- Phenomenological hybrid mapping; absolute calibration uncertain.
-- Realistic hardware, geometry, and noise pipelines may shift detectability.
-- Use results as structured guidance, not definitive performance claims.
-</details>
-
-## Repository Map
-
-- `src/analog_hawking/` — core library (physics, detection)
-- `scripts/` — runnable analyses and figure generation
-- `tests/` — unit and integration tests
-- `docs/` — detailed narrative docs: see `docs/Overview.md`, `docs/Methods.md`, `docs/Results.md`, `docs/Validation.md`, `docs/Limitations.md`
-- `results/` — generated outputs (gitignored; samples in `results/samples/`)
-- `figures/` — generated figures (gitignored)
-
-For details, see `docs/Overview.md`.
-
----
-
 ## Quick Start
 
 ```bash
-# Install and run hybrid demo (recommended)
+# Install
 git clone https://github.com/hmbown/analog-hawking-radiation.git
 cd analog-hawking-radiation
 pip install -e .
 
-# Run with optional hybrid coupling model
-python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
-
-# Generate README image (workflow diagram)
-make readme-images
-
-# Inspect example outputs
-cat results/full_pipeline_summary.json | head -n 20
-```
-
-See `results/samples/` for small representative outputs.
-
----
-
-## Installation and Usage
-
-### System Requirements
-
-- Python ≥ 3.8
-- NumPy ≥ 1.21 (compatible with NumPy 2.x)
-- SciPy
-- Matplotlib
-
-**Computational Resources**:
-- Typical laptop (4–8 cores): small sweeps in minutes
-- Full parameter sweeps: hours on standard workstation
-
-### Installation
-
-```bash
-# Clone repository
-git clone https://github.com/hmbown/analog-hawking-radiation.git
-cd analog-hawking-radiation
-
-# Install with dependencies
-pip install -e .
-```
-
-### Basic Usage
-
-**Hybrid Pipeline Execution (Recommended)**:
-```bash
-# Run with optional hybrid coupling model
-python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
-```
-
-Output: `results/full_pipeline_summary.json` containing complete metrics including:
-- `hybrid_used`: true
-- `hybrid_kappa_eff`: surface gravity values
-- `hybrid_T_sig_K`: antenna temperature
-
-**Fluid-Only Pipeline (Baseline)**:
-```bash
+# Run standard demo
 python scripts/run_full_pipeline.py --demo
+
+# Run with hybrid plasma mirror coupling
+python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
+
+# Check results
+cat results/full_pipeline_summary.json
 ```
 
-Output: Standard pipeline results for comparison with hybrid approach.
+## Physics Background
 
----
+### Analog Black Holes
+In flowing fluids, sound waves can become trapped when the local flow velocity **v** exceeds the sound speed **c_s**. This creates a **sonic horizon** - an acoustic analog to a black hole's event horizon where information cannot escape upstream.
 
-## Detailed Results: Hybrid Method
-
-### Hybrid Method: Primary Innovation
-
-**The hybrid fluid + plasma-mirror coupling represents the main scientific contribution of this work.** It demonstrates that strategically coupling accelerating plasma mirrors to fluid horizons enables comparative analysis under controlled assumptions.
-
-#### Coupling Physics
-
-Local surface gravity near fluid horizons:
-
+The key physics parameter is the **surface gravity**:
 ```
-κ_eff(x_h) = κ_fluid(x_h) + w(x_h) · κ_mirror
-
-w(x_h) = coupling_strength · exp(-|x_h - x_M|/L) · alignment_gate
+κ = (1/2) * d(v² - c_s²)/dx |_{horizon}
 ```
 
-Combined with effective temperature:
+Just as black holes emit Hawking radiation due to quantum vacuum fluctuations near the event horizon, these analog systems can produce thermal radiation with temperature:
 ```
-T_eff = T_f + w · T_m + cross · sqrt(T_f · T_m)
+T_H = ħκ/(2πk_B)
 ```
 
-#### Rigorous Comparison Protocol
+### AnaBHEL Model
+**AnaBHEL** (Analog Black Hole Evaporation in Lasers) provides a phenomenological mapping between accelerating plasma mirrors and effective surface gravity. For a plasma mirror with diameter **D** and acceleration efficiency **η_a**:
 
-**Apples-to-apples validation**:
-- Identical `graybody_profile` transmission from near-horizon WKB calculations
-- Same normalization: emitting area (1×10⁻⁶ m²), solid angle (0.05 sr), coupling efficiency (0.1)
-- Same frequency integration band centered at fluid spectrum peak
-- Conservative mirror→κ mapping (AnaBHEL model: `κ_mirror = 2π·η_a/D`)
+```
+κ_mirror = 2π * η_a / D
+```
 
-#### Parameter Optimization
+This framework allows systematic exploration of how plasma mirror dynamics might enhance analog Hawking signatures.
 
-**Sensitivity sweeps** explore key parameter ranges:
-- **Coupling strength**: Controls overall magnitude
-- **Mirror parameters**: Diameter, efficiency, and acceleration mapping
-- **Alignment settings**: Proximity and directional coupling controls
+## What This Framework Does
 
----
+### Core Capabilities
+1. **Horizon Detection**: Identifies sonic horizon formation regions in plasma flow profiles
+2. **Quantum Spectra**: Calculates Hawking radiation using near-horizon WKB graybody factors
+3. **Hybrid Coupling**: Novel plasma mirror enhancement of fluid horizons 
+4. **Radio Detection**: Estimates detectability with realistic antenna parameters
 
-## Recommended Experimental Strategies
+### Key Innovation: Hybrid Fluid-Mirror Coupling
+The framework's primary contribution is systematic exploration of **hybrid coupling** between fluid sonic horizons and accelerating plasma mirrors. The effective surface gravity becomes:
 
-Based on computational analysis and the demonstrated effectiveness of the hybrid method, the following approaches show highest probability for successful horizon formation and detection:
+```
+κ_eff(x) = κ_fluid(x) + w(x) * κ_mirror
 
-### Priority 1: Hybrid Fluid + Plasma-Mirror Implementation
+w(x) = coupling_strength * exp(-|x - x_mirror|/L_coupling) * alignment_factor
+```
 
-1. **Mirror-Enhanced Configuration**: Implement accelerating plasma mirrors proximal to fluid horizon formation regions for comparative evaluation under controlled assumptions.
+This allows comparative analysis of enhanced vs. baseline configurations under controlled assumptions.
 
-2. **Alignment Optimization**: Carefully align mirror acceleration with fluid velocity gradients. Misalignment reduces coupling effectiveness.
+## System Requirements
 
-3. **Conservative Parameter Selection**: Use validated mirror→κ mappings (AnaBHEL model: `κ_mirror = 2π·η_a/D`) rather than optimistic scaling.
+- Python ≥ 3.8 with NumPy ≥ 1.21, SciPy, Matplotlib  
+- **Runtime**: Minutes on laptop for demos, hours for full parameter sweeps
+- **Validation**: 26/26 unit and integration tests passing
 
----
+## Repository Structure
 
-## Summary of Key Achievements
+```
+src/analog_hawking/     # Core physics library
+├── physics/           # Horizon detection, QFT calculations
+├── detection/         # Radio detection modeling  
+└── hybrid/            # Plasma mirror coupling
 
-### 🔬 Primary Innovation: Hybrid Coupling Method
-- **Comparative analysis** under controlled assumptions
-- **Conservative, physics-based** coupling model explored
-- **Apples-to-apples validation** with identical normalization and transmission
+scripts/               # Analysis and figure generation
+tests/                # Comprehensive test suite  
+docs/                 # Technical documentation
+results/samples/      # Representative outputs
+```
 
-### 🧮 Comprehensive Computational Framework
-- **Robust horizon detection** with uncertainty quantification
-- **First-principles QFT** spectrum calculations
-- **Power-conserving** multi-beam envelope modeling
-- **26/26 tests passing** with full validation suite
+## Usage Examples
 
----
+### Basic Analysis
+```bash
+# Standard fluid-only analysis
+python scripts/run_full_pipeline.py --demo
+
+# Hybrid mirror-enhanced analysis  
+python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
+```
+
+### Comparative Studies
+```bash
+# Direct hybrid vs fluid comparison
+python scripts/demo_hybrid_comparison.py
+
+# Parameter sensitivity sweeps
+python scripts/sweep_hybrid_params.py
+
+# Detection time analysis
+python scripts/generate_detection_time_heatmap.py
+```
+
+### Output Interpretation
+Key results in `results/full_pipeline_summary.json`:
+- **`kappa`**: Surface gravity values (s⁻¹)
+- **`T_hawking_K`**: Hawking temperature (K) 
+- **`T_sig_K`**: Antenna signal temperature (K)
+- **`t5sigma_s`**: 5σ detection time (s) for T_sys=30K, B=100MHz
+- **`hybrid_used`**: Boolean flag for hybrid mode
+
+## Scientific Methodology
+
+### Modeling Approach
+This framework implements a **conservative, physics-based** approach to analog Hawking radiation:
+
+1. **Horizon Detection**: Systematic identification of sonic horizon regions where ∇(v² - c_s²) changes sign
+2. **Quantum Calculation**: Near-horizon WKB approximation for graybody transmission factors
+3. **Hybrid Enhancement**: Phenomenological plasma mirror coupling via AnaBHEL mapping
+4. **Detection Modeling**: Radiometer-style SNR with configurable system parameters
+
+### Validation Protocol
+- **Identical Normalization**: All comparisons use same emitting area (1×10⁻⁶ m²), solid angle (0.05 sr), coupling efficiency (0.1)
+- **Conservative Parameters**: AnaBHEL model κ_mirror = 2πη_a/D rather than optimistic scaling
+- **Comprehensive Testing**: 26 unit and integration tests covering all physics modules
+
+### Key Assumptions
+- **Spatial Scale**: Envelope/skin-depth modeling (no full PIC validation in this repository)  
+- **Transmission**: WKB graybody factors near horizons, conservative fallbacks elsewhere
+- **Detection**: Radiometer-style SNR with user-configurable T_sys and bandwidth
+- **Hybrid Mapping**: Phenomenological mirror→κ relation for comparative analysis
+
+## Limitations and Scope
+
+This is a **computational modeling framework** designed for comparative studies under controlled assumptions:
+
+- **No experimental validation**: PIC/fluid cross-validation is pending
+- **Phenomenological mapping**: Absolute calibration of hybrid coupling uncertain  
+- **Order-of-magnitude guidance**: Results are not definitive performance predictions
+- **Hardware considerations**: Real observatory geometry and noise may shift detectability
+
+**Intended use**: Structured comparative analysis within stated modeling assumptions, not extrapolation beyond scope.
+
+## Documentation
+
+- **`docs/Overview.md`**: Physics background and methodology
+- **`docs/Methods.md`**: Detailed computational approaches  
+- **`docs/Results.md`**: Example outputs and interpretation
+- **`docs/Limitations.md`**: Comprehensive scope discussion
+- **`TESTING_PLAN.md`**: Validation methodology and test coverage
 
 ## Citation
 
-If you use this computational framework in your research, please cite:
-
 ```bibtex
-Bown, Hunter. (2025). Analog Hawking Radiation: Gradient-Limited Horizon Formation
-and Radio-Band Detection Modeling (Version 0.1.0) [Computer software].
-https://github.com/hmbown/analog-hawking-radiation
+@software{bown2025analog,
+  author = {Bown, Hunter},
+  title = {Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling},
+  version = {0.1.0},
+  year = {2025},
+  url = {https://github.com/hmbown/analog-hawking-radiation}
+}
 ```
 
-Complete BibTeX citation information is available in `CITATION.cff`.
+## Development Roadmap
 
----
-
-## Next Steps for Development
-
-1. **Complete Validation Testing**: Continue systematic validation outlined in `TESTING_PLAN.md`. Document results and evidence for each validation category.
-
-2. **WarpX Integration**: Install/configure WarpX + pywarpx on target compute environment. Extend `scripts/run_trans_planckian_experiment.py` beyond mock mode for full PIC validation runs.
-
-3. **Secure Computational Resources**: Obtain multi-GPU allocation (≥8×H100/A100) and 10 TB fast storage capacity for Trans-Planckian regime validation campaigns.
-
-4. **Extended Parameter Studies**: Execute comprehensive parameter sweeps including envelope-matched geometry variations, magnetized horizon scans, and PIC/fluid cross-validation studies.
-
----
+1. **Enhanced Validation**: Complete systematic testing outlined in `TESTING_PLAN.md`
+2. **PIC Integration**: Full WarpX integration beyond current mock mode  
+3. **Extended Studies**: Comprehensive parameter sweeps and cross-validation
+4. **Hardware Modeling**: Realistic observatory geometry and noise pipelines
 
 ## References
 
-See `docs/REFERENCES.md` for primary literature in analog gravity, Hawking radiation, plasma physics, radiometry, and AnaBHEL context used to guide this framework.
+Key literature foundations:
+- **Analog Gravity**: Unruh (1981), Jacobson & Volovik (1998), Barceló et al. (2005)
+- **Plasma Horizons**: Shukla et al. (2011), Eliasson (2015)  
+- **AnaBHEL Framework**: Belgiorno et al. (2010), Faccio & Wright (2013)
+- **Detection Theory**: Thompson et al. (2017) - Radio Interferometry
+
+Complete bibliography available in `docs/REFERENCES.md`.
+
+---
 
 **Framework Version**: 0.1.0 | **License**: MIT | **Tests**: 26/26 passing | **Updated**: October 2025
