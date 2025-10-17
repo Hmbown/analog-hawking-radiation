@@ -1,12 +1,13 @@
-# Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling
+# Analog Hawking Radiation Simulator
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/tests-26%20passing-brightgreen.svg)](tests/)
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
-[![DOI](https://img.shields.io/badge/DOI-pending-lightgrey.svg)](https://zenodo.org)
 
 ![Workflow Pipeline](docs/img/workflow_diagram.png)
+
+A computational framework for modeling analog Hawking radiation in laser-plasma systems. Simulates sonic horizons in flowing plasmas and calculates quantum field theory spectra with novel hybrid fluid-plasma mirror coupling.
 
 ---
 
@@ -248,4 +249,4 @@ Complete BibTeX citation information is available in `CITATION.cff`.
 
 See `docs/REFERENCES.md` for primary literature in analog gravity, Hawking radiation, plasma physics, radiometry, and AnaBHEL context used to guide this framework.
 
-**Framework Version**: 0.1.0 | **Last Updated**: October 2025 | **Repository**: https://github.com/hmbown/analog-hawking-radiation
+**Framework Version**: 0.1.0 | **License**: MIT | **Tests**: 26/26 passing | **Updated**: October 2025
