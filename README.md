@@ -6,6 +6,29 @@
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
 [![DOI](https://img.shields.io/badge/DOI-pending-lightgrey.svg)](https://zenodo.org)
 
+## TL;DR
+
+- **What**: Simulates analog Hawking radiation with a new hybrid fluid + plasma-mirror coupling that enables ~16× faster time-to-5σ detection.
+- **Why**: Provides conservative, reproducible guidance for experimental parameter selection and detection feasibility.
+- **Run in 1 minute**:
+
+```bash
+pip install -e .
+python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
+cat results/full_pipeline_summary.json | grep -E "(hybrid_t5sigma|improvement)"
+```
+
+## Repository Map
+
+- `src/analog_hawking/` — core library (physics, detection)
+- `scripts/` — runnable analyses and figure generation
+- `tests/` — unit and integration tests
+- `docs/` — detailed narrative docs: see `docs/Overview.md`, `docs/Methods.md`, `docs/Results.md`, `docs/Validation.md`, `docs/Limitations.md`
+- `results/` — generated outputs (gitignored)
+- `figures/` — generated figures (gitignored)
+
+For details, see `docs/Overview.md`.
+
 ## Abstract
 
 This computational framework introduces a **hybrid fluid + plasma-mirror coupling method** that achieves dramatic improvements in analog Hawking radiation detection feasibility. By locally augmenting surface gravity near fluid horizons when mirror acceleration aligns and is proximal, the hybrid approach demonstrates **~16× faster time-to-5σ detection** compared to fluid-only methods under conservative, apples-to-apples conditions.

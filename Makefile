@@ -23,3 +23,11 @@ hybrid:
 clean-build:
 	rm -rf paper/build_arxiv
 	rm -f firebase-debug.log
+
+# Additional housekeeping (safe to run; does not touch sources)
+.PHONY: clean-results clean-figures
+clean-results:
+	rm -rf results
+
+clean-figures:
+	rm -rf figures

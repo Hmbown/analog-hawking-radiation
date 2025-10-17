@@ -23,10 +23,16 @@ All contributions should maintain rigorous scientific standards:
 ## Documentation Standards
 
 - Update documentation when adding new features or modifying existing functionality
-- Write clear, concise documentation following the Sphinx reStructuredText format
-- Include mathematical notation where appropriate using LaTeX
-- Provide examples and tutorials for new functionality
+- Use Markdown docs under `docs/` (no Sphinx). Keep sections concise and link to code when helpful
+- Include mathematical notation where appropriate using LaTeX inline blocks in Markdown
+- Provide small, runnable examples or reference `scripts/` entries
 - Ensure all public APIs are properly documented with docstrings
+
+## Pull Request Size & Tests
+
+- Prefer focused PRs (≤ ~400 lines changed) to ease review
+- Include unit tests for new functionality and update existing tests as needed
+- Run the full test suite locally before opening a PR: `pytest -q`
 
 ## Pull Request Process
 
