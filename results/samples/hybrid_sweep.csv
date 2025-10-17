@@ -1,0 +1,4 @@
+param,strength,metric
+coupling_strength,0.3,t5_ratio=2.1
+coupling_strength,0.5,t5_ratio=2.8
+alignment_gate,1.0,t5_ratio=2.4

@@ -8,14 +8,14 @@
 
 ## TL;DR
 
-- **What**: Simulates analog Hawking radiation with a new hybrid fluid + plasma-mirror coupling that enables ~16× faster time-to-5σ detection.
-- **Why**: Provides conservative, reproducible guidance for experimental parameter selection and detection feasibility.
-- **Run in 1 minute**:
+- **What**: A reproducible modeling toolkit for analog Hawking radiation in laser–plasma flows.
+- **Focus**: Horizon identification, spectra, and radio-band detectability. Includes an optional hybrid fluid–mirror coupling model to explore configuration space.
+- **Run a demo**:
 
 ```bash
 pip install -e .
 python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
-cat results/full_pipeline_summary.json | grep -E "(hybrid_t5sigma|improvement)"
+cat results/full_pipeline_summary.json | head -n 20
 ```
 
 ## Repository Map
@@ -29,11 +29,9 @@ cat results/full_pipeline_summary.json | grep -E "(hybrid_t5sigma|improvement)"
 
 For details, see `docs/Overview.md`.
 
-## Abstract
+## Overview
 
-This computational framework introduces a **hybrid fluid + plasma-mirror coupling method** that achieves dramatic improvements in analog Hawking radiation detection feasibility. By locally augmenting surface gravity near fluid horizons when mirror acceleration aligns and is proximal, the hybrid approach demonstrates **~16× faster time-to-5σ detection** compared to fluid-only methods under conservative, apples-to-apples conditions.
-
-The framework models analog Hawking radiation in laser-plasma systems through robust horizon detection, multi-beam configuration analysis, and radio-band detection feasibility assessment. Using power-conserving envelope-scale simulations and first-principles quantum field theory calculations, it provides experimentalists with quantitative guidance for parameter space exploration and realistic integration time estimates for radio/microwave detection.
+This project provides a physics-based simulation framework for analog Hawking radiation in laser–plasma systems. It models horizon formation, spectra, and radio-band detectability with reproducible workflows. An optional hybrid fluid–mirror coupling model is included to explore how local gradients near horizons might influence detectability under conservative assumptions.
 
 ## Quick Start
 
@@ -43,36 +41,31 @@ git clone https://github.com/hmbown/analog-hawking-radiation.git
 cd analog-hawking-radiation
 pip install -e .
 
-# Run hybrid pipeline (16× detection improvement)
+# Run with optional hybrid coupling model
 python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
 
 # Generate key comparison figures
 make hybrid
 
-# Check results
-cat results/full_pipeline_summary.json | grep -E "(hybrid_t5sigma|improvement)"
+# Inspect example outputs
+cat results/full_pipeline_summary.json | head -n 20
 ```
 
-**Expected output**: Hybrid t₅σ ≈ 1,400s (~23 min) vs Fluid-only t₅σ ≈ 22,500s (~6.2 hours)
+See `results/samples/` for small representative outputs.
 
 ---
 
-## Key Innovation: Hybrid Fluid + Plasma-Mirror Coupling
+## Modeling Options
 
-### The Breakthrough
-
-The hybrid method represents the primary methodological contribution of this framework. Unlike traditional fluid-only approaches, it combines:
+In addition to the baseline fluid modeling, the framework provides an optional hybrid coupling to explore alignment and proximity effects near detected horizons. Components include:
 
 1. **Standard fluid horizon detection** to identify sonic points where `|v(x)| = c_s(x)`
 2. **Accelerating plasma mirror dynamics** providing local surface gravity enhancement
 3. **Conservative coupling** with proximity decay and alignment gating to ensure physical realism
 
-### Quantitative Impact
+### Example Outputs
 
-**Demo Results** (apples-to-apples comparison):
-- **Fluid-only**: `t_5σ ≈ 2.25×10⁴ s` (~6.25 hours)
-- **Hybrid**: `t_5σ ≈ 1.41×10³ s` (~23.4 minutes)  
-- **Improvement**: **~16× faster** time-to-5σ detection
+Small representative files are provided in `results/samples/` and figures in `docs/img/`. Use `make hero-images` to regenerate curated visuals.
 
 ### Physical Mechanism
 

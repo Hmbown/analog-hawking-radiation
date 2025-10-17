@@ -1,0 +1,7 @@
+{
+  "hybrid_used": true,
+  "kappa_eff_s_inv": [1.2e12, 2.4e12],
+  "T_sig_K": 0.00012,
+  "t5sigma_s": 1400.0,
+  "notes": "Representative sample output (illustrative only). Values depend on configuration; see scripts/run_full_pipeline.py."
+}

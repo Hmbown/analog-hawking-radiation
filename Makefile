@@ -8,14 +8,16 @@ figures:
 	python3 scripts/sweep_phase_jitter.py
 	python3 scripts/sweep_shapes.py
 
-# Generate two curated figures for README and copy to docs/img
+# Generate three curated figures for README and copy to docs/img
 .PHONY: hero-images
 hero-images:
 	python3 scripts/compare_hybrid_apples_to_apples.py
 	python3 scripts/sweep_hybrid_params.py
+	python3 scripts/radio_snr_from_qft.py
 	mkdir -p docs/img
 	@if [ -f figures/hybrid_apples_to_apples.png ]; then cp -f figures/hybrid_apples_to_apples.png docs/img/; fi
 	@if [ -f figures/hybrid_t5_ratio_map.png ]; then cp -f figures/hybrid_t5_ratio_map.png docs/img/; fi
+	@if [ -f figures/radio_snr_from_qft.png ]; then cp -f figures/radio_snr_from_qft.png docs/img/; fi
 
 validate:
 	python3 scripts/script_validate_frequency_gating.py
