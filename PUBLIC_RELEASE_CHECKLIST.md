@@ -6,7 +6,7 @@ This checklist tracks repository readiness for public release with accurate info
 
 ### Git Remote Configuration
 - [x] Verify GitHub repository URL: `https://github.com/hmbown/analog-hawking-radiation.git`
-- [ ] Repository visibility: Ensure repository is set to Public on GitHub
+- [x] Repository visibility: Ensure repository is set to Public on GitHub
 - [x] Repository name consistency: Verified across all documentation
 
 ### Contact Information
@@ -82,8 +82,8 @@ This checklist tracks repository readiness for public release with accurate info
   - [x] README.md
 
 ### Release Preparation
-- [ ] Git tags: Create v0.1.0 tag (pending user decision)
-- [ ] Release notes: Prepare summary of features and limitations
+- [x] Git tags: Create v0.1.0 tag
+- [x] Release notes: Prepare summary of features and limitations
 - [ ] Issue templates: GitHub issue templates (optional)
 
 ## Security & Privacy
@@ -151,7 +151,7 @@ All critical issues resolved:
 
 ## Remaining Optional Tasks
 
-- [ ] Create GitHub release (v0.1.0)
+- [x] Create GitHub release (v0.1.0)
 - [ ] Write release notes highlighting key features
 - [ ] Set repository to Public on GitHub
 - [ ] Add GitHub issue templates
