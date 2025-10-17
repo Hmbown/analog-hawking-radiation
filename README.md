@@ -397,13 +397,13 @@ cat results/full_pipeline_summary.json | grep -E "(T_sig|t5sigma)"
 
 ### Sound Speed Profile Impact
 
-![Sound Speed Profile Impact](figures/cs_profile_impact.png)
+See curated images and how to regenerate them in `docs/IMAGES_OVERVIEW.md`.
 
 Position-dependent sound speed profiles (from laser heating) significantly shift horizon locations compared to constant `c_s` assumptions. This demonstrates the critical importance of realistic temperature profile modeling.
 
 ### Multi-Beam Enhancement Analysis
 
-**Power-Conserving Results** (`results/enhancement_stats.json`, `figures/enhancement_bar.png`):
+**Power-Conserving Results** (`results/enhancement_stats.json`; see `docs/IMAGES_OVERVIEW.md` for the figure list):
 - Single beam baseline: 1.0×
 - Small-angle crossings (10°): 1.18× enhancement
 - Most symmetric geometries: ~0.54–0.57× (reduction)
@@ -411,15 +411,13 @@ Position-dependent sound speed profiles (from laser heating) significantly shift
 
 **Key Finding**: Envelope-scale, power-conserving simulations yield modest gradient enhancements, far below naive N-beam scaling. Small-angle crossing geometries show the most promise.
 
-![Enhancement Bar Comparison](figures/enhancement_bar.png)
-
-![Delta-Matched Geometries](figures/match_delta_geometries.png)
+See `docs/IMAGES_OVERVIEW.md` for figure references.
 
 Density-dependent small-angle matching (Λ≈δ) shows optimal configurations for maximizing gradient enhancement.
 
 ### Phase Jitter Stability
 
-![Phase Jitter Stability](figures/phase_jitter_stability.png)
+See `docs/IMAGES_OVERVIEW.md` for figure references.
 
 Multi-beam configurations maintain stable gradient enhancements despite random phase fluctuations, validating practical feasibility of proposed geometries.
 
@@ -432,7 +430,7 @@ Multi-beam configurations maintain stable gradient enhancements despite random p
 
 ### Detection Feasibility Assessment
 
-![Radio SNR from QFT](figures/radio_snr_from_qft.png)
+See `docs/IMAGES_OVERVIEW.md` for figure references.
 
 Time-to-5σ detection heatmap derived from quantum field theory spectra. Integration times range from hours to thousands of hours depending on system temperature and bandwidth.
 
