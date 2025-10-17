@@ -20,7 +20,7 @@
     "kappa_surrogate_enhancement": NaN
   },
   "hexagon": {
-    "enhancement": 0.5454173199653266,
+    "enhancement": 0.5454173199653264,
     "kappa_surrogate_enhancement": NaN
   },
   "standing_wave": {
@@ -32,7 +32,7 @@
     "kappa_surrogate_enhancement": NaN
   },
   "ring_{'ring_N': 12}": {
-    "enhancement": 0.5443804203049883,
+    "enhancement": 0.5443804203049877,
     "kappa_surrogate_enhancement": NaN
   },
   "angled_crossing_{'angle_deg': 10.0}": {

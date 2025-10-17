@@ -47,7 +47,7 @@ def compute_metrics(freqs: np.ndarray, psd: np.ndarray, ref_psd: np.ndarray) -> 
     mask = (psd > 0) & (ref_psd > 0)
     if not np.any(mask):
         return {"l2_error": float("nan"), "max_ratio": float("nan")}
-    l2 = float(np.sqrt(np.trapz((psd[mask] - ref_psd[mask]) ** 2, x=freqs[mask])))
+    l2 = float(np.sqrt(np.trapezoid((psd[mask] - ref_psd[mask]) ** 2, x=freqs[mask])))
     ratio = float(np.max(psd[mask] / ref_psd[mask]))
     return {"l2_error": l2, "max_ratio": ratio}
 

@@ -22,7 +22,18 @@ from analog_hawking.detection.radio_snr import (
     equivalent_signal_temperature,
     sweep_time_for_5sigma,
 )
-from scipy.constants import hbar, k, pi
+from scipy.constants import hbar, k, pi, e, m_e, epsilon_0
+from analog_hawking.physics_engine.plasma_mirror import (
+    PlasmaMirrorParams,
+    calculate_plasma_mirror_dynamics,
+)
+from analog_hawking.physics_engine.horizon_hybrid import (
+    HybridHorizonParams,
+    find_hybrid_horizons,
+)
+from analog_hawking.detection.hybrid_spectrum import (
+    calculate_enhanced_hawking_spectrum,
+)
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -47,6 +58,11 @@ class FullPipelineSummary:
     T_H_K: Optional[float]
     t5sigma_TH_s: Optional[float]
     graybody_window_cells: int | None = None
+    hybrid_used: bool = False
+    hybrid_kappa_eff: float | None = None
+    hybrid_coupling_weight: float | None = None
+    hybrid_T_sig_K: float | None = None
+    hybrid_t5sigma_s: float | None = None
 
 
 def run_full_pipeline(
@@ -64,6 +80,10 @@ def run_full_pipeline(
     T_sys: float = 30.0,
     graybody_window_cells: Optional[int] = None,
     save_graybody_figure: bool = True,
+    enable_hybrid: bool = False,
+    hybrid_model: str = "anabhel",
+    mirror_D: float = 10e-6,
+    mirror_eta: float = 1.0,
 ) -> FullPipelineSummary:
     # 1) Configure backend
     grid = np.linspace(grid_min, grid_max, grid_points)
@@ -96,6 +116,11 @@ def run_full_pipeline(
     t5sigma = None
     T_H = None
     t5sigma_TH = None
+    hybrid_used = False
+    hybrid_kappa_eff = None
+    hybrid_coupling_weight = None
+    hybrid_T_sig = None
+    hybrid_t5 = None
 
     chosen_window_cells: Optional[int] = None
     if kappa:
@@ -193,6 +218,54 @@ def run_full_pipeline(
             t_grid_TH = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), float(T_H))
             t5sigma_TH = float(t_grid_TH[0, 0])
 
+        # Optional hybrid branch
+        if enable_hybrid:
+            try:
+                n_p0 = 1.0e24
+                omega_p0 = float(np.sqrt(e**2 * n_p0 / (epsilon_0 * m_e)))
+                from analog_hawking.physics_engine.plasma_mirror import PlasmaMirrorParams, calculate_plasma_mirror_dynamics
+                from analog_hawking.physics_engine.horizon_hybrid import HybridHorizonParams, find_hybrid_horizons
+                p = PlasmaMirrorParams(n_p0=n_p0, omega_p0=omega_p0, a=0.5, b=0.5, D=float(mirror_D), eta_a=float(mirror_eta), model=str(hybrid_model))
+                t_m = np.linspace(0.0, 100e-15, 401)
+                mirror = calculate_plasma_mirror_dynamics(state.grid, float(laser_intensity), p, t_m)
+                hh = find_hybrid_horizons(state.grid, state.velocity, state.sound_speed, mirror, HybridHorizonParams())
+                if hh.hybrid_kappa.size:
+                    j = int(np.argmax(hh.hybrid_kappa))
+                    hybrid_kappa_eff = float(hh.hybrid_kappa[j])
+                    hybrid_coupling_weight = float(hh.coupling_weight[j])
+                    k_fluid_ref = float(np.max(horizons.kappa)) if horizons.kappa.size else 0.0
+                    # Apples-to-apples: same graybody and normalization as fluid spectrum
+                    spec_h = calculate_enhanced_hawking_spectrum(
+                        k_fluid_ref,
+                        float(mirror.kappa_mirror),
+                        float(hybrid_coupling_weight),
+                        emitting_area_m2=1e-6,
+                        solid_angle_sr=5e-2,
+                        coupling_efficiency=0.1,
+                        graybody_profile=gray_profile if 'gray_profile' in locals() else None,
+                    )
+                    if spec_h.get("success"):
+                        freqs_h = np.asarray(spec_h["frequencies"])
+                        P_h = np.asarray(spec_h["power_spectrum"])
+                        # Apples-to-apples: integrate around the fluid's peak_frequency
+                        if peak_frequency is not None and P_h.size:
+                            inband_power_h = band_power_from_spectrum(freqs_h, P_h, float(peak_frequency), B_ref)
+                            if inband_power_h == 0.0:
+                                f_lo = float(peak_frequency) - 0.5 * B_ref
+                                f_hi = float(peak_frequency) + 0.5 * B_ref
+                                f_band = np.linspace(max(f_lo, float(freqs_h[0])), min(f_hi, float(freqs_h[-1])), 2001)
+                                if f_band[-1] > f_band[0]:
+                                    psd_band = np.interp(f_band, freqs_h, P_h)
+                                    inband_power_h = float(np.trapezoid(psd_band, x=f_band))
+                            T_sig_h = equivalent_signal_temperature(inband_power_h, B_ref)
+                            if T_sig_h > 0:
+                                t_grid_h = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig_h)
+                                hybrid_t5 = float(t_grid_h[0, 0])
+                                hybrid_T_sig = float(T_sig_h)
+                                hybrid_used = True
+            except Exception:
+                pass
+
     return FullPipelineSummary(
         plasma_density=plasma_density,
         laser_wavelength=laser_wavelength,
@@ -210,6 +283,11 @@ def run_full_pipeline(
         T_H_K=T_H,
         t5sigma_TH_s=t5sigma_TH,
         graybody_window_cells=chosen_window_cells,
+        hybrid_used=bool(hybrid_used),
+        hybrid_kappa_eff=hybrid_kappa_eff,
+        hybrid_coupling_weight=hybrid_coupling_weight,
+        hybrid_T_sig_K=hybrid_T_sig,
+        hybrid_t5sigma_s=hybrid_t5,
     )
 
 
@@ -219,6 +297,10 @@ def main() -> int:
     p.add_argument("--intensity", type=float, default=None)
     p.add_argument("--temperature", type=float, default=None)
     p.add_argument("--window-cells", type=int, default=None)
+    p.add_argument("--hybrid", action="store_true")
+    p.add_argument("--hybrid-model", type=str, choices=["unruh", "anabhel"], default="anabhel")
+    p.add_argument("--mirror-D", type=float, default=10e-6)
+    p.add_argument("--mirror-eta", type=float, default=1.0)
     args = p.parse_args()
 
     kwargs = {}
@@ -237,6 +319,11 @@ def main() -> int:
     if args.window_cells is not None:
         kwargs["graybody_window_cells"] = args.window_cells
 
+    if args.hybrid:
+        kwargs["enable_hybrid"] = True
+        kwargs["hybrid_model"] = args.hybrid_model
+        kwargs["mirror_D"] = args.mirror_D
+        kwargs["mirror_eta"] = args.mirror_eta
     summary = run_full_pipeline(**kwargs)
     os.makedirs("results", exist_ok=True)
     out_path = os.path.join("results", "full_pipeline_summary.json")

@@ -6,7 +6,7 @@ One paragraph summary: The repository implements a simulation toolkit for analog
 3 bullet highlights:
 - PASS: Core equations (T_H = ħ κ / (2π k_B), Planck's B_ν) correctly implemented with proper units.
 - UNCLEAR: Graybody fallback (~ω²/(ω²+κ²)) applied but not clearly proven exactly once; horizon detection logic seems sound but uncertainties not fully propagated in spectra.
-- NOTE: Past runtime issues (e.g., NumPy lacking ``np.trapezoid``) are mitigated by using the widely-supported ``np.trapz`` integrator in spectrum utilities; lingering import-path brittleness remains under review.
+- NOTE: Numerical integrations now use ``np.trapezoid`` (NumPy 2.x compatible) across scripts and utilities; lingering import-path brittleness remains under review.
 
 ## 2) Method trace (code → math → outputs)
 ### Spectrum normalization
@@ -29,8 +29,8 @@ One paragraph summary: The repository implements a simulation toolkit for analog
 - **Step name**: Radiometer integration.
 - **Files/functions/lines**: src/analog_hawking/detection/radio_snr.py:band_power_from_spectrum().
 - **What it does**: Integrates P_ν over B centered at ν_0 using trapezoid rule.
-- **Observations**: Correctly implements P_sig = ∫ P_ν dν; units W/Hz.
-- **Risks**: Compatibility risk resolved by switching to NumPy's ``trapz``; remaining concern is coverage of edge-case spectra.
+- **Observations**: Correctly implements P_ν = ∫ P_ν dν; units W/Hz.
+- **Risks**: Compatibility ensured via NumPy's ``trapezoid`` integrator; remaining concern is coverage of edge-case spectra.
 - **Confidence**: High (implementation and runtime verified post-fix).
 
 ### Frequency gating
@@ -103,7 +103,7 @@ Text promises sourced from code computations: peak frequencies, summaries comput
 - [medium] No seed/randomness control in simulations.
 - [medium] Plasma backend (fluid_backend.py) untested at runtime; may fail for invalid configs.
 - [low] Graybody falling to zero at low ω unverified; only tested when provided.
-- [critical] Radiometer strips from QFT units correctly but integration now uses the portable `np.trapz`; monitor for numerical edge cases.
+- [critical] Radiometer strips from QFT units correctly and integration now uses `np.trapezoid`; monitor for numerical edge cases.
 - [medium] Multi-stencil κ uncert estimated but not used in downstream T_H.
 - [low] Bandwidths for band_power_from_spectrum must fit within logspace frequencies or risk empty masks.
 

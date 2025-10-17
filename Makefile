@@ -12,4 +12,8 @@ validate:
 	python3 scripts/script_validate_frequency_gating.py
 
 enhancements:
-	python3 -c "from multi_mirror_configurations import calculate_multi_mirror_enhancement_factors as f; print(f())"
+	python3 -c "import sys; sys.path.insert(0, 'src'); sys.path.insert(0, 'scripts/archive_exploratory'); from multi_mirror_configurations import calculate_multi_mirror_enhancement_factors as f; print(f())"
+
+hybrid:
+	python3 scripts/compare_hybrid_apples_to_apples.py
+	python3 scripts/sweep_hybrid_params.py

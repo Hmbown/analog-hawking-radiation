@@ -9,8 +9,9 @@ Saves a bar chart with mean±std for each configuration.
 import numpy as np
 import matplotlib.pyplot as plt
 import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "src"))
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from physics_engine.multi_beam_superposition import simulate_gradient_enhancement
+from analog_hawking.physics_engine.multi_beam_superposition import simulate_gradient_enhancement
 
 
 def main():

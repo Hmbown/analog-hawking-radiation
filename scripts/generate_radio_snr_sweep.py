@@ -11,6 +11,7 @@ import matplotlib
 matplotlib.use('Agg')  # non-interactive backend for CI
 import matplotlib.pyplot as plt
 import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "src"))
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
 

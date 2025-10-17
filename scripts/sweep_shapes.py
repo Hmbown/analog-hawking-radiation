@@ -10,8 +10,9 @@ Outputs:
 import os, sys, json
 import numpy as np
 import matplotlib.pyplot as plt
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "src"))
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from physics_engine.multi_beam_superposition import simulate_gradient_enhancement
+from analog_hawking.physics_engine.multi_beam_superposition import simulate_gradient_enhancement
 
 
 def ensure_dirs():

@@ -14,7 +14,7 @@ setup(
     description="A computational framework for simulating analog Hawking radiation in laser-plasma systems",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Shannon-Labs/bayesian-analysis-hawking-radiation",
+    url="https://github.com/hmbown/analog-hawking-radiation",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     classifiers=[

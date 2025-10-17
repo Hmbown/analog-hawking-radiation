@@ -101,6 +101,20 @@ Unless otherwise noted, we use the following instrument and sweep parameters in 
 \end{tabular}
 \end{center}
 
+\subsection{Hybrid fluid + plasma-mirror coupling (optional)}
+In addition to the fluid-only framework, we implement an optional hybrid method that fuses fluid horizon detection with an accelerating plasma mirror. The mirror modifies local near-horizon conditions through alignment- and proximity-weighted coupling:
+\begin{equation}
+  \kappa_\mathrm{eff}(x_H) = \kappa_\mathrm{fluid}(x_H) + w(x_H)\,\kappa_\mathrm{mirror},\qquad
+  w(x_H) = s\,\exp\!\left(-\frac{|x_H - x_M|}{L}\right),
+\end{equation}
+where $s$ is a dimensionless coupling strength, $L$ a localization length, $x_M$ the mirror position, and the weight is set to zero when the sign of the local slope $\partial_x(|v|-c_s)$ is anti-aligned with the mirror acceleration. An effective temperature used for spectrum synthesis is
+\begin{equation}
+  T_\mathrm{eff} = T_f + w\,T_m + \alpha\,\sqrt{T_f T_m},
+\end{equation}
+with $\alpha$ a small cross-coupling coefficient. For the mirror, we provide two mappings (selectable in code): an Unruh-like $\kappa_\mathrm{mirror} \approx a_\mathrm{max}/c$, and an AnaBHEL-inspired profile mapping $\kappa_\mathrm{mirror} = 2\pi\,\eta_a/D$, where $D$ is a scale length and $\eta_a$ a dimensionless factor.
+
+For fair comparisons, the same near-horizon graybody transmission (WKB from $(x,v,c_s)$) and normalization (emitting area, solid angle, coupling efficiency) are applied to both fluid-only and hybrid spectra, and in-band power is integrated around the fluid peak frequency. In a representative demo, this conservative coupling reduces the radio time-to-$5\sigma$ detection by roughly an order of magnitude compared to fluid-only, under otherwise identical assumptions (see repository figures and README for reproduction commands).
+
 \section{Results}
 We present results organized by the feasibility-first framework outlined in Methods: attainability (formation frontier), transmittance (graybody refinement), robustness (uncertainty quantification), and detectability estimates.
 
