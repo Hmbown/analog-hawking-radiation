@@ -46,7 +46,7 @@ T_H = ħκ/(2πk_B)
 
 **⚠️ Note: This is a speculative, non-physical model for computational exploration**
 
-The framework explores a novel scenario where high-intensity laser pulses create **localized plasma mirrors** within an existing fluid flow:
+The framework explores a novel scenario where high-intensity laser pulses create **localized plasma mirrors** within an existing fluid flow, building on the **AnaBHEL (Analog Black Hole Evaporation via Lasers)** framework developed by Chen, Mourou, and collaborators:
 
 1. **Background Fluid**: A flowing medium (gas jet, liquid stream, or pre-existing plasma) with sonic horizon formation
 2. **Laser Ionization**: Ultra-intense laser pulses (>10¹⁸ W/m²) instantly ionize matter, creating dense electron clouds
@@ -61,6 +61,8 @@ w(x) = coupling_strength * exp(-|x - x_mirror|/L_coupling) * alignment_factor
 ```
 
 Where the laser essentially "paints" accelerating plasma mirrors onto the existing fluid background to enhance Hawking radiation signatures.
+
+**AnaBHEL Foundation**: This approach extends the plasma mirror concepts from Chen & Mourou (2015) and the AnaBHEL collaboration (Chen et al., 2022), but the hybrid fluid-mirror coupling represents a speculative extension beyond established theory.
 
 **Important**: This coupling mechanism lacks established theoretical foundation and should be considered a computational thought experiment rather than a physics prediction.
 
@@ -203,10 +205,16 @@ This is a **computational modeling framework** for exploring speculative physics
 ## References
 
 Key literature foundations:
-- **Analog Gravity**: Unruh (1981), Jacobson & Volovik (1998), Barceló et al. (2005)
-- **Plasma Horizons**: Shukla et al. (2011), Eliasson (2015)  
-- **AnaBHEL Framework**: Belgiorno et al. (2010), Faccio & Wright (2013)
-- **Detection Theory**: Thompson et al. (2017) - Radio Interferometry
+- **Foundational Theory**: Unruh (1981) - original analog Hawking radiation proposal; Hawking (1974, 1975) - black hole radiation
+- **AnaBHEL Framework**: Chen & Mourou (2015) - accelerating plasma mirrors; Chen et al. (2022) - AnaBHEL experimental concept
+- **Experimental Analog Gravity**: Steinhauer (2016) - first strong evidence; Faccio & Wright (2013) - laser-fluid bridges  
+- **Ultra-Intense Lasers**: Mourou et al. (2006) - Nobel laureate work enabling AnaBHEL technology
+
+**Key Research Groups**:
+- **LeCosPA (National Taiwan University)** - AnaBHEL theory development (P. Chen)
+- **IZEST (École Polytechnique)** - Ultra-high intensity lasers (G. Mourou)  
+- **Xtreme Light Group (University of Glasgow)** - Laser-based analog gravity (D. Faccio)
+- **Technion** - Experimental analog Hawking radiation (J. Steinhauer)
 
 Complete bibliography available in `docs/REFERENCES.md`.
 
