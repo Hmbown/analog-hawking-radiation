@@ -24,6 +24,52 @@ cat results/full_pipeline_summary.json | head -n 20
 
 ---
 
+<details>
+<summary><h2>Scope and Claims</h2></summary>
+
+- This repository is a reproducible modeling and analysis framework.
+- It explores a hybrid fluid + plasma “flying mirror” coupling under controlled assumptions.
+- Results are comparative and demo-focused, not experimental performance claims.
+- See `docs/Limitations.md` and the “Limitations and Uncertainties” section below for caveats.
+</details>
+
+<details>
+<summary><h2>Core Assumptions</h2></summary>
+
+- Profiles: envelope-/skin-depth–scale modeling; no full PIC validation in this repo.
+- Transmission: near-horizon WKB graybody when profiles exist; conservative fallback otherwise.
+- Detection model: radiometer-style SNR with user-configurable `T_sys` and bandwidth.
+- Hybrid mapping: phenomenological mirror→κ mapping (e.g., AnaBHEL), used for comparative analysis.
+</details>
+
+<details>
+<summary><h2>Reproducibility and What to Run</h2></summary>
+
+- Install: `pip install -e .`
+- Demo pipeline (fluid-only): `python scripts/run_full_pipeline.py --demo`
+- Demo with hybrid model: `python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0`
+- Outputs: `results/full_pipeline_summary.json` (inspect key fields: `kappa`, `T_sig_K`, `t5sigma_s`, flags for hybrid use)
+- README image: `make readme-images` generates only `docs/img/workflow_diagram.png`
+</details>
+
+<details>
+<summary><h2>Interpreting Outputs</h2></summary>
+
+- Horizon detection: presence and positions indicate modeled formation conditions.
+- κ and spectra: indicate trend-level changes under the stated assumptions.
+- Detection metrics: order-of-magnitude guidance; sensitive to `T_sys`, bandwidth, geometry.
+- Comparative use: compare settings within the same modeling assumptions; do not generalize beyond scope.
+</details>
+
+<details>
+<summary><h2>Limitations (Short)</h2></summary>
+
+- No end-to-end experimental validation here; PIC/fluid cross-validation pending.
+- Phenomenological hybrid mapping; absolute calibration uncertain.
+- Realistic hardware, geometry, and noise pipelines may shift detectability.
+- Use results as structured guidance, not definitive performance claims.
+</details>
+
 ## Repository Map
 
 - `src/analog_hawking/` — core library (physics, detection)
