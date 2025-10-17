@@ -179,3 +179,21 @@ src/**/.egg-info/
 # Logs
 *.log
 firebase-debug.log
+
+# === Repository meta/internal documentation (not for public) ===
+PUBLIC_RELEASE_CHECKLIST.md
+REPOSITORY_CLEANUP_SUMMARY.md
+ZENODO_DOI_GUIDE.md
+RELEASE_NOTES*.md
+docs/AUDIT_NOTES.md
+docs/Final_Answer.md
+docs/transformation_summary.md
+docs/IMAGES_README.md
+
+# Analysis notebooks and exploratory work
+analysis/
+*.ipynb
+
+# Generated images (keep only workflow diagram in docs/img/)
+docs/img/*.png
+!docs/img/workflow_diagram.png

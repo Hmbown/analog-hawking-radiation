@@ -31,7 +31,7 @@ cat results/full_pipeline_summary.json | head -n 20
 - `tests/` — unit and integration tests
 - `docs/` — detailed narrative docs: see `docs/Overview.md`, `docs/Methods.md`, `docs/Results.md`, `docs/Validation.md`, `docs/Limitations.md`
 - `results/` — generated outputs (gitignored; samples in `results/samples/`)
-- `figures/` — generated figures (gitignored; tracked versions in `docs/img/`)
+- `figures/` — generated figures (gitignored)
 
 For details, see `docs/Overview.md`.
 
@@ -195,17 +195,6 @@ Complete BibTeX citation information is available in `CITATION.cff`.
 3. **Secure Computational Resources**: Obtain multi-GPU allocation (≥8×H100/A100) and 10 TB fast storage capacity for Trans-Planckian regime validation campaigns.
 
 4. **Extended Parameter Studies**: Execute comprehensive parameter sweeps including envelope-matched geometry variations, magnetized horizon scans, and PIC/fluid cross-validation studies.
-
----
-
-- **Power-conserving** multi-beam envelope modeling
-- **26/26 tests passing** with full validation suite
-
-### 📊 Actionable Experimental Guidance
-- **Formation frontier mapping** identifying viable parameter regions
-- **Bayesian optimization** for parameter space exploration
-- **Radio detection feasibility** with realistic integration time estimates
-- **Multi-beam geometry analysis** showing optimal configurations
 
 ---
 
