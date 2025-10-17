@@ -185,13 +185,42 @@ This is a **computational modeling framework** for exploring speculative physics
 
 ## Citation
 
+If you use this computational framework in your research, please cite both this work and the foundational AnaBHEL research it builds upon:
+
+**This Framework**:
 ```bibtex
 @software{bown2025analog,
   author = {Bown, Hunter},
   title = {Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling},
   version = {0.1.0},
   year = {2025},
-  url = {https://github.com/hmbown/analog-hawking-radiation}
+  url = {https://github.com/hmbown/analog-hawking-radiation},
+  note = {Speculative extension of AnaBHEL concepts}
+}
+```
+
+**Foundational AnaBHEL Work**:
+```bibtex
+@article{chen2022anabhel,
+  title={AnaBHEL (Analog Black Hole Evaporation via Lasers) Experiment: Concept, Design, and Status},
+  author={Chen, Pisin and Mourou, Gerard and Besancon, Marc and Fukuda, Yasuhiko and Glicenstein, Jean-Fran{\c{c}}ois and others},
+  journal={Photonics},
+  volume={9},
+  number={12},
+  pages={1003},
+  year={2022},
+  publisher={MDPI}
+}
+
+@article{chen2015plasma,
+  title={Accelerating plasma mirrors to investigate the black hole information loss paradox},
+  author={Chen, Pisin and Mourou, Gerard},
+  journal={Physical Review Letters},
+  volume={118},
+  number={4},
+  pages={045001},
+  year={2015},
+  publisher={APS}
 }
 ```
 
