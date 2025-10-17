@@ -17,3 +17,9 @@ enhancements:
 hybrid:
 	python3 scripts/compare_hybrid_apples_to_apples.py
 	python3 scripts/sweep_hybrid_params.py
+
+# Clean build artifacts and logs (does not touch sources)
+.PHONY: clean-build
+clean-build:
+	rm -rf paper/build_arxiv
+	rm -f firebase-debug.log

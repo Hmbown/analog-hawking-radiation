@@ -3,7 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Paper bundle (keep ignored); track sources again
+# Paper build artifacts (keep ignored); track only sources
+paper/build_arxiv/
+paper/arxiv_package.zip
 arxiv_package.zip
 
 # C extensions

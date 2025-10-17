@@ -29,6 +29,11 @@ Systematic cleanup and organization of the analog-hawking-radiation repository c
 - Removed docs/archive/ (empty directory)
 - Total files removed: 14+ documentation files that added no value
 
+**Build Artifacts and External Copies**:
+- Added `.gitignore` rules for `paper/build_arxiv/` and `paper/arxiv_package.zip`
+- Removed external paper copies from repository root (`AnaBHEL_Analog_Black_Hole_Evaporation_via_Lasers_E.md`, `2e3e73de-bed2-41a2-b74b-a00678c80cd1.md`)
+- Note: `paper/build_arxiv/` binary outputs (PDF/PNG duplicates) are now ignored going forward; existing tracked binaries can be purged in a follow-up commit if desired
+
 **Script Organization**:
 - Moved scripts/experiments/ → scripts/archive_exploratory/ (7 experimental scripts)
 - Created comprehensive scripts/README.md documenting all 28+ scripts and their purposes

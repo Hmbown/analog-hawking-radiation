@@ -16,7 +16,7 @@ This repository draws on foundational literature in analog gravity, plasma physi
 
 ## Project-specific
 
-- Analog Black Hole Evaporation via Lasers (AnaBHEL). See project overview and white paper(s). For a quick conceptual summary and local notes, refer to `AnaBHEL_Analog_Black_Hole_Evaporation_via_Lasers_E.md` in the repository root.
+- Chen, P., Mourou, G., Besancon, M., Fukuda, Y., Glicenstein, J.-F., et al. (2022). AnaBHEL (Analog Black Hole Evaporation via Lasers) Experiment: Concept, Design, and Status. Photonics, 9(12), 1003. doi:10.3390/photonics9121003
 
 Notes:
 - The graybody fallback used in this codebase follows Page-type low-frequency suppression heuristics and is implemented as `\mathcal{T}(\omega) = \omega^2/(\omega^2 + \kappa^2)` in `quantum_field_theory.py` when a profile-derived transmission is not supplied.

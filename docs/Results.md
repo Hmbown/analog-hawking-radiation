@@ -28,7 +28,7 @@ Horizon Presence Sweep
 
 A comprehensive parameter sweep demonstrates the critical bottleneck in analog Hawking radiation experiments:
 
-* `figures/horizon_sweep_presence.png`: Presence/absence of horizons across (density, temperature) under a fixed intensity and realistic c_s = √(γ k T_e / m_i)
+* `figures/horizon_analysis_probability_map.png`: Presence/absence probability across (density, temperature) under a fixed intensity and realistic c_s = √(γ k T_e / m_i)
 
 This analysis emphasizes that horizon formation—not detection—remains the critical bottleneck for experimental success.
 
