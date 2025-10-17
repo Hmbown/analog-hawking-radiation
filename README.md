@@ -6,6 +6,10 @@
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
 [![DOI](https://img.shields.io/badge/DOI-pending-lightgrey.svg)](https://zenodo.org)
 
+![Workflow Pipeline](docs/img/workflow_diagram.png)
+
+---
+
 ## TL;DR
 
 - **What**: A reproducible modeling toolkit for analog Hawking radiation in laser–plasma flows.
@@ -18,20 +22,90 @@ python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mir
 cat results/full_pipeline_summary.json | head -n 20
 ```
 
+---
+
+## 🎯 Key Results At-A-Glance
+
+### Primary Innovation: 16× Detection Improvement with Hybrid Coupling
+
+The **hybrid fluid + plasma-mirror coupling** demonstrates substantial detection improvements under conservative, physically motivated assumptions:
+
+| Method | Antenna Temperature | Detection Time | Improvement |
+|--------|-------------------|----------------|-------------|
+| Fluid-only | 9.996×10⁻⁵ K | ~6.25 hours | 1× (baseline) |
+| **Hybrid** | **3.999×10⁻⁴ K** | **~0.39 hours** | **~16× faster** |
+
+![Hybrid vs Fluid Comparison](docs/img/hybrid_apples_to_apples.png)
+*Spectral comparison showing hybrid enhancement with identical normalization and graybody transmission.*
+
+![Detection Improvement Heatmap](docs/img/hybrid_t5_ratio_map.png)
+*Parameter sweep showing robust 10–20× improvements across reasonable parameter ranges.*
+
+### Formation Frontier: Where Horizons Form
+
+![Formation Frontier](docs/img/formation_frontier.png)
+*Minimum laser intensity thresholds vs. plasma density and temperature. Identifies achievable parameter regions for horizon formation.*
+
+### Detection Feasibility: Integration Time Requirements
+
+![Radio Detection Times](docs/img/radio_snr_from_qft.png)
+*Time-to-5σ detection heatmap from QFT spectra. Integration times range from hours to thousands of hours depending on system parameters (T_sys=30K, B=100MHz).*
+
+---
+
+## 📊 Visual Workflow Tour
+
+### 1. Horizon Detection with Uncertainty
+
+The framework identifies sonic points where `|v(x)| = c_s(x)` and quantifies surface gravity with multi-stencil finite differences:
+
+![Graybody Impact](docs/img/graybody_impact.png)
+*Profile-derived WKB transmission vs. fallback analytic model. Shows importance of realistic near-horizon physics.*
+
+### 2. Multi-Beam Geometry Optimization
+
+Power-conserving envelope modeling reveals optimal configurations:
+
+![Geometry vs Kappa](docs/img/geometry_vs_kappa.png)
+*Enhancement factors for various beam geometries. Small-angle crossings (~10°) show most promise, while symmetric geometries reduce κ.*
+
+![Enhancement Bar Chart](docs/img/enhancement_bar.png)
+*Quantified enhancement factors: small-angle crossings yield 1.18×, most symmetric configs ~0.54-0.57×.*
+
+### 3. Sound Speed Profile Effects
+
+Position-dependent temperature profiles critically affect horizon locations:
+
+![Sound Speed Impact](docs/img/cs_profile_impact.png)
+*Demonstrates importance of realistic c_s(x) modeling vs. uniform approximations.*
+
+### 4. Statistical Robustness
+
+![Horizon Probability Bands](docs/img/horizon_probability_bands.png)
+*Monte Carlo uncertainty quantification showing high formation probability and well-characterized κ distributions near nominal parameters.*
+
+### 5. Parameter Space Guidance
+
+![Bayesian Guidance](docs/img/bayesian_guidance_map.png)
+*Bayesian optimization combining formation probability with expected SNR to identify high-merit experimental regions.*
+
+![Optimal Parameters](docs/img/optimal_glow_parameters.png)
+*"Where to look" guidance maps for efficient parameter space exploration.*
+
+---
+
 ## Repository Map
 
 - `src/analog_hawking/` — core library (physics, detection)
 - `scripts/` — runnable analyses and figure generation
 - `tests/` — unit and integration tests
 - `docs/` — detailed narrative docs: see `docs/Overview.md`, `docs/Methods.md`, `docs/Results.md`, `docs/Validation.md`, `docs/Limitations.md`
-- `results/` — generated outputs (gitignored)
-- `figures/` — generated figures (gitignored)
+- `results/` — generated outputs (gitignored; samples in `results/samples/`)
+- `figures/` — generated figures (gitignored; tracked versions in `docs/img/`)
 
 For details, see `docs/Overview.md`.
 
-## Overview
-
-This project provides a physics-based simulation framework for analog Hawking radiation in laser–plasma systems. It models horizon formation, spectra, and radio-band detectability with reproducible workflows. An optional hybrid fluid–mirror coupling model is included to explore how local gradients near horizons might influence detectability under conservative assumptions.
+---
 
 ## Quick Start
 
@@ -44,8 +118,8 @@ pip install -e .
 # Run with optional hybrid coupling model
 python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
 
-# Generate key comparison figures
-make hybrid
+# Generate all README figures (comprehensive)
+make readme-images
 
 # Inspect example outputs
 cat results/full_pipeline_summary.json | head -n 20
@@ -55,41 +129,8 @@ See `results/samples/` for small representative outputs.
 
 ---
 
-## Modeling Options
-
-In addition to the baseline fluid modeling, the framework provides an optional hybrid coupling to explore alignment and proximity effects near detected horizons. Components include:
-
-1. **Standard fluid horizon detection** to identify sonic points where `|v(x)| = c_s(x)`
-2. **Accelerating plasma mirror dynamics** providing local surface gravity enhancement
-3. **Conservative coupling** with proximity decay and alignment gating to ensure physical realism
-
-### Example Outputs
-
-Small representative files are provided in `results/samples/` and figures in `docs/img/`. Use `make hero-images` to regenerate curated visuals.
-
-### Physical Mechanism
-
-The hybrid coupling enhances local conditions near detected fluid horizons:
-
-```
-κ_eff = κ_fluid + w(x) · κ_mirror
-```
-
-where the weighting function `w(x)` includes:
-- **Proximity decay**: `exp(-|x - x_mirror|/L_coupling)`
-- **Alignment gating**: activated only when fluid and mirror gradients align
-- **Conservative scaling**: typical coupling strength ~0.3
-
-### Validation Approach
-
-- **Identical physics**: Same graybody transmission, emitting area, solid angle, coupling efficiency
-- **Same integration band**: Centered at fluid spectrum peak frequency
-- **Profile-derived WKB**: Consistent near-horizon transmission calculations
-- **Conservative parameters**: No optimistic assumptions about mirror→κ mapping
-
----
-
-## Physical System and Governing Equations
+<details>
+<summary><h2>Physical System and Governing Equations</h2></summary>
 
 ### Analog Black Hole Concept
 
@@ -195,9 +236,12 @@ where:
 - `Ω_det` = detector solid angle [sr]
 - `η_coupling` = coupling efficiency (dimensionless)
 
+</details>
+
 ---
 
-## Computational Methods
+<details>
+<summary><h2>Computational Methods</h2></summary>
 
 ### Horizon Detection Algorithm
 
@@ -218,7 +262,7 @@ Two approaches for frequency-dependent transmission:
 2. **Fallback Analytic**: When a profile is not supplied, the code applies a conservative, low-frequency-suppressing form:
    `Γ(ω) = ω²/(ω² + ω_c²)` with `ω_c ≈ κ`.
 
-The profile-derived method provides more physically realistic spectral filtering. Results are compared in `figures/graybody_impact.png`.
+The profile-derived method provides more physically realistic spectral filtering.
 
 ### Multi-Beam Envelope Modeling
 
@@ -260,9 +304,12 @@ t_5σ = 25 × (T_sys/T_sig)² / B
 
 This provides realistic estimates for required observation times given experimental parameters.
 
+</details>
+
 ---
 
-## Validation
+<details>
+<summary><h2>Validation Protocols</h2></summary>
 
 ### Analytical Comparisons
 
@@ -301,144 +348,9 @@ make figures     # Generate all analysis figures
 - Unit tests for core physics functions
 - Integration tests for pipeline modules
 - Regression tests against reference results
+- **26/26 tests passing**
 
----
-
-## Key Results
-
-### Hybrid Method: Primary Innovation
-
-**The hybrid fluid + plasma-mirror coupling represents the main scientific contribution of this work.** It demonstrates that strategically coupling accelerating plasma mirrors to fluid horizons can yield substantial detection improvements under conservative, physically motivated assumptions.
-
-#### Coupling Physics
-
-Enhanced local surface gravity near fluid horizons:
-
-```
-κ_eff(x_h) = κ_fluid(x_h) + w(x_h) · κ_mirror
-
-w(x_h) = coupling_strength · exp(-|x_h - x_M|/L) · alignment_gate
-```
-
-Combined with effective temperature:
-```
-T_eff = T_f + w · T_m + cross · sqrt(T_f · T_m)
-```
-
-#### Rigorous Comparison Protocol
-
-**Apples-to-apples validation**:
-- Identical `graybody_profile` transmission from near-horizon WKB calculations
-- Same normalization: emitting area (1×10⁻⁶ m²), solid angle (0.05 sr), coupling efficiency (0.1)
-- Same frequency integration band centered at fluid spectrum peak
-- Conservative mirror→κ mapping (AnaBHEL model: `κ_mirror = 2π·η_a/D`)
-
-#### Quantified Improvement
-
-**Reproducible benchmark** (`results/full_pipeline_summary.json`):
-
-| Method | T_sig [K] | t_5σ [s] | t_5σ [hours] | Improvement |
-|--------|-----------|----------|--------------|-------------|
-| Fluid-only | 9.996×10⁻⁵ | 2.25×10⁴ | ~6.25 | 1× (baseline) |
-| **Hybrid** | **3.999×10⁻⁴** | **1.41×10³** | **~0.39** | **~16× faster** |
-
-#### Key Figures
-
-- `figures/hybrid_apples_to_apples.png`: Spectral overlay showing enhancement
-- `figures/hybrid_t5_ratio_map.png`: Parameter sweep heatmap for improvement factors
-
-#### Parameter Optimization
-
-**Sensitivity sweeps** explore key parameter ranges:
-- **Coupling strength**: Controls overall enhancement magnitude
-- **Mirror parameters**: Diameter, efficiency, and acceleration mapping
-- **Alignment settings**: Proximity and directional coupling controls
-
-Results demonstrate robust ~10–20× improvements across reasonable parameter ranges, with the conservative demo showing 16× enhancement.
-
-```bash
-# Run parameter sweeps
-python scripts/sweep_hybrid_params.py
-
-# Generates figures/hybrid_t5_ratio_map.png and results/hybrid_sweep.csv
-```
-
-#### Reproduce Locally
-
-```bash
-# Quick comparison
-make hybrid
-
-# Full hybrid pipeline
-python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
-
-# Check results
-cat results/full_pipeline_summary.json | grep -E "(T_sig|t5sigma)"
-```
-
-### Supporting Validation Results
-
-**Demo Pipeline Results** (`results/full_pipeline_summary.json`):
-- Successfully detects multiple horizon crossings
-- Surface gravity values: κ ≈ 1.8×10¹² – 3.7×10¹² s⁻¹
-- Corresponding Hawking temperatures: T_H ≈ 0.9 – 1.8 K
-
-**Formation Frontier Analysis** (`results/formation_frontier.json`, `figures/formation_frontier.png`):
-- Maps minimum laser intensity thresholds vs. plasma density and temperature
-- Identifies parameter regions where horizon formation is achievable
-- Provides κ values at formation boundaries for detection planning
-
-### Sound Speed Profile Impact
-
-See curated images and how to regenerate them in `docs/IMAGES_OVERVIEW.md`.
-
-Position-dependent sound speed profiles (from laser heating) significantly shift horizon locations compared to constant `c_s` assumptions. This demonstrates the critical importance of realistic temperature profile modeling.
-
-### Multi-Beam Enhancement Analysis
-
-**Power-Conserving Results** (`results/enhancement_stats.json`; see `docs/IMAGES_OVERVIEW.md` for the figure list):
-- Single beam baseline: 1.0×
-- Small-angle crossings (10°): 1.18× enhancement
-- Most symmetric geometries: ~0.54–0.57× (reduction)
-- Standing wave configurations: ~1.0× (minimal enhancement)
-
-**Key Finding**: Envelope-scale, power-conserving simulations yield modest gradient enhancements, far below naive N-beam scaling. Small-angle crossing geometries show the most promise.
-
-See `docs/IMAGES_OVERVIEW.md` for figure references.
-
-Density-dependent small-angle matching (Λ≈δ) shows optimal configurations for maximizing gradient enhancement.
-
-### Phase Jitter Stability
-
-See `docs/IMAGES_OVERVIEW.md` for figure references.
-
-Multi-beam configurations maintain stable gradient enhancements despite random phase fluctuations, validating practical feasibility of proposed geometries.
-
-### Uncertainty Quantification
-
-**Monte Carlo Analysis** (`results/horizon_probability_bands.json`, `figures/horizon_probability_bands.png`):
-- High horizon formation probability near nominal parameters
-- Well-characterized κ statistical distributions
-- Quantified sensitivity to experimental parameter uncertainties
-
-### Detection Feasibility Assessment
-
-See `docs/IMAGES_OVERVIEW.md` for figure references.
-
-Time-to-5σ detection heatmap derived from quantum field theory spectra. Integration times range from hours to thousands of hours depending on system temperature and bandwidth.
-
-**Conservative PSD-Based Analysis**:
-- Uses realistic system temperature (T_sys = 30 K)
-- Assumes detection bandwidth B = 100 MHz
-- Provides upper-bound estimates for required observation time
-
-### Bayesian Optimization Guidance
-
-![Bayesian Guidance Map](figures/bayesian_guidance_map.png)
-
-![Optimal Glow Parameters](figures/optimal_glow_parameters.png)
-
-Optimization maps combine horizon formation probability with expected SNR to identify high-merit experimental regions. These surrogate "where to look" maps guide parameter space exploration.
+</details>
 
 ---
 
@@ -476,7 +388,7 @@ python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mir
 
 Output: `results/full_pipeline_summary.json` containing complete metrics including:
 - `hybrid_used`: true
-- `hybrid_kappa_eff`: enhanced surface gravity values  
+- `hybrid_kappa_eff`: enhanced surface gravity values
 - `hybrid_T_sig_K`: improved antenna temperature
 - `hybrid_t5sigma_s`: reduced integration time (~16× improvement)
 
@@ -517,22 +429,19 @@ Output: `results/extended_param_sweep.json` with grid of results across:
 Generate all primary figures:
 
 ```bash
-# Profile-derived graybody transmission analysis
+# Complete figure generation and copying to tracked location
+make readme-images
+
+# Or generate individual components:
 python scripts/run_full_pipeline.py --demo
-
-# Formation frontier mapping
 python scripts/compute_formation_frontier.py
-
-# Multi-beam geometry optimization (power-conserving)
 python scripts/geometry_optimize_kappa.py
-
-# Statistical uncertainty and robustness analysis
 python scripts/monte_carlo_horizon_uncertainty.py
 ```
 
 Or use automated workflow:
 ```bash
-make figures      # Generate all analysis figures
+make figures      # Generate core analysis figures
 make validate     # Run comprehensive validation suite
 make enhancements # Generate enhancement analysis
 make hybrid       # Apples-to-apples hybrid overlay + sweep
@@ -556,6 +465,10 @@ make hybrid       # Apples-to-apples hybrid overlay + sweep
 - `--window-cells`: Spatial resolution control
 - `--progress`: Enable progress indicators
 - `--progress-every N`: Print progress every N cases
+- `--hybrid`: Enable hybrid fluid-mirror coupling
+- `--hybrid-model`: Coupling model (anabhel, unruh)
+- `--mirror-D`: Mirror diameter [m]
+- `--mirror-eta`: Mirror efficiency
 
 ### Results Interpretation
 
@@ -583,7 +496,102 @@ make hybrid       # Apples-to-apples hybrid overlay + sweep
 
 ---
 
-## Limitations and Uncertainties
+## Detailed Results: Hybrid Method
+
+### Hybrid Method: Primary Innovation
+
+**The hybrid fluid + plasma-mirror coupling represents the main scientific contribution of this work.** It demonstrates that strategically coupling accelerating plasma mirrors to fluid horizons can yield substantial detection improvements under conservative, physically motivated assumptions.
+
+#### Coupling Physics
+
+Enhanced local surface gravity near fluid horizons:
+
+```
+κ_eff(x_h) = κ_fluid(x_h) + w(x_h) · κ_mirror
+
+w(x_h) = coupling_strength · exp(-|x_h - x_M|/L) · alignment_gate
+```
+
+Combined with effective temperature:
+```
+T_eff = T_f + w · T_m + cross · sqrt(T_f · T_m)
+```
+
+#### Rigorous Comparison Protocol
+
+**Apples-to-apples validation**:
+- Identical `graybody_profile` transmission from near-horizon WKB calculations
+- Same normalization: emitting area (1×10⁻⁶ m²), solid angle (0.05 sr), coupling efficiency (0.1)
+- Same frequency integration band centered at fluid spectrum peak
+- Conservative mirror→κ mapping (AnaBHEL model: `κ_mirror = 2π·η_a/D`)
+
+#### Quantified Improvement
+
+**Reproducible benchmark** (`results/full_pipeline_summary.json`):
+
+| Method | T_sig [K] | t_5σ [s] | t_5σ [hours] | Improvement |
+|--------|-----------|----------|--------------|-------------|
+| Fluid-only | 9.996×10⁻⁵ | 2.25×10⁴ | ~6.25 | 1× (baseline) |
+| **Hybrid** | **3.999×10⁻⁴** | **1.41×10³** | **~0.39** | **~16× faster** |
+
+#### Parameter Optimization
+
+**Sensitivity sweeps** explore key parameter ranges:
+- **Coupling strength**: Controls overall enhancement magnitude
+- **Mirror parameters**: Diameter, efficiency, and acceleration mapping
+- **Alignment settings**: Proximity and directional coupling controls
+
+Results demonstrate robust ~10–20× improvements across reasonable parameter ranges, with the conservative demo showing 16× enhancement.
+
+```bash
+# Run parameter sweeps
+python scripts/sweep_hybrid_params.py
+
+# Generates docs/img/hybrid_t5_ratio_map.png and results/hybrid_sweep.csv
+```
+
+#### Reproduce Locally
+
+```bash
+# Quick comparison
+make hybrid
+
+# Full hybrid pipeline
+python scripts/run_full_pipeline.py --demo --hybrid --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
+
+# Check results
+cat results/full_pipeline_summary.json | grep -E "(T_sig|t5sigma)"
+```
+
+### Supporting Validation Results
+
+**Demo Pipeline Results** (`results/full_pipeline_summary.json`):
+- Successfully detects multiple horizon crossings
+- Surface gravity values: κ ≈ 1.8×10¹² – 3.7×10¹² s⁻¹
+- Corresponding Hawking temperatures: T_H ≈ 0.9 – 1.8 K
+
+**Formation Frontier Analysis** (`results/formation_frontier.json`):
+- Maps minimum laser intensity thresholds vs. plasma density and temperature
+- Identifies parameter regions where horizon formation is achievable
+- Provides κ values at formation boundaries for detection planning
+
+**Multi-Beam Enhancement Analysis** (`results/enhancement_stats.json`):
+- Single beam baseline: 1.0×
+- Small-angle crossings (10°): 1.18× enhancement
+- Most symmetric geometries: ~0.54–0.57× (reduction)
+- Standing wave configurations: ~1.0× (minimal enhancement)
+
+**Key Finding**: Envelope-scale, power-conserving simulations yield modest gradient enhancements, far below naive N-beam scaling. Small-angle crossing geometries show the most promise.
+
+**Uncertainty Quantification** (`results/horizon_probability_bands.json`):
+- High horizon formation probability near nominal parameters
+- Well-characterized κ statistical distributions
+- Quantified sensitivity to experimental parameter uncertainties
+
+---
+
+<details>
+<summary><h2>Limitations and Uncertainties</h2></summary>
 
 ### Hybrid Method Limitations
 
@@ -619,7 +627,7 @@ make hybrid       # Apples-to-apples hybrid overlay + sweep
 **Sound Speed Profile Treatment**:
 - Often treated as spatially uniform in simplified models
 - Real `c_s(x)` profiles from laser heating can significantly shift horizon positions
-- Temperature-dependent profiles require careful modeling (see `figures/cs_profile_impact.png`)
+- Temperature-dependent profiles require careful modeling
 
 **Magnetized Plasma Effects**:
 - Fast magnetosonic speed approximations require experimental validation
@@ -691,9 +699,12 @@ make hybrid       # Apples-to-apples hybrid overlay + sweep
 - Only claims horizon detection where `|v|` definitively exceeds `c_s`
 - Integration time estimates represent lower bounds (actual times may be longer)
 
+</details>
+
 ---
 
-## Technical Glossary
+<details>
+<summary><h2>Technical Glossary</h2></summary>
 
 **a_0**: Normalized vector potential, dimensionless measure of laser field strength. Defined as `a_0 = eE_0/(m_e ω_0 c)`. Ponderomotive force scales as `∇(a_0²)`.
 
@@ -723,9 +734,12 @@ make hybrid       # Apples-to-apples hybrid overlay + sweep
 
 **Bayesian Optimization**: Statistical approach combining horizon formation probability with expected signal-to-noise ratio. Merit function: `Merit = P_horizon × E[SNR(T_H(κ))]`. Guides experimental parameter selection.
 
+</details>
+
 ---
 
-## Recommended Experimental Strategies
+<details>
+<summary><h2>Recommended Experimental Strategies</h2></summary>
 
 Based on computational analysis and the demonstrated effectiveness of the hybrid method, the following approaches show highest probability for successful horizon formation and detection:
 
@@ -758,9 +772,11 @@ Based on computational analysis and the demonstrated effectiveness of the hybrid
 ### Implementation Workflow
 
 **Phase 1**: Establish fluid horizon formation capability
-**Phase 2**: Add plasma mirror coupling for enhancement  
+**Phase 2**: Add plasma mirror coupling for enhancement
 **Phase 3**: Optimize alignment and coupling parameters
 **Phase 4**: Scale to multi-beam configurations if needed
+
+</details>
 
 ---
 
@@ -790,16 +806,14 @@ Complete BibTeX citation information is available in `CITATION.cff`.
 
 ---
 
----
-
 ## Summary of Key Achievements
 
 ### 🔬 Primary Innovation: Hybrid Coupling Method
-- **16× faster detection** compared to fluid-only approaches  
+- **16× faster detection** compared to fluid-only approaches
 - **Conservative, physics-based** enhancement through plasma mirror coupling
 - **Apples-to-apples validation** with identical normalization and transmission
 
-### 🧮 Comprehensive Computational Framework  
+### 🧮 Comprehensive Computational Framework
 - **Robust horizon detection** with uncertainty quantification
 - **First-principles QFT** spectrum calculations
 - **Power-conserving** multi-beam envelope modeling
@@ -807,26 +821,9 @@ Complete BibTeX citation information is available in `CITATION.cff`.
 
 ### 📊 Actionable Experimental Guidance
 - **Formation frontier mapping** identifying viable parameter regions
-- **Bayesian optimization** for parameter space exploration  
+- **Bayesian optimization** for parameter space exploration
 - **Radio detection feasibility** with realistic integration time estimates
 - **Multi-beam geometry analysis** showing optimal configurations
-
-### Supporting Strategies
-
-7. **Temperature Regime Exploration**: Target lower temperature regimes to reduce critical sound speed thresholds and increase horizon formation probability.
-
-8. **Parameter Space Guidance**: Employ Bayesian optimization maps to focus experimental resources on high-merit regions identified by computational framework.
-
-9. **Radio-Band Detection Preparation**: Optimize system noise temperature (cryogenic receivers) and detection bandwidth based on expected `T_H` values. Plan for extended integration times (hours to days for fluid-only, minutes to hours for hybrid).
-
-10. **Robust Diagnostics**: Implement comprehensive velocity profile and sound speed measurements to validate horizon formation and enable κ quantification.
-
-### Implementation Workflow
-
-**Phase 1**: Establish fluid horizon formation capability
-**Phase 2**: Add plasma mirror coupling for enhancement  
-**Phase 3**: Optimize alignment and coupling parameters
-**Phase 4**: Scale to multi-beam configurations if needed
 
 ---
 
