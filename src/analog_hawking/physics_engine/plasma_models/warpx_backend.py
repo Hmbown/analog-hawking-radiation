@@ -52,12 +52,20 @@ def _create_getter(cfg: Mapping[str, Any], is_mock: bool = False, mock_size: int
                 return lambda: np.random.rand(mock_size)
 
     elif getter_type == "openpmd":
-        # Placeholder for openPMD implementation
+        # Minimal HDF5/openPMD reader for reduced diagnostics
         path = cfg.get("path")
         dataset = cfg.get("dataset")
         if not path or not dataset:
             raise ValueError("openpmd getter requires 'path' and 'dataset'")
-        return lambda: np.array([])  # Placeholder for openPMD read
+        def _read():
+            try:
+                import h5py  # type: ignore
+            except Exception as exc:  # pragma: no cover - optional dependency
+                raise RuntimeError("h5py is required for openPMD reading") from exc
+            with h5py.File(path, 'r') as f:  # type: ignore[arg-type]
+                dset = f[dataset]
+                return np.array(dset)
+        return _read
 
     raise ValueError(f"Unknown or underspecified getter config: {cfg}")
 
@@ -138,6 +146,16 @@ class WarpXBackend(PlasmaBackend):
             velocity = self._call_moment_getter(self._electron_species or "electrons", "bulk_velocity")
             sound_speed = self._call_moment_getter(self._electron_species or "electrons", "sound_speed")
 
+            # Also honor configured field/moment getters to populate observables
+            observables = {}
+            for name, getter in self._field_getters.items():
+                observables[name] = getter()
+            for species, moments in self._moment_getters.items():
+                for moment, getter in moments.items():
+                    observables[f"{species}_{moment}"] = getter()
+            self._raw_observables.update(observables)
+            self._sink.emit("step_observables", observables)
+
             return PlasmaState(
                 density=density,
                 velocity=velocity,
@@ -145,7 +163,7 @@ class WarpXBackend(PlasmaBackend):
                 electric_field=self._extract_field("Ex"),
                 magnetic_field=self._extract_field("Bx"),
                 grid=self._grid,
-                observables={},
+                observables=observables,
             )
 
         libwarpx.warpx.step(1)
@@ -308,5 +326,3 @@ class WarpXBackend(PlasmaBackend):
 
     def attach_fluctuation_injector(self, injector) -> None:
         self._fluctuation_injector = injector
-
-

@@ -60,7 +60,7 @@ def calculate_enhanced_hawking_spectrum(kappa_fluid: float,
             x = np.asarray(graybody_profile["x"])  # type: ignore[index]
             v = np.asarray(graybody_profile["v"])  # type: ignore[index]
             c_s = np.asarray(graybody_profile["c_s"])  # type: ignore[index]
-            gb = compute_graybody(x, v, c_s, freqs)
+            gb = compute_graybody(x, v, c_s, freqs, method="dimensionless", kappa=max(k_f, 1e-30))
             transmission = gb.transmission
 
         psd = qft.hawking_spectrum(omega, transmission=transmission)

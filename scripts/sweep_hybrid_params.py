@@ -84,7 +84,7 @@ def compute_baseline(plasma_density=5e17, laser_wavelength=800e-9, laser_intensi
         fb = np.clip(fb, float(freqs_f[0]), float(freqs_f[-1]))
         if fb[-1] > fb[0]:
             psd_band = np.interp(fb, freqs_f, P_f)
-            inband_power_f = float(np.trapezoid(psd_band, x=fb))
+            inband_power_f = float(np.trapz(psd_band, x=fb))
     T_sig_f = equivalent_signal_temperature(inband_power_f, 1e8)
     t_f = float(sweep_time_for_5sigma(np.array([30.0]), np.array([1e8]), T_sig_f)[0,0]) if T_sig_f > 0 else float("inf")
 
@@ -142,7 +142,7 @@ def main() -> int:
                     fb = np.clip(fb, float(freqs_h[0]), float(freqs_h[-1]))
                     if fb[-1] > fb[0]:
                         psd_band = np.interp(fb, freqs_h, P_h)
-                        inband_power_h = float(np.trapezoid(psd_band, x=fb))
+                        inband_power_h = float(np.trapz(psd_band, x=fb))
                 T_sig_h = equivalent_signal_temperature(inband_power_h, 1e8)
                 t_h = float(sweep_time_for_5sigma(np.array([30.0]), np.array([1e8]), T_sig_h)[0,0]) if T_sig_h > 0 else float("inf")
                 ratio = t_f / max(t_h, 1e-30)

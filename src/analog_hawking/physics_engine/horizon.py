@@ -3,8 +3,12 @@ Horizon finding utilities for analog Hawking radiation in 1D profiles.
 
 Provides:
 - sound_speed(T_e, ion_mass=m_p, gamma=5/3)
-- find_horizons_with_uncertainty(x, v, c_s): robust root finding on f(x)=|v|-c_s
-  with simple numerical uncertainty estimates from multi-scale finite differences.
+- find_horizons_with_uncertainty(x, v, c_s, kappa_method): robust root finding on
+  f(x)=|v|-c_s with simple numerical uncertainty estimates from multi-scale
+  finite differences. Supports two surface gravity definitions via
+  ``kappa_method``:
+  - ``"acoustic"`` (default): κ ≈ |∂x(c_s − |v|)| evaluated at the horizon
+  - ``"legacy"``:         κ = 0.5·|∂x(|v| − c_s)| (previous default)
 
 Notes on uncertainty: the returned uncertainty on the surface gravity (kappa) is a
 numerical estimate from varying the finite-difference stencil (grid sensitivity),
@@ -50,8 +54,10 @@ class HorizonResult:
     positions: np.ndarray        # horizon x-positions
     kappa: np.ndarray            # surface gravity estimates at horizons (s^-1)
     kappa_err: np.ndarray        # numerical (grid) uncertainty estimates
-    dvdx: np.ndarray             # dv/dx at horizon
-    dcsdx: np.ndarray            # dc_s/dx at horizon
+    dvdx: np.ndarray             # dv/dx at horizon (grid-centered)
+    dcsdx: np.ndarray            # dc_s/dx at horizon (grid-centered)
+    c_h: np.ndarray | None = None            # horizon-side sound speed c_H (interpolated at root)
+    d_c2_minus_v2_dx: np.ndarray | None = None  # derivative of (c_s^2 - v^2) at horizon
 
 
 def _refine_root(xl, xr, fl, fr, f, max_iter=20):
@@ -81,11 +87,16 @@ def _finite_grad(x, y, idx, stencil=1):
 def find_horizons_with_uncertainty(x: np.ndarray,
                                     v: np.ndarray,
                                     c_s: np.ndarray,
-                                    sigma_cells: Optional[np.ndarray] = None) -> HorizonResult:
+                                    sigma_cells: Optional[np.ndarray] = None,
+                                    kappa_method: str = "acoustic") -> HorizonResult:
     """
     Find positions where |v| = c_s using sign changes in f(x)=|v|-c_s.
-    Return kappa = 0.5*|d/dx(|v|-c_s)| at horizon with simple uncertainty from
-    multiple finite-difference stencils.
+    Return surface gravity at each horizon with simple numerical uncertainty
+    from multiple finite-difference stencils. The definition of κ is selected
+    by ``kappa_method``:
+      - "acoustic" (default): κ ≈ |∂x(c_s − |v|)| at the root (v≈±c_s)
+      - "acoustic_exact": κ = |∂x(c_s^2 − v^2)| / (2 c_H) evaluated at the horizon
+      - "legacy": κ = 0.5·|∂x(|v| − c_s)| (backward compatible)
     """
     x = np.asarray(x)
     v = np.asarray(v)
@@ -138,8 +149,23 @@ def find_horizons_with_uncertainty(x: np.ndarray,
         for st in (1, 2, 3):
             dv = _finite_grad(x, v, idx, stencil=st)
             dcs = _finite_grad(x, c_s, idx, stencil=st)
-            df = np.sign(v[idx]) * dv if v[idx] != 0 else abs(dv)  # d|v|/dx at root
-            grads.append(0.5 * abs(df - dcs))
+            # Derivative of |v| at the horizon
+            d_abs_v = np.sign(v[idx]) * dv if v[idx] != 0 else abs(dv)
+            method = kappa_method.lower()
+            if method == "legacy":
+                # Historical definition used in earlier versions
+                grads.append(0.5 * abs(d_abs_v - dcs))
+            elif method == "acoustic_exact":
+                # Exact acoustic form: κ = |∂x(c_s^2 − v^2)| / (2 c_H)
+                # Using grid-centered derivatives and c_H interpolated at root
+                cH = float(np.interp(r, x, c_s))
+                # ∂x(c_s^2 − v^2) = 2 c_s dc_s/dx − 2 v dv/dx
+                dc2_minus_v2 = 2.0 * c_s[idx] * dcs - 2.0 * v[idx] * dv
+                denom = 2.0 * max(abs(cH), 1e-30)
+                grads.append(abs(dc2_minus_v2) / denom)
+            else:
+                # Acoustic approximation: κ ≈ |∂x(c_s − |v|)|
+                grads.append(abs(dcs - d_abs_v))
         kappa_est = float(np.median(grads))
         kappa_err = float(np.std(grads))
         positions.append(r)
@@ -150,13 +176,25 @@ def find_horizons_with_uncertainty(x: np.ndarray,
         dcs = _finite_grad(x, c_s, idx, stencil=1)
         dvdx_list.append(dv)
         dcsdx_list.append(dcs)
+        
+    # Compute diagnostics at roots (interpolated quantities)
+    c_h_list: List[float] = []
+    dc2mv2_list: List[float] = []
+    for r, dv_val, dcs_val in zip(roots, dvdx_list, dcsdx_list):
+        idx = int(np.clip(np.searchsorted(x, r), 1, len(x)-2))
+        cH = float(np.interp(r, x, c_s))
+        c_h_list.append(cH)
+        dc2_minus_v2 = 2.0 * c_s[idx] * dcs_val - 2.0 * v[idx] * dv_val
+        dc2mv2_list.append(float(dc2_minus_v2))
 
     return HorizonResult(
         positions=np.array(positions),
         kappa=np.array(kappas),
         kappa_err=np.array(dk),
         dvdx=np.array(dvdx_list),
-        dcsdx=np.array(dcsdx_list)
+        dcsdx=np.array(dcsdx_list),
+        c_h=np.array(c_h_list),
+        d_c2_minus_v2_dx=np.array(dc2mv2_list),
     )
 
 # Backward-compatible alias for clarity in downstream code/documentation

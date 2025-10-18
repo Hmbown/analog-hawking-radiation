@@ -348,8 +348,8 @@ class HawkingRadiationModel:
         spectrum_data = self.calculate_spectrum(freq_range)
         
         # Integrate power over detector band with efficiency
-        total_power = np.trapezoid(spectrum_data['power_spectrum'] * efficiency, 
-                              x=spectrum_data['frequencies'])
+        total_power = np.trapz(spectrum_data['power_spectrum'] * efficiency, 
+                                   x=spectrum_data['frequencies'])
         
         # Calculate signal-to-noise ratio (simplified)
         # For now, we assume background is thermal noise + detector noise

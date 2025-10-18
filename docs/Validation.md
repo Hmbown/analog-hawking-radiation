@@ -50,6 +50,12 @@ make validate
 This command runs all unit tests and validation checks to verify the correct implementation of physics formulas and numerical methods.
 
 Validation Results
+
+CI and Units Checks
+-------------------
+
+- Continuous Integration runs the full test suite on Python 3.9–3.11.
+- A lightweight units test validates κ→T_H scaling and κ method ratios (see `tests/test_units_lite.py`).
 ------------------
 
 The validation suite confirms:

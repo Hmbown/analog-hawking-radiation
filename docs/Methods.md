@@ -7,7 +7,10 @@ Horizon Finder
 The horizon finder implements robust algorithms for detecting analog event horizons in plasma flows:
 
 * Root finding: f(x) = |v(x)| − c_s solved via bracketing and bisection methods
-* Surface gravity calculation: κ = 0.5 |d/dx(|v| − c_s)| evaluated at the root
+* Surface gravity calculation (default): κ ≈ |∂x(c_s − |v|)| evaluated at the horizon (v≈±c_s)
+  - Backward-compatible option: κ_legacy = 0.5·|∂x(|v| − c_s)|
+  - Exact acoustic option: κ_exact = |∂x(c_s² − v²)|/(2 c_H) with c_H interpolated at the root
+* Diagnostics exported: c_H at the horizon and ∂x(c_s² − v²) for sidecar JSONs
 * Uncertainty quantification: Multi-stencil (±1,2,3) central differences for error estimation
 
 Sound Speed Profile
@@ -57,8 +60,8 @@ Graybody Solver Integration
 
 Implementation of graybody corrections for more accurate Hawking radiation modeling:
 
-* `analog_hawking.physics_engine.optimization.graybody_1d` provides WKB transmission estimates with uncertainties
-* `scripts/hawking_detection_experiment.py` incorporates graybody profiles when provided (via `results/warpx_last_profile.npz`)
+* `analog_hawking.physics_engine.optimization.graybody_1d` now defaults to a conservative, dimensionless transmission T(ω/κ) = (ω²)/(ω² + (ακ)²). A new physically consistent acoustic-WKB option (`method="acoustic_wkb"`) constructs the tortoise coordinate via dx* = dx / |c − |v|| and evaluates a Schrödinger-like transmission with an effective potential V(x*) ~ (α κ)² S(x*), where S encodes the near-horizon profile shape. The legacy WKB routine is retained as an experimental option.
+* `scripts/hawking_detection_experiment.py` incorporates graybody profiles when provided (via `results/warpx_last_profile.npz`), passing κ for consistent scaling
 * `scripts/radio_snr_from_qft.py` consumes graybody-adjusted spectra when available
 
 Magnetized Horizon Scan
@@ -108,7 +111,7 @@ Physics Engine Architecture
 
 * The `SimulationRunner` coordinates any `PlasmaBackend` implementation, persisting last-step observables and exporting user-requested diagnostics.
 * `PlasmaBackend` adapters (e.g., `FluidBackend`, `WarpXBackend`) encapsulate configuration, stepping, and shutdown logic while emitting standardized `PlasmaState` data structures.
-* Horizon diagnostics encapsulate kappa estimates, finite-difference gradients, and optional uncertainty metrics, ensuring consistent inputs for quantum field theory modules.
+* Horizon diagnostics encapsulate kappa estimates, finite-difference gradients, and optional uncertainty metrics. Three κ definitions are available: `legacy` (0.5|∂x(|v|−c)|), `acoustic` (|∂x(c−|v|)|), and the exact acoustic form `acoustic_exact` (|∂x(c²−v²)|/(2 c_H)) evaluated at the horizon. Horizon sidecars now include `c_H` and `d(c²−v²)/dx` for diagnostics.
 * Validation and optimization layers consume these outputs to inform experiment design, from adaptive smoothing (`analog_hawking.physics_engine.plasma_models.adaptive_sigma`) to radio SNR feasibility analyses (`scripts/generate_radio_snr_sweep.py`).
 
 Fluid Backend Configuration

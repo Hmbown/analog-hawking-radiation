@@ -7,6 +7,7 @@ figures:
 	python3 scripts/radio_snr_from_qft.py
 	python3 scripts/sweep_phase_jitter.py
 	python3 scripts/sweep_shapes.py
+	python3 scripts/make_comparison_figures.py
 
 # Generate three curated figures for README and copy to docs/img
 .PHONY: hero-images
@@ -14,10 +15,13 @@ hero-images:
 	python3 scripts/compare_hybrid_apples_to_apples.py
 	python3 scripts/sweep_hybrid_params.py
 	python3 scripts/radio_snr_from_qft.py
+	python3 scripts/make_comparison_figures.py
 	mkdir -p docs/img
 	@if [ -f figures/hybrid_apples_to_apples.png ]; then cp -f figures/hybrid_apples_to_apples.png docs/img/; fi
 	@if [ -f figures/hybrid_t5_ratio_map.png ]; then cp -f figures/hybrid_t5_ratio_map.png docs/img/; fi
 	@if [ -f figures/radio_snr_from_qft.png ]; then cp -f figures/radio_snr_from_qft.png docs/img/; fi
+	@if [ -f figures/graybody_methods_comparison.png ]; then cp -f figures/graybody_methods_comparison.png docs/img/; fi
+	@if [ -f figures/kappa_methods_comparison.png ]; then cp -f figures/kappa_methods_comparison.png docs/img/; fi
 
 # Generate the single README image and copy to docs/img
 .PHONY: readme-images
@@ -62,3 +66,7 @@ clean-results:
 
 clean-figures:
 	rm -rf figures
+
+.PHONY: demo-bundle
+demo-bundle:
+	python3 scripts/make_demo_bundle.py

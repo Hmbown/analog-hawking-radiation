@@ -51,12 +51,17 @@ class FullPipelineSummary:
     grid_points: int
     horizon_positions: list[float]
     kappa: list[float]
+    kappa_err: list[float]
     spectrum_peak_frequency: Optional[float]
     inband_power_W: Optional[float]
     T_sig_K: Optional[float]
     t5sigma_s: Optional[float]
-    T_H_K: Optional[float]
-    t5sigma_TH_s: Optional[float]
+    t5sigma_s_low: Optional[float] = None
+    t5sigma_s_high: Optional[float] = None
+    T_H_K: Optional[float] = None
+    T_H_K_low: Optional[float] = None
+    T_H_K_high: Optional[float] = None
+    t5sigma_TH_s: Optional[float] = None
     graybody_window_cells: int | None = None
     hybrid_used: bool = False
     hybrid_kappa_eff: float | None = None
@@ -78,6 +83,10 @@ def run_full_pipeline(
     grid_points: int = 512,
     B_ref: float = 1e8,  # 100 MHz
     T_sys: float = 30.0,
+    kappa_method: str = "acoustic",
+    graybody: str = "dimensionless",
+    alpha_gray: float = 1.0,
+    bands: Optional[str] = None,
     graybody_window_cells: Optional[int] = None,
     save_graybody_figure: bool = True,
     enable_hybrid: bool = False,
@@ -105,17 +114,21 @@ def run_full_pipeline(
     state = backend.step(0.0)
 
     # 3) Horizon detection
-    horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed)
+    horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed, kappa_method=str(kappa_method))
     positions = horizons.positions.tolist() if horizons.positions.size else []
     kappa = horizons.kappa.tolist() if horizons.kappa.size else []
+    kappa_err_list = horizons.kappa_err.tolist() if horizons.kappa_err.size else []
 
     # 4) QFT spectrum and detection metrics
     peak_frequency = None
     inband_power = None
     T_sig = None
     t5sigma = None
+    t5sigma_low = None
+    t5sigma_high = None
     T_H = None
-    t5sigma_TH = None
+    T_H_low = None
+    T_H_high = None
     hybrid_used = False
     hybrid_kappa_eff = None
     hybrid_coupling_weight = None
@@ -163,6 +176,8 @@ def run_full_pipeline(
                 emitting_area_m2=1e-6,
                 solid_angle_sr=5e-2,
                 coupling_efficiency=0.1,
+                graybody_method=str(graybody) if graybody in {"dimensionless", "wkb", "acoustic_wkb"} else "dimensionless",
+                alpha_gray=float(alpha_gray),
             )
         # Spectrum with fallback graybody
         spec_fallback = calculate_hawking_spectrum(
@@ -170,13 +185,15 @@ def run_full_pipeline(
             emitting_area_m2=1e-6,
             solid_angle_sr=5e-2,
             coupling_efficiency=0.1,
+            graybody_method=str(graybody) if graybody in {"dimensionless", "wkb", "acoustic_wkb"} else "dimensionless",
+            alpha_gray=float(alpha_gray),
         )
 
         # Prefer profile-derived transmission for metrics
         spec = spec_prof if spec_prof.get("success") else spec_fallback
         if spec.get("success"):
             freqs = spec["frequencies"]
-            P = spec["power_spectrum"]
+            P = np.asarray(spec["power_spectrum"])  # type: ignore[index]
             peak_frequency = float(spec.get("peak_frequency", float(freqs[np.argmax(P)])))
             inband_power = band_power_from_spectrum(freqs, P, peak_frequency, B_ref)
             if inband_power == 0.0:
@@ -185,12 +202,81 @@ def run_full_pipeline(
                 fb = np.linspace(f_lo, f_hi, 2001)
                 fb = np.clip(fb, float(freqs[0]), float(freqs[-1]))
                 psd_band = np.interp(fb, freqs, P)
-                inband_power = float(np.trapezoid(psd_band, x=fb))
+                inband_power = float(np.trapz(psd_band, x=fb))
             T_sig = equivalent_signal_temperature(inband_power, B_ref)
             if not np.isfinite(T_sig) or T_sig <= 0.0:
                 T_sig = float(spec.get("temperature", 0.0))
             t_grid = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig)
             t5sigma = float(t_grid[0, 0])
+
+            # Transmission uncertainty envelope → band power low/high
+            T_unc = spec.get("transmission_uncertainty")
+            T_base = spec.get("transmission")
+            if T_unc is not None and T_base is not None:
+                T_base = np.asarray(T_base)
+                T_unc = np.asarray(T_unc)
+                # Avoid division by zero; where T_base=0, use absolute scaling via clipping
+                scale_low = np.ones_like(P)
+                scale_high = np.ones_like(P)
+                with np.errstate(divide='ignore', invalid='ignore'):
+                    scale_low = np.clip((T_base - T_unc) / np.clip(T_base, 1e-30, None), 0.0, None)
+                    scale_high = np.clip((T_base + T_unc) / np.clip(T_base, 1e-30, None), 0.0, None)
+                P_low = P * scale_low
+                P_high = P * scale_high
+                inband_low = band_power_from_spectrum(freqs, P_low, float(peak_frequency), B_ref)
+                inband_high = band_power_from_spectrum(freqs, P_high, float(peak_frequency), B_ref)
+                T_sig_low_env = equivalent_signal_temperature(inband_low, B_ref)
+                T_sig_high_env = equivalent_signal_temperature(inband_high, B_ref)
+                # Initialize bounds
+                T_sig_b_lo = T_sig_low_env
+                T_sig_b_hi = T_sig_high_env
+                # Combine with kappa-derived bounds if available below
+
+            # Propagate numerical κ uncertainty to bounds via recomputation
+            if kappa_err_list:
+                k0 = float(kappa[0])
+                dk = float(kappa_err_list[0])
+                if dk > 0 and np.isfinite(dk):
+                    for sign, holder in ((-1.0, "low"), (1.0, "high")):
+                        k_bound = max(k0 + sign * dk, 0.0)
+                        spec_b = calculate_hawking_spectrum(
+                            k_bound,
+                            graybody_profile=gray_profile if 'gray_profile' in locals() else None,
+                            emitting_area_m2=1e-6,
+                            solid_angle_sr=5e-2,
+                            coupling_efficiency=0.1,
+                        )
+                        if spec_b.get("success"):
+                            fb = np.asarray(spec_b["frequencies"])  # type: ignore[index]
+                            Pb = np.asarray(spec_b["power_spectrum"])  # type: ignore[index]
+                            inband_b = band_power_from_spectrum(fb, Pb, float(peak_frequency), B_ref)
+                            if inband_b == 0.0:
+                                f_lo = float(peak_frequency) - 0.5 * B_ref
+                                f_hi = float(peak_frequency) + 0.5 * B_ref
+                                f_band = np.linspace(max(f_lo, float(fb[0])), min(f_hi, float(fb[-1])), 2001)
+                                if f_band[-1] > f_band[0]:
+                                    psd_band = np.interp(f_band, fb, Pb)
+                                    inband_b = float(np.trapz(psd_band, x=f_band))
+                            T_sig_b = equivalent_signal_temperature(inband_b, B_ref)
+                            # Combine with transmission envelope if available, conservatively
+                            if 'T_sig_b_lo' in locals() and 'T_sig_b_hi' in locals():
+                                if holder == "low":
+                                    T_sig_combined = min(T_sig_b, T_sig_b_lo)
+                                else:
+                                    T_sig_combined = max(T_sig_b, T_sig_b_hi)
+                            else:
+                                T_sig_combined = T_sig_b
+                            t_b = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_combined, 0.0))[0, 0]) if T_sig_combined > 0 else float("inf")
+                            if holder == "low":
+                                t5sigma_low = t_b
+                            else:
+                                t5sigma_high = t_b
+
+            # If only transmission envelope exists (no kappa bounds), still record bounds
+            if t5sigma_low is None and 'T_sig_b_lo' in locals():
+                t5sigma_low = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_b_lo, 0.0))[0, 0]) if T_sig_b_lo > 0 else float("inf")
+            if t5sigma_high is None and 'T_sig_b_hi' in locals():
+                t5sigma_high = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_b_hi, 0.0))[0, 0]) if T_sig_b_hi > 0 else float("inf")
 
         # Save comparison figure (profile vs fallback) unless suppressed (e.g. during sweeps)
         if save_graybody_figure:
@@ -214,9 +300,38 @@ def run_full_pipeline(
                 pass
         # Compute Hawking temperature and TH-based detection time surrogate
         T_H = float(hbar * float(kappa[0]) / (2.0 * pi * k))
+        if kappa_err_list:
+            dk = float(kappa_err_list[0])
+            if dk > 0 and np.isfinite(dk):
+                T_H_low = float(hbar * max(float(kappa[0]) - dk, 0.0) / (2.0 * pi * k))
+                T_H_high = float(hbar * (float(kappa[0]) + dk) / (2.0 * pi * k))
         if T_H > 0:
             t_grid_TH = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), float(T_H))
-            t5sigma_TH = float(t_grid_TH[0, 0])
+        t5sigma_TH = float(t_grid_TH[0, 0])
+
+        # Optional multi-band evaluation if bands provided (format: "f1:B1,f2:B2,...")
+        if bands:
+            try:
+                t_best = None
+                for pair in str(bands).split(','):
+                    if not pair:
+                        continue
+                    if ':' not in pair:
+                        continue
+                    fc_str, bw_str = pair.split(':', 1)
+                    fc = float(eval(fc_str)) if any(ch.isalpha() for ch in fc_str) else float(fc_str)
+                    bw = float(eval(bw_str)) if any(ch.isalpha() for ch in bw_str) else float(bw_str)
+                    Psel = np.asarray(spec.get("power_spectrum", P))
+                    fsel = np.asarray(spec.get("frequencies", freqs))
+                    inband = band_power_from_spectrum(fsel, Psel, fc, bw)
+                    Tsig_band = equivalent_signal_temperature(inband, bw)
+                    t_band = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([bw]), Tsig_band)[0, 0]) if Tsig_band > 0 else float("inf")
+                    if t_best is None or t_band < t_best:
+                        t_best = t_band
+                if t_best is not None:
+                    t5sigma = t_best
+            except Exception:
+                pass
 
         # Optional hybrid branch
         if enable_hybrid:
@@ -256,7 +371,7 @@ def run_full_pipeline(
                                 f_band = np.linspace(max(f_lo, float(freqs_h[0])), min(f_hi, float(freqs_h[-1])), 2001)
                                 if f_band[-1] > f_band[0]:
                                     psd_band = np.interp(f_band, freqs_h, P_h)
-                                    inband_power_h = float(np.trapezoid(psd_band, x=f_band))
+                                    inband_power_h = float(np.trapz(psd_band, x=f_band))
                             T_sig_h = equivalent_signal_temperature(inband_power_h, B_ref)
                             if T_sig_h > 0:
                                 t_grid_h = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig_h)
@@ -276,11 +391,16 @@ def run_full_pipeline(
         grid_points=grid_points,
         horizon_positions=positions,
         kappa=kappa,
+        kappa_err=kappa_err_list,
         spectrum_peak_frequency=peak_frequency,
         inband_power_W=inband_power,
         T_sig_K=T_sig,
         t5sigma_s=t5sigma,
+        t5sigma_s_low=t5sigma_low,
+        t5sigma_s_high=t5sigma_high,
         T_H_K=T_H,
+        T_H_K_low=T_H_low,
+        T_H_K_high=T_H_high,
         t5sigma_TH_s=t5sigma_TH,
         graybody_window_cells=chosen_window_cells,
         hybrid_used=bool(hybrid_used),
@@ -297,6 +417,11 @@ def main() -> int:
     p.add_argument("--intensity", type=float, default=None)
     p.add_argument("--temperature", type=float, default=None)
     p.add_argument("--window-cells", type=int, default=None)
+    p.add_argument("--kappa-method", type=str, choices=["acoustic", "legacy", "acoustic_exact"], default="acoustic")
+    p.add_argument("--graybody", type=str, choices=["dimensionless", "wkb", "acoustic_wkb"], default="dimensionless")
+    p.add_argument("--alpha-gray", type=float, default=1.0)
+    p.add_argument("--bands", type=str, default=None, help="Comma-separated list of f_center:bandwidth pairs (e.g., '1e8:1e8,2e8:5e7')")
+    p.add_argument("--Tsys", type=float, default=None, help="System temperature [K]")
     p.add_argument("--hybrid", action="store_true")
     p.add_argument("--hybrid-model", type=str, choices=["unruh", "anabhel"], default="anabhel")
     p.add_argument("--mirror-D", type=float, default=10e-6)
@@ -318,6 +443,16 @@ def main() -> int:
         kwargs["temperature_constant"] = args.temperature
     if args.window_cells is not None:
         kwargs["graybody_window_cells"] = args.window_cells
+    if args.kappa_method is not None:
+        kwargs["kappa_method"] = args.kappa_method
+    if args.graybody is not None:
+        kwargs["graybody"] = args.graybody
+    if args.alpha_gray is not None:
+        kwargs["alpha_gray"] = args.alpha_gray
+    if args.bands is not None:
+        kwargs["bands"] = args.bands
+    if args.Tsys is not None:
+        kwargs["T_sys"] = args.Tsys
 
     if args.hybrid:
         kwargs["enable_hybrid"] = True

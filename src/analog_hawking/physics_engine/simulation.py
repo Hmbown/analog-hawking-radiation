@@ -72,6 +72,8 @@ class SimulationRunner:
             "kappa_err": horizons.kappa_err.tolist(),
             "dvdx": horizons.dvdx.tolist(),
             "dcsdx": horizons.dcsdx.tolist(),
+            "c_H": horizons.c_h.tolist() if getattr(horizons, "c_h", None) is not None else [],
+            "d_c2_minus_v2_dx": horizons.d_c2_minus_v2_dx.tolist() if getattr(horizons, "d_c2_minus_v2_dx", None) is not None else [],
         }
         meta: Dict[str, object] = {}
         if state.observables is not None:
@@ -82,4 +84,3 @@ class SimulationRunner:
         import json
 
         filename.write_text(json.dumps(sidecar, indent=2))
-

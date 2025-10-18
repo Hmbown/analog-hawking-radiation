@@ -35,8 +35,8 @@ def band_power_from_spectrum(frequencies: np.ndarray,
     mask = (frequencies >= f_lo) & (frequencies <= f_hi)
     if not np.any(mask):
         return 0.0
-    # Use NumPy's trapezoidal integrator (NumPy 2.x compatible)
-    return float(np.trapezoid(power_spectrum[mask], x=frequencies[mask]))
+    # Use trapezoidal integration; prefer np.trapz for broad NumPy compatibility
+    return float(np.trapz(power_spectrum[mask], x=frequencies[mask]))
 
 
 def equivalent_signal_temperature(P_sig: float, bandwidth: float) -> float:
@@ -70,4 +70,3 @@ def sweep_time_for_5sigma(T_sys_vals: np.ndarray,
             else:
                 T[i, j] = (5.0 * T_sys / (T_sig * np.sqrt(B))) ** 2
     return T
-

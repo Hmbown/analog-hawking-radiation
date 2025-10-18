@@ -56,8 +56,8 @@ class PhysicsValidationFramework:
             # Calculate electromagnetic energy in the field
             E_field = simulation_data['electric_field']
             if hasattr(E_field, 'shape') and len(E_field.shape) == 2:
-                em_energy = 0.5 * epsilon_0 * np.trapezoid(E_field[-1,:]**2)  # Energy at last time step
-                initial_em_energy = 0.5 * epsilon_0 * np.trapezoid(E_field[0,:]**2)  # Energy at first time step
+                em_energy = 0.5 * epsilon_0 * np.trapz(E_field[-1,:]**2)  # Energy at last time step
+                initial_em_energy = 0.5 * epsilon_0 * np.trapz(E_field[0,:]**2)  # Energy at first time step
                 energy_error = abs(em_energy - initial_em_energy) / initial_em_energy if initial_em_energy != 0 else 0
                 energy_conserved = energy_error < 0.1  # Allow 10% change for numerical reasons
         
@@ -65,8 +65,8 @@ class PhysicsValidationFramework:
         if 'density' in simulation_data:
             n_e = simulation_data['density']
             if hasattr(n_e, 'shape') and len(n_e.shape) == 2:
-                final_particles = np.trapezoid(n_e[-1,:])
-                initial_particles = np.trapezoid(n_e[0,:])
+                final_particles = np.trapz(n_e[-1,:])
+                initial_particles = np.trapz(n_e[0,:])
                 particle_error = abs(final_particles - initial_particles) / initial_particles if initial_particles != 0 else 0
                 particles_conserved = particle_error < 0.05  # Allow 5% change
             else:
@@ -84,8 +84,8 @@ class PhysicsValidationFramework:
             v_e = simulation_data['velocity']
             n_e = simulation_data.get('density', np.ones_like(v_e))
             if hasattr(v_e, 'shape') and len(v_e.shape) == 2:
-                final_momentum = np.trapezoid(n_e[-1,:] * v_e[-1,:] * m_e)
-                initial_momentum = np.trapezoid(n_e[0,:] * v_e[0,:] * m_e)
+                final_momentum = np.trapz(n_e[-1,:] * v_e[-1,:] * m_e)
+                initial_momentum = np.trapz(n_e[0,:] * v_e[0,:] * m_e)
                 momentum_error = abs(final_momentum - initial_momentum) / abs(initial_momentum) if initial_momentum != 0 else 0
                 momentum_conserved = momentum_error < 0.1  # Allow 10% change
         

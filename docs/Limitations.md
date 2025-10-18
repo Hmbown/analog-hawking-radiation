@@ -23,6 +23,10 @@ Several physical effects are simplified or not fully captured in the current mod
 
 * **Nonlinear Plasma Effects**: The model may underestimate complex nonlinear interaction dynamics that could be important in high-intensity laser-plasma experiments.
 
+* **Acoustic WKB Assumptions**: The acoustic-WKB graybody option constructs a tortoise coordinate via dx*/dx = 1/|c − |v|| and uses an effective, κ-scaled potential shape derived from the near-horizon gap. This captures the correct qualitative behavior (low-ω suppression, high-ω transparency) but remains a 1D, near-horizon approximation and does not include full multi-dimensional scattering or dissipation.
+
+* **Exact Acoustic κ Evaluation**: The κ = |∂x(c_s² − v²)|/(2 c_H) form evaluates c_H via interpolation at the root; numerical grid effects can introduce small biases. Multi-stencil estimates are used to report an uncertainty band, but these are numerical rather than physical uncertainties.
+
 Experimental Validation Gap
 ---------------------------
 

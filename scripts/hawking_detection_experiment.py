@@ -37,7 +37,9 @@ def calculate_hawking_spectrum(kappa: float,
                                graybody_profile: dict | None = None,
                                emitting_area_m2: float | None = None,
                                solid_angle_sr: float | None = None,
-                               coupling_efficiency: float = 1.0) -> dict:
+                               coupling_efficiency: float = 1.0,
+                               graybody_method: str = "dimensionless",
+                               alpha_gray: float = 1.0) -> dict:
     try:
         T_H = _temperature_from_kappa(float(kappa))
         f_min, f_max = _choose_frequency_band(T_H)
@@ -60,7 +62,7 @@ def calculate_hawking_spectrum(kappa: float,
             x = np.asarray(graybody_profile["x"])
             velocity = np.asarray(graybody_profile["v"])
             sound_speed = np.asarray(graybody_profile["c_s"])
-            graybody = compute_graybody(x, velocity, sound_speed, freqs)
+            graybody = compute_graybody(x, velocity, sound_speed, freqs, method=graybody_method, kappa=float(kappa), alpha=float(alpha_gray))
             transmission = graybody.transmission
             uncertainties = graybody.uncertainties
 
@@ -95,4 +97,3 @@ if __name__ == "__main__":
     kappa = 2 * pi * k * target_T / hbar
     out = calculate_hawking_spectrum(kappa)
     print(f"success={out.get('success')} peak={out.get('peak_frequency', 0):.3e} Hz band=[{out['frequencies'][0]:.3e},{out['frequencies'][-1]:.3e}] Hz")
-

@@ -7,23 +7,53 @@ on:
     branches: [ main, master ]
 
 jobs:
-  validate:
+  tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - name: Install deps
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
+
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install matplotlib numpy scipy pillow
-          pip install -e .
-      - name: Run validation
+          pip install -e .[dev]
+
+      - name: Run tests
         run: |
-          python scripts/script_validate_frequency_gating.py
-      - name: Build a tiny figure
+          pytest -q
+
+  notebook-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps (dev)
         run: |
-          python scripts/generate_radio_snr_sweep.py
-          test -f figures/radio_snr_sweep.png
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+      - name: Execute Quickstart notebook
+        run: |
+          jupyter nbconvert --to notebook --execute notebooks/Quickstart.ipynb --ExecutePreprocessor.timeout=300 --output executed.ipynb

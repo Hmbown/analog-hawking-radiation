@@ -165,7 +165,7 @@ def test_hawking_spectrum_convergence():
         spectrum = qft.hawking_spectrum(omega)
         
         # Integrate total power
-        total_power = np.trapezoid(spectrum, x=omega) / (2 * np.pi)
+        total_power = np.trapz(spectrum, x=omega) / (2 * np.pi)
         results.append(total_power)
     
     # Check convergence

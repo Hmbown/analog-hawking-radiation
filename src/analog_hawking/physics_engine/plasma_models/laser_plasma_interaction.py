@@ -455,10 +455,10 @@ class LaserPlasmaDynamics:
             s_grav = self.analog_model.surface_gravity_at_horizon(x_grid, t)
             surface_gravities.append(s_grav)
         
-        # Calculate integrated quantities using NumPy 2.x trapezoidal integrator
+        # Calculate integrated quantities using trapezoidal rule
         # First integrate over space (axis=1), then over time (axis=0)
-        energy_space = np.trapezoid(E_evolution**2, x=x_grid, axis=1)
-        total_energy = np.trapezoid(energy_space, x=t_grid, axis=0) * epsilon_0 * c
+        energy_space = np.trapz(E_evolution**2, x=x_grid, axis=1)
+        total_energy = np.trapz(energy_space, x=t_grid, axis=0) * epsilon_0 * c
         
         return {
             'space_grid': x_grid,
@@ -520,7 +520,7 @@ class LaserPlasmaDynamics:
         power_spectrum = qft_model.hawking_spectrum(omega)
         
         # Integrate total power
-        total_power = np.trapezoid(power_spectrum, x=omega) / (2 * np.pi)
+        total_power = np.trapz(power_spectrum, x=omega) / (2 * np.pi)
         
         return {
             'hawking_temperature': T_H,

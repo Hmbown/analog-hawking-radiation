@@ -258,15 +258,18 @@ class AnalogHorizonPhysics:
     
     def surface_gravity(self, gradient_flow_velocity):
         """
-        Calculate surface gravity at the analog horizon
-        
+        Legacy surface gravity surrogate used in earlier versions.
+
+        Note: The main pipeline now uses an acoustic approximation κ ≈ |∂x(c_s − |v|)|
+        at the horizon. This method retains the historical 0.5·|∇v| form for
+        backward compatibility in auxiliary scripts.
+
         Args:
             gradient_flow_velocity: Gradient of flow velocity at horizon
-            
+
         Returns:
-            Surface gravity in s^-1
+            Surface gravity surrogate (s^-1)
         """
-        # For acoustic black holes: κ = |∇(v - c_s)|/2 at the horizon
         return np.abs(gradient_flow_velocity) / 2.0
     
     def hawking_temperature(self, surface_gravity):
