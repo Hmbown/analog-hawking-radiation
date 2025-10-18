@@ -11,6 +11,20 @@
 
 A physics-first, end-to-end modeling environment for analog Hawking radiation in laser–plasma systems. The toolkit combines horizon diagnostics, graybody transmission modeling, radio-band detectability estimates, and an exploratory hybrid coupling to accelerating plasma mirrors.
 
+## Universality Experiment (new)
+
+- Collapse Hawking spectra by normalizing frequency to ω/κ and applying an acoustic-WKB graybody. Across ≥4 analytic families (and optional PIC slices), the normalized PSDs collapse onto a narrow band.
+- κ-inference closes the loop: invert noisy PSDs via grid-search MLE to recover κ with calibrated uncertainty and coverage.
+
+Quick run:
+
+```bash
+python scripts/experiment_universality_collapse.py \
+  --out results/experiments/universality --n 32 --alpha 0.8 --seed 7 --include-controls
+```
+
+See docs/Experiments.md for details and acceptance criteria.
+
 ## Key Innovations (v0.2.0)
 
 - **Exact acoustic surface gravity**: new `kappa_method="acoustic_exact"` evaluates $\kappa = |\partial_x(c_s^2 - v^2)| / (2 c_H)$ at the horizon, exports the on-horizon sound speed and gradient diagnostics, and keeps the legacy definitions for comparison.
