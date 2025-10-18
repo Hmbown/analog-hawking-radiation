@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml/badge.svg)](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-38%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-40%20passing-brightgreen.svg)](tests/)
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
 [![Release Notes](https://img.shields.io/badge/release%20notes-v0.2.0-informational.svg)](RELEASE_NOTES_v0.2.0.md)
 
@@ -11,27 +11,50 @@
 
 A physics-first, end-to-end modeling environment for analog Hawking radiation in laser–plasma systems. The toolkit combines horizon diagnostics, graybody transmission modeling, radio-band detectability estimates, and an exploratory hybrid coupling to accelerating plasma mirrors.
 
-## Universality Experiment (new)
+## Universality Experiment (New in v0.2.0)
 
-- Collapse Hawking spectra by normalizing frequency to ω/κ and applying an acoustic-WKB graybody. Across ≥4 analytic families (and optional PIC slices), the normalized PSDs collapse onto a narrow band.
-- κ-inference closes the loop: invert noisy PSDs via grid-search MLE to recover κ with calibrated uncertainty and coverage.
+**Test the universal nature of Hawking radiation**: When frequency is normalized by surface gravity (ω/κ), Hawking spectra from completely different plasma configurations should collapse onto a single universal curve.
 
-Quick run:
+- **Spectrum Collapse**: Normalize frequency by κ and apply acoustic-WKB graybody transmission. Across ≥4 analytic flow families (plus optional PIC simulation data), the power spectral densities collapse onto a narrow universal band.
+- **Parameter Recovery**: Close the loop by inverting noisy spectra to recover the original κ value using maximum likelihood estimation with calibrated uncertainty bounds.
 
+### Quick Start
+
+**Basic universality test** (analytic profiles only):
 ```bash
 python scripts/experiment_universality_collapse.py \
   --out results/experiments/universality --n 32 --alpha 0.8 --seed 7 --include-controls
 ```
 
-See docs/Experiments.md for details and acceptance criteria.
+**Include PIC simulation data** (convert and analyze together):
+```bash
+# First: Convert PIC/OpenPMD slice to profile format
+python scripts/openpmd_slice_to_profile.py --in data/slice.h5 \
+  --x-dataset /x --vel-dataset /vel --Te-dataset /Te --out results/warpx_profile.npz
 
-## Key Innovations (v0.2.0)
+# Then: Run universality test including PIC data
+python scripts/experiment_universality_collapse.py \
+  --out results/experiments/universality --n 16 --alpha 0.8 \
+  --pic-profiles results/*.npz --include-controls
+```
 
-- **Exact acoustic surface gravity**: new `kappa_method="acoustic_exact"` evaluates $\kappa = |\partial_x(c_s^2 - v^2)| / (2 c_H)$ at the horizon, exports the on-horizon sound speed and gradient diagnostics, and keeps the legacy definitions for comparison.
-- **Acoustic-WKB graybody solver**: constructs the tortoise coordinate $x^*$, forms a barrier potential scaled by $\alpha\kappa$, and returns transmission curves with uncertainty envelopes. Conservative dimensionless and legacy WKB options remain available.
-- **Uncertainty-aware detection metrics**: propagates surface-gravity error bars and graybody envelopes through band power, signal temperature, and 5σ integration times, yielding `t5sigma_low/high` bounds in pipeline summaries.
-- **PIC/OpenPMD ingestion path**: converts HDF5 slices into 1D profiles (`scripts/openpmd_slice_to_profile.py`) and runs the same physics+radio pipeline (`scripts/run_pic_pipeline.py`) for particle-in-cell outputs.
-- **Hybrid plasma mirror exploration** *(optional)*: couples fluid horizons to AnaBHEL-inspired mirror dynamics (`--hybrid --hybrid-model {anabhel,unruh}`) for speculative studies of mirror-assisted surface gravity enhancement.
+**Results**: Find collapse plots and quantitative metrics in `results/experiments/universality/`
+
+See `docs/Experiments.md` for detailed methodology, acceptance criteria, and interpretation guide.
+
+## Key Features (v0.2.0)
+
+- **Universal Spectrum Collapse**: Test whether Hawking spectra from different plasma configurations collapse onto a universal curve when frequency is normalized by surface gravity (ω/κ). Includes support for both analytic profiles and PIC simulation data.
+
+- **Exact Acoustic Surface Gravity**: New `kappa_method="acoustic_exact"` evaluates $\kappa = |\partial_x(c_s^2 - v^2)| / (2 c_H)$ precisely at the horizon, with full diagnostic export and legacy compatibility.
+
+- **Advanced Graybody Modeling**: Acoustic-WKB solver constructs tortoise coordinates, computes barrier potentials scaled by $\alpha\kappa$, and returns transmission curves with uncertainty envelopes.
+
+- **PIC/OpenPMD Integration**: Convert HDF5 slices from particle-in-cell simulations into 1D profiles and run the complete physics pipeline, including universality testing.
+
+- **Uncertainty-Aware Detection**: Propagates surface-gravity uncertainties and graybody envelopes through detection metrics, yielding realistic `t5sigma` bounds.
+
+- **Hybrid Plasma Mirror Coupling** *(exploratory)*: Optional coupling to AnaBHEL-inspired mirror dynamics for speculative studies of enhanced surface gravity.
 
 ## End-to-End Workflow
 
@@ -61,14 +84,23 @@ python scripts/run_full_pipeline.py --demo \
 cat results/full_pipeline_summary.json
 ```
 
-### PIC/OpenPMD pipeline
+### PIC/OpenPMD Integration
+
+**Convert particle-in-cell simulation data** to work with the Hawking radiation pipeline:
 
 ```bash
+# Convert HDF5 slice to profile format
 python scripts/openpmd_slice_to_profile.py --in data/slice.h5 \
   --x-dataset /x --vel-dataset /vel --Te-dataset /Te \
   --out results/warpx_profile.npz
+
+# Run the full physics pipeline on PIC data
 python scripts/run_pic_pipeline.py --profile results/warpx_profile.npz \
   --kappa-method acoustic_exact --graybody acoustic_wkb
+
+# Include PIC profiles in universality analysis
+python scripts/experiment_universality_collapse.py \
+  --out results/experiments/universality --pic-profiles results/*.npz
 ```
 
 ### Exploratory hybrid coupling
@@ -96,14 +128,18 @@ Pipeline summaries (e.g. `results/full_pipeline_summary.json`) report:
 
 Example figures appear in `docs/img/`, including graybody comparisons and κ definition overlays.
 
-## Documentation Map
+## Documentation & Resources
 
-- `docs/Overview.md` – conceptual overview and motivation
-- `docs/Methods.md` – algorithms for horizon finding, graybody solvers, and detection modeling
-- `docs/Highlights_v0.2.0.md` – physics summary of the v0.2.0 release
+**Essential Reading**:
+- `docs/Overview.md` – conceptual overview and physics motivation
+- `docs/Methods.md` – algorithms for horizon finding, graybody solvers, and detection modeling  
+- `docs/Experiments.md` – **universality experiments and PIC integration guide**
+- `docs/Highlights_v0.2.0.md` – physics summary of the current release
 - `docs/Results.md` – representative outputs and interpretation guidance
 - `docs/Limitations.md` – scope, assumptions, and open questions
-- `RELEASE_NOTES_v0.2.0.md` – changelog with implementation details
+
+**Release Information**:
+- `RELEASE_NOTES_v0.2.0.md` – detailed changelog with implementation details
 
 ## Physics Background
 
@@ -113,7 +149,7 @@ The optional hybrid branch couples these fluid horizons to accelerating plasma m
 
 ## Reproducibility & Validation
 
-- **Tests**: `pytest -q` (38 unit + integration tests across horizon finding, graybody solvers, PIC round-trips, and hybrid logic)
+- **Tests**: `pytest -q` (40 unit + integration tests across horizon finding, graybody solvers, PIC round-trips, and hybrid logic)
 - **Continuous Integration**: GitHub Actions test matrix on Python 3.9–3.11
 - **Sample outputs**: `results/samples/` and executed notebooks (`notebooks/Quickstart.ipynb`)
 - **Configuration**: reusable parameter sets in `configs/`
@@ -196,4 +232,4 @@ If you use this work, please cite both the framework and the foundational AnaBHE
 
 ---
 
-**Framework Version**: 0.2.0 · **License**: MIT · **Tests**: 38/38 passing (local)
+**Framework Version**: 0.2.0 · **License**: MIT · **Tests**: 40/40 passing (local)
