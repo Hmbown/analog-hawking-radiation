@@ -122,14 +122,14 @@ The optional hybrid branch couples these fluid horizons to accelerating plasma m
 ## Repository Layout
 
 ```
-src/analog_hawking/        # Physics engines, detection models, hybrid coupling
-scripts/                   # CLI pipelines, sweeps, figure generation
-analysis/                  # Research notebooks and analytic studies
-results/                   # JSON summaries, spectra, sample outputs
-figures/                   # Generated plots (PSD, comparisons, etc.)
-docs/                      # Methods, highlights, limitations, references
-paper/                     # ArXiv-ready TeX manuscript and figures
-tests/                     # Unit and integration suite
+.github/                  # Continuous integration workflows and project automation
+configs/                  # YAML/JSON parameter presets for pipelines and experiments
+docs/                     # User guides, methodology notes, references, and figures
+examples/                 # Ready-to-run scripts showcasing core modeling workflows
+results/                  # Checked-in sample outputs and experiment artifacts
+scripts/                  # CLI entry points for experiments, sweeps, and conversions
+src/analog_hawking/       # Core library: physics engines, diagnostics, hybrid coupling
+tests/                    # Unit and integration suites for the library and scripts
 ```
 
 ## Limitations & Scope
