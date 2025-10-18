@@ -178,7 +178,8 @@ tests/                     # Unit and integration suite
 
 - Run tests: `pytest -q`
 - Keep patches focused; adhere to CONTRIBUTING.md for style and review expectations
-- Use `make lint` / `make docs` (where available) before submitting PRs
+- Linting: there is no dedicated `make lint` target—follow the PEP 8 guidance in CONTRIBUTING and optionally run your preferred static analysis locally
+- Documentation: update the Markdown files under `docs/` directly (no generated docs build or `make docs` step)
 
 ## Citation
 
