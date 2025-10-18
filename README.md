@@ -7,9 +7,21 @@
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
 [![Release Notes](https://img.shields.io/badge/release%20notes-v0.2.0-informational.svg)](RELEASE_NOTES_v0.2.0.md)
 
-![Workflow Pipeline](docs/img/workflow_diagram.png)
+Analog Hawking Radiation Simulator is a physics-first modeling environment for analog Hawking radiation in laser–plasma systems. It ties together horizon diagnostics, graybody transmission modeling, detection metrics, and an exploratory hybrid coupling to accelerating plasma mirrors so you can evaluate end-to-end observability.
 
-A physics-first, end-to-end modeling environment for analog Hawking radiation in laser–plasma systems. The toolkit combines horizon diagnostics, graybody transmission modeling, radio-band detectability estimates, and an exploratory hybrid coupling to accelerating plasma mirrors.
+## Table of Contents
+
+- [Universality Experiment (New in v0.2.0)](#universality-experiment-new-in-v020)
+- [Getting Started](#getting-started)
+- [Key Features (v0.2.0)](#key-features-v020)
+- [End-to-End Workflow](#end-to-end-workflow)
+- [Interpreting Results](#interpreting-results)
+- [Documentation & Resources](#documentation--resources)
+- [Physics Background](#physics-background)
+- [Reproducibility & Validation](#reproducibility--validation)
+- [Repository Layout](#repository-layout)
+
+![Workflow Pipeline](docs/img/workflow_diagram.png)
 
 ## Universality Experiment (New in v0.2.0)
 
@@ -18,29 +30,7 @@ A physics-first, end-to-end modeling environment for analog Hawking radiation in
 - **Spectrum Collapse**: Normalize frequency by κ and apply acoustic-WKB graybody transmission. Across ≥4 analytic flow families (plus optional PIC simulation data), the power spectral densities collapse onto a narrow universal band.
 - **Parameter Recovery**: Close the loop by inverting noisy spectra to recover the original κ value using maximum likelihood estimation with calibrated uncertainty bounds.
 
-### Quick Start
-
-**Basic universality test** (analytic profiles only):
-```bash
-python scripts/experiment_universality_collapse.py \
-  --out results/experiments/universality --n 32 --alpha 0.8 --seed 7 --include-controls
-```
-
-**Include PIC simulation data** (convert and analyze together):
-```bash
-# First: Convert PIC/OpenPMD slice to profile format
-python scripts/openpmd_slice_to_profile.py --in data/slice.h5 \
-  --x-dataset /x --vel-dataset /vel --Te-dataset /Te --out results/warpx_profile.npz
-
-# Then: Run universality test including PIC data
-python scripts/experiment_universality_collapse.py \
-  --out results/experiments/universality --n 16 --alpha 0.8 \
-  --pic-profiles results/*.npz --include-controls
-```
-
-**Results**: Find collapse plots and quantitative metrics in `results/experiments/universality/`
-
-See `docs/Experiments.md` for detailed methodology, acceptance criteria, and interpretation guide.
+For step-by-step instructions on running the universality collapse experiments—including analytic-only and PIC-augmented setups—refer to the [Advanced Scenarios guide](docs/AdvancedScenarios.md) alongside `docs/Experiments.md` for methodology and interpretation.
 
 ## Key Features (v0.2.0)
 
@@ -64,9 +54,9 @@ See `docs/Experiments.md` for detailed methodology, acceptance criteria, and int
 4. **Spectrum + detection** – compute Hawking spectra, integrate over radio bands, and estimate 5σ detection times under user-specified system temperature and bandwidth.
 5. **Reporting** – persist JSON summaries, PSD plots, and optional hybrid comparisons in `results/` and `figures/`.
 
-## Quick Start
+## Getting Started
 
-### Install
+### Installation
 
 ```bash
 git clone https://github.com/hmbown/analog-hawking-radiation.git
@@ -74,7 +64,9 @@ cd analog-hawking-radiation
 pip install -e .
 ```
 
-### Run the fluid demo
+### Basic Example
+
+Spin up the fluid demo with acoustic surface-gravity diagnostics and inspect the resulting summary JSON.
 
 ```bash
 python scripts/run_full_pipeline.py --demo \
@@ -84,37 +76,9 @@ python scripts/run_full_pipeline.py --demo \
 cat results/full_pipeline_summary.json
 ```
 
-### PIC/OpenPMD Integration
+### Advanced Scenarios
 
-**Convert particle-in-cell simulation data** to work with the Hawking radiation pipeline:
-
-```bash
-# Convert HDF5 slice to profile format
-python scripts/openpmd_slice_to_profile.py --in data/slice.h5 \
-  --x-dataset /x --vel-dataset /vel --Te-dataset /Te \
-  --out results/warpx_profile.npz
-
-# Run the full physics pipeline on PIC data
-python scripts/run_pic_pipeline.py --profile results/warpx_profile.npz \
-  --kappa-method acoustic_exact --graybody acoustic_wkb
-
-# Include PIC profiles in universality analysis
-python scripts/experiment_universality_collapse.py \
-  --out results/experiments/universality --pic-profiles results/*.npz
-```
-
-### Exploratory hybrid coupling
-
-```bash
-python scripts/run_full_pipeline.py --demo --hybrid \
-  --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
-```
-
-### Compare configurations
-
-- `python scripts/demo_hybrid_comparison.py`
-- `python scripts/sweep_hybrid_params.py`
-- `python scripts/generate_detection_time_heatmap.py`
+Extended workflows—including PIC/OpenPMD ingestion, universality collapse campaigns, hybrid coupling comparisons, and parameter sweeps—are documented in the [Advanced Scenarios guide](docs/AdvancedScenarios.md). Each recipe links back to supporting discussions in `docs/Experiments.md` and `docs/Methods.md` for deeper context.
 
 ## Interpreting Results
 
@@ -132,8 +96,9 @@ Example figures appear in `docs/img/`, including graybody comparisons and κ def
 
 **Essential Reading**:
 - `docs/Overview.md` – conceptual overview and physics motivation
-- `docs/Methods.md` – algorithms for horizon finding, graybody solvers, and detection modeling  
+- `docs/Methods.md` – algorithms for horizon finding, graybody solvers, and detection modeling
 - `docs/Experiments.md` – **universality experiments and PIC integration guide**
+- `docs/AdvancedScenarios.md` – command recipes for PIC, universality, and hybrid workflows
 - `docs/Highlights_v0.2.0.md` – physics summary of the current release
 - `docs/Results.md` – representative outputs and interpretation guidance
 - `docs/Limitations.md` – scope, assumptions, and open questions
