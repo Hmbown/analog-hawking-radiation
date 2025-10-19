@@ -63,17 +63,19 @@ sweeps—are documented in the [Advanced Scenarios guide](docs/AdvancedScenarios
 
 ## Key Features (v0.2.0)
 
-- **Universal Spectrum Collapse**: Test whether Hawking spectra from different plasma configurations collapse onto a universal curve when frequency is normalized by surface gravity (ω/κ). Includes support for both analytic profiles and PIC simulation data.
+- **Compare spectra across profiles** to see whether disparate plasma configurations align on a single observable curve. The universal spectrum collapse test normalizes frequency by surface gravity (ω/κ) for both analytic profiles and PIC data.
 
-- **Exact Acoustic Surface Gravity**: New `kappa_method="acoustic_exact"` evaluates $\kappa = |\partial_x(c_s^2 - v^2)| / (2 c_H)$ precisely at the horizon, with full diagnostic export and legacy compatibility.
+- **Pinpoint acoustic surface gravity at the horizon** for trustworthy diagnostics before running detection estimates. The `kappa_method="acoustic_exact"` option (see [`docs/Methods.md`](docs/Methods.md#horizon-finder)) evaluates $\kappa = |\partial_x(c_s^2 - v^2)| / (2 c_H)$ exactly and exports full metadata.
 
-- **Advanced Graybody Modeling**: Acoustic-WKB solver constructs tortoise coordinates, computes barrier potentials scaled by $\alpha\kappa$, and returns transmission curves with uncertainty envelopes.
+- **Plan detection thresholds with barrier-aware transmission curves** that include confidence bands. The acoustic-WKB solver (see [`docs/Methods.md`](docs/Methods.md#graybody-solver-integration)) builds tortoise coordinates, scales barrier potentials by $\alpha\kappa$, and returns graybody spectra with uncertainties.
 
-- **PIC/OpenPMD Integration**: Convert HDF5 slices from particle-in-cell simulations into 1D profiles and run the complete physics pipeline, including universality testing.
+- **Bring simulation outputs straight into the workflow** without hand-massaging intermediate formats. The PIC converter ingests openPMD HDF5 slices (open particle-mesh data; see [`docs/AdvancedScenarios.md`](docs/AdvancedScenarios.md#picopenpmd-integration)) and runs the full universality pipeline.
 
-- **Uncertainty-Aware Detection**: Propagates surface-gravity uncertainties and graybody envelopes through detection metrics, yielding realistic `t5sigma` bounds.
+- **Forecast detection timelines with honest error bars** instead of optimistic point estimates. Surface-gravity uncertainties and graybody envelopes propagate through the `t5sigma` detection metric to yield realistic observation bounds.
 
-- **Hybrid Plasma Mirror Coupling** *(exploratory)*: Optional coupling to AnaBHEL-inspired mirror dynamics for speculative studies of enhanced surface gravity.
+- **Explore speculative plasma mirror boosts** before committing to hardware prototypes. Optional coupling to AnaBHEL-inspired mirror dynamics (analog black hole experiment concept; see [`docs/AdvancedScenarios.md`](docs/AdvancedScenarios.md)) supports early-stage studies of enhanced surface gravity.
+
+*Why it matters: These capabilities help experimental teams compare scenarios, validate models, and estimate detection prospects without leaving a single integrated toolkit.*
 
 ## End-to-End Workflow
 
