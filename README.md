@@ -40,7 +40,7 @@ For step-by-step instructions on running the universality collapse experimentsâ€
 
 - **Plan detection thresholds with barrier-aware transmission curves** that include confidence bands. The acoustic-WKB solver (see [`docs/Methods.md`](docs/Methods.md#graybody-solver-integration)) builds tortoise coordinates, scales barrier potentials by $\alpha\kappa$, and returns graybody spectra with uncertainties.
 
-- **Bring simulation outputs straight into the workflow** without hand-massaging intermediate formats. The PIC converter ingests openPMD HDF5 slices (open particle-mesh data; see [`docs/pic_migration_plan.md`](docs/pic_migration_plan.md)) and runs the full universality pipeline.
+- **Bring simulation outputs straight into the workflow** without hand-massaging intermediate formats. The PIC converter ingests openPMD HDF5 slices (open particle-mesh data; see [`docs/AdvancedScenarios.md`](docs/AdvancedScenarios.md#picopenpmd-integration)) and runs the full universality pipeline.
 
 - **Forecast detection timelines with honest error bars** instead of optimistic point estimates. Surface-gravity uncertainties and graybody envelopes propagate through the `t5sigma` detection metric to yield realistic observation bounds.
 
