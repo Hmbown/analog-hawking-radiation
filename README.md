@@ -12,7 +12,7 @@ Analog Hawking Radiation Simulator helps laboratory plasma teams explore how to 
 - Model laser–plasma setups to check whether a horizon (a sonic boundary that mimics a black hole edge) can form under given gradients.
 - Track how potential signals propagate so you can estimate detection timelines before running hardware.
 - Combine diagnostics, data conditioning, and forecast charts in one workflow to decide which probe settings to prioritize.
-- Experiment with optional plasma mirror couplings—accelerating reflective fronts that may amplify surface gravity, the effective gravitational pull at the sonic horizon—without editing core code.
+- Experiment with optional plasma mirror couplings—accelerating reflective fronts that may amplify surface gravity (the effective gravitational pull at the sonic horizon)—without editing core code.
 
 ## Table of Contents
 
