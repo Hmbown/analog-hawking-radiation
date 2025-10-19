@@ -7,7 +7,12 @@
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
 [![Release Notes](https://img.shields.io/badge/release%20notes-v0.2.0-informational.svg)](RELEASE_NOTES_v0.2.0.md)
 
-Analog Hawking Radiation Simulator is a physics-first modeling environment for analog Hawking radiation in laser–plasma systems. It ties together horizon diagnostics, graybody transmission modeling, detection metrics, and an exploratory hybrid coupling to accelerating plasma mirrors so you can evaluate end-to-end observability.
+Analog Hawking Radiation Simulator helps laboratory plasma teams explore how to reproduce Hawking-like signals—analog Hawking radiation, meaning a lab-based imitation of black hole Hawking glow—using realistic equipment. It is built for experimental physicists and simulation specialists who need clear guidance from design choices to data interpretation. The tool delivers a single place to plan scenarios, quantify detection odds, and compare outcomes before committing to expensive runs.
+
+- Model laser–plasma setups to check whether a horizon (a sonic boundary that mimics a black hole edge) can form under given gradients.
+- Track how potential signals propagate so you can estimate detection timelines before running hardware.
+- Combine diagnostics, data conditioning, and forecast charts in one workflow to decide which probe settings to prioritize.
+- Experiment with optional plasma mirror couplings—accelerating reflective fronts that may amplify surface gravity (the effective gravitational pull at the sonic horizon)—without editing core code.
 
 ![Workflow Pipeline](docs/img/workflow_diagram.png)
 
