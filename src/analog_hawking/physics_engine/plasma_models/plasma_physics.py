@@ -106,7 +106,7 @@ class PlasmaPhysicsModel:
         """
         return np.sqrt(epsilon_0 * k * T_e / (e**2 * self.n_e))
 
-    def mass_density(self, density: np.ndarray | float | None = None) -> np.ndarray:
+    def mass_density(self, density=None):
         rho = self.n_e if density is None else density
         rho = np.asarray(rho, dtype=float)
         return rho * self.m_i
