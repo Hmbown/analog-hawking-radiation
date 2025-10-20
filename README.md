@@ -7,54 +7,79 @@
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
 [![Release Notes](https://img.shields.io/badge/release%20notes-v0.2.0-informational.svg)](RELEASE_NOTES_v0.2.0.md)
 
+Analog Hawking Radiation Simulator helps laboratory plasma teams explore how to reproduce Hawking-like signals—analog Hawking radiation, meaning a lab-based imitation of black hole Hawking glow—using realistic equipment. It is built for experimental physicists and simulation specialists who need clear guidance from design choices to data interpretation. The tool delivers a single place to plan scenarios, quantify detection odds, and compare outcomes before committing to expensive runs.
+
+- Model laser–plasma setups to check whether a horizon (a sonic boundary that mimics a black hole edge) can form under given gradients.
+- Track how potential signals propagate so you can estimate detection timelines before running hardware.
+- Combine diagnostics, data conditioning, and forecast charts in one workflow to decide which probe settings to prioritize.
+- Experiment with optional plasma mirror couplings—accelerating reflective fronts that may amplify surface gravity (the effective gravitational pull at the sonic horizon)—without editing core code.
+
 ![Workflow Pipeline](docs/img/workflow_diagram.png)
 
-A physics-first, end-to-end modeling environment for analog Hawking radiation in laser–plasma systems. The toolkit combines horizon diagnostics, graybody transmission modeling, radio-band detectability estimates, and an exploratory hybrid coupling to accelerating plasma mirrors.
+## Getting Started
 
-## Universality Experiment (New in v0.2.0)
+### Installation
 
-**Test the universal nature of Hawking radiation**: When frequency is normalized by surface gravity (ω/κ), Hawking spectra from completely different plasma configurations should collapse onto a single universal curve.
-
-- **Spectrum Collapse**: Normalize frequency by κ and apply acoustic-WKB graybody transmission. Across ≥4 analytic flow families (plus optional PIC simulation data), the power spectral densities collapse onto a narrow universal band.
-- **Parameter Recovery**: Close the loop by inverting noisy spectra to recover the original κ value using maximum likelihood estimation with calibrated uncertainty bounds.
-
-### Quick Start
-
-**Basic universality test** (analytic profiles only):
 ```bash
-python scripts/experiment_universality_collapse.py \
-  --out results/experiments/universality --n 32 --alpha 0.8 --seed 7 --include-controls
+git clone https://github.com/hmbown/analog-hawking-radiation.git
+cd analog-hawking-radiation
+pip install -e .
 ```
 
-**Include PIC simulation data** (convert and analyze together):
-```bash
-# First: Convert PIC/OpenPMD slice to profile format
-python scripts/openpmd_slice_to_profile.py --in data/slice.h5 \
-  --x-dataset /x --vel-dataset /vel --Te-dataset /Te --out results/warpx_profile.npz
+### Basic Example
 
-# Then: Run universality test including PIC data
-python scripts/experiment_universality_collapse.py \
-  --out results/experiments/universality --n 16 --alpha 0.8 \
-  --pic-profiles results/*.npz --include-controls
+Spin up the fluid demo with acoustic surface-gravity diagnostics and inspect the resulting summary JSON.
+
+```bash
+python scripts/run_full_pipeline.py --demo \
+  --kappa-method acoustic_exact \
+  --graybody acoustic_wkb \
+  --alpha-gray 0.8
+cat results/full_pipeline_summary.json
 ```
 
-**Results**: Find collapse plots and quantitative metrics in `results/experiments/universality/`
+### Advanced Scenarios
 
-See `docs/Experiments.md` for detailed methodology, acceptance criteria, and interpretation guide.
+This optional follow-on material is intended for experienced users ready to explore extended workflows.
+
+Extended workflows—including PIC/OpenPMD ingestion, universality collapse campaigns, hybrid coupling comparisons, and parameter
+sweeps—are documented in the [Advanced Scenarios guide](docs/AdvancedScenarios.md). Each recipe links back to supporting discussions in `docs/Experiments.md` and `docs/Methods.md` for deeper context.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Key Features (v0.2.0)](#key-features-v020)
+- [End-to-End Workflow](#end-to-end-workflow)
+- [Orchestration & Monitoring (New)](#orchestration--monitoring-new)
+- [Latest Orchestrated Results](#latest-orchestrated-results)
+- [Interpreting Results](#interpreting-results)
+- [Documentation & Resources](#documentation--resources)
+- [Physics Background](#physics-background)
+- [Reproducibility & Validation](#reproducibility--validation)
+- [Repository Layout](#repository-layout)
+- [Universality Experiment (New in v0.2.0)](#universality-experiment-new-in-v020)
+- [Research Highlights](#research-highlights)
+- [Research Roadmap](#research-roadmap)
+- [Limitations & Scope](#limitations--scope)
+- [Development](#development)
 
 ## Key Features (v0.2.0)
 
-- **Universal Spectrum Collapse**: Test whether Hawking spectra from different plasma configurations collapse onto a universal curve when frequency is normalized by surface gravity (ω/κ). Includes support for both analytic profiles and PIC simulation data.
+- **Compare spectra across profiles** to see whether disparate plasma configurations align on a single observable curve. The universal spectrum collapse test normalizes frequency by surface gravity (ω/κ) for both analytic profiles and PIC data.
 
-- **Exact Acoustic Surface Gravity**: New `kappa_method="acoustic_exact"` evaluates $\kappa = |\partial_x(c_s^2 - v^2)| / (2 c_H)$ precisely at the horizon, with full diagnostic export and legacy compatibility.
+- **Pinpoint acoustic surface gravity at the horizon** for trustworthy diagnostics before running detection estimates. The `kappa_method="acoustic_exact"` option (see [`docs/Methods.md`](docs/Methods.md#horizon-finder)) evaluates $\kappa = |\partial_x(c_s^2 - v^2)| / (2 c_H)$ exactly and exports full metadata.
 
-- **Advanced Graybody Modeling**: Acoustic-WKB solver constructs tortoise coordinates, computes barrier potentials scaled by $\alpha\kappa$, and returns transmission curves with uncertainty envelopes.
+- **Plan detection thresholds with barrier-aware transmission curves** that include confidence bands. The acoustic-WKB solver (see [`docs/Methods.md`](docs/Methods.md#graybody-solver-integration)) builds tortoise coordinates, scales barrier potentials by $\alpha\kappa$, and returns graybody spectra with uncertainties.
 
-- **PIC/OpenPMD Integration**: Convert HDF5 slices from particle-in-cell simulations into 1D profiles and run the complete physics pipeline, including universality testing.
+- **Bring simulation outputs straight into the workflow** without hand-massaging intermediate formats. The PIC converter ingests openPMD HDF5 slices (open particle-mesh data; see [`docs/AdvancedScenarios.md`](docs/AdvancedScenarios.md#picopenpmd-integration)) and runs the full universality pipeline.
 
-- **Uncertainty-Aware Detection**: Propagates surface-gravity uncertainties and graybody envelopes through detection metrics, yielding realistic `t5sigma` bounds.
+- **Forecast detection timelines with honest error bars** instead of optimistic point estimates. Surface-gravity uncertainties and graybody envelopes propagate through the `t5sigma` detection metric to yield realistic observation bounds.
 
-- **Hybrid Plasma Mirror Coupling** *(exploratory)*: Optional coupling to AnaBHEL-inspired mirror dynamics for speculative studies of enhanced surface gravity.
+- **Explore speculative plasma mirror boosts** before committing to hardware prototypes. Optional coupling to AnaBHEL-inspired mirror dynamics (analog black hole experiment concept; see [`docs/AdvancedScenarios.md`](docs/AdvancedScenarios.md)) supports early-stage studies of enhanced surface gravity.
+
+- **Orchestrate multi-phase campaigns** with automated parameter exploration, refinement, Bayesian optimization, and validation across hundreds of simulations with real-time monitoring and comprehensive reporting.
+
+*Why it matters: These capabilities help experimental teams compare scenarios, validate models, and estimate detection prospects without leaving a single integrated toolkit.*
 
 ## End-to-End Workflow
 
@@ -100,58 +125,6 @@ A multi-phase orchestration engine coordinates coarse exploration, refinement, B
 Notes:
 - The run executed in a constrained environment; parallel workers were auto-fallbacked to sequential mode. Reporting/visualization components were skipped due to optional plotting dependencies. Validation calls are guarded when unavailable. To enable full features (rich dashboard, seaborn visuals, skopt optimization), install optional dependencies in your environment.
 
-## Quick Start
-
-### Install
-
-```bash
-git clone https://github.com/hmbown/analog-hawking-radiation.git
-cd analog-hawking-radiation
-pip install -e .
-```
-
-### Run the fluid demo
-
-```bash
-python scripts/run_full_pipeline.py --demo \
-  --kappa-method acoustic_exact \
-  --graybody acoustic_wkb \
-  --alpha-gray 0.8
-cat results/full_pipeline_summary.json
-```
-
-### PIC/OpenPMD Integration
-
-**Convert particle-in-cell simulation data** to work with the Hawking radiation pipeline:
-
-```bash
-# Convert HDF5 slice to profile format
-python scripts/openpmd_slice_to_profile.py --in data/slice.h5 \
-  --x-dataset /x --vel-dataset /vel --Te-dataset /Te \
-  --out results/warpx_profile.npz
-
-# Run the full physics pipeline on PIC data
-python scripts/run_pic_pipeline.py --profile results/warpx_profile.npz \
-  --kappa-method acoustic_exact --graybody acoustic_wkb
-
-# Include PIC profiles in universality analysis
-python scripts/experiment_universality_collapse.py \
-  --out results/experiments/universality --pic-profiles results/*.npz
-```
-
-### Exploratory hybrid coupling
-
-```bash
-python scripts/run_full_pipeline.py --demo --hybrid \
-  --hybrid-model anabhel --mirror-D 1e-5 --mirror-eta 1.0
-```
-
-### Compare configurations
-
-- `python scripts/demo_hybrid_comparison.py`
-- `python scripts/sweep_hybrid_params.py`
-- `python scripts/generate_detection_time_heatmap.py`
-
 ## Interpreting Results
 
 Pipeline summaries (e.g. `results/full_pipeline_summary.json`) report:
@@ -168,8 +141,9 @@ Example figures appear in `docs/img/`, including graybody comparisons and κ def
 
 **Essential Reading**:
 - `docs/Overview.md` – conceptual overview and physics motivation
-- `docs/Methods.md` – algorithms for horizon finding, graybody solvers, and detection modeling  
+- `docs/Methods.md` – algorithms for horizon finding, graybody solvers, and detection modeling
 - `docs/Experiments.md` – **universality experiments and PIC integration guide**
+- `docs/AdvancedScenarios.md` – command recipes for PIC, universality, and hybrid workflows
 - `docs/Highlights_v0.2.0.md` – physics summary of the current release
 - `docs/Results.md` – representative outputs and interpretation guidance
 - `docs/Limitations.md` – scope, assumptions, and open questions
@@ -193,15 +167,37 @@ The optional hybrid branch couples these fluid horizons to accelerating plasma m
 ## Repository Layout
 
 ```
-src/analog_hawking/        # Physics engines, detection models, hybrid coupling
-scripts/                   # CLI pipelines, sweeps, figure generation
-analysis/                  # Research notebooks and analytic studies
-results/                   # JSON summaries, spectra, sample outputs
-figures/                   # Generated plots (PSD, comparisons, etc.)
-docs/                      # Methods, highlights, limitations, references
-paper/                     # ArXiv-ready TeX manuscript and figures
-tests/                     # Unit and integration suite
+.github/                  # Continuous integration workflows and project automation
+configs/                  # YAML/JSON parameter presets for pipelines and experiments
+docs/                     # User guides, methodology notes, references, and figures
+examples/                 # Ready-to-run scripts showcasing core modeling workflows
+results/                  # Checked-in sample outputs and experiment artifacts
+scripts/                  # CLI entry points for experiments, sweeps, and conversions
+src/analog_hawking/       # Core library: physics engines, diagnostics, hybrid coupling
+tests/                    # Unit and integration suites for the library and scripts
 ```
+
+## Universality Experiment (New in v0.2.0)
+
+**Test the universal nature of Hawking radiation**: When frequency is normalized by surface gravity (ω/κ), Hawking spectra from completely different plasma configurations should collapse onto a single universal curve.
+
+- **Spectrum Collapse**: Normalize frequency by κ and apply acoustic-WKB graybody transmission. Across ≥4 analytic flow families (plus optional PIC simulation data), the power spectral densities collapse onto a narrow universal band.
+- **Parameter Recovery**: Close the loop by inverting noisy spectra to recover the original κ value using maximum likelihood estimation with calibrated uncertainty bounds.
+
+For step-by-step instructions on running the universality collapse experiments—including analytic-only and PIC-augmented setups—refer to the [Advanced Scenarios guide](docs/AdvancedScenarios.md) alongside `docs/Experiments.md` for methodology and interpretation.
+
+## Research Highlights
+
+- **Gradient-managed enhancements**: Multi-beam geometries deliver only modest power boosts once coarse-grained at the skin-depth scale, reinforcing the need for realistic gradient budgeting instead of multiplicative scaling assumptions.
+- **Horizon statistics under diagnostics**: Horizon sweeps quantify position uncertainty, surface gravity, and gradient components, confirming that horizon formation remains the primary experimental bottleneck.
+- **Guidance and optimization tooling**: Bayesian merit maps and δ-matching guidance visualize where gradient control and radio detectability align, while sound-speed-aware models capture horizon shifts from realistic heating profiles.
+
+See `docs/Results.md` for full figures and quantitative tables.
+
+## Research Roadmap
+
+- Deploy the WarpX execution layer, fluctuation injector, and high-fidelity trans-Planckian experiment workflow ([`docs/trans_planckian_next_steps.md`](docs/trans_planckian_next_steps.md)).
+- Close validation gaps by benchmarking against PIC/fluid simulations, refining coarse-graining, and expanding experimental implementation ([`docs/Limitations.md`](docs/Limitations.md)).
 
 ## Limitations & Scope
 
@@ -214,7 +210,8 @@ tests/                     # Unit and integration suite
 
 - Run tests: `pytest -q`
 - Keep patches focused; adhere to CONTRIBUTING.md for style and review expectations
-- Use `make lint` / `make docs` (where available) before submitting PRs
+- Linting: there is no dedicated `make lint` target—follow the PEP 8 guidance in CONTRIBUTING and optionally run your preferred static analysis locally
+- Documentation: update the Markdown files under `docs/` directly (no generated docs build or `make docs` step)
 
 ## Citation
 
