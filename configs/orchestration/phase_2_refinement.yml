@@ -1,0 +1,70 @@
+# Phase 2: Refinement Configuration
+# Focuses on promising regions identified in Phase 1
+
+phase_name: "phase_2_refinement"
+description: "Focused refinement in promising parameter regions"
+
+# Phase-specific parameters
+convergence_threshold: 0.05
+max_iterations: 30
+parallel_workers: 6
+priority: "refinement"
+
+# Parameter sampling strategy
+sampling:
+  method: "adaptive_latin_hypercube"
+  n_samples: 100
+  random_state: 42
+  adaptive_iterations: 3
+
+# Parameter space refinement (based on Phase 1 results)
+parameter_space:
+  laser_intensity:
+    refinement_factor: 0.5  # 50% reduction in range
+    n_points: 10
+    log_scale: true
+    
+  plasma_density:
+    refinement_factor: 0.5
+    n_points: 10
+    log_scale: true
+    
+  temperature_constant:
+    refinement_factor: 0.3
+    n_points: 6
+    log_scale: true
+    
+  magnetic_field:
+    refinement_factor: 0.8
+    n_points: 4
+    log_scale: false
+
+# Physics settings for refinement
+physics:
+  grid_points: 384  # Medium resolution
+  save_graybody_figure: true
+  enable_hybrid: false
+  use_fast_magnetosonic: true
+
+# Detection settings
+detection:
+  significance_threshold: 4.0  # Medium threshold
+  observation_time: 3600.0
+
+# Convergence criteria
+convergence:
+  moving_average_window: 8
+  improvement_threshold: 0.02
+  min_samples_for_convergence: 15
+  metric: "detection_time_improvement"
+
+# Result filtering for phase transition
+phase_transition:
+  min_success_rate: 0.2
+  min_kappa_threshold: 5e9
+  max_detection_time: 1e5  # seconds
+
+# Performance settings
+performance:
+  timeout_per_simulation: 240
+  progress_update_interval: 45

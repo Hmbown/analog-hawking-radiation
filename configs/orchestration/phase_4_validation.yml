@@ -1,0 +1,86 @@
+# Phase 4: Validation Configuration
+# Final validation and statistical significance analysis
+
+phase_name: "phase_4_validation"
+description: "Final validation and statistical significance analysis"
+
+# Phase-specific parameters
+convergence_threshold: 0.01
+max_iterations: 10
+parallel_workers: 4
+priority: "validation"
+
+# Validation strategy
+validation:
+  method: "statistical_analysis"
+  n_validation_samples: 50
+  confidence_level: 0.95
+  cross_validation_folds: 5
+
+# Parameter space for validation (highly refined around optimal points)
+parameter_space:
+  laser_intensity:
+    refinement_factor: 0.1  # 90% reduction in range
+    n_points: 15
+    log_scale: true
+    
+  plasma_density:
+    refinement_factor: 0.1
+    n_points: 15
+    log_scale: true
+    
+  temperature_constant:
+    refinement_factor: 0.1
+    n_points: 10
+    log_scale: true
+    
+  magnetic_field:
+    refinement_factor: 0.2
+    n_points: 8
+    log_scale: false
+
+# Physics settings for validation
+physics:
+  grid_points: 1024  # Highest resolution for accuracy
+  save_graybody_figure: true
+  enable_hybrid: true
+  hybrid_model: "anabhel"
+  mirror_D: 10e-6
+  mirror_eta: 1.0
+  use_fast_magnetosonic: true
+  kappa_method: "acoustic_exact"
+  graybody: "acoustic_wkb"
+  alpha_gray: 0.8
+
+# Detection settings for validation
+detection:
+  significance_threshold: 6.0  # Discovery-level threshold
+  observation_time: 86400.0    # 24 hours for validation
+  system_temperature: 30.0
+  reference_bandwidth: 1e8
+
+# Statistical analysis settings
+statistical_analysis:
+  significance_levels: [3.0, 5.0, 6.0]
+  observation_times: [3600.0, 86400.0, 604800.0]  # 1h, 1d, 1w
+  confidence_intervals: [0.68, 0.95, 0.99]
+  bootstrap_samples: 1000
+
+# Convergence criteria
+convergence:
+  moving_average_window: 5
+  improvement_threshold: 0.005
+  min_samples_for_convergence: 25
+  metric: "statistical_significance"
+
+# Final result requirements
+validation_criteria:
+  min_success_rate: 0.4
+  min_kappa_threshold: 2e10
+  max_detection_time: 1e3  # seconds for 5-sigma detection
+  required_significance: 5.0
+
+# Performance settings
+performance:
+  timeout_per_simulation: 600  # Longer timeout for high-resolution runs
+  progress_update_interval: 120

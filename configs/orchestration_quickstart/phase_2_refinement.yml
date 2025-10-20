@@ -1,0 +1,31 @@
+phase_name: "phase_2_refinement"
+description: "Small refinement"
+
+convergence_threshold: 0.3
+max_iterations: 1
+parallel_workers: 2
+priority: "refinement"
+
+sampling:
+  method: "latin_hypercube"
+  n_samples: 6
+  random_state: 11
+
+parameter_space:
+  laser_intensity: {min: 2e16, max: 5e17, n_points: 3, log_scale: true}
+  plasma_density: {min: 2e16, max: 5e17, n_points: 3, log_scale: true}
+  temperature_constant: {min: 2e3, max: 8e3, n_points: 2, log_scale: true}
+
+physics:
+  grid_points: 64
+  save_graybody_figure: false
+
+convergence:
+  moving_average_window: 3
+  improvement_threshold: 0.5
+  min_samples_for_convergence: 3
+
+performance:
+  timeout_per_simulation: 60
+  progress_update_interval: 10
+

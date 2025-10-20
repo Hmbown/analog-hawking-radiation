@@ -3,3 +3,10 @@ scipy
 matplotlib
 h5py
 emcee
+PyYAML
+pandas
+seaborn
+psutil
+rich
+scikit-optimize
+scikit-learn

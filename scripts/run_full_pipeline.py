@@ -94,6 +94,8 @@ def run_full_pipeline(
     mirror_D: float = 10e-6,
     mirror_eta: float = 1.0,
 ) -> FullPipelineSummary:
+    # Ensure defaults for variables used in return even if certain branches are not taken
+    t5sigma_TH = float('inf')
     # 1) Configure backend
     grid = np.linspace(grid_min, grid_max, grid_points)
     backend = FluidBackend()
@@ -305,9 +307,12 @@ def run_full_pipeline(
             if dk > 0 and np.isfinite(dk):
                 T_H_low = float(hbar * max(float(kappa[0]) - dk, 0.0) / (2.0 * pi * k))
                 T_H_high = float(hbar * (float(kappa[0]) + dk) / (2.0 * pi * k))
+        # Always define t5sigma_TH; if T_H <= 0 set to inf
         if T_H > 0:
             t_grid_TH = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), float(T_H))
-        t5sigma_TH = float(t_grid_TH[0, 0])
+            t5sigma_TH = float(t_grid_TH[0, 0])
+        else:
+            t5sigma_TH = float('inf')
 
         # Optional multi-band evaluation if bands provided (format: "f1:B1,f2:B2,...")
         if bands:

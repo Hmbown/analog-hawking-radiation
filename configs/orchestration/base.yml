@@ -1,0 +1,104 @@
+# Base Orchestration Configuration Template
+# This file defines the common parameters and structure for multi-phase experiments
+
+# Experiment metadata
+experiment:
+  name: "Analog Hawking Radiation Detection"
+  description: "Multi-phase optimization and detection experiment"
+  author: "Automated Orchestration System"
+  version: "1.0.0"
+
+# Phase definitions
+phases:
+  - name: "phase_1_initial_exploration"
+    description: "Broad parameter space exploration"
+    convergence_threshold: 0.1
+    max_iterations: 50
+    parallel_workers: 4
+    
+  - name: "phase_2_refinement"
+    description: "Focus on promising parameter regions"
+    convergence_threshold: 0.05
+    max_iterations: 30
+    parallel_workers: 6
+    
+  - name: "phase_3_optimization"
+    description: "Bayesian optimization for best detection conditions"
+    convergence_threshold: 0.02
+    max_iterations: 20
+    parallel_workers: 8
+    
+  - name: "phase_4_validation"
+    description: "Final validation and statistical significance analysis"
+    convergence_threshold: 0.01
+    max_iterations: 10
+    parallel_workers: 4
+
+# Physics engine parameters
+physics:
+  grid_points: 512
+  grid_min: 0.0
+  grid_max: 50e-6
+  kappa_method: "acoustic_exact"
+  graybody: "acoustic_wkb"
+  alpha_gray: 0.8
+  enable_hybrid: false
+  hybrid_model: "anabhel"
+
+# Detection parameters
+detection:
+  system_temperature: 30.0  # K
+  reference_bandwidth: 1e8   # Hz (100 MHz)
+  significance_threshold: 5.0  # sigma
+  observation_time: 3600.0    # seconds (1 hour)
+
+# Parameter space bounds
+parameter_bounds:
+  laser_intensity:
+    min: 1e16
+    max: 1e20
+    log_scale: true
+    
+  plasma_density:
+    min: 1e16
+    max: 1e20
+    log_scale: true
+    
+  temperature_constant:
+    min: 1e3
+    max: 1e5
+    log_scale: true
+    
+  magnetic_field:
+    min: 0.0
+    max: 100.0
+    log_scale: false
+
+# Convergence detection
+convergence:
+  moving_average_window: 10
+  improvement_threshold: 0.01
+  min_samples_for_convergence: 20
+  statistical_significance_threshold: 0.95
+
+# Result aggregation
+results:
+  output_directory: "results/orchestration"
+  save_intermediate_results: true
+  compression_level: 6
+  max_results_per_phase: 1000
+
+# Performance monitoring
+performance:
+  progress_update_interval: 60  # seconds
+  memory_monitoring: true
+  cpu_usage_threshold: 0.8
+  timeout_per_simulation: 300  # seconds
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "orchestration.log"
+  max_file_size: "100MB"
+  backup_count: 5

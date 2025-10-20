@@ -1,0 +1,40 @@
+phase_name: "phase_3_optimization"
+description: "Tiny Bayesian optimization"
+
+convergence_threshold: 0.2
+max_iterations: 1
+parallel_workers: 2
+priority: "optimization"
+
+parameter_space:
+  laser_intensity: {min: 1e16, max: 1e18, n_points: 3, log_scale: true}
+  plasma_density: {min: 1e16, max: 1e18, n_points: 3, log_scale: true}
+  temperature_constant: {min: 1e3, max: 1e4, n_points: 2, log_scale: true}
+
+physics:
+  grid_points: 64
+  save_graybody_figure: false
+  enable_hybrid: false
+
+convergence:
+  moving_average_window: 3
+  improvement_threshold: 0.5
+  min_samples_for_convergence: 3
+  metric: "detection_time_improvement"
+
+bayesian_optimization:
+  n_calls: 5
+  n_initial_points: 2
+  noise: 1e-4
+  acq_func: "EI"
+  kappa: 1.96
+
+phase_transition:
+  min_success_rate: 0.2
+  min_kappa_threshold: 1e9
+  max_detection_time: 1e4
+
+performance:
+  timeout_per_simulation: 60
+  progress_update_interval: 10
+

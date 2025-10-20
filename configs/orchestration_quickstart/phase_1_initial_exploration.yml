@@ -1,0 +1,28 @@
+phase_name: "phase_1_initial_exploration"
+description: "Coarse sampling (very small)"
+
+convergence_threshold: 0.5
+max_iterations: 1
+parallel_workers: 2
+priority: "exploration"
+
+sampling:
+  method: "latin_hypercube"
+  n_samples: 6
+  random_state: 7
+
+parameter_space:
+  laser_intensity: {min: 1e16, max: 1e18, n_points: 3, log_scale: true}
+  plasma_density: {min: 1e16, max: 1e18, n_points: 3, log_scale: true}
+  temperature_constant: {min: 1e3, max: 1e4, n_points: 2, log_scale: true}
+  magnetic_field: {min: 0.0, max: 10.0, n_points: 2, log_scale: false}
+
+physics:
+  grid_points: 64
+  grid_max: 10e-6
+  save_graybody_figure: false
+
+performance:
+  timeout_per_simulation: 60
+  progress_update_interval: 10
+

@@ -1,0 +1,77 @@
+# Quickstart Orchestration Configuration (fast smoke run)
+
+experiment:
+  name: "Analog Hawking Quickstart"
+  description: "Fast end-to-end run with minimal samples"
+  author: "Automated Orchestration System"
+  version: "1.0.0"
+
+# Abbreviated phases for a short run
+phases:
+  - name: "phase_1_initial_exploration"
+    description: "Coarse sampling (very small)"
+    convergence_threshold: 0.5
+    max_iterations: 1
+    parallel_workers: 2
+  - name: "phase_2_refinement"
+    description: "Small refinement"
+    convergence_threshold: 0.3
+    max_iterations: 1
+    parallel_workers: 2
+  - name: "phase_3_optimization"
+    description: "Tiny Bayesian optimization"
+    convergence_threshold: 0.2
+    max_iterations: 1
+    parallel_workers: 2
+  - name: "phase_4_validation"
+    description: "Light validation"
+    convergence_threshold: 0.1
+    max_iterations: 1
+    parallel_workers: 2
+
+physics:
+  grid_points: 64
+  grid_min: 0.0
+  grid_max: 10e-6
+  kappa_method: "acoustic_exact"
+  graybody: "acoustic_wkb"
+  alpha_gray: 0.8
+  enable_hybrid: false
+  hybrid_model: "anabhel"
+
+detection:
+  system_temperature: 30.0
+  reference_bandwidth: 1e8
+  significance_threshold: 5.0
+  observation_time: 600.0
+
+parameter_bounds:
+  laser_intensity: {min: 1e16, max: 1e18, log_scale: true}
+  plasma_density: {min: 1e16, max: 1e18, log_scale: true}
+  temperature_constant: {min: 1e3, max: 1e4, log_scale: true}
+  magnetic_field: {min: 0.0, max: 10.0, log_scale: false}
+
+convergence:
+  moving_average_window: 3
+  improvement_threshold: 0.5
+  min_samples_for_convergence: 3
+
+results:
+  output_directory: "results/orchestration"
+  save_intermediate_results: true
+  compression_level: 0
+  max_results_per_phase: 100
+
+performance:
+  progress_update_interval: 10
+  memory_monitoring: true
+  cpu_usage_threshold: 0.95
+  timeout_per_simulation: 60
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "orchestration_quickstart.log"
+  max_file_size: "10MB"
+  backup_count: 1
+

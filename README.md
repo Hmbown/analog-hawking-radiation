@@ -64,6 +64,42 @@ See `docs/Experiments.md` for detailed methodology, acceptance criteria, and int
 4. **Spectrum + detection** – compute Hawking spectra, integrate over radio bands, and estimate 5σ detection times under user-specified system temperature and bandwidth.
 5. **Reporting** – persist JSON summaries, PSD plots, and optional hybrid comparisons in `results/` and `figures/`.
 
+## Orchestration & Monitoring (New)
+
+A multi-phase orchestration engine coordinates coarse exploration, refinement, Bayesian optimization, and validation. It integrates real-time monitoring, result aggregation, and reporting.
+
+- Run orchestration across all phases:
+  - `python -m scripts.orchestration_engine --config configs/orchestration/base.yml`
+
+- Run specific phases only (space-separated):
+  - `python -m scripts.orchestration_engine --config configs/orchestration/base.yml --phases phase_1_initial_exploration phase_2_refinement`
+
+- Monitor an active experiment (live dashboard):
+  - `python scripts/monitoring/dashboard.py <experiment_id>`
+
+- Aggregate results and generate a comprehensive report:
+  - `python scripts/result_aggregator.py <experiment_id>`
+
+- Makefile helpers:
+  - `make orchestrate [NAME=exp_name PHASES="phase_1_initial_exploration ..."]`
+  - `make dashboard EXPID=<experiment_id>`
+  - `make aggregate EXPID=<experiment_id>`
+  - `make report EXPID=<experiment_id> [COMPONENT=all|orchestration|dashboard|aggregator|validation]`
+
+## Latest Orchestrated Results
+
+- Experiment ID: `a27496e3`
+- Phases run: `phase_1_initial_exploration`, `phase_2_refinement`, `phase_3_optimization`, `phase_4_validation`
+- Total simulations: 140
+- Success rate: 100%
+- Best detection time: N/A (no t5σ found under current random samples and thresholds)
+- Reports:
+  - Summary: `results/orchestration/a27496e3/final_report.txt`
+  - Comprehensive: `results/orchestration/a27496e3/comprehensive_report.txt`
+
+Notes:
+- The run executed in a constrained environment; parallel workers were auto-fallbacked to sequential mode. Reporting/visualization components were skipped due to optional plotting dependencies. Validation calls are guarded when unavailable. To enable full features (rich dashboard, seaborn visuals, skopt optimization), install optional dependencies in your environment.
+
 ## Quick Start
 
 ### Install

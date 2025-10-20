@@ -1,0 +1,73 @@
+# Phase 1: Initial Exploration Configuration
+# Overrides and extends base configuration for broad parameter space exploration
+
+phase_name: "phase_1_initial_exploration"
+description: "Broad parameter space exploration with coarse sampling"
+
+# Phase-specific parameters
+convergence_threshold: 0.1
+max_iterations: 50
+parallel_workers: 4
+priority: "exploration"
+
+# Parameter sampling strategy
+sampling:
+  method: "latin_hypercube"
+  n_samples: 200
+  random_state: 42
+
+# Parameter space for this phase
+parameter_space:
+  laser_intensity:
+    min: 1e16
+    max: 1e20
+    n_points: 8
+    log_scale: true
+    
+  plasma_density:
+    min: 1e16
+    max: 1e20
+    n_points: 8
+    log_scale: true
+    
+  temperature_constant:
+    min: 1e3
+    max: 1e5
+    n_points: 4
+    log_scale: true
+    
+  magnetic_field:
+    min: 0.0
+    max: 10.0
+    n_points: 3
+    log_scale: false
+
+# Physics settings for exploration
+physics:
+  grid_points: 256  # Lower resolution for speed
+  save_graybody_figure: false
+  enable_hybrid: false
+  use_fast_magnetosonic: false
+
+# Detection settings
+detection:
+  significance_threshold: 3.0  # Lower threshold for exploration
+  observation_time: 3600.0
+
+# Convergence criteria
+convergence:
+  moving_average_window: 5
+  improvement_threshold: 0.05
+  min_samples_for_convergence: 10
+  metric: "detection_time_improvement"
+
+# Result filtering for phase transition
+phase_transition:
+  min_success_rate: 0.1
+  min_kappa_threshold: 1e9
+  max_detection_time: 1e6  # seconds
+
+# Performance settings
+performance:
+  timeout_per_simulation: 180  # Shorter timeout for exploration
+  progress_update_interval: 30
