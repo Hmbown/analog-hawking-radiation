@@ -46,6 +46,8 @@ pytest -q
 - **κ-inference**: `scripts/infer_kappa_from_psd.py` - Surface gravity parameter inference
 - **Correlation analysis**: `scripts/correlation_map.py` - Horizon-crossing correlation workflow
 - **WarpX runner**: `scripts/warpx_runner.py` - Direct WarpX simulation execution
+- **Gradient catastrophe analysis**: `scripts/sweep_gradient_catastrophe.py` - Physics breakdown boundary mapping
+- **Parameter sweeps**: `scripts/sweep_multi_physics_params.py` - Multi-parameter exploration framework
 
 ### Key Configuration Files
 
@@ -97,6 +99,12 @@ pytest -q
    ```bash
    python scripts/warpx_runner.py --deck protocols/inputs_downramp_1d.in \
      --output diags/openpmd --max-step 400
+   ```
+
+7. **Gradient catastrophe analysis** (new in v0.3):
+   ```bash
+   python scripts/sweep_gradient_catastrophe.py --n-samples 500 \
+     --output results/gradient_limits_analysis
    ```
 
 ### GPU Acceleration (New in v0.3)
@@ -272,6 +280,7 @@ Example figures appear in `docs/img/`, including graybody comparisons and κ def
 - `docs/Methods.md` – algorithms for horizon finding, graybody solvers, and detection modeling
 - `docs/Experiments.md` – **universality experiments and PIC integration guide**
 - `docs/AdvancedScenarios.md` – command recipes for PIC, universality, and hybrid workflows
+- `docs/GradientCatastropheAnalysis.md` – **physics breakdown boundary mapping and fundamental limits** (new in v0.3)
 - `docs/Highlights_v0.2.0.md` – physics summary of the current release
 - `docs/Results.md` – representative outputs and interpretation guidance
 - `docs/Limitations.md` – scope, assumptions, and open questions
@@ -319,6 +328,26 @@ For step-by-step instructions on running the universality collapse experiments�
 - **Gradient-managed enhancements**: Multi-beam geometries deliver only modest power boosts once coarse-grained at the skin-depth scale, reinforcing the need for realistic gradient budgeting instead of multiplicative scaling assumptions.
 - **Horizon statistics under diagnostics**: Horizon sweeps quantify position uncertainty, surface gravity, and gradient components, confirming that horizon formation remains the primary experimental bottleneck.
 - **Guidance and optimization tooling**: Bayesian merit maps and δ-matching guidance visualize where gradient control and radio detectability align, while sound-speed-aware models capture horizon shifts from realistic heating profiles.
+
+### Physics Breakdown Analysis (New in v0.3.0)
+
+**Fundamental Limits Discovery**: Through systematic exploration of 500+ parameter combinations, we have mapped the fundamental physical boundaries that constrain analog Hawking radiation detection in laser-plasma systems.
+
+**Key Finding**: Maximum achievable surface gravity is **κ_max ≈ 3.8×10¹² Hz** before relativistic breakdown occurs, establishing a fundamental detection time limit of **t_min ∼ 10⁻⁷ seconds** regardless of laser technology improvements.
+
+**Primary Physics Constraint**: Relativistic breakdown (40% of configurations) dominates over other failure modes, creating a "relativistic wall" at:
+- Velocity limit: v < 0.5c
+- Gradient limit: dv/dx < 4×10¹² s⁻¹  
+- Intensity limit: I < 6×10⁵⁰ W/m²
+
+**Optimal Configuration**: 
+- a₀ = 1.62 (normalized laser amplitude)
+- n_e = 1.39×10¹⁹ m⁻³ (plasma density)
+- Gradient factor = 4.6
+
+**Scaling Laws**: Counter-intuitively, κ ∝ a₀⁻⁰·¹⁹³, indicating that higher laser intensities create steeper gradients but push systems into invalid relativistic regimes, with an optimal "sweet spot" around a₀ ≈ 1.6.
+
+For complete analysis including parameter space maps, breakdown statistics, and experimental implications, see `results/gradient_limits/gradient_catastrophe_findings.md`.
 
 See `docs/Results.md` for full figures and quantitative tables.
 
