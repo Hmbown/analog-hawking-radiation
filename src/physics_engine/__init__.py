@@ -9,7 +9,7 @@ from typing import Iterable
 
 from analog_hawking import physics_engine as _physics_engine
 
-_alias_module = sys.modules.setdefault(__name__, sys.modules.get(__name__, ModuleType(__name__)))
+_alias_module = sys.modules[__name__]
 
 
 def _export_public_attributes(source: ModuleType, alias: ModuleType) -> None:
