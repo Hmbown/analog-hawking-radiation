@@ -16,6 +16,91 @@ Analog Hawking Radiation Simulator helps laboratory plasma teams explore how to 
 
 ![Workflow Pipeline](docs/img/workflow_diagram.png)
 
+## PC AI Setup Instructions
+
+For AI assistants working on this repository, follow these steps to get started quickly:
+
+### Quick Setup for AI Assistants
+
+```bash
+# Clone the repository
+git clone https://github.com/hmbown/analog-hawking-radiation.git
+cd analog-hawking-radiation
+
+# Install the package and dependencies
+pip install -e .
+
+# Install optional dependencies for GPU acceleration and advanced features
+pip install cupy scikit-optimize seaborn
+
+# Run the basic test suite to verify installation
+pytest -q
+```
+
+### Key Files for AI Assistants
+
+- **Main pipeline**: `scripts/run_full_pipeline.py` - Core simulation pipeline
+- **PIC integration**: `scripts/run_pic_pipeline.py` - WarpX/OpenPMD data processing
+- **Orchestration engine**: `scripts/orchestration_engine.py` - Multi-phase experiment coordination
+- **GPU acceleration**: `src/analog_hawking/utils/array_module.py` - Backend-aware array dispatch
+- **κ-inference**: `scripts/infer_kappa_from_psd.py` - Surface gravity parameter inference
+- **Correlation analysis**: `scripts/correlation_map.py` - Horizon-crossing correlation workflow
+- **WarpX runner**: `scripts/warpx_runner.py` - Direct WarpX simulation execution
+
+### Key Configuration Files
+
+- **Basic simulation**: `configs/3d_simulation.yml`
+- **PIC orchestration**: `configs/orchestration/pic_downramp.yml`
+- **Phase 3 optimization**: `configs/orchestration/phase_3_optimization.yml`
+- **Trans-Planckian**: `configs/trans_planckian_enhancements.yml`
+
+### Essential Documentation
+
+- **PC/CUDA workflow**: `docs/pc_cuda_workflow.md` - GPU acceleration setup
+- **Advanced scenarios**: `docs/AdvancedScenarios.md` - PIC integration and advanced workflows
+- **Methods**: `docs/Methods.md` - Algorithm details and implementation
+- **Phase timeline**: `docs/phase_timeline.md` - Development roadmap
+
+### Example Workflows
+
+1. **Basic fluid simulation**:
+   ```bash
+   python scripts/run_full_pipeline.py --demo --kappa-method acoustic_exact --graybody acoustic_wkb
+   ```
+
+2. **PIC data processing** (requires openPMD files):
+   ```bash
+   python scripts/run_pic_pipeline.py --input-path /path/to/openpmd/files --output-dir results/pic_run
+   ```
+
+3. **κ-inference from PSD data**:
+   ```bash
+   python scripts/infer_kappa_from_psd.py --psd-file /path/to/psd_data.npy --output results/kappa_inference.json
+   ```
+
+4. **Full orchestration**:
+   ```bash
+   python -m scripts.orchestration_engine --config configs/orchestration/pic_downramp.yml
+   ```
+
+5. **WarpX simulation**:
+   ```bash
+   python scripts/warpx_runner.py --config protocols/inputs_downramp_1d.in --output results/warpx_run
+   ```
+
+### GPU Acceleration
+
+The codebase supports CuPy for GPU acceleration. To enable:
+1. Install CuPy: `pip install cupy-cuda11x` (adjust CUDA version as needed)
+2. The array dispatch system will automatically use GPU when available
+3. Run with GPU marker: `pytest -m gpu` (requires CUDA-compatible GPU)
+
+### Testing
+
+- Run all tests: `pytest -q`
+- Run GPU-specific tests: `pytest -m gpu`
+- Run specific test file: `pytest tests/test_pic_pipeline.py`
+
 ## Getting Started
 
 ### Installation
