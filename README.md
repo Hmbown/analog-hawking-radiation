@@ -259,7 +259,7 @@ If you use this work, please cite both the framework and the foundational AnaBHE
 
 **Plasma mirror concept**
 ```bibtex
-@article{chen2015plasma,
+@article{chen2017plasma,
   title={Accelerating plasma mirrors to investigate the black hole information loss paradox},
   author={Chen, Pisin and Mourou, Gerard},
   journal={Physical Review Letters},
