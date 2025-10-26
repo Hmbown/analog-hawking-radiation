@@ -30,6 +30,14 @@ Deliver a **GPU PIC-to-Hawking pipeline with κ-inference and horizon-crossing c
 - **openPMD I/O**: `pip install openpmd-api` (or Conda equivalent).[^openpmd]
 - **Sanity check**: run `pytest -q` once optional plotting deps are present.
 
+## Current PC Run Notes (2025-10-26)
+
+- Had to rely on the system interpreter because `python3 -m venv` is blocked without `python3.12-venv`; installed the project with `pip3 install --user --break-system-packages -e .` and added `cupy-cuda12x` plus `openpmd-api`.
+- GPU bindings validated locally (`python3 -c "import cupy as cp; print(cp.cuda.runtime.getDeviceCount())"` → `1`), confirming the RTX 3080 is visible through WSL.
+- Demo pipeline executed with `python3 scripts/run_full_pipeline.py --demo --kappa-method acoustic_exact --graybody acoustic_wkb --alpha-gray 0.8`; first horizon κ ≈ `3.15×10^14 s⁻¹` and `t_5σ ≈ 2.5×10^-10 s` are recorded in `results/full_pipeline_summary.json`.
+- PIC workflow exercised via a synthetic profile (`results/custom_pic_profile.npz`) passed to `python3 scripts/run_pic_pipeline.py --profile … --graybody acoustic_wkb --kappa-method acoustic_exact`, yielding a single horizon at `x ≈ 5.2×10^-5 m` with κ ≈ `2.40×10^10 s⁻¹` (`results/pic_pipeline_summary.json`).
+- Repository tests currently halt during collection because optional `physics_engine` support packages (`physics_engine.*`) are absent on this machine; the failure surfaces before any project code assertions run.
+
 ## Phase 1 — Generate PIC Data (WarpX)
 
 1. Build or fetch WarpX with `USE_GPU=TRUE` and `USE_OPENPMD=TRUE`; optionally enable MPI for multi-GPU runs.[^warpx]

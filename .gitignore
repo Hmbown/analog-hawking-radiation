@@ -156,6 +156,7 @@ Thumbs.db
 # IDE config files
 .idea/
 .vscode/
+.claude/
 *.swp
 figures/radio_snr_sweep.png
 
@@ -188,7 +189,6 @@ CLAUDE.md
 PUBLIC_RELEASE_CHECKLIST.md
 REPOSITORY_CLEANUP_SUMMARY.md
 ZENODO_DOI_GUIDE.md
-RELEASE_NOTES*.md
 docs/AUDIT_NOTES.md
 docs/Final_Answer.md
 docs/transformation_summary.md
@@ -201,3 +201,6 @@ analysis/
 # Generated images (keep only workflow diagram in docs/img/)
 docs/img/*.png
 !docs/img/workflow_diagram.png
+
+# Legacy physics_engine shim (untracked; actual code is in src/analog_hawking/)
+/physics_engine/

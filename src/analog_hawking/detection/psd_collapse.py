@@ -19,8 +19,8 @@ import numpy as np
 from scipy.optimize import minimize_scalar
 
 from .radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
-from ...physics_engine.optimization.graybody_1d import compute_graybody
-from ...physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
+from ..physics_engine.optimization.graybody_1d import compute_graybody
+from ..physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
 
 
 def omega_over_kappa_axis(frequencies: Iterable[float], kappa: float) -> np.ndarray:

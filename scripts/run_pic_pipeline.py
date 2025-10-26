@@ -81,11 +81,11 @@ max_step = 10
         except (FileNotFoundError, subprocess.CalledProcessError, KeyError) as e:
             print(f"WarpX run failed ({e}), falling back to synthetic data")
             # Generate synthetic
-            subprocess.run(["python", "scripts/generate_synthetic_openpmd_slice.py"], check=True, cwd=".")
+            subprocess.run([sys.executable, "scripts/generate_synthetic_openpmd_slice.py"], check=True, cwd=".")
             h5_file = "results/synthetic_slice.h5"
         # Convert to profile npz
         subprocess.run([
-            "python", "scripts/openpmd_slice_to_profile.py",
+            sys.executable, "scripts/openpmd_slice_to_profile.py",
             "--in", h5_file,
             "--vel-dataset", "/vel",
             "--Te-dataset", "/Te",
@@ -93,11 +93,13 @@ max_step = 10
         ], check=True, cwd=".")
     elif args.profile is None:
         # Generate synthetic if no profile provided
-        subprocess.run(["python", "scripts/generate_synthetic_openpmd_slice.py"], check=True, cwd=".")
+        subprocess.run([sys.executable, "scripts/generate_synthetic_openpmd_slice.py"], check=True, cwd=".")
         h5_file = "results/synthetic_slice.h5"
         subprocess.run([
-            "python", "scripts/openpmd_slice_to_profile.py",
+            sys.executable, "scripts/openpmd_slice_to_profile.py",
             "--in", h5_file,
+            "--vel-dataset", "/vel",
+            "--Te-dataset", "/Te",
             "--out", profile_path
         ], check=True, cwd=".")
 

@@ -3,9 +3,9 @@
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml/badge.svg)](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-40%20passing-brightgreen.svg)](tests/)
-[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
-[![Release Notes](https://img.shields.io/badge/release%20notes-v0.2.0-informational.svg)](RELEASE_NOTES_v0.2.0.md)
+[![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen.svg)](tests/)
+[![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
+[![Release Notes](https://img.shields.io/badge/release%20notes-v0.3.0-informational.svg)](RELEASE_NOTES_v0.3.0.md)
 
 Analog Hawking Radiation Simulator helps laboratory plasma teams explore how to reproduce Hawking-like signals—analog Hawking radiation, meaning a lab-based imitation of black hole Hawking glow—using realistic equipment. It is built for experimental physicists and simulation specialists who need clear guidance from design choices to data interpretation. The tool delivers a single place to plan scenarios, quantify detection odds, and compare outcomes before committing to expensive runs.
 
@@ -73,27 +73,60 @@ pytest -q
    python scripts/run_pic_pipeline.py --input-path /path/to/openpmd/files --output-dir results/pic_run
    ```
 
-3. **κ-inference from PSD data**:
+3. **κ-inference from PSD data** (new in v0.3):
    ```bash
-   python scripts/infer_kappa_from_psd.py --psd-file /path/to/psd_data.npy --output results/kappa_inference.json
+   python scripts/infer_kappa_from_psd.py results/psd_*.npz \
+     --graybody-profile results/warpx_profile.npz \
+     --graybody-method acoustic_wkb \
+     --calls 40
    ```
 
-4. **Full orchestration**:
+4. **Horizon-crossing correlation analysis** (new in v0.3):
+   ```bash
+   python scripts/correlation_map.py --series ./diags/openpmd \
+     --t-index 350 --window 20 \
+     --output figures/correlation_map.png
+   ```
+
+5. **Full orchestration**:
    ```bash
    python -m scripts.orchestration_engine --config configs/orchestration/pic_downramp.yml
    ```
 
-5. **WarpX simulation**:
+6. **WarpX simulation** (new in v0.3):
    ```bash
-   python scripts/warpx_runner.py --config protocols/inputs_downramp_1d.in --output results/warpx_run
+   python scripts/warpx_runner.py --deck protocols/inputs_downramp_1d.in \
+     --output diags/openpmd --max-step 400
    ```
 
-### GPU Acceleration
+### GPU Acceleration (New in v0.3)
 
-The codebase supports CuPy for GPU acceleration. To enable:
-1. Install CuPy: `pip install cupy-cuda11x` (adjust CUDA version as needed)
-2. The array dispatch system will automatically use GPU when available
-3. Run with GPU marker: `pytest -m gpu` (requires CUDA-compatible GPU)
+The codebase supports automatic GPU acceleration via CuPy with seamless CPU fallback:
+
+1. **Install CuPy** matching your CUDA version:
+   ```bash
+   # For CUDA 12.x
+   pip install cupy-cuda12x
+   # For CUDA 11.x
+   pip install cupy-cuda11x
+   ```
+
+2. **Automatic dispatch**: The array module detects CuPy and routes computations to GPU automatically. No code changes needed—just install CuPy and get 10-100x speedups on:
+   - Graybody transmission (acoustic-WKB tortoise coordinates)
+   - Horizon sweeps and κ uncertainty quantification
+   - Correlation map density fluctuation analysis
+
+3. **Verify GPU availability**:
+   ```bash
+   python3 -c "import cupy as cp; print(f'GPU devices: {cp.cuda.runtime.getDeviceCount()}')"
+   ```
+
+4. **Run GPU-specific tests**:
+   ```bash
+   pytest -m gpu -v
+   ```
+
+5. **CPU fallback**: If CuPy is unavailable or GPU initialization fails, computations automatically fall back to NumPy with no errors—ensuring portability across all environments.
 
 ### Testing
 
@@ -148,7 +181,15 @@ sweeps—are documented in the [Advanced Scenarios guide](docs/AdvancedScenarios
 - [Limitations & Scope](#limitations--scope)
 - [Development](#development)
 
-## Key Features (v0.2.0)
+## Key Features (v0.3.0)
+
+- **GPU-accelerated workflows** with automatic backend dispatch. Install CuPy for 10-100x speedups on graybody transmission, tortoise coordinate construction, and horizon sweeps—maintaining full CPU fallback for portability and CI testing.
+
+- **Inverse κ-inference from experimental PSDs** using Bayesian optimization. Feed measured power spectra into `infer_kappa_from_psd.py` to recover surface gravity with credible intervals and posterior traces—enabling experimental validation and model fitting.
+
+- **Horizon-crossing correlation diagnostics** inspired by BEC analog experiments. Extract Hawking-partner correlations from PIC density fluctuations with `correlation_map.py`, producing publication-ready heat maps and g²(x₁,x₂) statistics.
+
+- **Complete WarpX integration** for first-principles plasma simulations. Run laser-plasma down-ramps with `warpx_runner.py`, ingest openPMD HDF5 via the PIC adapter, and feed profiles directly into horizon detection—closing the analytic→kinetic validation gap.
 
 - **Compare spectra across profiles** to see whether disparate plasma configurations align on a single observable curve. The universal spectrum collapse test normalizes frequency by surface gravity (ω/κ) for both analytic profiles and PIC data.
 
@@ -164,7 +205,9 @@ sweeps—are documented in the [Advanced Scenarios guide](docs/AdvancedScenarios
 
 - **Orchestrate multi-phase campaigns** with automated parameter exploration, refinement, Bayesian optimization, and validation across hundreds of simulations with real-time monitoring and comprehensive reporting.
 
-*Why it matters: These capabilities help experimental teams compare scenarios, validate models, and estimate detection prospects without leaving a single integrated toolkit.*
+- **Comprehensive physics validation** with automated testing of conservation laws (energy, momentum, particle number), physical bounds (velocities, temperatures, densities), numerical stability, and theoretical consistency—ensuring scientific rigor at every step.
+
+*Why it matters: These capabilities help experimental teams compare scenarios, validate models, and estimate detection prospects without leaving a single integrated toolkit—now with GPU acceleration and first-principles PIC validation.*
 
 ## End-to-End Workflow
 
@@ -307,7 +350,7 @@ If you use this work, please cite both the framework and the foundational AnaBHE
 @software{bown2025analog,
   author = {Bown, Hunter},
   title = {Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling},
-  version = {0.2.0},
+  version = {0.3.0},
   year = {2025},
   url = {https://github.com/hmbown/analog-hawking-radiation},
   note = {Speculative extension of AnaBHEL concepts}
@@ -350,4 +393,4 @@ If you use this work, please cite both the framework and the foundational AnaBHE
 
 ---
 
-**Framework Version**: 0.2.0 · **License**: MIT · **Tests**: 40/40 passing (local)
+**Framework Version**: 0.3.0 · **License**: MIT · **Tests**: 42/42 passing (local)

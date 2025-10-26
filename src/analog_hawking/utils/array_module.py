@@ -30,7 +30,13 @@ _USE_CUPY = os.getenv("ANALOG_HAWKING_USE_CUPY", "1").lower() not in {"0", "fals
 cupy = None
 if not _FORCE_CPU and _USE_CUPY:
     if importlib.util.find_spec("cupy") is not None:  # type: ignore[attr-defined]
-        cupy = importlib.import_module("cupy")  # type: ignore[assignment]
+        _cupy = importlib.import_module("cupy")
+        try:
+            # Trigger a tiny kernel launch to make sure NVRTC/driver pieces exist.
+            _ = _cupy.arange(1, dtype=_cupy.float32)
+            cupy = _cupy  # type: ignore[assignment]
+        except Exception:  # pragma: no cover - fall back to numpy when GPU unusable
+            cupy = None
 
 numpy = _np
 
@@ -82,7 +88,9 @@ def xp_gradient(y: Any, x: Optional[Any] = None) -> Any:
     """Backend-aware gradient that mirrors ``numpy.gradient`` semantics."""
     module = get_array_module(y, x)
     if module is numpy:
-        return numpy.gradient(ensure_numpy(y), ensure_numpy(x) if x is not None else None)
+        if x is None:
+            return numpy.gradient(ensure_numpy(y))
+        return numpy.gradient(ensure_numpy(y), ensure_numpy(x))
     y_arr = module.asarray(y)
     if x is None:
         return module.gradient(y_arr)

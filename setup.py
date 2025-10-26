@@ -8,7 +8,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="analog-hawking-radiation",
-    version="0.2.0",
+    version="0.3.0",
     author="Hunter Bown",
     author_email="hunter@shannonlabs.dev",
     description="A computational framework for simulating analog Hawking radiation in laser-plasma systems",

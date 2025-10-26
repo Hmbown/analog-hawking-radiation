@@ -16,7 +16,7 @@ from .plasma_physics import PlasmaPhysicsModel, AnalogHorizonPhysics, QEDPhysics
 from .quantum_field_theory import QuantumFieldTheory, BogoliubovTransformations, HawkingRadiationModel
 from .laser_plasma_interaction import LaserPlasmaDynamics
 from .anaBHEL_parameters import AnaBHELExperiment
-from .test_analytical_solutions import ValidationTests, ConvergenceTests
+from .analytical_validation import ValidationTests, ConvergenceTests
 
 class PhysicsValidationFramework:
     """
