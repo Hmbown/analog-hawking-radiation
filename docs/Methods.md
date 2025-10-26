@@ -87,6 +87,16 @@ Extension to magnetized plasma systems:
 
 * `scripts/scan_Bfield_horizons.py` sweeps magnetic field strengths using WarpX backend and records κ statistics
 
+Gradient Catastrophe Analysis
+-----------------------------
+
+The gradient catastrophe workflow maps the fundamental physics limits encountered when increasing surface gravity κ in laser–plasma analog horizons:
+
+* `scripts/sweep_gradient_catastrophe.py` performs large parameter sweeps over normalized laser amplitude (a₀), plasma density (nₑ), and imposed gradient steepness to locate the onset of breakdown.
+* Each sampled configuration is scored for validity by monitoring relativistic velocity caps (v < 0.5c), ionization and density floor violations, gradient blow-up, and numerical pathologies (NaN/Inf).
+* Horizons are detected using the acoustic-exact κ estimator, storing both the peak κ discovered before breakdown and the configuration that achieved it.
+* Production runs emit `gradient_catastrophe_sweep.json` archives alongside publication-ready plots and markdown findings, enabling downstream visualization and reporting.
+
 Fluctuation Seeding
 ------------------
 
