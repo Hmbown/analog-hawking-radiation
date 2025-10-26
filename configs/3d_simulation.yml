@@ -1,0 +1,8 @@
+grid_type: 'cartesian'
+dimensions: [100, 50, 50]
+dx: 0.1e-6  # m
+dy: 0.1e-6  # m
+dz: 0.1e-6  # m
+x_min: -5.0e-6  # m
+y_min: -2.5e-6  # m
+z_min: -2.5e-6  # m

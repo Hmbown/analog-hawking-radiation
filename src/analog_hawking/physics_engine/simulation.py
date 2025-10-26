@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Iterable, Mapping, Optional
+from typing import Dict, Iterable, Mapping, Optional, Tuple
 
 import numpy as np
+import yaml
 
 from .horizon import HorizonResult, find_horizons_with_uncertainty
 from .plasma_models.backend import PlasmaBackend, PlasmaState
@@ -25,6 +26,7 @@ class SimulationRunner:
         self._backend = backend
         self._result_dir: Optional[Path] = None
         self._write_sidecar: bool = False
+        self._grid_3d: Optional[Tuple[np.ndarray, np.ndarray, np.ndarray]] = None
 
     def run_step(self, dt: float) -> SimulationOutputs:
         state = self._backend.step(dt)
@@ -32,6 +34,37 @@ class SimulationRunner:
         return SimulationOutputs(state=state, horizons=horizons)
 
     def configure(self, run_config: Mapping[str, object]) -> None:
+        # Handle 3D grid configuration
+        if "3d_grid_config" in run_config:
+            config_path = run_config["3d_grid_config"]
+            with open(config_path, 'r') as f:
+                grid_config = yaml.safe_load(f)
+            grid_type = grid_config.get("grid_type", "cartesian")
+            dimensions = grid_config.get("dimensions", [100, 50, 50])
+            dx = grid_config.get("dx", 0.1e-6)
+            dy = grid_config.get("dy", dx)
+            dz = grid_config.get("dz", dx)
+            x_min = grid_config.get("x_min", -5.0e-6)
+            y_min = grid_config.get("y_min", -2.5e-6)
+            z_min = grid_config.get("z_min", -2.5e-6)
+
+            nx, ny, nz = dimensions
+            x = np.linspace(x_min, x_min + nx * dx, nx)
+            y = np.linspace(y_min, y_min + ny * dy, ny)
+            z = np.linspace(z_min, z_min + nz * dz, nz)
+            self._grid_3d = (x, y, z)
+            # For backward compatibility, pass 1D x-grid to backend
+            run_config["grid"] = x
+        else:
+            # Inline defaults for 3D if not specified
+            nx, ny, nz = 100, 50, 50
+            dx = 0.1e-6
+            x = np.linspace(-5.0e-6, 5.0e-6, nx)
+            y = np.linspace(-2.5e-6, 2.5e-6, ny)
+            z = np.linspace(-2.5e-6, 2.5e-6, nz)
+            self._grid_3d = (x, y, z)
+            run_config["grid"] = x
+
         self._backend.configure(run_config)
         results_path = run_config.get("results_dir")
         if results_path is not None:
@@ -49,14 +82,29 @@ class SimulationRunner:
         """Find horizons in the current plasma state."""
         if state.grid is None or state.velocity is None or state.sound_speed is None:
             return None
-        x = state.grid
+        # For 3D support, slice along central y,z if multi-D
+        if self._grid_3d is not None:
+            x, y, z = self._grid_3d
+            ny, nz = len(y), len(z)
+            # Slice at center
+            if state.velocity.ndim > 1:
+                v_slice = state.velocity[:, ny//2, nz//2]
+                cs_slice = state.sound_speed[:, ny//2, nz//2]
+            else:
+                v_slice = state.velocity
+                cs_slice = state.sound_speed
+            x_slice = x
+        else:
+            x_slice = state.grid
+            v_slice = state.velocity
+            cs_slice = state.sound_speed
         horizons = find_horizons_with_uncertainty(
-            x,
-            state.velocity,
-            state.sound_speed,
+            x_slice,
+            v_slice,
+            cs_slice,
         )
         if self._write_sidecar and horizons is not None and horizons.positions.size:
-            self._write_horizon_sidecar(x, state, horizons)
+            self._write_horizon_sidecar(x_slice, state, horizons)
         return horizons
 
     def _write_horizon_sidecar(self, x: np.ndarray, state: PlasmaState, horizons: HorizonResult) -> None:

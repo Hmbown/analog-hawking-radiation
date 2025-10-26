@@ -1,0 +1,8 @@
+seed_type: 'ornstein-uhlenbeck'
+band_limit: [1e9, 10e9]  # Hz
+amplitude: 1e-3
+correlation_time: 1e-10  # s, for theta = 1/tau
+mean: 0.0
+target_field: 'sound_speed'  # or 'velocity', 'density'
+cadence: 1  # inject every step
+seed: 42

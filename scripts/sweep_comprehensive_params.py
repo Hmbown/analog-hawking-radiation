@@ -15,11 +15,12 @@ import argparse
 import logging
 from dataclasses import dataclass, asdict
 
-# Add src to path
+# Add src and scripts to path
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent))
 
-from scripts.run_full_pipeline import run_full_pipeline, FullPipelineSummary
+from run_full_pipeline import run_full_pipeline, FullPipelineSummary
 
 @dataclass
 class SweepConfig:

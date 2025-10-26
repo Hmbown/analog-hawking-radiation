@@ -36,6 +36,29 @@ python scripts/experiment_universality_collapse.py \
   --out results/experiments/universality --pic-profiles results/*.npz
 ```
 
+### Direct ingestion via the Python API
+
+You can now skip the intermediate NPZ step and load openPMD diagnostics directly from Python:
+
+```python
+from analog_hawking.pipelines import from_openpmd
+
+profile = from_openpmd(
+    "diags/openpmd/openpmd_%T.h5",
+    t="latest",
+    kappa_method="acoustic_exact",
+)
+
+grid = profile.grid            # positions in meters
+velocity = profile.velocity    # bulk flow velocity v(x)
+sound_speed = profile.sound_speed
+horizons = profile.horizon     # HorizonResult with κ, κ_err, etc.
+```
+
+The adapter accepts optional ``velocity_source``/``sound_speed_source`` mappings if your openPMD
+records use non-standard names. See the docstring of :func:`analog_hawking.pipelines.from_openpmd`
+for the full list of tunable parameters.
+
 ## Exploratory Hybrid Coupling
 
 Toggle the speculative hybrid branch that couples fluid horizons to accelerating plasma mirrors.

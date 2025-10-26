@@ -113,7 +113,17 @@ def run_simulation_worker(params: Dict[str, Any]) -> Dict[str, Any]:
             "mirror_D": params.get("mirror_D", 10e-6),
             "mirror_eta": params.get("mirror_eta", 1.0),
             "save_graybody_figure": physics_config.get("save_graybody_figure", False),
+            "perform_kappa_inference": bool(physics_config.get("perform_kappa_inference", False)),
+            "inference_calls": int(physics_config.get("inference_calls", 40) or 40),
         }
+        inference_bounds = physics_config.get("inference_bounds")
+        if inference_bounds:
+            try:
+                b0, b1 = float(inference_bounds[0]), float(inference_bounds[1])
+                if b1 > b0 > 0:
+                    simulation_params["inference_bounds"] = (b0, b1)
+            except Exception:
+                pass
 
         # Import inside the worker so tests can patch either
         # 'scripts.run_full_pipeline.run_full_pipeline' or

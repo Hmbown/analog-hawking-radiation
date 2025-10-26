@@ -64,6 +64,22 @@ Implementation of graybody corrections for more accurate Hawking radiation model
 * `scripts/hawking_detection_experiment.py` incorporates graybody profiles when provided (via `results/warpx_last_profile.npz`), passing κ for consistent scaling
 * `scripts/radio_snr_from_qft.py` consumes graybody-adjusted spectra when available
 
+Horizon-Crossing Correlations
+-----------------------------
+
+To mirror the partner-mode diagnostics used in Bose–Einstein condensate experiments, the repository now provides a horizon-aligned two-point correlation workflow:
+
+* `scripts/correlation_map.py` ingests openPMD diagnostics (via `analog_hawking.pipelines.from_openpmd`), aligns each iteration on the instantaneous horizon position, and constructs a spatial window `x - x_H ∈ [-Δx, Δx]`.
+* Fluctuations are defined as δn(x) = n(x) − ⟨n(x)⟩ across the selected iterations and the connected density–density correlator is evaluated as
+
+  ```
+  g^{(2)}(x_1, x_2) = ⟨δn(x_1) δn(x_2)⟩,
+  ```
+
+  yielding a partner-mode band that should cross the horizon diagonally when Hawking pairs are present.
+* The script writes `g2_horizon.npz` containing the aligned grid, the correlation matrix, and the iteration metadata, plus an optional PNG heat map. By default it operates on electron density; `--observable velocity` or `--observable sound_speed` provide field analogues.
+* Conditioning on the dynamic horizon ensures stationary statistics in the co-moving frame, mitigating false positives from background gradients or drift.
+
 Magnetized Horizon Scan
 -----------------------
 

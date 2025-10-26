@@ -1,0 +1,48 @@
+# Minimal 1D WarpX down-ramp input deck (shipped default)
+max_step = 400
+amr.n_cell = 1024 1 1
+amr.max_level = 0
+amr.blocking_factor = 1
+geometry.dims = 1
+geometry.coord_sys = 0
+geometry.prob_lo = 0.0 0.0 0.0
+geometry.prob_hi = 1.0e-3 0.0 0.0
+
+algo.current_deposition = esirkepov
+algo.particle_shape = 2
+particles.use_fdtd_nci_corr = 1
+
+warpx.verbose = 1
+warpx.use_filter = 0
+warpx.do_subcycling = 0
+warpx.do_electrostatic = 0
+warpx.do_moving_window = 0
+
+particles.nspecies = 1
+particles.species_names = electrons
+particles.electrons.charge = -1.0
+particles.electrons.mass = 1.0
+particles.electrons.injection_style = NUniformPerCell
+particles.electrons.n_part_per_cell_each_dim = 16 1 1
+particles.electrons.profile = parse_density_function
+particles.electrons.density_function(x,y,z) = 1.0 * (1.0 - min(max((x-3.0e-4)/5.0e-4,0.0),1.0)) + 0.05
+particles.electrons.momentum_distribution_type = gaussian
+particles.electrons.momentum_distribution_mean = 0.0 0.0 0.0
+particles.electrons.momentum_distribution_std = 0.01 0.01 0.01
+
+lasers.nlasers = 1
+lasers.names = driver
+driver.profile = Gaussian
+driver.lambda = 8.0e-7
+driver.a0 = 0.2
+driver.duration = 3.0e-14
+driver.transverse_waist = 1.5e-5
+driver.position = 1.0e-4 0.0 0.0
+driver.direction = 1.0 0.0 0.0
+driver.polarization = 0.0 1.0 0.0
+
+diagnostics.diags_names = diag1
+diag1.period = 50
+diag1.format = openpmd
+diag1.openpmd_backend = hdf5
+diag1.file_prefix = "diags/openpmd"

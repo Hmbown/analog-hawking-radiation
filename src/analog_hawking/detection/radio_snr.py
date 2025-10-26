@@ -1,16 +1,19 @@
 """
-Radio-band detection utilities for thermal spectra.
+Radio-band detection utilities for thermal spectra, extended for 3D volume integration and Unruh metrics.
 
 Provides:
-- band_power_from_spectrum(f, psd, f_center, B)
+- band_power_from_spectrum(f, psd, f_center, B) [1D/2D]
+- volume_integrated_psd for 3D PSD over volumes
 - equivalent_signal_temperature(P_sig, B)
 - sweep_time_for_5sigma(T_sys_vals, B_vals, T_sig)
+- unruh_correlation for simple Unruh mode entanglement proxy via correlation functions
 """
 
 from __future__ import annotations
 
 import numpy as np
 from scipy.constants import k
+from scipy.stats import pearsonr
 
 
 def band_power_from_spectrum(frequencies: np.ndarray,
@@ -39,6 +42,37 @@ def band_power_from_spectrum(frequencies: np.ndarray,
     return float(np.trapz(power_spectrum[mask], x=frequencies[mask]))
 
 
+def volume_integrated_psd(
+    frequencies: np.ndarray,
+    psd_3d: np.ndarray,  # Shape (nf, nx, ny, nz) or (nx, ny, nz, nf)
+    volume_elements: np.ndarray,  # dx*dy*dz per voxel
+    f_center: float,
+    bandwidth: float,
+    axis: int = -1  # Frequency axis
+) -> float:
+    """Integrate 3D PSD over volume and band for total power.
+
+    Args:
+        frequencies: 1D array of frequency samples (Hz)
+        psd_3d: 3D/4D array of PSD (W/Hz per voxel)
+        volume_elements: Volume per voxel (m^3)
+        f_center, bandwidth: As in band_power_from_spectrum
+        axis: Frequency axis in psd_3d
+
+    Returns:
+        Total in-band power (W).
+    """
+    # Integrate over frequency band first
+    f_lo, f_hi = f_center - 0.5 * bandwidth, f_center + 0.5 * bandwidth
+    mask = (frequencies >= f_lo) & (frequencies <= f_hi)
+    if not np.any(mask):
+        return 0.0
+    psd_band = np.trapz(psd_3d.take(mask, axis=axis), x=frequencies[mask], axis=axis)
+    # Integrate over volume
+    total_power = np.sum(psd_band * volume_elements)
+    return float(total_power)
+
+
 def equivalent_signal_temperature(P_sig: float, bandwidth: float) -> float:
     """Convert in-band power to equivalent antenna temperature via radiometer relation.
 
@@ -47,6 +81,40 @@ def equivalent_signal_temperature(P_sig: float, bandwidth: float) -> float:
     if bandwidth <= 0:
         return 0.0
     return float(P_sig / (k * bandwidth))
+
+
+def unruh_correlation(
+    psd_hawking: np.ndarray,
+    psd_unruh: np.ndarray,
+    frequencies: np.ndarray,
+    corr_window: float = 0.1  # Relative bandwidth for correlation
+) -> float:
+    """Simple correlation metric between Hawking and Unruh modes as entanglement proxy.
+
+    Computes Pearson correlation over frequency window around peak.
+    Assumes psd_hawking and psd_unruh are PSD arrays for partner modes.
+
+    Args:
+        psd_hawking, psd_unruh: PSD arrays (W/Hz)
+        frequencies: Frequency array (Hz)
+        corr_window: Relative bandwidth for local correlation
+
+    Returns:
+        Pearson r in [-1,1]; higher |r| indicates stronger mode entanglement.
+    """
+    # Find peak frequency (assume shared)
+    peak_idx = np.argmax(psd_hawking)
+    f_peak = frequencies[peak_idx]
+    window = corr_window * f_peak
+    mask = (frequencies >= f_peak - 0.5 * window) & (frequencies <= f_peak + 0.5 * window)
+    if not np.any(mask):
+        return 0.0
+    haw_mask = psd_hawking[mask]
+    unr_mask = psd_unruh[mask]
+    if len(haw_mask) < 2:
+        return 0.0
+    r, _ = pearsonr(haw_mask, unr_mask)
+    return float(r)
 
 
 def sweep_time_for_5sigma(T_sys_vals: np.ndarray,

@@ -49,6 +49,9 @@ physics:
   mirror_D: 10e-6
   mirror_eta: 1.0
   use_fast_magnetosonic: true
+  perform_kappa_inference: true
+  inference_calls: 60
+  inference_bounds: [1.0e5, 1.0e12]
 
 # Detection settings for optimization
 detection:

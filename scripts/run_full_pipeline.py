@@ -10,6 +10,7 @@ import numpy as np
 
 import sys
 from pathlib import Path
+from uuid import uuid4
 # Add scripts directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -34,6 +35,12 @@ from analog_hawking.physics_engine.horizon_hybrid import (
 from analog_hawking.detection.hybrid_spectrum import (
     calculate_enhanced_hawking_spectrum,
 )
+try:
+    from analog_hawking.inference.kappa_mle import infer_kappa as infer_kappa_from_psd
+    from analog_hawking.inference.kappa_mle import make_graybody_model
+except Exception:
+    infer_kappa_from_psd = None  # type: ignore[assignment]
+    make_graybody_model = None  # type: ignore[assignment]
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -68,6 +75,9 @@ class FullPipelineSummary:
     hybrid_coupling_weight: float | None = None
     hybrid_T_sig_K: float | None = None
     hybrid_t5sigma_s: float | None = None
+    kappa_inferred: float | None = None
+    kappa_inferred_err: float | None = None
+    kappa_credible_interval: tuple[float, float] | None = None
 
 
 def run_full_pipeline(
@@ -93,6 +103,9 @@ def run_full_pipeline(
     hybrid_model: str = "anabhel",
     mirror_D: float = 10e-6,
     mirror_eta: float = 1.0,
+    perform_kappa_inference: bool = False,
+    inference_bounds: tuple[float, float] | None = None,
+    inference_calls: int = 40,
 ) -> FullPipelineSummary:
     # Ensure defaults for variables used in return even if certain branches are not taken
     t5sigma_TH = float('inf')
@@ -136,6 +149,9 @@ def run_full_pipeline(
     hybrid_coupling_weight = None
     hybrid_T_sig = None
     hybrid_t5 = None
+    kappa_inferred = None
+    kappa_inferred_err = None
+    kappa_ci = None
 
     chosen_window_cells: Optional[int] = None
     if kappa:
@@ -280,6 +296,57 @@ def run_full_pipeline(
             if t5sigma_high is None and 'T_sig_b_hi' in locals():
                 t5sigma_high = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_b_hi, 0.0))[0, 0]) if T_sig_b_hi > 0 else float("inf")
 
+            if perform_kappa_inference and infer_kappa_from_psd is not None and make_graybody_model is not None:
+                try:
+                    model = make_graybody_model(
+                        freqs,
+                        graybody_profile=gray_profile if 'gray_profile' in locals() else None,
+                        graybody_method=str(graybody),
+                        alpha_gray=float(alpha_gray),
+                        emitting_area_m2=1e-6,
+                        solid_angle_sr=5e-2,
+                        coupling_efficiency=0.1,
+                    )
+                    bounds = inference_bounds or (1e4, 1e12)
+                    inference = infer_kappa_from_psd(
+                        freqs,
+                        P,
+                        model,
+                        bounds=bounds,
+                        n_calls=int(max(inference_calls, 20)),
+                    )
+                    kappa_inferred = float(inference.kappa_hat)
+                    kappa_inferred_err = float(inference.kappa_err)
+                    kappa_ci = tuple(float(v) for v in inference.credible_interval)
+                    inference_dir = Path("results") / "kappa_inference"
+                    inference_dir.mkdir(parents=True, exist_ok=True)
+                    run_id = uuid4().hex[:8]
+                    posterior_path = inference_dir / f"posterior_{run_id}.npz"
+                    np.savez(
+                        posterior_path,
+                        kappa_grid=inference.posterior_grid,
+                        posterior_density=inference.posterior_density,
+                        trace=np.asarray(inference.trace, dtype=float),
+                    )
+                    meta_path = inference_dir / f"posterior_{run_id}.json"
+                    with meta_path.open("w", encoding="utf-8") as fh:
+                        json.dump(
+                            {
+                                "kappa_hat": inference.kappa_hat,
+                                "kappa_err": inference.kappa_err,
+                                "credible_interval": inference.credible_interval,
+                                "diagnostics": inference.diagnostics,
+                                "bounds": bounds,
+                            },
+                            fh,
+                            indent=2,
+                        )
+                except Exception as exc:
+                    print(f"[WARN] κ inference failed: {exc}")
+        else:
+            if perform_kappa_inference and infer_kappa_from_psd is None:
+                print("[INFO] κ inference requested but scikit-optimize is not installed; skipping.")
+
         # Save comparison figure (profile vs fallback) unless suppressed (e.g. during sweeps)
         if save_graybody_figure:
             try:
@@ -386,34 +453,37 @@ def run_full_pipeline(
             except Exception:
                 pass
 
-    return FullPipelineSummary(
-        plasma_density=plasma_density,
-        laser_wavelength=laser_wavelength,
-        laser_intensity=laser_intensity,
-        temperature_constant=temperature_constant,
-        magnetic_field=magnetic_field,
-        use_fast_magnetosonic=use_fast_magnetosonic,
-        grid_points=grid_points,
-        horizon_positions=positions,
-        kappa=kappa,
-        kappa_err=kappa_err_list,
-        spectrum_peak_frequency=peak_frequency,
-        inband_power_W=inband_power,
-        T_sig_K=T_sig,
-        t5sigma_s=t5sigma,
-        t5sigma_s_low=t5sigma_low,
-        t5sigma_s_high=t5sigma_high,
-        T_H_K=T_H,
-        T_H_K_low=T_H_low,
-        T_H_K_high=T_H_high,
-        t5sigma_TH_s=t5sigma_TH,
-        graybody_window_cells=chosen_window_cells,
-        hybrid_used=bool(hybrid_used),
-        hybrid_kappa_eff=hybrid_kappa_eff,
-        hybrid_coupling_weight=hybrid_coupling_weight,
-        hybrid_T_sig_K=hybrid_T_sig,
-        hybrid_t5sigma_s=hybrid_t5,
-    )
+        return FullPipelineSummary(
+            plasma_density=plasma_density,
+            laser_wavelength=laser_wavelength,
+            laser_intensity=laser_intensity,
+            temperature_constant=temperature_constant,
+            magnetic_field=magnetic_field,
+            use_fast_magnetosonic=use_fast_magnetosonic,
+            grid_points=grid_points,
+            horizon_positions=positions,
+            kappa=kappa,
+            kappa_err=kappa_err_list,
+            spectrum_peak_frequency=peak_frequency,
+            inband_power_W=inband_power,
+            T_sig_K=T_sig,
+            t5sigma_s=t5sigma,
+            t5sigma_s_low=t5sigma_low,
+            t5sigma_s_high=t5sigma_high,
+            T_H_K=T_H,
+            T_H_K_low=T_H_low,
+            T_H_K_high=T_H_high,
+            t5sigma_TH_s=t5sigma_TH,
+            graybody_window_cells=chosen_window_cells,
+            hybrid_used=bool(hybrid_used),
+            hybrid_kappa_eff=hybrid_kappa_eff,
+            hybrid_coupling_weight=hybrid_coupling_weight,
+            hybrid_T_sig_K=hybrid_T_sig,
+            hybrid_t5sigma_s=hybrid_t5,
+            kappa_inferred=kappa_inferred,
+            kappa_inferred_err=kappa_inferred_err,
+            kappa_credible_interval=kappa_ci,
+        )
 
 
 def main() -> int:

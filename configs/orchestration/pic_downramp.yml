@@ -1,0 +1,57 @@
+# PIC-guided orchestration slice for the down-ramp WarpX workflow
+
+phase_name: "pic_downramp_initialization"
+description: "Leverage WarpX down-ramp profiles to seed the orchestration engine with PIC-aligned parameters."
+
+# Parameter box tailored to the down-ramp case
+parameter_space:
+  laser_intensity:
+    min: 5.0e17
+    max: 2.0e18
+    log_scale: true
+  plasma_density:
+    min: 5.0e18
+    max: 2.0e20
+    log_scale: true
+  temperature_constant:
+    min: 5.0e3
+    max: 5.0e4
+    log_scale: true
+  magnetic_field:
+    min: 0.0
+    max: 5.0
+    log_scale: false
+
+physics:
+  grid_points: 1024
+  grid_min: 0.0
+  grid_max: 80e-6
+  kappa_method: acoustic_exact
+  graybody: acoustic_wkb
+  alpha_gray: 0.8
+  perform_kappa_inference: true
+  inference_bounds: [1.0e5, 5.0e12]
+  inference_calls: 70
+  save_graybody_figure: false
+
+detection:
+  system_temperature: 20.0
+  reference_bandwidth: 2.0e8
+  significance_threshold: 5.0
+  observation_time: 3600.0
+
+convergence:
+  moving_average_window: 8
+  improvement_threshold: 0.015
+  min_samples_for_convergence: 24
+
+performance:
+  parallel_workers: 6
+  timeout_per_simulation: 420
+  progress_update_interval: 45
+
+# Optional helper metadata consumed by external automation (warpx_runner.py)
+pic_bootstrap:
+  warpx_input_deck: "protocols/inputs_downramp_1d.in"
+  warpx_output_dir: "diags/openpmd"
+  warpx_runner_cmd: "python scripts/warpx_runner.py --deck protocols/inputs_downramp_1d.in --output diags/openpmd"

@@ -1,11 +1,12 @@
 """
 Utilities to normalize Hawking spectra by surface gravity and quantify
-universality-collapse across disparate flow profiles.
+universality-collapse across disparate flow profiles, extended for PIC data and MLE κ recovery.
 
 Key functions:
 - omega_over_kappa_axis(frequencies, kappa)
 - resample_on_x(X, Y, X_common)
 - collapse_stats(curves)
+- mle_kappa_recovery(psd_data, frequencies, initial_guess=1e12)
 - band_temperature_and_t5sig(f, psd, B=1e8, T_sys=30.0)
 """
 
@@ -15,8 +16,11 @@ from dataclasses import dataclass
 from typing import Iterable, List, Tuple
 
 import numpy as np
+from scipy.optimize import minimize_scalar
 
 from .radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
+from ...physics_engine.optimization.graybody_1d import compute_graybody
+from ...physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
 
 
 def omega_over_kappa_axis(frequencies: Iterable[float], kappa: float) -> np.ndarray:
@@ -78,6 +82,49 @@ def collapse_stats(curves: List[np.ndarray]) -> CollapseStats:
     # grid is not known here; caller provides it separately alongside CollapseStats
     return CollapseStats(grid=np.arange(mu.size), mean=mu, std=sigma,
                          rms_relative=overall, per_curve_rms_relative=[float(v) for v in per_curve])
+
+
+def mle_kappa_recovery(
+    frequencies: np.ndarray,
+    observed_psd: np.ndarray,
+    x_profile: np.ndarray,
+    v_profile: np.ndarray,
+    cs_profile: np.ndarray,
+    initial_guess: float = 1e12,
+    bounds: Tuple[float, float] = (1e10, 1e15),
+) -> Tuple[float, float]:
+    """Maximum likelihood estimation of κ from observed PSD using model comparison.
+
+    Minimizes negative log-likelihood between observed PSD and model Hawking spectrum
+    for varying κ, using fixed profiles for graybody and QFT.
+
+    Args:
+        frequencies: Observed frequencies (Hz)
+        observed_psd: Observed power spectrum (W/Hz)
+        x_profile, v_profile, cs_profile: Fixed flow profiles for graybody computation
+        initial_guess: Starting κ (s^-1)
+        bounds: Search bounds for κ
+
+    Returns:
+        (estimated_kappa, negative_log_likelihood)
+    """
+    def neg_log_lik(kappa: float) -> float:
+        if kappa <= 0:
+            return np.inf
+        # Compute model PSD for this κ
+        gb = compute_graybody(x_profile, v_profile, cs_profile, frequencies, method="acoustic_wkb", kappa=kappa)
+        qft = QuantumFieldTheory(surface_gravity=kappa, emitting_area_m2=1e-6, solid_angle_sr=5e-2, coupling_efficiency=0.1)
+        model_psd = qft.hawking_spectrum(2 * np.pi * frequencies, transmission=gb.transmission)
+        # Simple Gaussian likelihood (assuming Poisson-like for counts, but simplified)
+        # Negative log lik = sum (observed - model)^2 / (2 * model) + const
+        diff = observed_psd - model_psd
+        nll = np.sum(diff**2 / (2 * np.maximum(model_psd, 1e-30)))
+        return nll
+
+    res = minimize_scalar(neg_log_lik, bounds=bounds, method='bounded', options={'xatol': 1e8})
+    kappa_mle = res.x if res.success else initial_guess
+    nll = res.fun
+    return kappa_mle, nll
 
 
 def band_temperature_and_t5sig(frequencies: np.ndarray,

@@ -13,6 +13,7 @@ Usage:
 import argparse
 import json
 import os
+import subprocess
 from pathlib import Path
 
 import numpy as np
@@ -31,7 +32,10 @@ import matplotlib.pyplot as plt
 
 def main() -> int:
     p = argparse.ArgumentParser()
-    p.add_argument("--profile", type=str, default="results/warpx_profile.npz")
+    p.add_argument("--profile", type=str, default=None)
+    p.add_argument("--config", type=str, default="configs/warpx_mock.json")
+    p.add_argument("--real-warpx", action="store_true", help="Run real WarpX simulation (falls back to synthetic if not available)")
+    p.add_argument("--warpx-exec", type=str, default="warpx", help="Path to WarpX executable")
     p.add_argument("--graybody", type=str, choices=["dimensionless", "wkb", "acoustic_wkb"], default="dimensionless")
     p.add_argument("--kappa-method", type=str, choices=["acoustic", "legacy", "acoustic_exact"], default="acoustic")
     p.add_argument("--alpha-gray", type=float, default=1.0)
@@ -39,7 +43,65 @@ def main() -> int:
     p.add_argument("--Tsys", type=float, default=30.0)
     args = p.parse_args()
 
-    npz = np.load(args.profile)
+    profile_path = args.profile or "results/warpx_profile.npz"
+    os.makedirs(os.path.dirname(profile_path), exist_ok=True)
+
+    if args.real_warpx:
+        try:
+            with open(args.config, 'r') as f:
+                config = json.load(f)
+            # Generate simple WarpX input file (adapt from config; for real, expand this)
+            warpx_in_content = """
+# Simple WarpX input adapted from config
+amr.n_cell = 64 1 1
+geometry.dims = 1
+geometry.coord_sys = 0
+boundary.left_x = periodic
+boundary.right_x = periodic
+boundary_lo_x = -1
+boundary_hi_x = 1
+max_step = 10
+# Species from config
+""".strip()
+            # Add species
+            for sp in config.get("species", []):
+                warpx_in_content += f"\nparticles.species_{sp['name']}.density = 1.0e20\n"
+                warpx_in_content += f"particles.species_{sp['name']}.charge = {sp['charge']}\n"
+                warpx_in_content += f"particles.species_{sp['name']}.mass = {sp['mass']}\n"
+            with open("warpx.in", 'w') as f:
+                f.write(warpx_in_content)
+            # Run WarpX
+            result = subprocess.run([args.warpx_exec, "warpx.in"], capture_output=True, text=True, cwd=".")
+            if result.returncode != 0:
+                raise subprocess.CalledProcessError(result.returncode, [args.warpx_exec, "warpx.in"], result.stdout, result.stderr)
+            # Assume output in diags/h5/small_size/ (standard WarpX openPMD path)
+            h5_file = "diags/hdf5/small_size/BField_000000.h5"  # Adjust based on actual output
+            if not os.path.exists(h5_file):
+                raise FileNotFoundError(f"WarpX output not found at {h5_file}")
+        except (FileNotFoundError, subprocess.CalledProcessError, KeyError) as e:
+            print(f"WarpX run failed ({e}), falling back to synthetic data")
+            # Generate synthetic
+            subprocess.run(["python", "scripts/generate_synthetic_openpmd_slice.py"], check=True, cwd=".")
+            h5_file = "results/synthetic_slice.h5"
+        # Convert to profile npz
+        subprocess.run([
+            "python", "scripts/openpmd_slice_to_profile.py",
+            "--in", h5_file,
+            "--vel-dataset", "/vel",
+            "--Te-dataset", "/Te",
+            "--out", profile_path
+        ], check=True, cwd=".")
+    elif args.profile is None:
+        # Generate synthetic if no profile provided
+        subprocess.run(["python", "scripts/generate_synthetic_openpmd_slice.py"], check=True, cwd=".")
+        h5_file = "results/synthetic_slice.h5"
+        subprocess.run([
+            "python", "scripts/openpmd_slice_to_profile.py",
+            "--in", h5_file,
+            "--out", profile_path
+        ], check=True, cwd=".")
+
+    npz = np.load(profile_path)
     x = npz["x"]
     v = npz["v"]
     cs = npz["c_s"]
