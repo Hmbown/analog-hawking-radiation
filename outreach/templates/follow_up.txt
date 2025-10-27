@@ -1,0 +1,122 @@
+Subject: Re: Open-source analog Hawking toolkit – follow-up & additional results
+
+Dear Prof. [LAST_NAME],
+
+I hope this finds you well. I'm following up on my email from [DATE] regarding our open-source analog Hawking radiation analysis pipeline.
+
+Since my last message, I've:
+- [COMPLETED ADDITIONAL ANALYSIS: e.g., "applied the pipeline to openPMD example datasets"]
+- [GENERATED NEW RESULTS: e.g., "run gradient-catastrophe breakdown analysis"]
+- [ADDRESSED FEEDBACK: e.g., "implemented Bayesian κ-inference with error quantification"]
+
+New results that might interest you:
+[SPECIFIC RESULT 1 - 1 sentence]
+[SPECIFIC RESULT 2 - 1 sentence]
+[ATTACH: updated_figure.png]
+
+I'm still very interested in your perspective on:
+- [SPECIFIC QUESTION 1]
+- [SPECIFIC QUESTION 2]
+
+If now isn't a good time, I completely understand. Would you prefer if I follow up in [SUGGEST TIMEFRAME: 3 months/specific month]?
+
+Thank you again for your time and consideration.
+
+Best regards,
+[YOUR_NAME]
+
+---
+
+FOLLOW-UP STRATEGY:
+
+When to Send Follow-Up:
+- No response after 2 weeks (10 business days)
+- Only send ONE follow-up unless they specifically request updates
+- Space follow-up at least 1 month after initial email
+- If they respond but defer, respect their timing
+
+When NOT to Send Follow-Up:
+- If they explicitly said "not interested"
+- If they referred you to someone else (thank them and contact that person)
+- If it's been more than 6 months (start fresh)
+
+Follow-Up Variations:
+
+Option A: "Additional Results"
+- Send when you have genuinely new/analyzed results
+- Keep it short (<100 words)
+- Focus on 1-2 new insights
+
+Option B: "Checking In"
+- Simple check-in if no specific news
+- Ask if now is better time
+- Very brief (<75 words)
+
+Option C: "Quick Question"
+- If you have one specific question
+- Don't expect long response
+- Make question very focused
+
+---
+
+SAMPLE FOLLOW-UP EMAILS:
+
+Follow-Up A - With New Results:
+---
+Subject: Re: Analogue Hawking toolkit – gradient breakdown analysis complete
+
+Dear Prof. [LAST_NAME],
+
+Quick follow-up on my email from [DATE]. I've now completed the gradient-catastrophe breakdown analysis we discussed.
+
+Key finding: κ_max ≈ [VALUE] before relativistic breakdown, consistent with [THEIR WORK/EXPECTATIONS].
+
+[ATTACH: breakdown_analysis.png]
+
+Still very interested in your thoughts on whether this parameter regime is relevant for [THEIR RESEARCH AREA].
+
+Best,
+[NAME]
+---
+
+Follow-Up B - Simple Check-In:
+---
+Subject: Following up: Analogue Hawking analysis
+
+Dear Prof. [LAST_NAME],
+
+Following up on my email from [DATE] about our analogue Hawking radiation analysis pipeline. I know you're very busy.
+
+If now isn't a good time for feedback, would you prefer I follow up in [MONTH] instead?
+
+Thank you for your consideration.
+
+Best regards,
+[NAME]
+---
+
+Follow-Up C - After Referral:
+---
+Subject: Thank you for the referral
+
+Dear Prof. [LAST_NAME],
+
+Thank you for referring me to Dr. [NAME] regarding [TOPIC]. I've reached out with your recommendation and will update you if anything develops.
+
+In case you're interested in seeing where this goes, I'll be happy to share any relevant results.
+
+Best,
+[NAME]
+---
+
+MANAGING MULTIPLE FOLLOW-UPS:
+
+Max 2 total touches (initial + 1 follow-up)
+
+After that:
+- If interested but busy: "Let me know when better time"
+- If no response: Archive and move on
+- If referred to colleague: Thank them, contact colleague
+- If positive but no follow-through: Thank them, stay in touch with updates
+
+Always maintain professionalism and respect their time. A polite "no thanks" is a complete answer.

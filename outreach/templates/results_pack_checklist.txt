@@ -1,0 +1,217 @@
+# Results Pack Checklist
+
+Before sending ANY outreach email, ensure you have:
+
+## 1. Core Results Files
+
+### A. Pipeline A: Baseline Run
+- [ ] `results/full_pipeline_summary.json` generated
+- [ ] Figures saved:
+  - [ ] `figures/kappa_vs_position.png`
+  - [ ] `figures/graybody_transmission.png`
+  - [ ] `figures/hawking_psd.png`
+  - [ ] `figures/radio_detection_snr.png`
+
+### B. Pipeline B: Universality Sweep
+- [ ] `results/universality/` directory exists
+- [ ] Universality collapse plot generated
+- [ ] Multiple κ-normalized spectra overlaid
+- [ ] JSON summary with all κ values
+
+### C. Pipeline E: κ-Inference
+- [ ] `results/inference/` directory exists
+- [ ] Posterior samples saved
+- [ ] Corner plot generated
+- [ ] κ̂ ± σ_κ values documented
+
+## 2. One-Page Summary PDF
+
+Create a PDF document (1 page, landscape) with:
+
+### Header
+```
+Analogue Hawking Radiation Analysis
+Open-Source Pipeline Results
+[Date]
+```
+
+### Section 1: What We Did (2-3 sentences)
+- Brief description of pipeline
+- Hardware: RTX 3080, CUDA-accelerated
+- Scripts run
+
+### Section 2: Key Results (the money shot)
+- Figure 1: κ vs. position + horizon marker
+- Figure 2: Universality collapse (if available)
+- JSON snippet with κ, T_H, t_5σ
+
+### Section 3: What This Means (2-3 sentences)
+- Physical interpretation
+- Significance for analogue gravity
+- Connection to their work (customize per recipient)
+
+### Section 4: What We Want (1-2 sentences)
+- Specific feedback request
+- Time ask: "15 minutes" or "brief guidance"
+
+### Contact
+- Your name and email
+- Repository link
+
+**PDF Creation Command:**
+```bash
+# If you have matplotlib and results:
+python - <<'PY'
+# Create 1-page summary PDF using matplotlib
+# See example code below
+PY
+```
+
+**Example PDF Generation Code:**
+```python
+import matplotlib.pyplot as plt
+import json
+from matplotlib.backends.backend_pdf import PdfPages
+
+# Load results
+with open('results/full_pipeline_summary.json') as f:
+    results = json.load(f)
+
+# Create PDF
+with PdfPages('outreach/results_pack.pdf') as pdf:
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(11, 8.5))
+    # ... plot generation ...
+    pdf.savefig(fig, bbox_inches='tight')
+    plt.close()
+```
+
+## 3. Email Preparation
+
+### Customize Template
+- [ ] Open `templates/initial_outreach.txt`
+- [ ] Replace [LAST_NAME] with actual name
+- [ ] Add 1-2 sentences specific to their work (from contact file)
+- [ ] Update repository URL if different
+- [ ] Add specific result numbers from JSON
+- [ ] Remove placeholder text
+
+### Attachments
+- [ ] 1-page PDF summary (required)
+- [ ] 2-3 PNG figures (<1MB each)
+- [ ] Verify all files have descriptive names
+
+### Email Settings
+- [ ] TO: Correct email address
+- [ ] CC: None (keep initial email clean)
+- [ ] Subject: Copy from template
+- [ ] Signature: Professional email signature
+
+## 4. Contact Verification
+
+### Before Sending
+- [ ] Email address verified from official source
+  - Department website
+  - Lab page
+  - Recent publications
+- [ ] Name spelling double-checked
+- [ ] Title correct (Prof. vs Dr.)
+- [ ] Institution correct
+
+### Timing
+- [ ] Check their timezone
+- [ ] Avoid:
+  - Major holidays
+  - Conference weeks
+  - Summer vacation (July-August for Northern Hemisphere)
+  - Start/end of semester
+- [ ] Best days: Tuesday-Thursday
+- [ ] Best hours: 9am-5pm local time
+
+## 5. Logging (Do This BEFORE Sending)
+
+### Open `notes/outreach_log.csv`
+Update with:
+- [ ] Date: YYYY-MM-DD
+- [ ] Contact: Prof. [First] [Last]
+- [ ] Institution: [University/Lab]
+- [ ] Email: [email address]
+- [ ] Category: [laser_plasma/bec/water/optical/theory]
+- [ ] Status: "contacted"
+- [ ] Template used: "initial_outreach"
+- [ ] Attachments: "summary.pdf, fig1.png, fig2.png"
+- [ ] Notes: "Mentioned their [SPECIFIC WORK]"
+- [ ] Follow-up date: [DATE + 14 days]
+
+### CSV Format:
+```csv
+date,contact,institution,email,category,status,template_used,attachments,notes,follow_up_date,response_date,response_type,next_action
+2025-10-26,Prof. Silke Weinfurtner,University of Nottingham,[email],water_fluids,contacted,initial_outreach,"summary.pdf, kappa_vs_position.png, universality.png","Emphasized universality focus",2025-11-09,,,,,
+```
+
+## 6. Final Checklist (Just Before Send)
+
+- [ ] Pipeline results actually generated and saved
+- [ ] Figures look professional and clearly labeled
+- [ ] JSON values extracted and formatted correctly
+- [ ] PDF summary created and looks good
+- [ ] Email template customized for recipient
+- [ ] Contact info verified
+- [ ] Timing appropriate
+- [ ] Outreach logged in CSV
+- [ ] Send test email to yourself first
+- [ ] **SEND EMAIL**
+- [ ] Mark as "contacted" in all tracking files
+
+## 7. After Sending
+
+- [ ] Mark calendar reminder for follow-up date
+- [ ] Save sent email to folder
+- [ ] Update any other tracking sheets
+- [ ] If auto-reply received, adjust timeline
+- [ ] Wait patiently (don't check email constantly!)
+
+## 8. If They Respond
+
+### Positive Response
+- [ ] Reply within 24 hours
+- [ ] Thank them
+- [ ] Confirm call/meeting time if requested
+- [ ] Prepare for meeting (read their recent papers)
+- [ ] Update CSV with response date
+
+### Neutral/Redirected Response
+- [ ] Thank them for response
+- [ ] Follow their guidance
+- [ ] Update CSV
+- [ ] Contact new person if referred
+
+### Negative Response
+- [ ] Thank them for quick response
+- [ ] Respect their decision
+- [ ] Update CSV
+- [ ] Move on (no follow-up)
+
+## Common Mistakes to Avoid
+
+❌ Don't send without running pipelines first
+❌ Don't use generic template without customization
+❌ Don't send low-resolution or unlabeled figures
+❌ Don't email without verifying contact info
+❌ Don't send follow-up if they explicitly declined
+❌ Don't attach too many files (>3 attachments)
+❌ Don't use overly technical jargon
+❌ Don't claim more than results support
+
+## Success Metrics
+
+Track these metrics in `notes/outreach_log.csv`:
+- Total contacted
+- Response rate (% who responded)
+- Positive response rate (% who expressed interest)
+- Meeting rate (% who agreed to discuss)
+- Follow-up rate (% who responded after 2 weeks)
+
+Target goals:
+- Response rate: >20%
+- Positive rate: >10%
+- Meeting rate: >5%

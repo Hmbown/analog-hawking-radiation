@@ -198,9 +198,6 @@ docs/IMAGES_README.md
 analysis/
 *.ipynb
 
-# Outreach and contact database (private)
-outreach/
-
 # Generated images (keep only workflow diagram in docs/img/)
 docs/img/*.png
 !docs/img/workflow_diagram.png

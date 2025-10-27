@@ -1,0 +1,225 @@
+# Collaboration Proposal Template
+
+Use this when a researcher expresses interest in collaborating or asks for more details about working together.
+
+---
+
+## Email Template
+
+Subject: Collaboration opportunity: Analogue Hawking analysis of [THEIR_DATA/SYSTEM]
+
+Dear Prof. [LAST_NAME],
+
+Thank you for your positive response to my outreach regarding the analogue Hawking radiation analysis pipeline.
+
+I'd like to propose a concrete collaboration that would benefit both of us:
+
+### What I Can Provide
+
+1. **Pipeline access and expertise**
+   - Complete open-source codebase
+   - GPU-accelerated analysis (RTX 3080)
+   - κ-inference with Bayesian uncertainty quantification
+   - Graybody transmission calculations
+   - Radio-band detectability forecasts
+
+2. **Analysis services**
+   - Apply pipeline to your [data/profiles/simulations]
+   - Generate publication-quality figures
+   - Produce JSON summaries for your records
+   - Compare results with your independent analyses
+
+3. **Documentation**
+   - Detailed methodology documentation
+   - Reproducible analysis workflows
+   - Method validation against known benchmarks
+
+### What I'm Hoping For
+
+1. **Validation and feedback**
+   - Apply to your experimental/theoretical data
+   - Compare with your published analyses
+   - Identify improvements or corrections needed
+
+2. **Collaboration opportunities**
+   - Co-author on any resulting publications
+   - Credits for pipeline development
+   - Recognition for open-source contribution
+
+3. **Scientific guidance**
+   - Which parameters matter most for your system?
+   - What are the key assumptions to validate?
+   - How should we frame results for your community?
+
+### Proposed Next Steps
+
+1. **Initial consultation** (30 minutes, video call)
+   - Discuss your specific research goals
+   - Identify relevant data/profiles
+   - Define success metrics
+
+2. **Pilot analysis** (1-2 weeks)
+   - Apply pipeline to a small dataset
+   - Generate preliminary results
+   - Validate methodology
+
+3. **Full analysis** (2-4 weeks, depending on data size)
+   - Complete analysis
+   - Generate publication figures
+   - Prepare draft text
+
+4. **Publication preparation** (as needed)
+   - Co-author manuscript preparation
+   - Submit to appropriate journal
+   - Present at conference
+
+### Data and Information Needed
+
+To get started, could you provide:
+
+- [Specific to their system: e.g., "fluid velocity profiles v(x)"]
+- [e.g., "sound speed profiles c_s(x)"]
+- [e.g., "experimental PSD data"]
+- [e.g., "PIC simulation outputs (openPMD format)"]
+- Key parameters: [e.g., "density, temperature, flow speed"]
+- Known quantities: [e.g., "horizon position, κ estimates"]
+
+I'm happy to work with whatever format you have and can provide guidance on data preparation if needed.
+
+### Timeline and Expectations
+
+I can commit to:
+- Responding to emails within 24-48 hours
+- Providing preliminary results within 2 weeks of receiving data
+- Maintaining open communication throughout
+- Respecting any publication embargoes or restrictions
+
+The analysis work is flexible and can adapt to your schedule. No pressure on timelines - quality results are more important than speed.
+
+### Intellectual Property
+
+- Analysis pipeline remains open-source (MIT license)
+- You retain full rights to your data
+- Collaboration contributions will be properly credited
+- Any publications will include appropriate acknowledgments
+
+### References
+
+I've attached:
+1. Pipeline summary (1-page PDF)
+2. Repository link: https://github.com/Hmbown/analog-hawking-radiation
+3. Example results from recent runs
+
+Please let me know if this sounds interesting and what questions you have.
+
+Would you be available for a brief call next week to discuss further?
+
+Thank you for your consideration.
+
+Best regards,
+[YOUR_NAME]
+[YOUR_EMAIL]
+[YOUR_PHONE]
+
+---
+
+## Collaboration Scenario Variations
+
+### Scenario 1: They Have Data
+
+**Subject**: Re: Your data analysis request
+
+**Approach**:
+- Lead with how you can analyze their specific data
+- Show you understand their experimental/theoretical setup
+- Offer specific deliverables
+- Ask for data format and key parameters
+
+**Customization points**:
+- Mention specific technique/instrument they use
+- Reference their recent papers
+- Ask about their current analysis methods
+
+### Scenario 2: They Want to Use the Code
+
+**Subject**: Re: Using the open-source pipeline
+
+**Approach**:
+- Provide installation and usage documentation
+- Offer to help with setup
+- Suggest test cases with known results
+- Propose collaboration for validation
+
+**Customization points**:
+- Their programming experience level
+- Hardware availability (GPU access)
+- Expected use case (research/teaching)
+
+### Scenario 3: They Refer a Colleague
+
+**Subject**: Re: [Colleague] suggested I contact you
+
+**Approach**:
+- Acknowledge the referral
+- Provide brief context
+- Ask for 15 minutes of their time
+- Mention the referral source
+
+**Customization points**:
+- Reference what [Colleague] said
+- Connect their work to referred topic
+- Respect their time constraints
+
+### Scenario 4: Student/Postdoc Contact
+
+**Subject**: Re: Analogue Hawking pipeline (Prof. [NAME] suggested I reach out)
+
+**Approach**:
+- Same as above but more collaborative tone
+- Offer mentoring opportunities
+- Suggest student project possibilities
+- Include Prof. [Name] in CC
+
+**Customization points**:
+- Student's specific research area
+- Timeline for graduation/position
+- Course credit or acknowledgment possibilities
+
+---
+
+## Negotiation Tips
+
+### Be Flexible
+- Adapt to their timeline and needs
+- Don't insist on co-authorship if they prefer acknowledgment only
+- Respect their constraints and preferences
+
+### Provide Value First
+- Do good work before asking for anything
+- Deliver results that exceed expectations
+- Be responsive and professional
+
+### Document Everything
+- Write down any agreements
+- Confirm understanding via email
+- Keep records of contributions
+
+### Be Professional
+- Respect their time and priorities
+- Don't be pushy or demanding
+- Accept "no" gracefully
+
+### Handle Rejection Well
+- Thank them for considering
+- Ask if they'd recommend someone else
+- Keep door open for future
+
+## When to Walk Away
+
+- They want you to do all work with no credit
+- They claim ownership of your code
+- They want exclusive rights to analysis
+- Timeline is unreasonable or unclear
+- Communication becomes unprofessional
+
+Remember: There are many researchers interested in analogue gravity. If one collaboration doesn't work out, there are others who will be more reasonable.

@@ -1,0 +1,95 @@
+Subject: Open-source analog Hawking toolkit (fluid→graybody→radio) – early results & request for feedback
+
+Dear Prof. [LAST_NAME],
+
+I'm an independent/citizen physicist building an open-source pipeline that connects fluid profiles → horizon/κ diagnostics → graybody transmission → radio-band detectability. It also ingests openPMD/PIC outputs (e.g., WarpX) to test "universality" via κ-normalized spectra.
+
+In a single-GPU setup (RTX 3080), I can reproduce baseline horizons, run universality-collapse sweeps, and map pre-breakdown κ limits. I'd love your candid feedback on (a) methodological gaps, (b) plausibility of the assumptions, and (c) which diagnostics would be most convincing to your community.
+
+Links and 1–2 representative figures are below; a 1‑page summary is attached.
+If you see value, I'd be grateful for 15 minutes of guidance on what to test next.
+
+Repo: https://github.com/Hmbown/analog-hawking-radiation
+
+Representative results:
+[ATTACH: universality_collapse.png]
+[ATTACH: kappa_vs_position.png]
+
+Example JSON output:
+{
+  "kappa_s_inv": 3.15e14,
+  "t_5sigma_s": 2.5e-10,
+  "T_H_K": [VALUE],
+  "horizon_position_m": [VALUE]
+}
+
+Thank you for considering,
+[YOUR_NAME]
+[YOUR_EMAIL]
+[YOUR_WEBSITE/LinkedIn if applicable]
+
+---
+
+CUSTOMIZATION NOTES:
+
+For Silke Weinfurtner:
+- Add: "I particularly value your work on universality across analogue platforms"
+- Emphasize: Universality collapse plots, diagnostic development
+- Attach: κ-normalized spectrum overlays
+
+For Iacopo Carusotto:
+- Add: "Your recent work on spin-sonic horizons inspired me to think about cross-platform validation"
+- Emphasize: Theoretical framework, κ-inference method
+- Reference: arXiv:2408.17292
+
+For Jeff Steinhauer:
+- Add: "Your Nature Physics 2016 paper is a benchmark for PSD analysis"
+- Emphasize: PSD analysis capability, experimental comparison
+- Offer: Apply to BEC data for validation
+
+For Pisin Chen:
+- Add: "I'm especially interested in AnaBHEL experimental feasibility"
+- Emphasize: Detection forecasts, PIC integration
+- Include: 5σ integration times for radio-band
+- Offer: Customize for AnaBHEL parameters
+
+For Daniele Faccio:
+- Add: "Your work on negative-frequency radiation directly relates to our graybody analysis"
+- Emphasize: Frequency-domain analysis, transmission calculations
+- Include: Graybody curves vs frequency
+
+For Theory Researchers (Schützhold, Liberati, Visser):
+- Add: "I'm seeking rigorous theoretical validation of the approach"
+- Emphasize: Method validation, theoretical assumptions
+- Ask: What are the main theoretical pitfalls?
+- Include: Detailed method section from README
+
+---
+
+EMAIL BEST PRACTICES:
+
+Structure:
+1. Who you are (1 sentence)
+2. What you built (1-2 sentences)
+3. What you've done (1 sentence)
+4. What you want (1 sentence)
+5. Evidence (attachments)
+6. Gratitude and close (1 sentence)
+
+Total length: <200 words
+
+Attachments:
+- 1-page PDF summary
+- 2-3 representative figures (PNG, <1MB each)
+- Optional: JSON snippet in email body
+
+Tone:
+- Respectful but confident
+- Honest about limitations
+- Offer value, don't just ask
+- Academic professionalism
+
+Timing:
+- Avoid: Conference weeks, holidays, summer vacation
+- Best: Tuesday-Thursday, 9am-5pm local time
+- Consider: Their conference schedule
