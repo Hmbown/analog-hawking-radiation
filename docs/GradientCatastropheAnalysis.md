@@ -73,6 +73,8 @@ This represents a fundamental barrier imposed by relativistic physics, not techn
 
 ### Optimal Configuration
 
+> **Caution:** The optimum reported here arises from the surrogate profile family swept in `scripts/sweep_gradient_catastrophe.py`. Self-consistent PIC simulations or experimental measurements may shift both the peak value and the apparent scaling laws. Treat these numbers as upper bounds subject to validation rather than universal limits.
+
 The configuration achieving maximum κ:
 - **a₀**: 1.62 (moderate relativistic regime)
 - **nₑ**: 1.39×10¹⁹ m⁻³ (overcritical density)
@@ -116,7 +118,7 @@ Accounting for realistic signal-to-noise ratios and experimental constraints:
 
 **t_detection ∼ 10⁻⁷ to 10⁻⁶ seconds**
 
-This is 3-4 orders of magnitude longer than naive expectations but still potentially observable with fast diagnostics.
+This is 3-4 orders of magnitude longer than naive expectations but still potentially observable with fast diagnostics. Practical facilities cannot currently reach the intensity that underpins this optimistic window; see `docs/ExperimentalAccessibility.md` for a side-by-side comparison with Apollon, ELI, and BELLA capabilities.
 
 ## Experimental Implications
 

@@ -137,7 +137,7 @@ Physics Engine Architecture
 
 * The `SimulationRunner` coordinates any `PlasmaBackend` implementation, persisting last-step observables and exporting user-requested diagnostics.
 * `PlasmaBackend` adapters (e.g., `FluidBackend`, `WarpXBackend`) encapsulate configuration, stepping, and shutdown logic while emitting standardized `PlasmaState` data structures.
-* Horizon diagnostics encapsulate kappa estimates, finite-difference gradients, and optional uncertainty metrics. Three κ definitions are available: `legacy` (0.5|∂x(|v|−c)|), `acoustic` (|∂x(c−|v|)|), and the exact acoustic form `acoustic_exact` (|∂x(c²−v²)|/(2 c_H)) evaluated at the horizon. Horizon sidecars now include `c_H` and `d(c²−v²)/dx` for diagnostics.
+* Horizon diagnostics encapsulate kappa estimates, finite-difference gradients, and optional uncertainty metrics. Three κ definitions are available: `legacy` (0.5|∂x(|v|−c)|), `acoustic` (|∂x(c−|v|)|), and the exact acoustic form `acoustic_exact` (|∂x(c²−v²)|/(2 c_H)) evaluated at the horizon. Horizon sidecars now include `c_H` and `d(c²−v²)/dx` for diagnostics. The `acoustic` and `acoustic_exact` expressions follow the acoustic geometry derivations of Unruh (1981) and Barceló et al. (Living Rev. Relativity, 2005); the multiple implementations exist to enable cross-checks against those references.
 * Validation and optimization layers consume these outputs to inform experiment design, from adaptive smoothing (`analog_hawking.physics_engine.plasma_models.adaptive_sigma`) to radio SNR feasibility analyses (`scripts/generate_radio_snr_sweep.py`).
 
 Fluid Backend Configuration
