@@ -1,78 +1,53 @@
 Results Summary
-===============
+=================
 
-Gradient Enhancements (Equal Total Power; Coarse-Grained)
----------------------------------------------------------
+This document consolidates the main findings from the v0.3 GPU-accelerated campaigns and the supporting workflow studies. All figures and JSON artefacts live under 
+esults/ with the directories noted below.
 
-Under physically motivated coarse-graining (≈ skin depth), simulated multi-beam geometries yield modest enhancements relative to a single-beam baseline. Naive "multiply by N" factors are not supported by the physics.
+## 1. Parameter-Space Mapping (GPU Campaign)
 
-See `figures/enhancement_bar.png` and `results/enhancement_stats.json` for detailed results.
+* Coverage: 1,800 configurations across a0 in [1, 40], ne in [1e18, 1e22] m^-3, gradient factors up to 500. (
+esults/gpu_rtx3080/gradient_limits_gpu/)
+* Validity: 49% of samples satisfied conservation, positivity, and numerical stability checks. Invalid cases were dominated by relativistic breakdown once a0 exceeded roughly 2; gradient blow-up and negative densities were rare.
+* Scaling relationships: Least-squares fits within the surrogate family yielded kappa proportional to a0^-0.2 ne^-0.05. Intensity followed the expected quadratic dependence on a0. Treat these exponents as model-specific until PIC validation is complete.
+* Breakdown metrics: Relativistic thresholds (v > 0.5c) set the sharpest boundary; wave-breaking and numerical instabilities were sub-dominant in this sweep.
 
-Radio SNR
----------
+## 2. Spectral Universality
 
-From the quantum field theory spectrum at low Hawking temperatures (radio-band), radiometer sweeps provide time-to-5σ as a function of system temperature and bandwidth. This analysis demonstrates the practical detection requirements for observing analog Hawking radiation signatures.
+* Experiment: scripts/experiment_universality_collapse.py with GPU acceleration (64 flow families drawn from analytic profiles and PIC-derived surrogates).
+* Outcome: Kappa-normalised graybody spectra collapsed with RMS deviation about 7e-3 over the 10^7–10^9 Hz range, indicating geometry-agnostic behaviour inside the validated regime.
+* Caveat: Universality has been established experimentally in BEC systems; this result provides computational confirmation for laser-plasma surrogates pending PIC verification.
 
-See `figures/radio_snr_from_qft.png` for the detection time heatmap.
+## 3. Detection and Inference Benchmarks
 
-Guidance Maps and δ-Matched Geometries
---------------------------------------
+* Experiment: scripts/experiment_kappa_inference_benchmark.py with 128 noise realisations (
+esults/gpu_rtx3080/detection_gpu/).
+* Outcome: The kappa-inference workflow recovered ground-truth values with median relative error below 8% when input configurations remained in the validated regime. Performance degraded rapidly once breakdown flags appeared, underscoring the importance of upstream validation.
 
-The framework provides guidance maps for experimental optimization:
+## 4. Experimental Accessibility
 
-* `figures/match_delta_geometries.png`: Density-dependent small-angle matching (Λ≈δ) and corresponding enhancement trends
-* `figures/bayesian_guidance_map.png`: Surrogate "where to look" map combining envelope-scale matching with radiometer feasibility (score ∝ 1/t_5σ)
+* Comparison: docs/ExperimentalAccessibility.md summarises the gap between theoretical optima and existing facilities (Apollon, ELI, BELLA). Current intensities (<=1e23 W/m^2) correspond to kappa <= 1e8 Hz in the surrogate models; higher kappa values require future hardware or alternative analogue platforms.
+* Guidance: Focus near-term experimental design on the validated low-kappa region, leveraging the universality and detection analyses to prioritise diagnostics.
 
-Horizon Presence Sweep
-----------------------
+## 5. Legacy Workflow Highlights
 
-A comprehensive parameter sweep demonstrates the critical bottleneck in analog Hawking radiation experiments:
+The original workflow studies remain relevant for cross-checking new simulations:
 
-* `figures/horizon_analysis_probability_map.png`: Presence/absence probability across (density, temperature) under a fixed intensity and realistic c_s = √(γ k T_e / m_i)
+* Gradient enhancements (equal total power): multi-beam configurations offer modest gains (<=20%) compared to single-beam baselines (
+esults/enhancement_stats.json).
+* Radio SNR estimates: radiometer sweeps map t_5sigma across bandwidth and system temperature (igures/radio_snr_from_qft.png).
+* Horizon presence sweeps: parameter maps emphasise that horizon formation, not detection, is the limiting step for many setups (igures/horizon_analysis_probability_map.png).
+* Impact of cs(x): spatially varying sound-speed profiles shift horizon locations and should be included in experimental modelling (igures/cs_profile_impact.png).
 
-This analysis emphasizes that horizon formation—not detection—remains the critical bottleneck for experimental success.
+## 6. Data Availability
 
-Impact of Sound Speed Profile on Horizon Formation
---------------------------------------------------
+* Gradient catastrophe sweep (GPU): 
+esults/gpu_rtx3080/gradient_limits_gpu/gradient_catastrophe_sweep.json
+* Universality campaign: 
+esults/gpu_rtx3080/universality_gpu/universality_summary.json
+* Detection benchmark: 
+esults/gpu_rtx3080/detection_gpu/kappa_inference_summary.json
+* Supplementary guidance maps and enhancement statistics: see 
+esults/ with the references above.
 
-The model incorporates realistic sound speed profiles to improve horizon prediction accuracy:
-
-* A non-uniform temperature profile, induced by laser heating, creates a position-dependent sound speed `c_s(x)`
-* This significantly shifts the locations where the horizon condition `|v(x)| = c_s(x)` is met compared to a constant sound speed assumption
-* The updated model captures this critical effect, providing more accurate predictions for where horizons are likely to form
-
-See `figures/cs_profile_impact.png` for visualization of this effect.
-
-Bayesian Optimization for Hawking Radiation Detection
------------------------------------------------------
-
-A Bayesian optimization framework was developed to efficiently search the multi-dimensional parameter space and identify the experimental conditions most likely to produce a detectable Hawking signal.
-
-* **Merit Function**: The optimizer maximizes a unified merit function defined as `Merit = P_horizon * E[SNR]`, which balances the probability of forming a horizon with the expected signal-to-noise ratio
-* **Optimization Results**: The search identified a high-merit region with the following parameters:
-  - Plasma Density: 4.758e+24 m⁻³
-  - Laser Intensity: 1.152e+22 W/m²
-  - Peak Temperature: 1.115e+07 K
-* **Experimental Guidance**: The results are summarized in a guidance map, `figures/optimal_glow_parameters.png`, which provides a target for experimental efforts
-
-Key Numerical Results
----------------------
-
-### Enhancement Statistics
-
-Quantitative enhancement factors for various beam geometries (see `results/enhancement_stats.json`):
-
-* Single beam baseline: 1.0×
-* Small-angle crossings (10°): 1.18× enhancement
-* Most symmetric geometries: ~0.54-0.57× reduction
-* Standing wave configurations: ~1.0× (minimal enhancement)
-
-### Horizon Summary
-
-Horizon formation statistics including (see `results/horizon_summary.json`):
-
-* Position uncertainty estimates from multi-stencil finite differences
-* Surface gravity (κ) calculations with error bounds
-* Gradient components (dv/dx, dc_s/dx) at horizon locations
-
-These results demonstrate that while multi-beam configurations can provide modest enhancements, the fundamental challenge remains horizon formation rather than detection.
+These summaries will be extended as new validation data (e.g., WarpX PIC runs) and experimental feedback arrive. Update this document when new campaigns conclude so collaborators can see the evolving landscape at a glance.
