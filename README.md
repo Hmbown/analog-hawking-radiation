@@ -11,7 +11,7 @@ A practitioner-focused toolkit for designing and validating analog Hawking radia
 ### Executive summary
 - **Purpose** – Explore when laboratory plasmas form sonic horizons and whether the resulting Hawking-like signal is measurable.
 - **Scope** – Covers analytical fluid backends, WarpX/PIC integration, horizon finding, graybody filtering, radio detection forecasts, and physics validation.
-- **Latest milestone (v0.3)** – Gradient catastrophe campaign completed with GPU acceleration, revealing profound insights into the physical limits of analog Hawking radiation. We observe maximum surface gravity κ ≈ 4.41×10¹² Hz before relativistic breakdown, alongside extraordinary universality in graybody spectrum collapse (RMS < 10⁻⁵) across diverse flow geometries. These findings suggest fundamental connections between plasma physics and black hole thermodynamics that we're only beginning to understand.
+- **Latest milestone (v0.3)** – Gradient catastrophe campaign with GPU acceleration mapping simulation breakdown limits. Found maximum κ ≈ 4.41×10¹² Hz requiring unphysical laser intensities (10²⁸× beyond current technology). The universality in graybody spectrum collapse (RMS < 10⁻⁵) occurs only at much lower, potentially accessible κ values. Results highlight the need for realistic experimental constraints.
 
 ### Who this repository serves
 | Role | How you benefit |
@@ -87,18 +87,18 @@ ANALOG_HAWKING_USE_CUPY=1 python scripts/run_gpu_campaign.py \
 
 See `docs/GPU_ACCELERATION_GUIDE.md` for tuning tips, memory guidance, and advanced runs.
 
-### 🚀 Latest GPU Campaign Results
+### ⚠️ GPU Campaign Reality Check
 
-**What we discovered**: Our RTX 3080 GPU acceleration campaign has unveiled remarkable findings that push the boundaries of our understanding:
+**What we actually found**: Our RTX 3080 campaign mapped the simulation's breakdown limits, not breakthrough physics:
 
-- **Record surface gravity**: κ_max = 4.41×10¹² Hz achieved before relativistic breakdown
-- **Universal spectrum collapse**: RMS deviation of only 7.09×10⁻⁶ across 61 different flow geometries 
-- **Breakdown statistics**: 888 valid configurations out of 1,800 tested (50.7% success rate)
-- **Optimal parameters**: a₀ = 37.93, n_e = 2.68×10²¹ m⁻³, requiring I = 3.12×10⁵³ W/m²
+- **Simulation limit**: κ_max = 4.41×10¹² Hz requires I = 3.12×10⁵³ W/m² (unachievable)
+- **Realistic accessibility**: **ZERO** configurations work with foreseeable laser technology (≤10²⁵ W/m²)
+- **Universality finding**: Valid only for κ ≤ 1.5×10⁷ Hz (5 orders below simulation max)
+- **Breakdown reality**: 85% of runs failed (κ=0), most due to relativistic breakdown at a₀ > 1
 
-**What this means**: These results suggest that analog Hawking radiation may exhibit universal characteristics independent of the specific plasma flow geometry—a finding that could revolutionize our understanding of the connection between laboratory plasma physics and black hole physics. We approach these findings with humility, recognizing that we're exploring territory where the boundaries between classical and quantum physics blur in ways we're only beginning to comprehend.
+**What this means**: The high-κ regime is purely academic. Real experiments need alternative approaches: different analog systems, better detection schemes, or focus on the low-κ universal regime that's actually accessible.
 
-**Reproducibility**: All results in `results/gpu_rtx3080/` with complete JSON summaries, analysis plots, and parameter sweeps.
+**Files**: Results in `results/gpu_rtx3080/` show the parameter space limitations clearly.
 
 ---
 
