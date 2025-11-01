@@ -47,9 +47,10 @@ def main() -> int:
             sweep = run_sweep(
                 n_samples=int(args.n_samples),
                 output_dir="results/threshold_sweeps",
-                thresholds=asdict(thr),
+                vmax_frac=thr.v_max_fraction_c,
+                dvdx_max=thr.dv_dx_max_s,
+                intensity_max=thr.intensity_max_W_m2,
                 seed=12345,
-                progress=False,
             )
             kmax = float(sweep.get("analysis", {}).get("max_kappa", np.nan))
             results.append({
@@ -68,4 +69,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -7,7 +7,6 @@ from typing import Dict, List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 from scipy.constants import c, e, epsilon_0, k, m_e
 from tqdm import tqdm
 
@@ -116,14 +115,14 @@ def run_single_configuration(
 
     try:
         _ = MaxwellFluidModel(plasma_density=n_e, laser_wavelength=lambda_l, laser_intensity=I_0)
-    except Exception as e:  # pragma: no cover (defensive)
+    except Exception as exc:  # pragma: no cover (defensive)
         return {
             "a0": a0,
             "n_e": n_e,
             "gradient_factor": gradient_factor,
             "kappa": 0.0,
             "validity_score": 0.0,
-            "error": str(e),
+            "error": str(exc),
             "breakdown_modes": {"numerical_instability": True},
         }
 
@@ -164,9 +163,9 @@ def run_single_configuration(
             )
             kappa = float(np.mean(horizons.kappa)) if len(horizons.kappa) > 0 else 0.0
             gradient_metrics = detector.compute_gradient_metrics(x, velocity, sound_speed)
-        except Exception as e:
+        except Exception as exc:
             kappa = 0.0
-            gradient_metrics = {"error": str(e)}
+            gradient_metrics = {"error": str(exc)}
             breakdown_analysis["validity_score"] = 0.0
     else:
         kappa = 0.0
@@ -381,4 +380,3 @@ def generate_catastrophe_plots(sweep_data: Dict[str, object], output_dir: str) -
     plt.tight_layout()
     plt.savefig(output_path / "kappa_hist.png", dpi=150)
     plt.close()
-
