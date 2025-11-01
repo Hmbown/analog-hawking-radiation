@@ -126,7 +126,7 @@ def main() -> int:
         fb = np.clip(fb, float(freqs_f[0]), float(freqs_f[-1]))
         if fb[-1] > fb[0]:
             psd_band = np.interp(fb, freqs_f, P_f)
-            inband_power_f = float(np.trapz(psd_band, x=fb))
+            inband_power_f = float(np.trapezoid(psd_band, x=fb))
 
     freqs_h = np.asarray(spec_hybrid["frequencies"])  # type: ignore[index]
     P_h = np.asarray(spec_hybrid["power_spectrum"])  # type: ignore[index]
@@ -138,7 +138,7 @@ def main() -> int:
         fb = np.clip(fb, float(freqs_h[0]), float(freqs_h[-1]))
         if fb[-1] > fb[0]:
             psd_band = np.interp(fb, freqs_h, P_h)
-            inband_power_h = float(np.trapz(psd_band, x=fb))
+            inband_power_h = float(np.trapezoid(psd_band, x=fb))
 
     T_sig_f = equivalent_signal_temperature(inband_power_f, 1e8)
     T_sig_h = equivalent_signal_temperature(inband_power_h, 1e8)

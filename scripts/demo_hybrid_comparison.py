@@ -72,7 +72,7 @@ def main():
         if f_band[-1] <= f_band[0]:
             return float("inf")
         psd_band = np.interp(f_band, f, P)
-        P_sig = float(np.trapz(psd_band, x=f_band))
+        P_sig = float(np.trapezoid(psd_band, x=f_band))
         T_sig = P_sig / (k * B_ref) if B_ref > 0 else 0.0
         if T_sig <= 0:
             return float("inf")

@@ -1,9 +1,17 @@
-"""Quantum fluctuation injection utilities for PIC backends."""
+"""Quantum fluctuation injection utilities for PIC backends.
+
+Backwards-compatibility notes:
+- Prior test code instantiated `FluctuationConfig` directly with legacy fields
+  (seed, target_temperature, mode_cutoff, amplitude_scale, cadence, band_min,
+  band_max, background_psd). The v0.3 refactor switched to a YAML-driven
+  schema. To preserve compatibility, this module now accepts either the legacy
+  constructor or the new schema and maps fields accordingly.
+"""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Tuple, Union, Mapping, Any
 
 import numpy as np
 import yaml
@@ -11,22 +19,99 @@ import yaml
 
 @dataclass
 class FluctuationConfig:
-    seed_type: str
-    band_limit: Tuple[float, float]  # Hz
-    amplitude: float
-    correlation_time: float  # s
-    mean: float
-    target_field: str  # 'sound_speed', 'velocity', etc.
-    cadence: int
-    seed: int
+    # New schema (YAML-driven)
+    seed_type: str = "mt19937"
+    band_limit: Tuple[float, float] = (0.0, float("inf"))  # Hz
+    amplitude: float = 1.0
+    correlation_time: float = 1e-9  # s
+    mean: float = 0.0
+    target_field: str = "sound_speed"  # 'sound_speed', 'velocity', etc.
+    cadence: int = 1
+    seed: int = 0
+
+    # Legacy fields (ignored in new flow; accepted for compatibility)
+    target_temperature: float = 0.0
+    mode_cutoff: float = float("inf")
+    amplitude_scale: float = 1.0
+    band_min: float = 0.0
+    band_max: float = float("inf")
+    background_psd: float = 0.0
+
+    @staticmethod
+    def from_legacy(**kwargs: Any) -> "FluctuationConfig":
+        """Create config from legacy constructor fields used by tests.
+
+        Expected legacy keys: seed, target_temperature, mode_cutoff,
+        amplitude_scale, cadence, band_min, band_max, background_psd.
+        """
+        seed = int(kwargs.get("seed", 0))
+        amp = float(kwargs.get("amplitude_scale", 1.0))
+        fmin = float(kwargs.get("band_min", 0.0))
+        fmax = float(kwargs.get("band_max", kwargs.get("mode_cutoff", float("inf"))))
+        cadence = int(kwargs.get("cadence", 1))
+        mean = 0.0
+        target_field = "sound_speed"
+        return FluctuationConfig(
+            seed_type="mt19937",
+            band_limit=(fmin, fmax),
+            amplitude=amp,
+            correlation_time=1e-9,
+            mean=mean,
+            target_field=target_field,
+            cadence=cadence,
+            seed=seed,
+            # Preserve legacy attributes for introspection if needed
+            target_temperature=float(kwargs.get("target_temperature", 0.0)),
+            mode_cutoff=float(kwargs.get("mode_cutoff", fmax)),
+            amplitude_scale=amp,
+            band_min=fmin,
+            band_max=fmax,
+            background_psd=float(kwargs.get("background_psd", 0.0)),
+        )
+
+    @staticmethod
+    def from_yaml_dict(data: Mapping[str, Any]) -> "FluctuationConfig":
+        """Create config from YAML dict using new schema keys, tolerating legacy keys."""
+        # Map legacy keys if present
+        if any(k in data for k in ("amplitude_scale", "mode_cutoff", "band_min", "band_max")):
+            return FluctuationConfig.from_legacy(**data)  # type: ignore[arg-type]
+        # New-schema path
+        band = data.get("band_limit")
+        if band is None:
+            # Tolerate separate min/max
+            fmin = float(data.get("band_min", 0.0))
+            fmax = float(data.get("band_max", float("inf")))
+            band = (fmin, fmax)
+        return FluctuationConfig(
+            seed_type=str(data.get("seed_type", "mt19937")),
+            band_limit=tuple(band),  # type: ignore[arg-type]
+            amplitude=float(data.get("amplitude", 1.0)),
+            correlation_time=float(data.get("correlation_time", 1e-9)),
+            mean=float(data.get("mean", 0.0)),
+            target_field=str(data.get("target_field", "sound_speed")),
+            cadence=int(data.get("cadence", 1)),
+            seed=int(data.get("seed", 0)),
+        )
 
 
 class QuantumFluctuationInjector:
     """Generates and injects broadband quantum-like fluctuations using Ornstein-Uhlenbeck process."""
 
-    def __init__(self, config_path: str) -> None:
-        with open(config_path, 'r') as f:
-            self._config = FluctuationConfig(**yaml.safe_load(f))
+    def __init__(self, config: Union[str, FluctuationConfig, Mapping[str, Any]]) -> None:
+        """Initialize the injector with either a YAML path, a config object, or a dict.
+
+        This preserves compatibility with previous tests that directly constructed
+        `FluctuationConfig(...)` using legacy fields.
+        """
+        if isinstance(config, str):
+            with open(config, 'r', encoding='utf-8') as f:
+                data = yaml.safe_load(f)
+            self._config = FluctuationConfig.from_yaml_dict(data)
+        elif isinstance(config, FluctuationConfig):
+            self._config = config
+        else:
+            # Mapping/dict provided
+            self._config = FluctuationConfig.from_yaml_dict(config)
         self._rng = np.random.default_rng(self._config.seed)
         self._step_counter = 0
         self._backend = None
@@ -88,5 +173,4 @@ class QuantumFluctuationInjector:
         amplitude = self._config.amplitude
         phases = self._rng.uniform(0, 2 * np.pi, size=k_array.shape)
         return amplitude * np.exp(1j * phases)
-
 

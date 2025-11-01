@@ -1,8 +1,8 @@
 # Analog Hawking Radiation Simulator
 
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CI](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml/badge.svg)](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-48%20passing-brightgreen.svg)](tests/) [![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases) [![Release Notes](https://img.shields.io/badge/release%20notes-v0.3.0-informational.svg)](RELEASE_NOTES_v0.3.0.md)
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CI](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml/badge.svg)](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-see%20CI-informational.svg)](tests/) [![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases) [![Release Notes](https://img.shields.io/badge/release%20notes-v0.3.0-informational.svg)](RELEASE_NOTES_v0.3.0.md)
 
-[![Research Highlight](https://img.shields.io/badge/κ_max-5.94×10¹²%20Hz-red.svg)](RESEARCH_HIGHLIGHTS.md) [![GPU Speedup](https://img.shields.io/badge/GPU-10--100×-green.svg)](docs/pc_cuda_workflow.md) [![Validation](https://img.shields.io/badge/validations-48%20tests-brightgreen.svg)](tests/) [![Parameter Space](https://img.shields.io/badge/sweeps-500%20configurations-blue.svg)](docs/GradientCatastropheAnalysis.md)
+[![Research Highlight](https://img.shields.io/badge/κ_max-5.94×10¹²%20Hz-red.svg)](RESEARCH_HIGHLIGHTS.md) [![GPU Speedup](https://img.shields.io/badge/GPU-10--100×-green.svg)](docs/pc_cuda_workflow.md) [![Validation](https://img.shields.io/badge/validations-see%20CI-informational.svg)](tests/) [![Parameter Space](https://img.shields.io/badge/sweeps-500%20configurations-blue.svg)](docs/GradientCatastropheAnalysis.md)
 
 A practitioner-focused toolkit for designing and validating analog Hawking radiation experiments in realistic laser–plasma settings. The simulator links fluid models, particle-in-cell (PIC) pipelines, quantum field theory post-processing, and radio detection forecasts into one reproducible environment.
 
@@ -10,20 +10,20 @@ A practitioner-focused toolkit for designing and validating analog Hawking radia
 
 ## 🎯 Latest Research (v0.3.0 - October 2025)
 
-### **BREAKTHROUGH: Fundamental Limit Discovered** 🏆
+### Parametric Upper Bound (threshold‑limited)
 
-**Surface Gravity Maximum**: κ_max ≈ **5.94×10¹² Hz** (acoustic‑exact κ, enforced thresholds)
+**Surface Gravity Upper Bound (this run)**: κ_max ≈ **5.94×10¹² Hz** (acoustic‑exact κ; thresholds enforced)
 
-Our gradient catastrophe analysis of 500+ configurations has identified the **fundamental physical limit** of analog Hawking radiation before relativistic breakdown occurs.
+This bound comes from a sweep over synthetic 1D profiles with explicit breakdown thresholds. It is not a fundamental constant and shifts with thresholds and model assumptions.
 
 #### Key Findings
 - **Optimal Configuration**: a₀ ≈ 1.6, nₑ ≈ 1.39×10¹⁹ m⁻³
 - **Detection Times**: 10⁻⁷ to 10⁻⁶ seconds (realistic with fast diagnostics)
 - **Scaling (this run)**: κ vs a₀ exponent ≈ +0.66 (95% CI [0.44, 0.89]); κ vs nₑ exponent ≈ −0.02 (95% CI [−0.14, 0.10])
-- **Relativistic Wall**: Physics breaks down when v > 0.5c
+- **Breakdown thresholds enforced**: v < 0.5c, |dv/dx| < 4×10¹² s⁻¹, intensity < 1×10²⁴ W/m²
 
 #### Impact
-First systematic mapping of physical constraints on analog black hole formation. This discovery:
+Systematic mapping of breakdown constraints in our 1D models. This study:
 - Sets realistic expectations for laboratory analog experiments
 - Guides laser-plasma parameter optimization
 - Establishes theoretical foundation for detection prospects
@@ -37,7 +37,7 @@ First systematic mapping of physical constraints on analog black hole formation.
 ### Executive summary
 - **Purpose** – Explore when laboratory plasmas form sonic horizons and whether the resulting Hawking-like signal is measurable.
 - **Scope** – Covers analytical fluid backends, WarpX/PIC integration, horizon finding, graybody filtering, radio detection forecasts, and physics validation.
-- **Latest milestone (v0.3)** – Gradient catastrophe campaign mapping the fundamental limit $\kappa_{\max} \approx 3.8\times10^{12}\,\text{Hz}$ before relativistic breakdown.
+- **Latest milestone (v0.3)** – Gradient catastrophe campaign mapping a threshold‑limited upper bound $\kappa_{\max} \approx 5.94\times10^{12}\,\text{Hz}$ for this production run.
 
 ### Who this repository serves
 | Role | How you benefit |
@@ -51,6 +51,8 @@ First systematic mapping of physical constraints on analog black hole formation.
 - **Production playbooks** – [`docs/Experiments.md`](docs/Experiments.md)
 - **Physics limits study** – [`docs/GradientCatastropheAnalysis.md`](docs/GradientCatastropheAnalysis.md)
 - **Methodology deep dive** – [`docs/Methods.md`](docs/Methods.md)
+- **nD horizons** – [`docs/horizon_nd.md`](docs/horizon_nd.md)
+- **AnaBHEL comparison** – [`docs/AnaBHEL_Comparison.md`](docs/AnaBHEL_Comparison.md)
 - **Release context** – [`RELEASE_NOTES_v0.3.0.md`](RELEASE_NOTES_v0.3.0.md)
 - **Known gaps** – [`docs/Limitations.md`](docs/Limitations.md)
 
@@ -75,6 +77,8 @@ pytest -q
 **One-minute smoke test**
 ```bash
 python scripts/run_full_pipeline.py --demo --kappa-method acoustic_exact --graybody acoustic_wkb
+# Conservative demo that respects production bounds (caps reported metrics if exceeded)
+python scripts/run_full_pipeline.py --demo --safe-demo --respect-thresholds --kappa-method acoustic_exact --graybody acoustic_wkb
 cat results/full_pipeline_summary.json
 ```
 
@@ -113,8 +117,10 @@ Detailed walkthroughs follow.
 ### Baseline fluid pipeline
 ```bash
 python scripts/run_full_pipeline.py --demo --kappa-method acoustic_exact --graybody acoustic_wkb
+python scripts/run_full_pipeline.py --demo --safe-demo --respect-thresholds --kappa-method acoustic_exact --graybody acoustic_wkb
 ```
 - Produces a horizon-aware summary at `results/full_pipeline_summary.json` with κ, graybody transmission, and 5σ detection times.
+- When a demo produces κ above the production sweep’s parametric upper bound, the summary includes `sanity_violation: true` and a `sanity_note`. Use `--safe-demo` and/or `--respect-thresholds` to keep reported metrics conservative.
 - Optional arguments: `--save-figures`, `--profile-path`, and `--config` to switch between preset laser profiles.
 
 ### WarpX ↔ PIC integration
@@ -175,11 +181,11 @@ python -m scripts.orchestration_engine --config configs/orchestration/pic_downra
 - Reports: `results/orchestration/a27496e3/final_report.txt` and `.../comprehensive_report.txt`
 
 ### Gradient catastrophe highlights
-- **Fundamental limit** – Maximum surface gravity $\kappa_{\max} \approx 3.8\times10^{12}\,\text{Hz}$ before relativistic breakdown.
-- **Relativistic wall** – Viability requires $v < 0.5c$, $\partial_x v < 4\times10^{12}\,\text{s}^{-1}$, $I < 6\times10^{50}\,\text{W/m}^2$.
-- **Sweet spot** – $a_0 \approx 1.6$, $n_e \approx 1.4\times10^{19}\,\text{m}^{-3}$ maximizes κ while remaining physical.
-- **Scaling law** – $\kappa \propto a_0^{-0.193}$; increasing laser intensity eventually lowers attainable κ.
-- Full methodology and plots live in [`docs/GradientCatastropheAnalysis.md`](docs/GradientCatastropheAnalysis.md) and `results/gradient_limits/`.
+- **Upper bound (this run)** – Threshold‑limited $\kappa_{\max} \approx 5.94\times10^{12}\,\text{Hz}$ (acoustic‑exact; see `results/gradient_limits_production/`).
+- **Breakdown thresholds enforced** – $v < 0.5c$, $|\partial_x v| < 4\times10^{12}\,\text{s}^{-1}$, $I < 1\times10^{24}\,\text{W/m}^2$.
+- **Scaling (this run)** – $\kappa$ vs $a_0$ exponent ≈ +0.66 (95% CI [0.44, 0.89]); $\kappa$ vs $n_e$ exponent ≈ −0.02 (95% CI [−0.14, 0.10]).
+- **Interpretation** – These values are specific to our 1D synthetic profiles and threshold choices; they are not fundamental constants.
+- Full methodology and plots: [`docs/GradientCatastropheAnalysis.md`](docs/GradientCatastropheAnalysis.md) and `results/gradient_limits_production/`.
 
 ### Universality & detection takeaways
 - **Spectrum collapse** – κ-normalized spectra from analytic and PIC-derived profiles align on a common curve.
@@ -200,6 +206,12 @@ Example figures reside in `docs/img/` alongside explanation overlays.
 - κ uncertainties cover numerical stencil variation only (no experimental systematics).
 - Hybrid mirror coupling is speculative; treat outputs as scenario planning, not prediction.
 - Upcoming work: finalize WarpX execution layer, fluctuation injector, and trans-Planckian workflows (see [`docs/trans_planckian_next_steps.md`](docs/trans_planckian_next_steps.md)).
+
+### Scientific framing and literature
+- Our κ values are toy‑model outputs for synthetic 1D profiles; they are not validated laser–plasma predictions.
+- Reported uncertainties reflect numerical stencil variation, not physical systematics.
+- Chen & Mourou (2015, 2022) focus on accelerating plasma mirrors and information tests; they do not specify a κ_max. Steinhauer (2016) operates in a BEC regime with κ orders of magnitude smaller; cross‑platform comparisons require care.
+- Treat detection-time estimates as illustrative and recompute with experiment‑specific couplings and noise budgets.
 
 ---
 
@@ -239,7 +251,7 @@ tests/                    # Unit and integration suites
 - `docs/Methods.md` – Algorithms for horizon finding, graybody solvers, detection modeling
 - `docs/Experiments.md` – Universality experiments and PIC integration guide
 - `docs/AdvancedScenarios.md` – Command recipes for PIC, universality, and hybrid workflows
-- `docs/GradientCatastropheAnalysis.md` – Physics breakdown boundary mapping and fundamental limits (new in v0.3)
+- `docs/GradientCatastropheAnalysis.md` – Physics breakdown boundary mapping and threshold‑limited upper bounds (new in v0.3)
 - `docs/Results.md` – Representative outputs and interpretation guidance
 - `docs/Limitations.md` – Scope, assumptions, and open questions
 - `docs/phase_timeline.md` – Development roadmap and release cadence
@@ -295,4 +307,26 @@ If you use this work, please cite both the framework and the foundational AnaBHE
   year={2017},
   publisher={APS}
 }
+```
+### nD horizon demo (2D/3D)
+```bash
+# 2D
+python scripts/run_horizon_nd_demo.py --dim 2 --nx 160 --ny 40 --sigma 4e-7 --v0 2.0e6 --cs0 1.0e6 --x0 5e-6
+
+# 3D
+python scripts/run_horizon_nd_demo.py --dim 3 --nx 64 --ny 24 --nz 16 --sigma 6e-7 --v0 1.8e6 --cs0 1.0e6 --x0 5e-6
+```
+- Saves horizon points and κ statistics to `results/horizon_nd_demo/summary.json` and plots `horizon_2d.png` for 2D runs.
+
+### OpenPMD → nD grid converter (experimental)
+```bash
+python scripts/openpmd_to_grid_nd.py --in sample.h5 \
+  --x /mesh/x --y /mesh/y --z /mesh/z \
+  --vx /fields/vx --vy /fields/vy --vz /fields/vz \
+  --cs /fields/c_s --out results/grid_nd_profile.npz
+```
+- You can then build `v_field` by stacking vx, vy, (vz) and call the nD horizon API.
+  Or run directly:
+```bash
+python scripts/run_nd_from_npz.py results/grid_nd_profile.npz --scan-axis 0
 ```

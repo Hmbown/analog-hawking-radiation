@@ -6,11 +6,11 @@
 
 ## Overview
 
-The gradient catastrophe analysis systematically explores the parameter space of laser-plasma analog Hawking systems to identify the fundamental physical limits that constrain achievable surface gravity (κ). This analysis addresses the critical question: **What is the maximum κ that can be achieved before physics breakdown occurs?**
+The gradient catastrophe analysis systematically explores the parameter space of laser–plasma analog Hawking systems to estimate an approximate upper bound on achievable surface gravity (κ) under explicitly stated breakdown thresholds. This analysis addresses the question: **What κ is attainable in our 1D toy models before the chosen breakdown criteria are triggered?**
 
 ## Scientific Motivation
 
-Previous studies suggested that κ could potentially reach 10¹⁴ Hz or higher, enabling nanosecond detection times. However, these estimates did not account for the various physics breakdown modes that occur in extreme gradient regimes. Our analysis provides the first systematic mapping of these limits.
+Previous studies suggested that κ could potentially reach 10¹⁴ Hz or higher in simplified settings. Those estimates often did not enforce multiple breakdown modes in extreme gradient regimes. Here we map these constraints for our synthetic 1D profiles. This is not a claim of a fundamental limit in nature and is sensitive to threshold choices.
 
 ## Methodology
 
@@ -67,11 +67,11 @@ where cₕ is the sound speed at the horizon. This corresponds to `kappa_method=
 
 ### Maximum Achievable Surface Gravity
 
-**Primary Result**: κ_max = 5.94×10¹² Hz (this production run; acoustic‑exact κ; thresholds enforced)
+**Primary Result**: κ_max = 5.94×10¹² Hz (this production run; acoustic‑exact κ; thresholds enforced).
 
-This represents a fundamental barrier imposed by relativistic physics, not technological limitations.
+Interpretation: This is a parametric upper bound for the thresholds and 1D synthetic profiles used in this analysis, not a fundamental constant. Different thresholds or more realistic dynamics will shift this number.
 
-### Optimal Configuration
+### Configuration at Upper Bound (this run)
 
 The configuration achieving maximum κ in this run:
 - **a₀**: 6.95 (relativistic regime)
@@ -81,10 +81,10 @@ The configuration achieving maximum κ in this run:
 
 ### Physics Constraints
 
-**Relativistic Wall**: The dominant limitation is breakdown when any of the following thresholds are exceeded (implemented in the sweep):
+The dominant limitation is breakdown when any of the following thresholds are exceeded (implemented in the sweep):
 - v > 0.5c (≈ 1.5×10⁸ m/s)
 - |dv/dx| > 4×10¹² s⁻¹
-- Intensity I > 6×10⁵⁰ W/m²
+- Intensity I > 1×10²⁴ W/m² (conservative demo cap; used here for parametric mapping)
 
 ### Scaling Relationships
 
@@ -104,31 +104,29 @@ From 500 configurations tested (this run):
 
 ## Detection Time Implications
 
-### Fundamental Limit
-
-With κ_max = 5.94×10¹² Hz, the theoretical minimum detection time is:
+With κ_max = 5.94×10¹² Hz, a naive thermal timescale is:
 
 t_min ≈ 1/(2κ) ≈ 8.4×10⁻¹⁴ seconds
 
 ### Practical Detection Times
 
-Accounting for realistic signal-to-noise ratios and experimental constraints:
+Accounting for realistic signal-to-noise ratios and experimental constraints in our models:
 
-**t_detection ∼ 10⁻⁷ to 10⁻⁶ seconds**
+**t_detection ∼ 10⁻⁷ to 10⁻⁶ seconds** (highly model‑dependent).
 
-This is 3-4 orders of magnitude longer than naive expectations but still potentially observable with fast diagnostics.
+These values are sensitive to coupling assumptions, graybody choices, and instrument parameters and should be treated as illustrative.
 
 ## Experimental Implications
 
-### Laser Requirements
+### Laser Considerations
 
-The optimal configuration requires:
-- **Peak intensity**: 5.7×10⁵⁰ W/m²
+The configuration at the reported bound implies:
+- **Peak intensity**: ~1×10²⁴ W/m² (order‑of‑magnitude; far beyond current laboratory capability)
 - **Focused spot size**: ~1 μm
 - **Pulse duration**: ~10 fs
 - **Total energy**: ~100 J
 
-These parameters are challenging but potentially achievable with next-generation laser systems.
+These parameters are not intended as experimental prescriptions. They are used to probe model limits and should not be interpreted as near‑term feasible.
 
 ### Detection Strategy
 
@@ -139,9 +137,9 @@ These parameters are challenging but potentially achievable with next-generation
 
 ## Scientific Significance
 
-### Novel Physical Insight
+### Scientific Framing
 
-This analysis provides the first systematic identification of a **fundamental gradient catastrophe limit** that constrains analog black hole physics, independent of technological improvements.
+This analysis provides a systematic mapping of breakdown‑limited κ in synthetic 1D profiles under explicit thresholds. It is not a claim of a fundamental limit independent of model and thresholds.
 
 ### Broader Implications
 
@@ -152,7 +150,7 @@ The findings impact:
 
 ### Comparison to Theory
 
-Theoretical predictions of κ ∼ 10¹⁴ Hz are shown to be unattainable due to relativistic breakdown, with the practical limit approximately 25× lower.
+In this toy-model study, κ ∼ 10¹⁴ Hz does not persist once breakdown thresholds are enforced; our run’s upper bound is ~5.9×10¹² Hz. This number is model‑ and threshold‑dependent.
 
 ## Code Usage
 

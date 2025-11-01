@@ -15,7 +15,7 @@ from ...utils.array_module import (
     xp_abs,
     xp_clip,
     xp_gradient,
-    xp_trapz,
+    xp_trapezoid,
 )
 
 
@@ -187,7 +187,7 @@ def compute_graybody(
     # WKB transmission in tortoise coordinate using discrete trapezoidal integral
     def trans_from_threshold(thr: float) -> float:
         y = xp.sqrt(xp_clip(V_use - thr, 0.0, None))
-        integral = as_scalar(xp_trapz(y, xs_use)) if xs_use.size > 1 else 0.0
+        integral = as_scalar(xp_trapezoid(y, xs_use)) if xs_use.size > 1 else 0.0
         if not np.isfinite(integral):
             return 0.0
         return float(np.exp(-2.0 * integral))
@@ -216,11 +216,11 @@ def compute_graybody(
 
     def trans_up(thr: float) -> float:
         yu = xp.sqrt(xp_clip(V_up_use - thr, 0.0, None))
-        integ = as_scalar(xp_trapz(yu, xs_up_use)) if xs_up_use.size > 1 else 0.0
+        integ = as_scalar(xp_trapezoid(yu, xs_up_use)) if xs_up_use.size > 1 else 0.0
         return float(np.exp(-2.0 * integ)) if np.isfinite(integ) else 0.0
     def trans_dn(thr: float) -> float:
         yd = xp.sqrt(xp_clip(V_dn_use - thr, 0.0, None))
-        integ = as_scalar(xp_trapz(yd, xs_dn_use)) if xs_dn_use.size > 1 else 0.0
+        integ = as_scalar(xp_trapezoid(yd, xs_dn_use)) if xs_dn_use.size > 1 else 0.0
         return float(np.exp(-2.0 * integ)) if np.isfinite(integ) else 0.0
     T_up = np.array([trans_up(omega**2) for omega in omega_values])
     T_dn = np.array([trans_dn(omega**2) for omega in omega_values])

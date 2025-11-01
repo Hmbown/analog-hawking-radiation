@@ -46,6 +46,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import argparse
 
+# Reference path for parametric upper bound (rendered from production sweep)
+_PRODUCTION_SWEEP = Path("results/gradient_limits_production/gradient_catastrophe_sweep.json")
+
 
 @dataclass
 class FullPipelineSummary:
@@ -106,6 +109,7 @@ def run_full_pipeline(
     perform_kappa_inference: bool = False,
     inference_bounds: tuple[float, float] | None = None,
     inference_calls: int = 40,
+    respect_parametric_bounds: bool = False,
 ) -> FullPipelineSummary:
     # Ensure defaults for variables used in return even if certain branches are not taken
     t5sigma_TH = float('inf')
@@ -220,7 +224,7 @@ def run_full_pipeline(
                 fb = np.linspace(f_lo, f_hi, 2001)
                 fb = np.clip(fb, float(freqs[0]), float(freqs[-1]))
                 psd_band = np.interp(fb, freqs, P)
-                inband_power = float(np.trapz(psd_band, x=fb))
+                inband_power = float(np.trapezoid(psd_band, x=fb))
             T_sig = equivalent_signal_temperature(inband_power, B_ref)
             if not np.isfinite(T_sig) or T_sig <= 0.0:
                 T_sig = float(spec.get("temperature", 0.0))
@@ -274,7 +278,7 @@ def run_full_pipeline(
                                 f_band = np.linspace(max(f_lo, float(fb[0])), min(f_hi, float(fb[-1])), 2001)
                                 if f_band[-1] > f_band[0]:
                                     psd_band = np.interp(f_band, fb, Pb)
-                                    inband_b = float(np.trapz(psd_band, x=f_band))
+                                    inband_b = float(np.trapezoid(psd_band, x=f_band))
                             T_sig_b = equivalent_signal_temperature(inband_b, B_ref)
                             # Combine with transmission envelope if available, conservatively
                             if 'T_sig_b_lo' in locals() and 'T_sig_b_hi' in locals():
@@ -295,6 +299,51 @@ def run_full_pipeline(
                 t5sigma_low = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_b_lo, 0.0))[0, 0]) if T_sig_b_lo > 0 else float("inf")
             if t5sigma_high is None and 'T_sig_b_hi' in locals():
                 t5sigma_high = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_b_hi, 0.0))[0, 0]) if T_sig_b_hi > 0 else float("inf")
+
+        # Sanity: compare κ to parametric upper bound from production sweep
+        kappa_bound = None
+        if _PRODUCTION_SWEEP.exists():
+            try:
+                with _PRODUCTION_SWEEP.open("r", encoding="utf-8") as fh:
+                    sweep = json.load(fh)
+                kappa_bound = float(sweep.get("analysis", {}).get("max_kappa", None))
+            except Exception:
+                kappa_bound = None
+        if kappa_bound and np.isfinite(kappa_bound) and kappa and kappa[0] > 1.1 * kappa_bound:
+            # Annotate violation and optionally clamp derived metrics
+            violation_note = (
+                f"Computed kappa={kappa[0]:.3e} s^-1 exceeds parametric upper bound ~{kappa_bound:.3e} s^-1 "
+                f"from production thresholds."
+            )
+            if respect_parametric_bounds:
+                # Conservatively cap reported metrics to the bound
+                k_capped = float(kappa_bound)
+                spec_cap = calculate_hawking_spectrum(
+                    k_capped,
+                    graybody_profile=locals().get('gray_profile'),
+                    emitting_area_m2=1e-6,
+                    solid_angle_sr=5e-2,
+                    coupling_efficiency=0.1,
+                    graybody_method=str(graybody) if graybody in {"dimensionless", "wkb", "acoustic_wkb"} else "dimensionless",
+                    alpha_gray=float(alpha_gray),
+                )
+                if spec_cap.get("success"):
+                    freqs_c = np.asarray(spec_cap["frequencies"])  # type: ignore[index]
+                    Pc = np.asarray(spec_cap["power_spectrum"])  # type: ignore[index]
+                    pk = float(spec_cap.get("peak_frequency", float(freqs_c[np.argmax(Pc)])))
+                    inband_power = band_power_from_spectrum(freqs_c, Pc, pk, B_ref)
+                    T_sig = equivalent_signal_temperature(inband_power, B_ref)
+                    t_grid = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig)
+                    peak_frequency = pk
+                    t5sigma = float(t_grid[0, 0])
+                # Update reported κ to reflect the cap, preserving deviation in kappa_err
+                if kappa_err_list:
+                    kappa_err_list[0] = max(float(kappa_err_list[0]), abs(float(kappa[0]) - kappa_bound))
+                else:
+                    kappa_err_list = [abs(float(kappa[0]) - kappa_bound)]
+                kappa[0] = k_capped
+            # Attach note for downstream JSON emission
+            os.environ["AHR_SANITY_NOTE"] = violation_note
 
             if perform_kappa_inference and infer_kappa_from_psd is not None and make_graybody_model is not None:
                 try:
@@ -443,7 +492,7 @@ def run_full_pipeline(
                                 f_band = np.linspace(max(f_lo, float(freqs_h[0])), min(f_hi, float(freqs_h[-1])), 2001)
                                 if f_band[-1] > f_band[0]:
                                     psd_band = np.interp(f_band, freqs_h, P_h)
-                                    inband_power_h = float(np.trapz(psd_band, x=f_band))
+                                    inband_power_h = float(np.trapezoid(psd_band, x=f_band))
                             T_sig_h = equivalent_signal_temperature(inband_power_h, B_ref)
                             if T_sig_h > 0:
                                 t_grid_h = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig_h)
@@ -501,6 +550,10 @@ def main() -> int:
     p.add_argument("--hybrid-model", type=str, choices=["unruh", "anabhel"], default="anabhel")
     p.add_argument("--mirror-D", type=float, default=10e-6)
     p.add_argument("--mirror-eta", type=float, default=1.0)
+    p.add_argument("--respect-thresholds", action="store_true",
+                   help="Conservatively cap reported demo metrics at production parametric upper bounds if exceeded.")
+    p.add_argument("--safe-demo", action="store_true",
+                   help="Choose conservative demo parameters expected to stay within parametric bounds.")
     args = p.parse_args()
 
     kwargs = {}
@@ -512,6 +565,11 @@ def main() -> int:
             use_fast_magnetosonic=False,
             scale_with_intensity=True,
         ))
+        if args.safe_demo:
+            # Reduce intensity and keep modest grid to limit gradients
+            kwargs["laser_intensity"] = min(kwargs["laser_intensity"], 1e16)
+            kwargs["grid_points"] = 512
+            kwargs["use_fast_magnetosonic"] = False
     if args.intensity is not None:
         kwargs["laser_intensity"] = args.intensity
     if args.temperature is not None:
@@ -534,11 +592,17 @@ def main() -> int:
         kwargs["hybrid_model"] = args.hybrid_model
         kwargs["mirror_D"] = args.mirror_D
         kwargs["mirror_eta"] = args.mirror_eta
+    kwargs["respect_parametric_bounds"] = bool(args.respect_thresholds)
     summary = run_full_pipeline(**kwargs)
     os.makedirs("results", exist_ok=True)
     out_path = os.path.join("results", "full_pipeline_summary.json")
-    with open(out_path, "w") as f:
-        json.dump(asdict(summary), f, indent=2)
+    payload = asdict(summary)
+    note = os.environ.pop("AHR_SANITY_NOTE", None)
+    if note:
+        payload["sanity_violation"] = True
+        payload["sanity_note"] = note
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2)
     print(f"Saved pipeline summary to {out_path}")
     if summary.kappa:
         print(f"First kappa: {summary.kappa[0]:.3e} s^-1")

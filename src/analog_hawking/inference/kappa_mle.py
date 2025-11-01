@@ -186,7 +186,7 @@ def infer_kappa(
     eps = max(float(np.std(obj_vals)), 1e-24)
     log_like = -0.5 * obj_vals / eps
     density = np.exp(log_like - log_like.max())
-    density /= np.trapz(density, grid)
+    density /= np.trapezoid(density, grid)
     cdf = np.cumsum(density)
     cdf /= cdf[-1]
     # Report central 95% credible interval

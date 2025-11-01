@@ -1,6 +1,6 @@
 # Research Highlights
 
-## Latest Discovery: Fundamental Limit of Analog Hawking Radiation (v0.3.0)
+## Parametric Upper Bound on Surface Gravity (v0.3.0)
 
 **Date**: October 2025
 **Version**: 0.3.0
@@ -8,17 +8,17 @@
 
 ---
 
-## 🏆 Key Discovery: κ_max ≈ 5.94T Hz
+## Key Result: κ_max ≈ 5.94T Hz
 
 ### Executive Summary
 
-Our systematic analysis of 500 laser-plasma configurations identified a fundamental physical limit on achievable surface gravity in analog Hawking systems:
+Our systematic analysis of 500 synthetic laser–plasma configurations identified an approximate upper bound on achievable surface gravity in our 1D models, given specific breakdown thresholds:
 
-**κ_max = 5.94e+12 Hz** (acoustic‑exact κ; thresholds enforced)
+**κ_max = 5.9405655557e+12 Hz** (acoustic‑exact κ; thresholds enforced)
 
 ---
 
-## 📊 Optimal Configuration
+## Configuration at Upper Bound (this run)
 
 The configuration achieving maximum κ (this production run):
 
@@ -40,8 +40,8 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 ## 🧪 Key Findings
 
 ### Scaling Relationships
-1. κ vs a₀: exponent ≈ 0.66 (95% CI [0.44, 0.89])
-2. κ vs nₑ: exponent ≈ -0.02 (95% CI [-0.14, 0.10])
+1. κ vs a₀: exponent ≈ 0.664 (95% CI [0.441, 0.888])
+2. κ vs nₑ: exponent ≈ -0.0200 (95% CI [-0.1367, 0.0967])
 
 ### Breakdown Statistics
 - Valid physics: 68/500 (${valid_rate:.1%})
@@ -50,7 +50,7 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 
 ---
 
-## 📡 PIC Tie‑In (synthetic reproduction)
+## PIC Tie‑In (synthetic reproduction)
 
 - Horizon positions: 3.12e-05, 5.20e-05
 - κ (s⁻¹): 2.39e+10, 2.40e+10
@@ -58,7 +58,7 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 
 ---
 
-## 🏃 Getting Started
+## Getting Started
 
 ```bash
 python scripts/sweep_gradient_catastrophe.py --n-samples 500 \\
@@ -68,6 +68,6 @@ python scripts/sweep_gradient_catastrophe.py --n-samples 500 \\
 
 ---
 
-## 📞 Outreach & Collaboration
+## Collaboration
 
-This research is ready for peer review and collaboration. See outreach/.
+This is a preliminary computational study. We welcome feedback from the community; see `outreach/`.

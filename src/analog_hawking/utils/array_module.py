@@ -73,15 +73,15 @@ def ensure_numpy(array: Any) -> _np.ndarray:
     return to_numpy(array)
 
 
-def xp_trapz(y: Any, x: Optional[Any] = None) -> Any:
-    """Backend-aware trapezoidal integration."""
+def xp_trapezoid(y: Any, x: Optional[Any] = None) -> Any:
+    """Backend-aware trapezoidal integration (numpy.trapezoid / cupy.trapezoid)."""
     module = get_array_module(y, x)
     if module is numpy:
-        return numpy.trapz(ensure_numpy(y), x=ensure_numpy(x) if x is not None else None)
+        return numpy.trapezoid(ensure_numpy(y), x=ensure_numpy(x) if x is not None else None)
     y_arr = module.asarray(y)
     if x is None:
-        return module.trapz(y_arr)
-    return module.trapz(y_arr, x=module.asarray(x))
+        return module.trapezoid(y_arr)
+    return module.trapezoid(y_arr, x=module.asarray(x))
 
 
 def xp_gradient(y: Any, x: Optional[Any] = None) -> Any:
@@ -140,7 +140,7 @@ __all__ = [
     "get_array_module",
     "to_numpy",
     "ensure_numpy",
-    "xp_trapz",
+    "xp_trapezoid",
     "xp_gradient",
     "xp_clip",
     "xp_abs",

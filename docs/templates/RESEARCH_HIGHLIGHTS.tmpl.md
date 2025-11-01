@@ -1,6 +1,6 @@
 # Research Highlights
 
-## Latest Discovery: Fundamental Limit of Analog Hawking Radiation (v0.3.0)
+## Parametric Upper Bound on Surface Gravity (v0.3.0)
 
 **Date**: ${date}
 **Version**: 0.3.0
@@ -8,17 +8,17 @@
 
 ---
 
-## 🏆 Key Discovery: κ_max ≈ ${kappa_max_pretty} Hz
+## Key Result: κ_max ≈ ${kappa_max_pretty} Hz
 
 ### Executive Summary
 
-Our systematic analysis of ${n_samples} laser-plasma configurations identified a fundamental physical limit on achievable surface gravity in analog Hawking systems:
+Our systematic analysis of ${n_samples} synthetic configurations identified an approximate upper bound on achievable surface gravity in 1D models given specific breakdown thresholds:
 
 **κ_max = ${kappa_max_sci} Hz** (acoustic‑exact κ; thresholds enforced)
 
 ---
 
-## 📊 Optimal Configuration
+## Configuration at Upper Bound (this run)
 
 The configuration achieving maximum κ (this production run):
 
@@ -50,7 +50,7 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 
 ---
 
-## 📡 PIC Tie‑In (synthetic reproduction)
+## PIC Tie‑In (synthetic reproduction)
 
 - Horizon positions: ${pic_horizons}
 - κ (s⁻¹): ${pic_kappas}
@@ -58,7 +58,7 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 
 ---
 
-## 🏃 Getting Started
+## Getting Started
 
 ```bash
 python scripts/sweep_gradient_catastrophe.py --n-samples 500 \\
@@ -68,6 +68,6 @@ python scripts/sweep_gradient_catastrophe.py --n-samples 500 \\
 
 ---
 
-## 📞 Outreach & Collaboration
+## Collaboration
 
-This research is ready for peer review and collaboration. See outreach/.
+This is a preliminary computational study. We welcome feedback from the community; see `outreach/`.

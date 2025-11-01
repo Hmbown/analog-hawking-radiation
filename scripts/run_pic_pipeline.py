@@ -22,6 +22,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
 from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
 from scipy.constants import hbar, k, pi
 from hawking_detection_experiment import calculate_hawking_spectrum
@@ -41,9 +42,134 @@ def main() -> int:
     p.add_argument("--alpha-gray", type=float, default=1.0)
     p.add_argument("--B", type=float, default=1e8)
     p.add_argument("--Tsys", type=float, default=30.0)
+    # nD mode (experimental)
+    p.add_argument("--nd-npz", type=str, default=None, help="Path to nD grid NPZ (x[,y[,z]], vx,vy[,vz], c_s)")
+    p.add_argument("--nd-scan-axis", type=int, default=0, help="Axis along which to scan for horizon crossings")
+    p.add_argument("--nd-patches", type=int, default=64, help="Max horizon patches to aggregate for graybody")
+    # Direct HDF5/OpenPMD nD inputs (dataset paths)
+    p.add_argument("--nd-h5-in", type=str, default=None, help="HDF5 file to read nD fields from")
+    p.add_argument("--x-ds", type=str, default=None)
+    p.add_argument("--y-ds", type=str, default=None)
+    p.add_argument("--z-ds", type=str, default=None)
+    p.add_argument("--vx-ds", type=str, default=None)
+    p.add_argument("--vy-ds", type=str, default=None)
+    p.add_argument("--vz-ds", type=str, default=None)
+    p.add_argument("--cs-ds", type=str, default=None)
     args = p.parse_args()
 
     profile_path = args.profile or "results/warpx_profile.npz"
+    # nD branch: if nd-npz or H5 provided, run nD pipeline and exit
+    if args.nd_npz or args.nd_h5_in:
+        if args.nd_h5_in:
+            try:
+                import h5py  # type: ignore
+            except Exception:
+                raise SystemExit("h5py is required for --nd-h5-in mode")
+            with h5py.File(args.nd_h5_in, 'r') as f:
+                def _rd(p):
+                    return None if p is None else np.array(f[p]) if p in f else None
+                x = _rd(args.x_ds)
+                y = _rd(args.y_ds)
+                z = _rd(args.z_ds)
+                vx = _rd(args.vx_ds)
+                vy = _rd(args.vy_ds)
+                vz = _rd(args.vz_ds)
+                cs = _rd(args.cs_ds)
+            grids = [g for g in (x, y, z) if g is not None]
+            dims = len(grids)
+            if dims < 2:
+                raise SystemExit("--nd-h5-in requires at least x and y datasets")
+            comps = [c for c in (vx, vy, vz) if c is not None]
+            if len(comps) != dims:
+                raise SystemExit("Velocity component datasets must match dimensionality")
+            v_field = np.stack(comps, axis=-1)
+            if cs is None:
+                raise SystemExit("--cs-ds dataset is required for sound speed")
+        else:
+            data = np.load(args.nd_npz)
+            grids = []
+            dims = 0
+            for key in ("x", "y", "z"):
+                if key in data:
+                    grids.append(np.array(data[key]))
+                    dims += 1
+            if dims < 2:
+                raise SystemExit("--nd-npz requires at least x and y coordinates")
+            comps = []
+            for comp in ("vx", "vy", "vz"):
+                if comp in data:
+                    comps.append(np.array(data[comp]))
+            if len(comps) != dims:
+                raise SystemExit("--nd-npz velocity components must match dimensionality")
+            v_field = np.stack(comps, axis=-1)
+            if "c_s" not in data:
+                raise SystemExit("--nd-npz must include 'c_s'")
+            cs = np.array(data["c_s"])
+
+        # Horizon surface and κ summary
+        surf = find_horizon_surface_nd(grids, v_field, cs, scan_axis=int(args.nd_scan_axis))
+        kappa_eff = float(np.median(surf.kappa)) if surf.kappa.size else 0.0
+        summary = {
+            "dim": dims,
+            "horizon_points": int(surf.positions.shape[0]),
+            "kappa_median": kappa_eff,
+            "kappa_mean": float(np.mean(surf.kappa)) if surf.kappa.size else 0.0,
+            "kappa_std": float(np.std(surf.kappa)) if surf.kappa.size else 0.0,
+        }
+
+        # Aggregate graybody via reusable nD aggregator
+        from analog_hawking.detection.graybody_nd import aggregate_patchwise_graybody
+        agg_res = aggregate_patchwise_graybody(
+            grids,
+            v_field,
+            cs,
+            kappa_eff,
+            graybody_method=str(args.graybody),
+            alpha_gray=float(args.alpha_gray),
+            scan_axis=int(args.nd_scan_axis),
+            max_patches=int(args.nd_patches),
+        )
+        agg = {"success": agg_res.success}
+        if agg_res.success:
+            agg.update({
+                "frequencies": agg_res.frequencies,
+                "power_spectrum": agg_res.power_spectrum,
+                "power_std": agg_res.power_std,
+                "peak_frequency": agg_res.peak_frequency,
+            })
+        if agg.get("success"):
+            f = np.asarray(agg["frequencies"])  # type: ignore[index]
+            P = np.asarray(agg["power_spectrum"])  # type: ignore[index]
+            peak_f = float(agg.get("peak_frequency", float(f[np.argmax(P)])))
+            B = float(args.B)
+            inband = band_power_from_spectrum(f, P, peak_f, B)
+            Ts = equivalent_signal_temperature(inband, B)
+            t = float(sweep_time_for_5sigma(np.array([args.Tsys]), np.array([B]), Ts)[0, 0]) if Ts > 0 else float("inf")
+            summary.update({
+                "spectrum_peak_frequency": peak_f,
+                "inband_power_W": float(inband),
+                "T_sig_K": float(Ts),
+                "t5sigma_s": t,
+            })
+            # Save PSD figure
+            try:
+                plt.figure(figsize=(6, 4))
+                plt.loglog(f, P)
+                plt.xlabel("Frequency [Hz]")
+                plt.ylabel("PSD [W/Hz]")
+                os.makedirs("figures", exist_ok=True)
+                plt.tight_layout()
+                plt.savefig("figures/pic_pipeline_nd_psd.png", dpi=180)
+                plt.close()
+            except Exception:
+                pass
+
+        os.makedirs("results", exist_ok=True)
+        out = "results/pic_pipeline_nd_summary.json"
+        with open(out, "w") as fp:
+            json.dump(summary, fp, indent=2)
+        print(f"Saved {out}")
+        return 0
     os.makedirs(os.path.dirname(profile_path), exist_ok=True)
 
     if args.real_warpx:

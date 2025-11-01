@@ -60,7 +60,7 @@ def main() -> int:
         # Clamp the band to available spectrum if needed
         f_band = np.clip(f_band, freqs[0], freqs[-1])
     psd_band = np.interp(f_band, freqs, P)
-    P_sig = float(np.trapz(psd_band, x=f_band))
+    P_sig = float(np.trapezoid(psd_band, x=f_band))
     T_sig = equivalent_signal_temperature(P_sig, B_ref)
 
     Tgrid = sweep_time_for_5sigma(T_sys_vals, B_vals, T_sig)
@@ -112,7 +112,7 @@ def main() -> int:
             Tgrid_radio[:, j] = np.inf
             continue
         psd_band = np.interp(f_band, freqs, P)
-        P_sig_j = float(np.trapz(psd_band, x=f_band))
+        P_sig_j = float(np.trapezoid(psd_band, x=f_band))
         T_sig_j = equivalent_signal_temperature(P_sig_j, float(B))
         if not np.isfinite(T_sig_j) or T_sig_j <= 0.0:
             Tgrid_radio[:, j] = np.inf
