@@ -1,0 +1,17 @@
+{
+  "description": "Golden baseline for ahr quickstart (nx=1000, x in [0,100um], v0=0.1c, x0=50um, L=10um, Te=1e6 K)",
+  "n_horizons": 2,
+  "positions_m": [
+    4.99608999e-05,
+    5.00390976e-05
+  ],
+  "kappa_s_inv": [
+    2.99952415e+12,
+    2.99952415e+12
+  ],
+  "tolerances": {
+    "positions_abs": 2e-09,
+    "kappa_rel": 1e-03
+  }
+}
+

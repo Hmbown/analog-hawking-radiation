@@ -1,0 +1,189 @@
+{
+  "facility_target": "ELI-Beamlines",
+  "total_configurations": 5,
+  "parameter_ranges_used": {
+    "laser_intensity": {
+      "min": 1e+18,
+      "max": 8e+19,
+      "log_scale": true
+    },
+    "wavelength": {
+      "min": 800,
+      "max": 1030,
+      "log_scale": false
+    },
+    "pulse_duration": {
+      "min": 30,
+      "max": 150,
+      "log_scale": false
+    },
+    "repetition_rate": {
+      "min": 0.017,
+      "max": 10,
+      "log_scale": true
+    },
+    "plasma_density": {
+      "min": 1e+23,
+      "max": 1e+25,
+      "log_scale": true
+    },
+    "magnetic_field": {
+      "min": 0.0,
+      "max": 50.0,
+      "log_scale": false
+    },
+    "temperature": {
+      "min": 1000.0,
+      "max": 100000.0,
+      "log_scale": true
+    },
+    "grid_size": {
+      "min": 20,
+      "max": 100,
+      "log_scale": false
+    }
+  },
+  "configurations": [
+    {
+      "parameters": {
+        "laser_intensity_W_m2": 4.53504281163885e+19,
+        "wavelength_nm": 803.206974985078,
+        "pulse_duration_fs": 146.05954952538013,
+        "repetition_rate_Hz": 1.8420644277960152,
+        "plasma_density_m3": 1.5451813712994573e+24,
+        "magnetic_field_T": 36.65900891646743,
+        "temperature_K": 20836.7865764706,
+        "grid_size": 49
+      },
+      "eli_assessment": {
+        "feasibility_score": 0.8212820318860419,
+        "best_facility": "ELI-Beamlines",
+        "compatible_systems": "L4 ATON",
+        "intensity_margin": 220505084.85467312
+      },
+      "physics_metrics": {
+        "normalized_vector_potential": 0.04624327368810812,
+        "plasma_frequency_Hz": 70126354429227.98,
+        "density_overcritical_ratio": 0.0008941622372293077,
+        "sound_speed_m_s": 13114.692745747387,
+        "horizon_formation_potential": 1.0
+      },
+      "experimental_score": 0.8235128127544168
+    },
+    {
+      "parameters": {
+        "laser_intensity_W_m2": 1.2387440759647002e+18,
+        "wavelength_nm": 812.5575892440975,
+        "pulse_duration_fs": 139.6094450354576,
+        "repetition_rate_Hz": 3.6957158299649344,
+        "plasma_density_m3": 2.309408940727834e+23,
+        "magnetic_field_T": 32.224401691928506,
+        "temperature_K": 27667.04988062598,
+        "grid_size": 62
+      },
+      "eli_assessment": {
+        "feasibility_score": 0.8211527641077943,
+        "best_facility": "ELI-Beamlines",
+        "compatible_systems": "L4 ATON",
+        "intensity_margin": 8072692490.748964
+      },
+      "physics_metrics": {
+        "normalized_vector_potential": 0.00773170634365929,
+        "plasma_frequency_Hz": 27110776202769.25,
+        "density_overcritical_ratio": 0.0001367700681193907,
+        "sound_speed_m_s": 15112.077603538495,
+        "horizon_formation_potential": 1.0
+      },
+      "experimental_score": 0.7934611056431177
+    },
+    {
+      "parameters": {
+        "laser_intensity_W_m2": 1.0644718476688218e+19,
+        "wavelength_nm": 1025.6556011829525,
+        "pulse_duration_fs": 32.44245920330286,
+        "repetition_rate_Hz": 0.12839935398708058,
+        "plasma_density_m3": 8.650034384388876e+23,
+        "magnetic_field_T": 45.31539627350867,
+        "temperature_K": 2274.347535679083,
+        "grid_size": 34
+      },
+      "eli_assessment": {
+        "feasibility_score": 0.8923846857631897,
+        "best_facility": "ELI-Beamlines",
+        "compatible_systems": "L2 HAPLS",
+        "intensity_margin": 9394330.175945807
+      },
+      "physics_metrics": {
+        "normalized_vector_potential": 0.02860876107108945,
+        "plasma_frequency_Hz": 52468717335163.45,
+        "density_overcritical_ratio": 0.0008162117913387754,
+        "sound_speed_m_s": 4332.825143004499,
+        "horizon_formation_potential": 1.0
+      },
+      "experimental_score": 0.7919538743052759
+    },
+    {
+      "parameters": {
+        "laser_intensity_W_m2": 6.714876385898263e+19,
+        "wavelength_nm": 814.3382387049496,
+        "pulse_duration_fs": 123.78214616328478,
+        "repetition_rate_Hz": 9.355583387089803,
+        "plasma_density_m3": 3.2415373457670757e+23,
+        "magnetic_field_T": 4.027726408094168,
+        "temperature_K": 55532.16802026796,
+        "grid_size": 54
+      },
+      "eli_assessment": {
+        "feasibility_score": 0.7964884000231929,
+        "best_facility": "ELI-Beamlines",
+        "compatible_systems": "L4 ATON",
+        "intensity_margin": 148923069.09775347
+      },
+      "physics_metrics": {
+        "normalized_vector_potential": 0.05704981546902872,
+        "plasma_frequency_Hz": 32119371995522.188,
+        "density_overcritical_ratio": 0.00019281579380031787,
+        "sound_speed_m_s": 21409.920914790113,
+        "horizon_formation_potential": 1.0
+      },
+      "experimental_score": 0.7835953600092772
+    },
+    {
+      "parameters": {
+        "laser_intensity_W_m2": 4.3829700979709373e+18,
+        "wavelength_nm": 817.7021411806345,
+        "pulse_duration_fs": 133.71955275535583,
+        "repetition_rate_Hz": 0.3012120215429247,
+        "plasma_density_m3": 4.578786706953153e+23,
+        "magnetic_field_T": 7.750451471656561,
+        "temperature_K": 71047.17113874646,
+        "grid_size": 26
+      },
+      "eli_assessment": {
+        "feasibility_score": 0.8030104705279179,
+        "best_facility": "ELI-Beamlines",
+        "compatible_systems": "L4 ATON",
+        "intensity_margin": 2281557888.024247
+      },
+      "physics_metrics": {
+        "normalized_vector_potential": 0.014635575129510095,
+        "plasma_frequency_Hz": 38173918080584.31,
+        "density_overcritical_ratio": 0.0002746139542663536,
+        "sound_speed_m_s": 24216.765914780743,
+        "horizon_formation_potential": 1.0
+      },
+      "experimental_score": 0.7562041882111671
+    }
+  ],
+  "summary_statistics": {
+    "avg_feasibility_score": 0.8268636704616273,
+    "avg_experimental_score": 0.7897454681846509,
+    "intensity_range": [
+      1.2387440759647002e+18,
+      6.714876385898263e+19
+    ],
+    "facility_distribution": {
+      "ELI-Beamlines": 5
+    }
+  }
+}

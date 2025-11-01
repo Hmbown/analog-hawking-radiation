@@ -1,0 +1,56 @@
+site_name: Analog Hawking Radiation Simulator
+site_url: https://hmbown.github.io/analog-hawking-radiation/
+repo_url: https://github.com/hmbown/analog-hawking-radiation
+repo_name: hmbown/analog-hawking-radiation
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - navigation.sections
+    - content.code.copy
+    - toc.follow
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            show_root_heading: true
+            show_signature: true
+            separate_signature: true
+            heading_level: 2
+            members_order: source
+nav:
+  - Overview: docs/README.md
+  - Getting Started:
+      - Quick Start: docs/Overview.md
+      - Reproducibility: docs/Reproducibility.md
+      - FAQ: docs/FAQ.md
+      - GPU Acceleration: docs/GPU.md
+      - Docker: docs/Docker.md
+  - User Guide:
+      - Methods: docs/Methods.md
+      - Validation: docs/Validation.md
+      - Results: docs/Results.md
+      - Limitations: docs/Limitations.md
+      - Dataset Notes: docs/DatasetNotes.md
+      - Enhanced Models: docs/Enhanced_Physics_Models_Documentation.md
+  - CLI: docs/CLI.md
+  - Benchmarks: docs/Benchmarks.md
+  - Regression: docs/Regression.md
+  - Tutorials:
+      - Overview: docs/Tutorials.md
+      - Horizon nD: docs/horizon_nd.md
+      - Advanced Scenarios: docs/AdvancedScenarios.md
+  - Reference:
+      - API: 
+          - analog_hawking: src/analog_hawking/__init__.py
+          - physics_engine: src/analog_hawking/physics_engine/simulation.py
+          - detection: src/analog_hawking/detection/__init__.py
+          - pipelines: src/analog_hawking/pipelines/__init__.py
+  - Project:
+      - Contributing: CONTRIBUTING.md
+      - Code of Conduct: CODE_OF_CONDUCT.md
+      - Citation: CITATION.cff
+      - Changelog: CHANGELOG.md

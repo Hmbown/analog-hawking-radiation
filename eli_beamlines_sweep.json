@@ -1,0 +1,14 @@
+{
+  "analysis_mode": "sweep",
+  "target_facility": "beamlines",
+  "parameters": {
+    "n_samples": 10,
+    "intensity_range": null,
+    "density_range": null
+  },
+  "data": [],
+  "report": {
+    "status": "error",
+    "message": "No feasible configurations found"
+  }
+}

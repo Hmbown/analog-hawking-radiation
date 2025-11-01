@@ -12,7 +12,8 @@ import yaml
 class Thresholds:
     v_max_fraction_c: float = 0.5
     dv_dx_max_s: float = 4.0e12
-    intensity_max_W_m2: float = 6.0e50
+    # ELI-compliant maximum intensity (10^24 W/cm² = 10^28 W/m² with safety margin)
+    intensity_max_W_m2: float = 1.0e28
 
 
 def load_thresholds(path: Optional[str | Path]) -> Thresholds:

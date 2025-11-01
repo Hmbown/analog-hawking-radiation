@@ -1,10 +1,14 @@
 # Documentation Guide
 
-Plain‑language guide (start here):
+**Quick start**:
+- New to analog Hawking radiation? → [Overview.md](Overview.md) → [FAQ.md](FAQ.md) → [Glossary.md](Glossary.md)
+- Need results now? → `make comprehensive && make results-pack` → creates `results/results_pack.zip`
+- Reviewing methods? → [Methods.md](Methods.md) → [Validation.md](Validation.md) → [Limitations.md](Limitations.md) → [Reproducibility.md](Reproducibility.md)
 
-- If you’re new to analog Hawking radiation, read Overview first, then browse the FAQ and Glossary.
-- If you’re in a hurry, run `make comprehensive && make results-pack` and share `results/results_pack.zip`.
-- If you’re a scientist reviewing methods, jump to Methods, Validation, and Limitations, then see Reproducibility.
+**Critical guardrails** - **Read these first when interpreting results**:
+- **[DatasetNotes.md](DatasetNotes.md)** - How to read the dataset and avoid common pitfalls
+- **[Limitations.md](Limitations.md)** - Model scope, uncertainties, and what not to generalize
+- **[Validation.md](Validation.md)** - What has been validated and what hasn't
 
 This directory contains comprehensive documentation for the Analog Hawking Radiation Simulator. Use this guide to navigate to the information you need.
 
@@ -12,27 +16,34 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 
 ## Quick Start
 
-**New to the project?** Start here:
-1. **[Overview.md](Overview.md)** - Conceptual introduction and physics motivation
-2. **[Methods.md](Methods.md)** - Core algorithms and computational methods
-3. **Installation**: See `README.md` in repository root
-4. **[Glossary.md](Glossary.md)** - Key terms in plain words
-5. **[FAQ.md](FAQ.md)** - Answers for non‑experts and experts
-6. **[Reproducibility.md](Reproducibility.md)** - How to re‑run analyses and dashboards
+**New to analog Hawking radiation?**
+1. **[Overview.md](Overview.md)** - Physics motivation and concepts
+2. **[Glossary.md](Glossary.md)** - Key terms in plain language
+3. **[FAQ.md](FAQ.md)** - Common questions for all levels
 
-**Want to run analysis?** Go to:
-1. **[Experiments.md](Experiments.md)** - Step-by-step workflow guides
-2. **Repository root `README.md`** - Quick start commands
+**Ready to run analyses?**
+1. **Repository root `README.md`** - Installation and quick commands
+2. **[Experiments.md](Experiments.md)** - Step-by-step workflow guides
+3. **[Reproducibility.md](Reproducibility.md)** - Exact commands to reproduce results
+
+**Reviewing scientific validity?**
+1. **[Methods.md](Methods.md)** - Core algorithms and theory
+2. **[Validation.md](Validation.md)** - Physics validation framework
+3. **[Limitations.md](Limitations.md)** - Scope, assumptions, and caveats
+4. **[DatasetNotes.md](DatasetNotes.md)** - Dataset interpretation guide
 
 ---
 
 ## Research & Results
 
-### Latest Research (v0.3.0)
+### Latest Research (v0.3.0) - **Start here for current findings**
 - **[GradientCatastropheAnalysis.md](GradientCatastropheAnalysis.md)** - Complete analysis of κ_max ≈ 5.94×10¹² Hz
 - **[Results.md](Results.md)** - Representative outputs and interpretation
-- **[Validation.md](Validation.md)** - Physics validation framework and results
-- **[DatasetNotes.md](DatasetNotes.md)** - How to read the dataset and avoid common pitfalls
+
+### **Critical Context for Interpreting Results**
+- **[DatasetNotes.md](DatasetNotes.md)** - ⚠️ **Must read**: How to avoid misinterpreting correlations and scaling
+- **[Validation.md](Validation.md)** - What has been validated vs. what remains theoretical
+- **[Limitations.md](Limitations.md)** - Model constraints and uncertainty boundaries
 
 ### Historical Documentation
 - **[Highlights_v0.2.0.md](Highlights_v0.2.0.md)** - v0.2.0 feature highlights
@@ -175,24 +186,22 @@ pytest -m gpu        # GPU tests (requires CUDA)
 | File | Purpose | Audience |
 |------|---------|----------|
 | Overview.md | Physics background, concepts | New users, students |
-| Methods.md | Algorithms, equations, theory | Researchers, developers |
+| Methods.md | Algorithms, equations, theory | Scientific users, developers |
 | GradientCatastropheAnalysis.md | Latest research (κ_max) | All users |
 | Experiments.md | How-to guides | Practitioners |
 | AdvancedScenarios.md | Complex workflows | Advanced users |
 | pc_cuda_workflow.md | GPU setup | Developers |
 | phase_timeline.md | Roadmap | Contributors |
-| Limitations.md | Constraints, assumptions | Researchers |
-| Validation.md | Verification protocols | Reviewers |
+| Limitations.md | Constraints, assumptions | Scientific users |
+| Validation.md | Verification protocols | Scientific reviewers |
 
 ---
 
-## Support & Contact
+## Contributing
 
-**Questions?** Open an issue on GitHub or contact hunter@shannonlabs.dev
+See `CONTRIBUTING.md` in repository root for contribution guidelines.
 
-**Contributing?** See `CONTRIBUTING.md` in repository root
-
-**Paper/Collaboration?** See `results/RESEARCH_SUMMARY_v0.3.0.md`
+**Research context**: See `results/RESEARCH_SUMMARY_v0.3.0.md` for detailed research background.
 
 ---
 

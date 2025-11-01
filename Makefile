@@ -6,6 +6,17 @@ figs:
 demo-bundle:
 	python3 scripts/make_demo_bundle.py
 
+# --- Detection Feasibility Analysis ---
+.PHONY: detection-feasibility
+detection-feasibility:
+	# Run comprehensive detection feasibility analysis
+	python3 scripts/standalone_detection_feasibility_demo.py
+
+.PHONY: detection-feasibility-full
+detection-feasibility-full:
+	# Run full detection feasibility analysis with comprehensive reporting
+	python3 scripts/comprehensive_detection_feasibility_analysis.py --n-configs 50 --generate-report
+
 # --- Orchestration & Reporting ---
 .PHONY: orchestrate
 orchestrate:
@@ -58,3 +69,48 @@ comprehensive:
 results-pack:
 	# Build a shareable ZIP with figures, data, and a summary
 	python3 scripts/build_results_pack.py
+
+# --- CLI convenience targets ---
+.PHONY: quickstart
+quickstart:
+	ahr quickstart --out results/quickstart
+
+.PHONY: validate
+validate:
+	ahr validate
+
+.PHONY: bench
+bench:
+	ahr bench
+
+# --- Docs ---
+.PHONY: docs-serve
+docs-serve:
+	# Serve MkDocs documentation locally
+	mkdocs serve -a 127.0.0.1:8000
+
+.PHONY: docs-build
+docs-build:
+	# Build MkDocs site
+	mkdocs build --strict
+
+# --- Docker ---
+.PHONY: docker-build-cpu
+docker-build-cpu:
+	docker build -t ahr:cpu -f Dockerfile.cpu .
+
+.PHONY: docker-run-cpu
+docker-run-cpu:
+	docker run --rm -it -v $$(pwd):/data -w /data ahr:cpu ahr quickstart --out /data/results/docker_cpu
+
+.PHONY: docker-build-cuda
+docker-build-cuda:
+	docker build -t ahr:cuda -f Dockerfile.cuda .
+
+.PHONY: docker-run-cuda
+docker-run-cuda:
+	docker run --gpus all --rm -it -v $$(pwd):/data -w /data ahr:cuda ahr quickstart --out /data/results/docker_cuda
+
+.PHONY: bench-suite
+bench-suite:
+	python3 scripts/benchmarks/bench_kernels.py | tee results/bench_horizon.json

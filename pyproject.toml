@@ -33,6 +33,7 @@ dependencies = [
     "rich>=13.0",
     "scikit-optimize>=0.9.0",
     "scikit-learn>=1.1",
+    "pydantic>=2.5",
 ]
 dynamic = ["version"]
 
@@ -45,12 +46,26 @@ dev = [
     "ipykernel",
     "ruff>=0.5.0",
     "black>=23.0",
+    "pre-commit>=3.7",
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.24",
+]
+gpu = [
+    # Prefer CUDA 12 wheels on Linux; users may switch to a specific variant
+    "cupy-cuda12x>=12.2; platform_system=='Linux'",
+]
+accel = [
+    "numba>=0.60",
 ]
 
 [project.urls]
 Homepage = "https://github.com/hmbown/analog-hawking-radiation"
 Repository = "https://github.com/hmbown/analog-hawking-radiation"
 "Bug Tracker" = "https://github.com/hmbown/analog-hawking-radiation/issues"
+
+[project.scripts]
+ahr = "analog_hawking.cli.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
