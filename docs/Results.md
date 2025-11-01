@@ -1,6 +1,11 @@
 Results Summary
 ===============
 
+Plain‑language summary
+----------------------
+
+The hybrid scenario tends to raise the effective “signal temperature,” which—by a standard radio formula—shortens the time needed to reach a confident detection. In this dataset that averages to ~4× hotter and ~16× faster than the fluid baseline. These numbers are specific to how this dataset was built and the model choices used.
+
 Gradient Enhancements (Equal Total Power; Coarse-Grained)
 ---------------------------------------------------------
 

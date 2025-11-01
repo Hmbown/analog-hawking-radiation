@@ -1,10 +1,44 @@
 # Analog Hawking Radiation Simulator
 
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CI](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml/badge.svg)](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-see%20CI-informational.svg)](tests/) [![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases) [![Release Notes](https://img.shields.io/badge/release%20notes-v0.3.0-informational.svg)](RELEASE_NOTES_v0.3.0.md)
+[![Python Version](https://img.shields.io/badge/python-3.9%E2%80%933.11-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CI](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml/badge.svg)](https://github.com/hmbown/analog-hawking-radiation/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-see%20CI-informational.svg)](tests/) [![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases) [![Release Notes](https://img.shields.io/badge/release%20notes-v0.3.0-informational.svg)](RELEASE_NOTES_v0.3.0.md) [![Cite](https://img.shields.io/badge/Cite-CITATION.cff-orange.svg)](CITATION.cff)
 
 [![Research Highlight](https://img.shields.io/badge/κ_max-5.94×10¹²%20Hz-red.svg)](RESEARCH_HIGHLIGHTS.md) [![GPU Speedup](https://img.shields.io/badge/GPU-10--100×-green.svg)](docs/pc_cuda_workflow.md) [![Validation](https://img.shields.io/badge/validations-see%20CI-informational.svg)](tests/) [![Parameter Space](https://img.shields.io/badge/sweeps-500%20configurations-blue.svg)](docs/GradientCatastropheAnalysis.md)
 
 A practitioner-focused toolkit for designing and validating analog Hawking radiation experiments in realistic laser–plasma settings. The simulator links fluid models, particle-in-cell (PIC) pipelines, quantum field theory post-processing, and radio detection forecasts into one reproducible environment.
+
+---
+
+## Start Here — Clear, Two-Minute Orientation
+
+- What this is (in plain words):
+  - We study when flowing plasmas create “sonic horizons” and how strong the Hawking-like thermal signal would be, using simple physics models and standard radio-detection math.
+- What you can do in two commands:
+  - `make comprehensive` → runs the complete analysis bundle
+  - `make results-pack` → creates `results/results_pack.zip` with figures, data and summary
+- What the headline numbers mean in this dataset:
+  - The hybrid model shows about 4× higher “signal temperature” and ~16× faster detection time than the fluid baseline. This is model- and dataset-dependent, not a universal constant.
+- What to keep in mind when reading results:
+  - Some correlations are near-perfect because of how the dataset is constructed (e.g., some columns are constants or derived from others). See “Interpretation guardrails” below.
+
+Quickstart for everyone
+```bash
+python -m venv .venv && source .venv/bin/activate
+# Flexible deps: pip install -r requirements.txt
+# Pinned, tested deps (recommended for reproducibility):
+# pip install -r requirements-verified.txt
+make comprehensive                # generate figures and analysis
+make results-pack                # build results/results_pack.zip for sharing
+```
+
+Interpretation guardrails
+- Perfect-looking correlations (r ~ 1) can come from mathematical relationships or constants in the dataset. Read them as “by construction”, not new physics.
+- Scaling with coupling_strength is flat in this dataset (no statistically significant trend). That reflects the setup here, not a general law.
+- The 4×/16× improvements follow the radiometer equation (t ∝ 1/T²) and the chosen hybrid model; treat them as model-dependent.
+
+For scientists (at a glance)
+- Methods covered: horizon finding, κ→T_H mapping (ħκ/2πk_B), graybody transmission, band-limited PSD integration, radiometer detection time, parameter sweeps, Pareto/weighted multi-objective ranking.
+- Validation: analytical checks (κ→T_H, plasma frequency), numerical convergence notes, frequency-gating sanity checks.
+- Reproducibility: Python 3.9–3.11; `make comprehensive` produces all figures; `make results-pack` creates a shareable ZIP.
 
 ---
 
@@ -34,6 +68,14 @@ Systematic mapping of breakdown constraints in our 1D models. This study:
 
 ## 1. Orientation at a Glance
 
+### At a Glance (Pipeline)
+- 1) Build a plasma profile → find sonic horizons (|v| ≈ c_s)
+- 2) Compute surface gravity κ → map to thermal scale T_H = ħκ/(2πk_B)
+- 3) Apply graybody transmission → band‑limit spectrum
+- 4) Convert band power to signal temperature → estimate 5σ detection time
+
+![Workflow pipeline](docs/img/workflow_diagram.png)
+
 ### Executive summary
 - **Purpose** – Explore when laboratory plasmas form sonic horizons and whether the resulting Hawking-like signal is measurable.
 - **Scope** – Covers analytical fluid backends, WarpX/PIC integration, horizon finding, graybody filtering, radio detection forecasts, and physics validation.
@@ -51,12 +93,14 @@ Systematic mapping of breakdown constraints in our 1D models. This study:
 - **Production playbooks** – [`docs/Experiments.md`](docs/Experiments.md)
 - **Physics limits study** – [`docs/GradientCatastropheAnalysis.md`](docs/GradientCatastropheAnalysis.md)
 - **Methodology deep dive** – [`docs/Methods.md`](docs/Methods.md)
+- **Glossary** – [`docs/Glossary.md`](docs/Glossary.md)
+- **FAQ** – [`docs/FAQ.md`](docs/FAQ.md)
+- **Reproducibility** – [`docs/Reproducibility.md`](docs/Reproducibility.md)
+- **Dataset notes** – [`docs/DatasetNotes.md`](docs/DatasetNotes.md)
 - **nD horizons** – [`docs/horizon_nd.md`](docs/horizon_nd.md)
 - **AnaBHEL comparison** – [`docs/AnaBHEL_Comparison.md`](docs/AnaBHEL_Comparison.md)
 - **Release context** – [`RELEASE_NOTES_v0.3.0.md`](RELEASE_NOTES_v0.3.0.md)
 - **Known gaps** – [`docs/Limitations.md`](docs/Limitations.md)
-
-![Workflow pipeline](docs/img/workflow_diagram.png)
 
 ---
 
@@ -199,7 +243,30 @@ Standard JSON summaries include:
 - `t5sigma_s`, `t5sigma_s_low`, `t5sigma_s_high` – baseline and conservative 5σ integration times
 - `hybrid_*` – metrics when optional plasma mirror modes are enabled
 
-Example figures reside in `docs/img/` alongside explanation overlays.
+---
+
+## How to Cite
+
+If you use this repository, please cite it. See `CITATION.cff` for machine‑readable metadata.
+
+BibTeX example
+```
+@software{bown2025_analog_hawking,
+  author  = {Bown, Hunter},
+  title   = {Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling},
+  year    = {2025},
+  version = {0.3.0},
+  url     = {https://github.com/hmbown/analog-hawking-radiation}
+}
+```
+
+---
+
+## External Usage
+
+- One‑command package for sharing: run `make comprehensive && make results-pack`, then distribute `results/results_pack.zip`.
+- A focused comparison for plasma‑mirror scenarios is available at `docs/AnaBHEL_Comparison.md`.
+- Example figures reside in `docs/img/` alongside explanation overlays.
 
 ### Limitations & roadmap
 - Graybody models remain 1D; multi-dimensional effects and dissipation are not captured.

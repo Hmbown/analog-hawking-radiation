@@ -1,6 +1,11 @@
 Validation & Checks
 ===================
 
+Plain‑language summary
+----------------------
+
+We verify key formulas (like the link between κ and temperature), check numerical stability (convergence), and confirm that frequency ranges and gating are appropriate. These checks build confidence that our computations are sensible for the models we use.
+
 The framework implements comprehensive validation protocols to ensure scientific rigor and computational reliability.
 
 Theoretical Validation

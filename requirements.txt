@@ -10,3 +10,4 @@ psutil
 rich
 scikit-optimize
 scikit-learn
+plotly

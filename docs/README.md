@@ -1,5 +1,11 @@
 # Documentation Guide
 
+Plain‑language guide (start here):
+
+- If you’re new to analog Hawking radiation, read Overview first, then browse the FAQ and Glossary.
+- If you’re in a hurry, run `make comprehensive && make results-pack` and share `results/results_pack.zip`.
+- If you’re a scientist reviewing methods, jump to Methods, Validation, and Limitations, then see Reproducibility.
+
 This directory contains comprehensive documentation for the Analog Hawking Radiation Simulator. Use this guide to navigate to the information you need.
 
 ---
@@ -10,6 +16,9 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 1. **[Overview.md](Overview.md)** - Conceptual introduction and physics motivation
 2. **[Methods.md](Methods.md)** - Core algorithms and computational methods
 3. **Installation**: See `README.md` in repository root
+4. **[Glossary.md](Glossary.md)** - Key terms in plain words
+5. **[FAQ.md](FAQ.md)** - Answers for non‑experts and experts
+6. **[Reproducibility.md](Reproducibility.md)** - How to re‑run analyses and dashboards
 
 **Want to run analysis?** Go to:
 1. **[Experiments.md](Experiments.md)** - Step-by-step workflow guides
@@ -23,6 +32,7 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 - **[GradientCatastropheAnalysis.md](GradientCatastropheAnalysis.md)** - Complete analysis of κ_max ≈ 5.94×10¹² Hz
 - **[Results.md](Results.md)** - Representative outputs and interpretation
 - **[Validation.md](Validation.md)** - Physics validation framework and results
+- **[DatasetNotes.md](DatasetNotes.md)** - How to read the dataset and avoid common pitfalls
 
 ### Historical Documentation
 - **[Highlights_v0.2.0.md](Highlights_v0.2.0.md)** - v0.2.0 feature highlights
@@ -76,6 +86,9 @@ docs/
 ├── 📖 Getting Started
 │   ├── Overview.md                 # Conceptual introduction
 │   ├── Methods.md                  # Core algorithms
+│   ├── Glossary.md                 # Key terms
+│   ├── FAQ.md                      # Common questions
+│   ├── Reproducibility.md          # End‑to‑end instructions
 │   └── References.md               # Bibliography
 │
 ├── 🔬 Research & Results
@@ -100,6 +113,7 @@ docs/
 ├── 🛠️  System & Maintenance
 │   ├── Limitations.md              # Scope & assumptions
 │   ├── Validation.md               # Physics checks
+│   ├── DatasetNotes.md             # Dataset structure & caveats
 │   ├── AUDIT_NOTES.md              # Code audit
 │   ├── transformation_summary.md   # Repository changes
 │   └── IMAGES.md                   # Figure documentation

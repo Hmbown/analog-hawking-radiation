@@ -1,6 +1,11 @@
 Methods
 =======
 
+Plain‑language summary
+----------------------
+
+We detect where the flow speed equals the sound speed (a “sonic horizon”), compute a scale (κ) that sets the thermal temperature, apply a realistic transmission (graybody) to the ideal spectrum, and use standard radio astronomy math to estimate how long a detection would take.
+
 Horizon Finder
 --------------
 

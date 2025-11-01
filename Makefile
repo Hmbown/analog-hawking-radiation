@@ -12,10 +12,6 @@ orchestrate:
 	# Run multi-phase orchestration (override PHASES="phase_1_initial_exploration ..." as needed)
 	python3 -m scripts.orchestration_engine --config configs/orchestration/base.yml $(if $(NAME),--name $(NAME),) $(if $(PHASES),--phases $(PHASES),)
 
-.PHONY: dashboard
-dashboard:
-	# Live dashboard for a given experiment ID: make dashboard EXPID=abcd1234
-	python3 scripts/monitoring/dashboard.py $(EXPID)
 
 .PHONY: aggregate
 aggregate:
@@ -51,3 +47,14 @@ nd-test:
 .PHONY: sweep-thresholds
 sweep-thresholds:
 	python3 scripts/sweep_kappa_thresholds.py --n-samples 60 --v-fracs 0.4,0.5,0.6 --dv-max 2e12,4e12,8e12 --intensity-max 1e24 --out results/threshold_sensitivity.json
+
+# --- Comprehensive analysis bundle ---
+.PHONY: comprehensive
+comprehensive:
+	python3 comprehensive_analysis.py
+	python3 optimization_analysis.py
+
+.PHONY: results-pack
+results-pack:
+	# Build a shareable ZIP with figures, data, and a summary
+	python3 scripts/build_results_pack.py
