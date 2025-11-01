@@ -35,6 +35,7 @@ def aggregate_patchwise_graybody(
     scan_axis: int = 0,
     patch_indices: np.ndarray | None = None,
     max_patches: int = 64,
+    sample_mode: str = "scan_axis",  # or "normal"
 ) -> AggregatedSpectrum:
     """Aggregate patch-wise spectra along the scan axis.
 
@@ -78,22 +79,67 @@ def aggregate_patchwise_graybody(
     x_axis = grids[scan_axis]
     for k in patch_indices:
         pos = surf.positions[k]
-        # Fix non-scan axes to nearest index to pos
-        slicer = [slice(None)] * dims
-        for ax in range(dims):
-            if ax == scan_axis:
-                continue
-            idx = int(np.clip(np.searchsorted(grids[ax], pos[ax]), 1, len(grids[ax]) - 2))
-            slicer[ax] = idx
-        sl = tuple(slicer)
-        v_line_vec = v_field[sl]  # shape (n_line, D)
-        if v_line_vec.ndim != 2:
-            v_line_vec = np.reshape(v_line_vec, (-1, dims))
-        v_line = np.sqrt(np.sum(v_line_vec ** 2, axis=-1))
-        cs_line = c_s[sl]
-        if cs_line.ndim != 1:
-            cs_line = np.reshape(cs_line, (-1,))
-        profile = {"x": x_axis, "v": v_line, "c_s": cs_line}
+        if sample_mode.lower() != "normal":
+            # Fix non-scan axes to nearest index to pos; slice along scan axis
+            slicer = [slice(None)] * dims
+            for ax in range(dims):
+                if ax == scan_axis:
+                    continue
+                idx = int(np.clip(np.searchsorted(grids[ax], pos[ax]), 1, len(grids[ax]) - 2))
+                slicer[ax] = idx
+            sl = tuple(slicer)
+            v_line_vec = v_field[sl]  # shape (n_line, D)
+            if v_line_vec.ndim != 2:
+                v_line_vec = np.reshape(v_line_vec, (-1, dims))
+            v_line = np.sqrt(np.sum(v_line_vec ** 2, axis=-1))
+            cs_line = c_s[sl]
+            if cs_line.ndim != 1:
+                cs_line = np.reshape(cs_line, (-1,))
+            profile = {"x": x_axis, "v": v_line, "c_s": cs_line}
+        else:
+            # Sample along local normal using linear interpolation
+            try:
+                from scipy.ndimage import map_coordinates  # type: ignore
+            except Exception:
+                # Fallback to scan_axis sampling if SciPy unavailable
+                slicer = [slice(None)] * dims
+                for ax in range(dims):
+                    if ax == scan_axis:
+                        continue
+                    idx = int(np.clip(np.searchsorted(grids[ax], pos[ax]), 1, len(grids[ax]) - 2))
+                    slicer[ax] = idx
+                sl = tuple(slicer)
+                v_line_vec = v_field[sl]
+                if v_line_vec.ndim != 2:
+                    v_line_vec = np.reshape(v_line_vec, (-1, dims))
+                v_line = np.sqrt(np.sum(v_line_vec ** 2, axis=-1))
+                cs_line = c_s[sl]
+                if cs_line.ndim != 1:
+                    cs_line = np.reshape(cs_line, (-1,))
+                profile = {"x": x_axis, "v": v_line, "c_s": cs_line}
+            else:
+                n = surf.normals[k]
+                # Build param s around the point within a fraction of domain
+                extents = [g[-1] - g[0] for g in grids]
+                s_span = 0.125 * float(min(extents))
+                n_pts = max(64, len(grids[scan_axis]))
+                s_line = np.linspace(-s_span, s_span, n_pts)
+                # Convert world coords -> index coords for map_coordinates
+                idx_coords = []
+                for ax in range(dims):
+                    dx = float(np.mean(np.diff(grids[ax]))) if len(grids[ax]) > 1 else 1.0
+                    origin = float(grids[ax][0])
+                    idx_coords.append((pos[ax] + s_line * n[ax] - origin) / dx)
+                coords = np.vstack(idx_coords)
+                # Interpolate each velocity component and c_s
+                v_comps = []
+                for c in range(dims):
+                    field = v_field[..., c]
+                    v_comps.append(map_coordinates(field, coords, order=1, mode="nearest"))
+                v_line = np.sqrt(np.sum(np.vstack(v_comps) ** 2, axis=0))
+                cs_line = map_coordinates(c_s, coords, order=1, mode="nearest")
+                # Use s_line as the local coordinate
+                profile = {"x": s_line, "v": v_line, "c_s": cs_line}
 
         sp = calculate_hawking_spectrum(
             kappa_eff,
@@ -132,4 +178,3 @@ def aggregate_patchwise_graybody(
         peak_frequency=peak_f,
         n_patches=len(specs),
     )
-
