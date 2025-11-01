@@ -189,8 +189,9 @@ def infer_kappa(
     density /= np.trapz(density, grid)
     cdf = np.cumsum(density)
     cdf /= cdf[-1]
-    lower_idx = int(np.searchsorted(cdf, 0.1585))
-    upper_idx = int(np.searchsorted(cdf, 0.8415))
+    # Report central 95% credible interval
+    lower_idx = int(np.searchsorted(cdf, 0.025))
+    upper_idx = int(np.searchsorted(cdf, 0.975))
     kappa_low = float(grid[max(0, lower_idx)])
     kappa_high = float(grid[min(len(grid) - 1, upper_idx)])
     credible = (kappa_low, kappa_high)

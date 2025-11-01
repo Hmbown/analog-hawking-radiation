@@ -37,7 +37,7 @@ def main() -> int:
     p.add_argument("--real-warpx", action="store_true", help="Run real WarpX simulation (falls back to synthetic if not available)")
     p.add_argument("--warpx-exec", type=str, default="warpx", help="Path to WarpX executable")
     p.add_argument("--graybody", type=str, choices=["dimensionless", "wkb", "acoustic_wkb"], default="dimensionless")
-    p.add_argument("--kappa-method", type=str, choices=["acoustic", "legacy", "acoustic_exact"], default="acoustic")
+    p.add_argument("--kappa-method", type=str, choices=["acoustic", "legacy", "acoustic_exact"], default="acoustic_exact")
     p.add_argument("--alpha-gray", type=float, default=1.0)
     p.add_argument("--B", type=float, default=1e8)
     p.add_argument("--Tsys", type=float, default=30.0)
@@ -160,4 +160,3 @@ max_step = 10
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

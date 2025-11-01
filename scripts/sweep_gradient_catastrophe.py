@@ -80,6 +80,7 @@ class GradientCatastropheDetector:
             'ionization_breakdown': False,
             'wave_breaking': False,
             'gradient_catastrophe': False,
+            'intensity_breakdown': False,
             'numerical_instability': False,
             'validity_score': 1.0
         }
@@ -107,16 +108,29 @@ class GradientCatastropheDetector:
                 breakdown_modes['wave_breaking'] = True
                 breakdown_modes['validity_score'] *= 0.2
         
-        # Check gradient catastrophe (infinite gradients)
+        # Check gradient breakdown (dv/dx threshold) and catastrophic gradients
         if 'velocity' in simulation_data and 'space_grid' in simulation_data:
             x = simulation_data['space_grid']
             v = simulation_data['velocity']
             if hasattr(v, '__iter__') and len(x) > 1:
                 dv_dx = np.gradient(v, x)
-                if np.any(np.abs(dv_dx) > 1e20):  # Extremely steep gradients
+                # Relativistic gradient wall per documentation
+                if np.any(np.abs(dv_dx) > 4e12):  # s^-1
                     breakdown_modes['gradient_catastrophe'] = True
-                    breakdown_modes['validity_score'] *= 0.1
+                    breakdown_modes['validity_score'] *= 0.3
+                # Catastrophic (fallback) for absurd gradients
+                if np.any(np.abs(dv_dx) > 1e20):
+                    breakdown_modes['validity_score'] *= 0.3
         
+        # Check intensity breakdown if provided (I > 6e50 W/m^2)
+        I = simulation_data.get('intensity', None)
+        try:
+            if I is not None and float(I) > 6e50:
+                breakdown_modes['intensity_breakdown'] = True
+                breakdown_modes['validity_score'] *= 0.3
+        except Exception:
+            pass
+
         # Run numerical stability check
         validation_results = self.validator.validate_numerical_stability(simulation_data)
         if not validation_results['numerically_stable']:
@@ -143,8 +157,8 @@ def run_single_configuration(a0: float, n_e: float, gradient_factor: float) -> D
     lambda_l = 800e-9  # Standard Ti:Sapphire wavelength
     omega_l = 2 * np.pi * c / lambda_l
     
-    # Intensity from a0: I = a0^2 * (m_e^2 * c^5 * omega_l^2) / (2 * e^2)
-    I_0 = a0**2 * (m_e**2 * c**5 * omega_l**2) / (2 * const.e**2)
+    # Intensity from a0: E0 = a0 * m_e * omega_l * c / e; I = 0.5 * ε0 * c * E0^2
+    I_0 = 0.5 * epsilon_0 * c * (a0**2) * (m_e**2 * omega_l**2 * c**2) / (const.e**2)
     
     # Initialize laser-plasma model
     try:
@@ -196,7 +210,8 @@ def run_single_configuration(a0: float, n_e: float, gradient_factor: float) -> D
         'electric_field': np.zeros_like(x),  # Simplified
         'a0': a0,
         'plasma_density': n_e,
-        'gradient_steepness': gradient_factor
+        'gradient_steepness': gradient_factor,
+        'intensity': I_0,
     }
     
     # Initialize breakdown detector
@@ -208,7 +223,7 @@ def run_single_configuration(a0: float, n_e: float, gradient_factor: float) -> D
     # Calculate horizon properties if physics is still valid
     if breakdown_analysis['validity_score'] > 0.1:
         try:
-            horizons = find_horizons_with_uncertainty(x, velocity, sound_speed)
+            horizons = find_horizons_with_uncertainty(x, velocity, sound_speed, kappa_method="acoustic_exact")
             kappa = np.mean(horizons.kappa) if len(horizons.kappa) > 0 else 0.0
             
             # Compute gradient metrics
@@ -347,7 +362,7 @@ def analyze_catastrophe_boundaries(results: List[Dict]) -> Dict:
     # Analyze breakdown modes
     breakdown_stats = {}
     for mode in ['relativistic_breakdown', 'ionization_breakdown', 'wave_breaking', 
-                 'gradient_catastrophe', 'numerical_instability']:
+                 'gradient_catastrophe', 'intensity_breakdown', 'numerical_instability']:
         count = sum(1 for r in results if r.get('breakdown_modes', {}).get(mode, False))
         breakdown_stats[mode] = {
             'count': count,
@@ -361,7 +376,7 @@ def analyze_catastrophe_boundaries(results: List[Dict]) -> Dict:
     valid_n_e = [r['n_e'] for r in valid_results]
     valid_kappa = [r['kappa'] for r in valid_results]
     
-    # Fit power law relationships (log-log regression)
+    # Fit power law relationships (log-log regression) with simple 95% CI
     if len(valid_results) > 10:
         try:
             # κ vs a0 scaling
@@ -370,25 +385,53 @@ def analyze_catastrophe_boundaries(results: List[Dict]) -> Dict:
             log_a0_clean = [log_a0[i] for i, k in enumerate(valid_kappa) if k > 0]
             
             if len(log_kappa) > 5:
-                kappa_a0_slope = np.polyfit(log_a0_clean, log_kappa, 1)[0]
+                # slope and intercept
+                coeffs = np.polyfit(log_a0_clean, log_kappa, 1)
+                kappa_a0_slope = coeffs[0]
+                # standard error and 95% CI for slope
+                x = np.asarray(log_a0_clean)
+                y = np.asarray(log_kappa)
+                yhat = coeffs[0] * x + coeffs[1]
+                resid = y - yhat
+                dof = max(len(x) - 2, 1)
+                s_yx = float(np.sqrt(np.sum(resid**2) / dof))
+                s_xx = float(np.sum((x - x.mean())**2)) if len(x) > 1 else 1.0
+                se_slope = s_yx / np.sqrt(max(s_xx, 1e-30))
+                a0_slope_ci95 = (kappa_a0_slope - 1.96 * se_slope, kappa_a0_slope + 1.96 * se_slope)
             else:
                 kappa_a0_slope = np.nan
+                a0_slope_ci95 = (np.nan, np.nan)
                 
             # κ vs n_e scaling  
             log_n_e = np.log10(valid_n_e)
             log_n_e_clean = [log_n_e[i] for i, k in enumerate(valid_kappa) if k > 0]
             
             if len(log_kappa) > 5:
-                kappa_ne_slope = np.polyfit(log_n_e_clean, log_kappa, 1)[0]  
+                coeffs_ne = np.polyfit(log_n_e_clean, log_kappa, 1)
+                kappa_ne_slope = coeffs_ne[0]
+                xn = np.asarray(log_n_e_clean)
+                yn = np.asarray(log_kappa)
+                yhatn = coeffs_ne[0] * xn + coeffs_ne[1]
+                residn = yn - yhatn
+                dofn = max(len(xn) - 2, 1)
+                s_yxn = float(np.sqrt(np.sum(residn**2) / dofn))
+                s_xxn = float(np.sum((xn - xn.mean())**2)) if len(xn) > 1 else 1.0
+                se_slopen = s_yxn / np.sqrt(max(s_xxn, 1e-30))
+                ne_slope_ci95 = (kappa_ne_slope - 1.96 * se_slopen, kappa_ne_slope + 1.96 * se_slopen)
             else:
                 kappa_ne_slope = np.nan
+                ne_slope_ci95 = (np.nan, np.nan)
                 
         except Exception:
             kappa_a0_slope = np.nan
             kappa_ne_slope = np.nan
+            a0_slope_ci95 = (np.nan, np.nan)
+            ne_slope_ci95 = (np.nan, np.nan)
     else:
         kappa_a0_slope = np.nan
         kappa_ne_slope = np.nan
+        a0_slope_ci95 = (np.nan, np.nan)
+        ne_slope_ci95 = (np.nan, np.nan)
     
     return {
         'max_kappa': max_kappa,
@@ -398,7 +441,9 @@ def analyze_catastrophe_boundaries(results: List[Dict]) -> Dict:
         'breakdown_statistics': breakdown_stats,
         'scaling_relationships': {
             'kappa_vs_a0_exponent': kappa_a0_slope,
-            'kappa_vs_ne_exponent': kappa_ne_slope
+            'kappa_vs_ne_exponent': kappa_ne_slope,
+            'kappa_vs_a0_exponent_ci95': a0_slope_ci95,
+            'kappa_vs_ne_exponent_ci95': ne_slope_ci95,
         },
         'parameter_boundaries': {
             'max_valid_a0': max([r['a0'] for r in valid_results]) if valid_results else 0,

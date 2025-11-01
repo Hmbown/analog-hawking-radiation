@@ -34,7 +34,7 @@ Version 0.3.0 closes the validation gap between analytic fluid models and first-
   - Correlation map density fluctuation analysis
   - Gradient computations with backend-specific implementations
 
-**Performance Impact**: 10-100x speedup on RTX 3080 for acoustic-WKB graybody transmission on 2048-point grids.
+**Performance Impact**: 10–100× speedup on RTX 3080 for acoustic‑WKB graybody transmission on 2048‑point grids (see `scripts/benchmarks/bench_graybody_gpu.py`).
 
 **Compatibility**: Maintains full CPU compatibility for CI/CD and systems without CUDA support.
 
@@ -90,9 +90,7 @@ python scripts/infer_kappa_from_psd.py results/pic_pipeline_psd.npz \
   --graybody-profile results/warpx_profile.npz
 ```
 
-**Validation**: Successfully processed synthetic WarpX output:
-- Horizon position: x ≈ 5.20×10⁻⁵ m
-- Surface gravity: κ ≈ 2.40×10¹⁰ s⁻¹ (±0.87%)
+**Validation**: Successfully processed synthetic WarpX‑like output. Example physically scaled profiles yield κ values in the 10¹⁰ s⁻¹ range (see `results/pic_synth/` and `scripts/openpmd_slice_to_profile.py`).
 
 ### 4. Horizon-Crossing Correlation Diagnostics
 
@@ -247,11 +245,11 @@ All existing scripts and workflows continue to work unchanged. GPU acceleration 
 
 ### Test Suite Status
 
-- **Total tests**: 42 (up from 40 in v0.2.0)
+- **Total tests**: 48
 - **New tests**:
   - `test_experiment_universality.py::test_universality_pipeline_shapes_and_metrics` (PASS)
   - `test_experiment_universality.py::test_control_no_horizon_yields_no_spectrum` (PASS)
-- **GPU marker**: 3 tests marked `@pytest.mark.gpu` (require CUDA)
+- **GPU tests**: CPU↔GPU parity covered where CuPy is available (skipped otherwise)
 - **CI status**: All CPU tests passing on GitHub Actions
 
 ### Physical Validation

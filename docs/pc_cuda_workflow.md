@@ -74,10 +74,11 @@ Expected output should show your RTX 3080 and CUDA 12.x configuration.
 
 ```bash
 pytest -q
-pytest -m gpu -q  # if the test suite exposes GPU-optional cases
+# CPU↔GPU parity test runs when CuPy is installed; skipped otherwise
+pytest -q tests/test_gpu_parity_graybody.py
 ```
 
-The README advertises a test matrix and integration tests; if your environment has CuPy, GPU tests should exercise the accelerated codepaths.
+The README advertises a test matrix and integration tests; if your environment has CuPy, parity tests exercise accelerated codepaths.
 
 ---
 
@@ -115,7 +116,7 @@ python scripts/sweep_gradient_catastrophe.py --n-samples 300 \
   --output results/gradient_limits_analysis --save-figures
 ```
 
-**What you get**: Map pre‑relativistic breakdown envelopes and extract the *max* κ your model admits under constraints
+**What you get**: Map pre‑relativistic breakdown envelopes and extract the *max* κ your model admits under constraints. The sweep uses the acoustic‑exact κ definition and enforces v, |dv/dx|, and intensity thresholds.
 **Why it matters**: Theorists care about "how close to the limit are we?" when assessing plausibility
 **Time**: ~15-30 minutes
 

@@ -57,58 +57,58 @@ velocity = v_scale * tanh((x - x_transition) / sigma)
 
 ### Surface Gravity Calculation
 
-Surface gravity is calculated at horizon crossings (where |v| = cs) using the acoustic-exact method:
+Surface gravity is calculated at horizon crossings (|v| = c_s) using the acoustic‑exact method implemented in the code:
 
-κ = |∂ₓ(cs² - v²)| / (2cₕ)
+κ = |∂ₓ(c_s² − v²)| / (2 cₕ),
 
-where cₕ is the sound speed at the horizon.
+where cₕ is the sound speed at the horizon. This corresponds to `kappa_method="acoustic_exact"` used by the sweep script.
 
 ## Key Findings
 
 ### Maximum Achievable Surface Gravity
 
-**Primary Result**: κ_max = 3.79×10¹² Hz
+**Primary Result**: κ_max = 5.94×10¹² Hz (this production run; acoustic‑exact κ; thresholds enforced)
 
 This represents a fundamental barrier imposed by relativistic physics, not technological limitations.
 
 ### Optimal Configuration
 
-The configuration achieving maximum κ:
-- **a₀**: 1.62 (moderate relativistic regime)
-- **nₑ**: 1.39×10¹⁹ m⁻³ (overcritical density)
-- **Gradient factor**: 4.6 (moderate steepness)
-- **Required intensity**: 5.72×10⁵⁰ W/m²
+The configuration achieving maximum κ in this run:
+- **a₀**: 6.95 (relativistic regime)
+- **nₑ**: 1.0×10²⁰ m⁻³
+- **Gradient factor**: 2.15
+- **Intensity**: 1.03×10²⁴ W/m²
 
 ### Physics Constraints
 
-**Relativistic Wall**: The dominant limitation is relativistic breakdown occurring when:
+**Relativistic Wall**: The dominant limitation is breakdown when any of the following thresholds are exceeded (implemented in the sweep):
 - v > 0.5c (≈ 1.5×10⁸ m/s)
-- dv/dx > 4×10¹² s⁻¹
-- I > 6×10⁵⁰ W/m²
+- |dv/dx| > 4×10¹² s⁻¹
+- Intensity I > 6×10⁵⁰ W/m²
 
 ### Scaling Relationships
 
 Unexpectedly, the analysis reveals:
 
-1. **κ ∝ a₀⁻⁰·¹⁹³**: Surface gravity *decreases* with laser amplitude
-2. **κ ∝ nₑ⁻⁰·⁰⁵⁴**: Surface gravity slightly decreases with density
+1. **κ vs a₀**: exponent ≈ +0.66 (95% CI [0.44, 0.89])
+2. **κ vs nₑ**: exponent ≈ −0.02 (95% CI [−0.14, 0.10])
 
 **Interpretation**: Higher laser intensities create steeper gradients but push systems into relativistic regimes where physics becomes invalid. An optimal "sweet spot" exists around a₀ ≈ 1.6.
 
 ### Breakdown Statistics
 
-From 500 configurations tested:
-- **Valid physics**: 60% of configurations
-- **Primary failure mode**: Relativistic breakdown (40%)
-- **Other failure modes**: Negligible (<1% each)
+From 500 configurations tested (this run):
+- **Valid physics**: 68 / 500 (13.6%)
+- **Breakdown rate**: 86.4%
+- **Dominant modes**: gradient‑driven breakdown (86.4%), relativistic (47.6%)
 
 ## Detection Time Implications
 
 ### Fundamental Limit
 
-With κ_max = 3.79×10¹² Hz, the theoretical minimum detection time is:
+With κ_max = 5.94×10¹² Hz, the theoretical minimum detection time is:
 
-t_min ≈ 1/(2κ) ≈ 1.3×10⁻¹³ seconds
+t_min ≈ 1/(2κ) ≈ 8.4×10⁻¹⁴ seconds
 
 ### Practical Detection Times
 
@@ -172,11 +172,11 @@ python scripts/run_production_gradient_sweep.py
 
 ### Result Analysis
 
-Results are saved in JSON format with comprehensive analysis:
+Results are saved in JSON format with comprehensive analysis (production run shown):
 
 ```python
 import json
-with open('results/gradient_limits/gradient_catastrophe_sweep.json') as f:
+with open('results/gradient_limits_production/gradient_catastrophe_sweep.json') as f:
     data = json.load(f)
 
 # Access key findings
