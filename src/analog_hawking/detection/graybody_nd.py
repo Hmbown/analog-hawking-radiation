@@ -62,7 +62,10 @@ def aggregate_patchwise_graybody(
 
     # Lazy import to avoid circular dependencies in tests
     from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
-    from scripts.hawking_detection_experiment import calculate_hawking_spectrum  # type: ignore
+    try:
+        from scripts.hawking_detection_experiment import calculate_hawking_spectrum  # type: ignore
+    except Exception:
+        from hawking_detection_experiment import calculate_hawking_spectrum  # type: ignore
 
     surf = find_horizon_surface_nd(grids, v_field, c_s, scan_axis=scan_axis)
     if surf.positions.shape[0] == 0:
