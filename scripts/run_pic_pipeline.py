@@ -164,6 +164,19 @@ def main() -> int:
             except Exception:
                 pass
 
+        # Attach run metadata
+        try:
+            import subprocess, datetime
+            commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+        except Exception:
+            commit = "unknown"
+        summary.update({
+            "_run": {
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+                "git_commit": commit,
+                "args": vars(args),
+            }
+        })
         os.makedirs("results", exist_ok=True)
         out = "results/pic_pipeline_nd_summary.json"
         with open(out, "w") as fp:
