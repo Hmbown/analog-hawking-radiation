@@ -41,3 +41,15 @@ jobs:
         run: |
           pytest -q
 
+      - name: Render docs from results (consistency check)
+        run: |
+          python scripts/doc_sync/render_docs.py \
+            --sweep results/gradient_limits_production/gradient_catastrophe_sweep.json \
+            --pic results/pic_pipeline_summary.json
+          # Ensure committed docs stay in sync with data
+          git --no-pager diff -- RESEARCH_HIGHLIGHTS.md docs/GradientCatastropheFindings.md || true
+          # Fail if there are uncommitted changes after rendering
+          if ! git diff --quiet -- RESEARCH_HIGHLIGHTS.md docs/GradientCatastropheFindings.md; then \
+            echo 'Docs are out of sync with results JSONs. Run render_docs.py and commit.'; \
+            exit 1; \
+          fi

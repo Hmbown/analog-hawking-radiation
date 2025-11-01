@@ -1,0 +1,7 @@
+# Single source of truth for physics breakdown thresholds
+# Values mirror those used in production gradient sweep (v0.3.0)
+
+v_max_fraction_c: 0.5           # Maximum allowed |v| as a fraction of c
+dv_dx_max_s: 4.0e12            # Maximum allowed |dv/dx| in s^-1
+intensity_max_W_m2: 6.0e50     # Maximum allowed intensity in W/m^2
+
