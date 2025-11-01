@@ -32,6 +32,7 @@ from analog_hawking.physics_engine.plasma_models.validation_protocols import Phy
 from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 from analog_hawking.physics_engine.plasma_models.nonlinear_plasma import NonlinearPlasmaSolver
+from analog_hawking.config.thresholds import load_thresholds, Thresholds
 
 
 class GradientCatastropheDetector:
@@ -39,9 +40,10 @@ class GradientCatastropheDetector:
     Detector for physics breakdown in extreme gradient regimes
     """
     
-    def __init__(self, validation_tolerance: float = 0.1):
+    def __init__(self, validation_tolerance: float = 0.1, thresholds: Thresholds | None = None):
         self.validation_tolerance = validation_tolerance
         self.validator = PhysicsValidationFramework(validation_tolerance)
+        self.thresholds = thresholds or Thresholds()
         
     def compute_gradient_metrics(self, x_grid: np.ndarray, velocity: np.ndarray, 
                                 sound_speed: np.ndarray) -> Dict[str, float]:
@@ -85,11 +87,11 @@ class GradientCatastropheDetector:
             'validity_score': 1.0
         }
         
-        # Check relativistic breakdown (v > 0.5c)
+        # Check relativistic breakdown (v > vmax_frac * c)
         if 'velocity' in simulation_data:
             velocity = simulation_data['velocity']
             max_v = np.max(np.abs(velocity)) if hasattr(velocity, '__iter__') else abs(velocity)
-            if max_v > 0.5 * c:
+            if max_v > self.thresholds.v_max_fraction_c * c:
                 breakdown_modes['relativistic_breakdown'] = True
                 breakdown_modes['validity_score'] *= 0.3
         
@@ -114,18 +116,18 @@ class GradientCatastropheDetector:
             v = simulation_data['velocity']
             if hasattr(v, '__iter__') and len(x) > 1:
                 dv_dx = np.gradient(v, x)
-                # Relativistic gradient wall per documentation
-                if np.any(np.abs(dv_dx) > 4e12):  # s^-1
+                # Relativistic gradient wall per thresholds
+                if np.any(np.abs(dv_dx) > self.thresholds.dv_dx_max_s):  # s^-1
                     breakdown_modes['gradient_catastrophe'] = True
                     breakdown_modes['validity_score'] *= 0.3
                 # Catastrophic (fallback) for absurd gradients
                 if np.any(np.abs(dv_dx) > 1e20):
                     breakdown_modes['validity_score'] *= 0.3
         
-        # Check intensity breakdown if provided (I > 6e50 W/m^2)
+        # Check intensity breakdown if provided (I > threshold W/m^2)
         I = simulation_data.get('intensity', None)
         try:
-            if I is not None and float(I) > 6e50:
+            if I is not None and float(I) > self.thresholds.intensity_max_W_m2:
                 breakdown_modes['intensity_breakdown'] = True
                 breakdown_modes['validity_score'] *= 0.3
         except Exception:
@@ -140,7 +142,8 @@ class GradientCatastropheDetector:
         return breakdown_modes
 
 
-def run_single_configuration(a0: float, n_e: float, gradient_factor: float) -> Dict[str, any]:
+def run_single_configuration(a0: float, n_e: float, gradient_factor: float,
+                             thresholds: Thresholds | None = None) -> Dict[str, any]:
     """
     Run a single configuration and extract physics metrics
     
@@ -215,7 +218,7 @@ def run_single_configuration(a0: float, n_e: float, gradient_factor: float) -> D
     }
     
     # Initialize breakdown detector
-    detector = GradientCatastropheDetector()
+    detector = GradientCatastropheDetector(thresholds=thresholds)
     
     # Check for physics breakdown
     breakdown_analysis = detector.detect_physics_breakdown(simulation_data)
@@ -251,7 +254,12 @@ def run_single_configuration(a0: float, n_e: float, gradient_factor: float) -> D
     }
 
 
-def run_gradient_catastrophe_sweep(n_samples: int = 500, output_dir: str = "results/gradient_limits") -> Dict:
+def run_gradient_catastrophe_sweep(n_samples: int = 500,
+                                   output_dir: str = "results/gradient_limits",
+                                   thresholds_path: str | None = None,
+                                   vmax_frac: float | None = None,
+                                   dvdx_max: float | None = None,
+                                   intensity_max: float | None = None) -> Dict:
     """
     Run comprehensive gradient catastrophe parameter sweep
     
@@ -294,9 +302,24 @@ def run_gradient_catastrophe_sweep(n_samples: int = 500, output_dir: str = "resu
                     param_combinations.append((a0, n_e, gradient_factor))
     
     # Run sweep with progress bar
+    thr = load_thresholds(thresholds_path)
+    # CLI overrides, if provided
+    if vmax_frac is not None:
+        thr = Thresholds(v_max_fraction_c=vmax_frac,
+                         dv_dx_max_s=thr.dv_dx_max_s,
+                         intensity_max_W_m2=thr.intensity_max_W_m2)
+    if dvdx_max is not None:
+        thr = Thresholds(v_max_fraction_c=thr.v_max_fraction_c,
+                         dv_dx_max_s=dvdx_max,
+                         intensity_max_W_m2=thr.intensity_max_W_m2)
+    if intensity_max is not None:
+        thr = Thresholds(v_max_fraction_c=thr.v_max_fraction_c,
+                         dv_dx_max_s=thr.dv_dx_max_s,
+                         intensity_max_W_m2=intensity_max)
+
     with tqdm(total=len(param_combinations), desc="Exploring parameter space") as pbar:
         for a0, n_e, gradient_factor in param_combinations:
-            result = run_single_configuration(a0, n_e, gradient_factor)
+            result = run_single_configuration(a0, n_e, gradient_factor, thresholds=thr)
             results.append(result)
             
             # Update progress bar with current max kappa
@@ -552,11 +575,26 @@ def main():
                        help="Number of parameter combinations to test")
     parser.add_argument("--output", type=str, default="results/gradient_limits",
                        help="Output directory for results")
+    parser.add_argument("--thresholds", type=str, default=None,
+                       help="Path to thresholds YAML (defaults used if omitted)")
+    parser.add_argument("--vmax-frac", type=float, default=None,
+                       help="Override: max |v| as fraction of c")
+    parser.add_argument("--dvdx-max", type=float, default=None,
+                       help="Override: max |dv/dx| in s^-1")
+    parser.add_argument("--intensity-max", type=float, default=None,
+                       help="Override: max intensity in W/m^2")
     
     args = parser.parse_args()
     
     # Run the sweep
-    sweep_data = run_gradient_catastrophe_sweep(args.n_samples, args.output)
+    sweep_data = run_gradient_catastrophe_sweep(
+        args.n_samples,
+        args.output,
+        thresholds_path=args.thresholds,
+        vmax_frac=args.vmax_frac,
+        dvdx_max=args.dvdx_max,
+        intensity_max=args.intensity_max,
+    )
     
     # Generate plots
     generate_catastrophe_plots(sweep_data, args.output)
