@@ -43,6 +43,7 @@ def main() -> int:
     p.add_argument("--vel-dataset", default=None)
     p.add_argument("--cs-dataset", default=None)
     p.add_argument("--Te-dataset", default=None)
+    p.add_argument("--Te-unit", choices=["K", "eV"], default="K", help="Unit for Te dataset")
     p.add_argument("--B-dataset", default=None)
     p.add_argument("--ne-dataset", default=None)
     args = p.parse_args()
@@ -56,9 +57,14 @@ def main() -> int:
         B = _read_dataset(f, args.B_dataset) if args.B_dataset else None
         ne = _read_dataset(f, args.ne_dataset) if args.ne_dataset else None
 
-    # Construct c_s from Te if needed
+    # Construct c_s from Te if needed (unit-aware)
     if cs is None and Te is not None:
-        cs = sound_speed(Te)
+        Te_arr = np.array(Te)
+        if args.Te_unit == "eV":
+            TeK = Te_arr * 11604.51812  # eV -> K
+        else:
+            TeK = Te_arr
+        cs = sound_speed(TeK)
     if cs is None:
         cs = np.zeros_like(v) if v is not None else np.array([])
 
@@ -72,6 +78,7 @@ def main() -> int:
         out["B"] = B
     if Te is not None:
         out["T_e"] = Te
+        out["T_e_unit"] = args.Te_unit
     if ne is not None:
         out["n_e"] = ne
 
@@ -82,4 +89,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

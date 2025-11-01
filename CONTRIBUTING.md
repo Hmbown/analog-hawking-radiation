@@ -20,6 +20,48 @@ All contributions should maintain rigorous scientific standards:
 - Use clear variable names that reflect physical quantities
 - Include appropriate comments explaining complex physics calculations
 
+## Development Setup
+
+- Install project with dev extras:
+  ```bash
+  pip install -e .[dev]
+  ```
+
+## Thresholds Provenance
+
+Core physics breakdown thresholds are centralized in `configs/thresholds.yaml` (max |v|/c, max |dv/dx|, max intensity). Sweep scripts load these by default and also accept CLI overrides:
+
+```bash
+python scripts/sweep_gradient_catastrophe.py \
+  --n-samples 500 \
+  --output results/gradient_limits_production \
+  --thresholds configs/thresholds.yaml \
+  --vmax-frac 0.5 --dvdx-max 4e12 --intensity-max 6e50
+```
+
+## Keeping Docs in Sync
+
+Do not hand-edit key numbers (κ_max, scaling exponents, 95% CIs, PIC κ/horizon) in `RESEARCH_HIGHLIGHTS.md`. Render docs from results JSONs instead:
+
+```bash
+python scripts/doc_sync/render_docs.py \
+  --sweep results/gradient_limits_production/gradient_catastrophe_sweep.json \
+  --pic results/pic_pipeline_summary.json
+```
+
+CI enforces that rendered docs match committed docs.
+
+## Linting & Formatting
+
+We use Ruff and Black.
+
+```bash
+ruff check .
+black --check .
+```
+
+Use `black .` locally to format before committing.
+
 ## Documentation Standards
 
 - Update documentation when adding new features or modifying existing functionality
