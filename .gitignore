@@ -196,6 +196,7 @@ docs/IMAGES_README.md
 
 # Analysis notebooks and exploratory work
 analysis/
+!src/analog_hawking/analysis/
 *.ipynb
 
 # Generated images (keep only workflow diagram in docs/img/)
