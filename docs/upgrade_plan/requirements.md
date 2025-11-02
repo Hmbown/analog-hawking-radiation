@@ -48,13 +48,13 @@ This phased plan refines the upgrade roadmap to address current limitations, pro
 **Objectives:** Eliminate mock dependencies by integrating real WarpX PIC simulations via OpenPMD, enabling accurate plasma profile ingestion and horizon diagnostics. This addresses the experimental validation gap in WarpX integration.
 
 **Key Tasks:**
-- Replace mock data handling in [`src/analog_hawking/physics_engine/plasma_models/warpx_backend.py`](src/analog_hawking/physics_engine/plasma_models/warpx_backend.py) with OpenPMD-standard file ingestion (using openPMD-api), extracting density, velocity, and EM fields for horizon finding.
+- Replace mock data handling in [`src/analog_hawking/physics_engine/plasma_models/warpx_backend.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/src/analog_hawking/physics_engine/plasma_models/warpx_backend.py) with OpenPMD-standard file ingestion (using openPMD-api), extracting density, velocity, and EM fields for horizon finding.
 - Implement data preprocessing for alignment with 1D surrogate assumptions, including spatial averaging and uncertainty propagation.
 - Enhance error handling for incomplete or noisy PIC outputs, with fallback to fluid approximations.
 - Update configuration schema to specify OpenPMD file paths and diagnostic slices.
 
 **Validation and Testing:**
-- Expand [`tests/test_warpx_openpmd_getter.py`](tests/test_warpx_openpmd_getter.py) with real WarpX sample datasets (e.g., from public repositories or generated benchmarks).
+- Expand [`tests/test_warpx_openpmd_getter.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/tests/test_warpx_openpmd_getter.py) with real WarpX sample datasets (e.g., from public repositories or generated benchmarks).
 - Verify conservation laws and κ estimates against analytic 1D cases, targeting <5% discrepancy.
 - Performance benchmark: Ensure ingestion overhead <20% of total runtime.
 - Conservative Claims: Limit to validated density regimes (1e17–1e19 cm^{-3}); document numerical biases from grid resolution.
@@ -65,8 +65,8 @@ This phased plan refines the upgrade roadmap to address current limitations, pro
 **Objectives:** Extend to 3D geometries and seed vacuum fluctuations to capture multi-dimensional scattering and quantum noise, targeting enhanced κ for detectable T_H > 1 mK in GHz radio. This tackles 1D approximations, fluctuation seeding gaps, and nonlinear effects.
 
 **Key Tasks:**
-- Refactor [`src/analog_hawking/physics_engine/optimization/graybody_1d.py`](src/analog_hawking/physics_engine/optimization/graybody_1d.py) to 3D by generalizing tortoise coordinates (r* = ∫ dr / |c - v|) and potential V(r) via finite-difference solvers for axisymmetric or Cartesian grids.
-- Develop fluctuation seeding in [`src/analog_hawking/physics_engine/plasma_models/fluctuation_injector.py`](src/analog_hawking/physics_engine/plasma_models/fluctuation_injector.py), injecting band-limited quantum noise (e.g., Ornstein-Uhlenbeck process) at sub-grid scales, coupled to QFT modes.
+- Refactor [`src/analog_hawking/physics_engine/optimization/graybody_1d.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/src/analog_hawking/physics_engine/optimization/graybody_1d.py) to 3D by generalizing tortoise coordinates (r* = ∫ dr / |c - v|) and potential V(r) via finite-difference solvers for axisymmetric or Cartesian grids.
+- Develop fluctuation seeding in [`src/analog_hawking/physics_engine/plasma_models/fluctuation_injector.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/src/analog_hawking/physics_engine/plasma_models/fluctuation_injector.py), injecting band-limited quantum noise (e.g., Ornstein-Uhlenbeck process) at sub-grid scales, coupled to QFT modes.
 - Optimize plasma mirror setups (multi-beam interference) for κ boosts, using Bayesian loops to scan geometries for T_H targets.
 - Integrate 3D outputs into detection pipeline, including angular resolution for radio emission.
 
@@ -74,7 +74,7 @@ This phased plan refines the upgrade roadmap to address current limitations, pro
 - Benchmark 3D graybody against 2D analytic solutions (e.g., spherical waves); test fluctuation statistics for Gaussianity and power spectrum match.
 - Run convergence studies on grid resolution (target dx < λ/10 for GHz waves).
 - Conservative Claims: Focus on near-horizon regions; quantify 3D corrections to 1D κ (<10% deviation expected); rigorous uncertainty from Monte Carlo fluctuation runs.
-- Use new configs: [`configs/3d_simulation.yml`](../../configs/3d_simulation.yml) for grid params, [`configs/trans_planckian_enhancements.yml`](../../configs/trans_planckian_enhancements.yml) for noise injection.
+- Use new configs: [`configs/3d_simulation.yml`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/configs/3d_simulation.yml) for grid params, [`configs/trans_planckian_enhancements.yml`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/configs/trans_planckian_enhancements.yml) for noise injection.
 
 **Timeline Estimate:** 6-8 weeks, dependent on Phase 1 stability.
 
@@ -82,7 +82,7 @@ This phased plan refines the upgrade roadmap to address current limitations, pro
 **Objectives:** Bridge simulation to lab by designing executable protocols for facilities like ELI-NP or NIF, specifying hardware and diagnostics for analog horizon formation. This fills the experimental ties limitation.
 
 **Key Tasks:**
-- Expand [`protocols/experimental_protocol.md`](../../protocols/experimental_protocol.md) with:
+- Expand [`protocols/experimental_protocol.md`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/protocols/experimental_protocol.md) with:
   - Laser specs: 800 nm Ti:Sapphire, 30 fs pulses, 1-10 J energy, focused to 10 μm spot for plasma channel creation.
   - Plasma targets: Gas jet (He, 10^17-10^19 cm^{-3}) or preformed underdense plasma; include B-field coils for magnetization (0-5 T).
   - Horizon formation: Counter-propagating beams for velocity gradients; monitor via pump-probe interferometry.

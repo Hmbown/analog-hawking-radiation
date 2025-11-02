@@ -48,7 +48,7 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 ### Historical Documentation
 - **[Highlights_v0.2.0.md](Highlights_v0.2.0.md)** - v0.2.0 feature highlights
 - **[Final_Answer.md](Final_Answer.md)** - Historical milestone documentation
-- **See [CHANGELOG.md](../CHANGELOG.md)** - Complete version history
+- **See [CHANGELOG.md](https://github.com/Hmbown/analog-hawking-radiation/blob/main/CHANGELOG.md)** - Complete version history
 
 ---
 
@@ -62,7 +62,7 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 ### Experimental Design
 - **[Experiments.md](Experiments.md)** - Experiment playbooks and workflows
 - **[Successful_Configurations.md](Successful_Configurations.md)** - Proven parameter sets
-- **[References.md](References.md)** - Bibliography and recommended reading
+- **[REFERENCES.md](REFERENCES.md)** - Bibliography and recommended reading
 
 ### Limitations & Validation
 - **[Limitations.md](Limitations.md)** - Scope, assumptions, and open questions
@@ -100,7 +100,7 @@ docs/
 │   ├── Glossary.md                 # Key terms
 │   ├── FAQ.md                      # Common questions
 │   ├── Reproducibility.md          # End‑to‑end instructions
-│   └── References.md               # Bibliography
+│   └── REFERENCES.md               # Bibliography
 │
 ├── 🔬 Research & Results
 │   ├── GradientCatastropheAnalysis.md  # κ_max discovery
@@ -217,4 +217,4 @@ See `CONTRIBUTING.md` in repository root for contribution guidelines.
 
 ---
 
-*For complete version history, see [CHANGELOG.md](../CHANGELOG.md)*
+*For complete version history, see [CHANGELOG.md](https://github.com/Hmbown/analog-hawking-radiation/blob/main/CHANGELOG.md)*

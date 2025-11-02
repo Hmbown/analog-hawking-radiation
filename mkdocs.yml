@@ -22,35 +22,34 @@ plugins:
             heading_level: 2
             members_order: source
 nav:
-  - Overview: docs/README.md
+  - Overview: README.md
   - Getting Started:
-      - Quick Start: docs/Overview.md
-      - Reproducibility: docs/Reproducibility.md
-      - FAQ: docs/FAQ.md
-      - GPU Acceleration: docs/GPU.md
-      - Docker: docs/Docker.md
+      - Quick Start: Overview.md
+      - Reproducibility: Reproducibility.md
+      - FAQ: FAQ.md
+      - GPU Acceleration: GPU.md
+      - Docker: Docker.md
   - User Guide:
-      - Methods: docs/Methods.md
-      - Validation: docs/Validation.md
-      - Results: docs/Results.md
-      - Limitations: docs/Limitations.md
-      - Dataset Notes: docs/DatasetNotes.md
-      - Enhanced Models: docs/Enhanced_Physics_Models_Documentation.md
-  - CLI: docs/CLI.md
-  - Benchmarks: docs/Benchmarks.md
-  - Regression: docs/Regression.md
+      - Methods: Methods.md
+      - Validation: Validation.md
+      - Results: Results.md
+      - Limitations: Limitations.md
+      - Dataset Notes: DatasetNotes.md
+      - Enhanced Models: Enhanced_Physics_Models_Documentation.md
+  - CLI: CLI.md
+  - Benchmarks: Benchmarks.md
+  - Regression: Regression.md
   - Tutorials:
-      - Overview: docs/Tutorials.md
-      - Horizon nD: docs/horizon_nd.md
-      - Advanced Scenarios: docs/AdvancedScenarios.md
+      - Overview: Tutorials.md
+      - Horizon nD: horizon_nd.md
+      - Advanced Scenarios: AdvancedScenarios.md
   - Reference:
-      - API: 
-          - analog_hawking: src/analog_hawking/__init__.py
-          - physics_engine: src/analog_hawking/physics_engine/simulation.py
-          - detection: src/analog_hawking/detection/__init__.py
-          - pipelines: src/analog_hawking/pipelines/__init__.py
+      - analog_hawking package: reference/analog_hawking.md
+      - Physics engine simulation: reference/physics_engine_simulation.md
+      - Detection module: reference/detection.md
+      - Pipelines module: reference/pipelines.md
   - Project:
-      - Contributing: CONTRIBUTING.md
-      - Code of Conduct: CODE_OF_CONDUCT.md
-      - Citation: CITATION.cff
-      - Changelog: CHANGELOG.md
+      - Contributing: project/contributing.md
+      - Code of Conduct: project/code_of_conduct.md
+      - Citation: project/citation.md
+      - Changelog: project/changelog.md

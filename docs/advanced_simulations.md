@@ -4,10 +4,10 @@
 Phase 3 extends the Analog Hawking Radiation Simulator with advanced multi-physics capabilities, focusing on electromagnetic (EM)/magnetohydrodynamic (MHD) coupling, nonlinear plasma effects, and 3D quantum field theory (QFT) approximations. This enables simulations targeting enhanced surface gravity (κ 10-100×), Hawking temperature (T_H >1 mK GHz), and rapid 5σ detections (t_{5σ} <1s), while verifying universality (R²>0.98) and κ stability (<3%) across 50% of configurations.
 
 Key deliverables:
-- Extended [`warpx_backend.py`](src/analog_hawking/physics_engine/plasma_models/warpx_backend.py) for EM/MHD and nonlinear hooks.
-- New [`nonlinear_plasma.py`](src/analog_hawking/physics_engine/plasma_models/nonlinear_plasma.py) for 3D QFT and nonlinear solvers.
-- [`sweep_multi_physics_params.py`](scripts/sweep_multi_physics_params.py) for parameter sweeps.
-- [`test_multi_physics_coupling.py`](tests/test_multi_physics_coupling.py) for validation.
+- Extended [`warpx_backend.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/src/analog_hawking/physics_engine/plasma_models/warpx_backend.py) for EM/MHD and nonlinear hooks.
+- New [`nonlinear_plasma.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/src/analog_hawking/physics_engine/plasma_models/nonlinear_plasma.py) for 3D QFT and nonlinear solvers.
+- [`sweep_multi_physics_params.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/scripts/sweep_multi_physics_params.py) for parameter sweeps.
+- [`test_multi_physics_coupling.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/tests/test_multi_physics_coupling.py) for validation.
 - This document for methodology and planning.
 
 ## Methodology
@@ -27,7 +27,7 @@ Key deliverables:
 - **Sweep Workflow**: `sweep_multi_physics_params.py` iterates over plasma_density (10^{17-19} m^{-3}), nonlinear_strength, qft_modes (5-15), kappa_enhancement (10-100). Runs 5 steps per config (mock=True for desktop), targets 50% success rate.
 
 ### Validation
-- Tests in [`test_multi_physics_coupling.py`](tests/test_multi_physics_coupling.py) verify coupling (MHD fields present), enhancements (κ >10× base), criteria (R²>0.98, stability<3%, t_{5σ}<1s), and CPU fallback.
+- Tests in [`test_multi_physics_coupling.py`](https://github.com/Hmbown/analog-hawking-radiation/blob/main/tests/test_multi_physics_coupling.py) verify coupling (MHD fields present), enhancements (κ >10× base), criteria (R²>0.98, stability<3%, t_{5σ}<1s), and CPU fallback.
 - Run: `pytest tests/test_multi_physics_coupling.py -v`.
 
 ## Risks and Mitigations
