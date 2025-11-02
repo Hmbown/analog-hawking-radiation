@@ -47,7 +47,6 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 
 ### Historical Documentation
 - **[Highlights_v0.2.0.md](Highlights_v0.2.0.md)** - v0.2.0 feature highlights
-- **[Final_Answer.md](Final_Answer.md)** - Historical milestone documentation
 - **See [CHANGELOG.md](https://github.com/Hmbown/analog-hawking-radiation/blob/main/CHANGELOG.md)** - Complete version history
 
 ---
@@ -67,7 +66,6 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 ### Limitations & Validation
 - **[Limitations.md](Limitations.md)** - Scope, assumptions, and open questions
 - **[Validation.md](Validation.md)** - Physics validation protocols
-- **[AUDIT_NOTES.md](AUDIT_NOTES.md)** - Code audit and review notes
 
 ---
 
@@ -76,7 +74,6 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 ### Development Workflow
 - **[phase_timeline.md](phase_timeline.md)** - Development roadmap (Phases 3-5)
 - **[pic_migration_plan.md](pic_migration_plan.md)** - PIC integration planning
-- **[transformation_summary.md](transformation_summary.md)** - Repository transformation summary
 
 ### GPU & High-Performance Computing
 - **[pc_cuda_workflow.md](pc_cuda_workflow.md)** - Complete GPU setup guide (Windows/WSL2)
@@ -84,7 +81,7 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 
 ### Future Work
 - **[trans_planckian_next_steps.md](trans_planckian_next_steps.md)** - Trans-Planckian dispersion studies
-- **[upgrade_plan/](upgrade_plan/)** - Technical requirements for Phases 3-5
+- **[upgrade_plan/requirements.md](upgrade_plan/requirements.md)** - Technical requirements for Phases 3-5
 
 ---
 
@@ -125,8 +122,6 @@ docs/
 │   ├── Limitations.md              # Scope & assumptions
 │   ├── Validation.md               # Physics checks
 │   ├── DatasetNotes.md             # Dataset structure & caveats
-│   ├── AUDIT_NOTES.md              # Code audit
-│   ├── transformation_summary.md   # Repository changes
 │   └── IMAGES.md                   # Figure documentation
 │
 └── 📦 Upgrades
