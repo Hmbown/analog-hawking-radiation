@@ -74,7 +74,7 @@ This phased plan refines the upgrade roadmap to address current limitations, pro
 - Benchmark 3D graybody against 2D analytic solutions (e.g., spherical waves); test fluctuation statistics for Gaussianity and power spectrum match.
 - Run convergence studies on grid resolution (target dx < λ/10 for GHz waves).
 - Conservative Claims: Focus on near-horizon regions; quantify 3D corrections to 1D κ (<10% deviation expected); rigorous uncertainty from Monte Carlo fluctuation runs.
-- Use new configs: [`configs/3d_simulation.yml`](configs/3d_simulation.yml) for grid params, [`configs/trans_planckian_enhancements.yml`](configs/trans_planckian_enhancements.yml) for noise injection.
+- Use new configs: [`configs/3d_simulation.yml`](../../configs/3d_simulation.yml) for grid params, [`configs/trans_planckian_enhancements.yml`](../../configs/trans_planckian_enhancements.yml) for noise injection.
 
 **Timeline Estimate:** 6-8 weeks, dependent on Phase 1 stability.
 
@@ -82,7 +82,7 @@ This phased plan refines the upgrade roadmap to address current limitations, pro
 **Objectives:** Bridge simulation to lab by designing executable protocols for facilities like ELI-NP or NIF, specifying hardware and diagnostics for analog horizon formation. This fills the experimental ties limitation.
 
 **Key Tasks:**
-- Expand [`protocols/experimental_protocol.md`](protocols/experimental_protocol.md) with:
+- Expand [`protocols/experimental_protocol.md`](../../protocols/experimental_protocol.md) with:
   - Laser specs: 800 nm Ti:Sapphire, 30 fs pulses, 1-10 J energy, focused to 10 μm spot for plasma channel creation.
   - Plasma targets: Gas jet (He, 10^17-10^19 cm^{-3}) or preformed underdense plasma; include B-field coils for magnetization (0-5 T).
   - Horizon formation: Counter-propagating beams for velocity gradients; monitor via pump-probe interferometry.
