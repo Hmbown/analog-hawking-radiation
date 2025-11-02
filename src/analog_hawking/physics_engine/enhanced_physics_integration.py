@@ -27,7 +27,7 @@ import warnings
 # Import existing physics modules
 from .horizon import find_horizons_with_uncertainty, sound_speed
 from .plasma_mirror import calculate_plasma_mirror_dynamics
-from .detection.graybody_nd import GraybodySpectrumND
+from analog_hawking.detection.graybody_nd import GraybodySpectrumND
 
 # Import enhanced physics models
 from .enhanced_relativistic_physics import RelativisticPlasmaPhysics
