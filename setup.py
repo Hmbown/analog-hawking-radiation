@@ -34,9 +34,13 @@ setup(
         "dev": [
             "pytest>=6.0",
             "pytest-cov",
+            "pytest-timeout",
             "nbconvert",
             "ipykernel",
             "jupyter",
+            "mkdocs>=1.5",
+            "mkdocs-material",
+            "mkdocstrings[python]",
         ],
     },
 )
