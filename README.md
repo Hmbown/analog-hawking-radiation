@@ -110,7 +110,7 @@ This bound comes from a sweep over synthetic 1D profiles with explicit breakdown
 - **Optimal Configuration**: a₀ ≈ 1.6, nₑ ≈ 1.39×10¹⁹ m⁻³
 - **Detection Times**: 10⁻⁷ to 10⁻⁶ seconds (realistic with fast diagnostics)
 - **Scaling (this run)**: κ vs a₀ exponent ≈ +0.66 (95% CI [0.44, 0.89]); κ vs nₑ exponent ≈ −0.02 (95% CI [−0.14, 0.10])
-- **Breakdown thresholds enforced**: v < 0.5c, |dv/dx| < 4×10¹² s⁻¹, intensity < 1×10²⁴ W/m²
+- **Breakdown thresholds enforced**: v < 0.5c, |dv/dx| < 4×10¹² s⁻¹, intensity < 1×10²⁴ W/m² (theoretical 1D cap chosen for sweeps; exceeds current ELI-scale facilities)
 
 #### Impact
 Systematic mapping of breakdown constraints in our 1D models. This study:
@@ -434,7 +434,7 @@ tests/                    # Unit and integration suites
 ## 10. Physics Background
 Analog black holes form where the flow speed $|v|$ exceeds the local sound speed $c_s$, creating a sonic horizon. The associated surface gravity governs the Hawking temperature via $T_H = \hbar \kappa / (2 \pi k_B)$. This framework implements multiple κ definitions, graybody transmission models, and radio detection estimates to assess whether realistic laser–plasma profiles can produce measurable thermal signatures.
 
-The optional hybrid branch couples fluid horizons to accelerating plasma mirrors inspired by the AnaBHEL program (Chen & Mourou 2015; Chen et al. 2022). Treat these modes as computational thought experiments rather than validated predictions.
+The optional hybrid branch couples fluid horizons to accelerating plasma mirrors inspired by the AnaBHEL program (Chen & Mourou 2017; Chen et al. 2022). Treat these modes as computational thought experiments rather than validated predictions.
 
 ---
 

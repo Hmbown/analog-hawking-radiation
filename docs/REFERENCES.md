@@ -18,7 +18,7 @@ This repository draws on foundational literature in analog gravity, plasma physi
 ## AnaBHEL Framework & Plasma Mirror Theory
 
 - **Chen, P., Mourou, G., Besancon, M., Fukuda, Y., Glicenstein, J.-F., et al. (2022). AnaBHEL (Analog Black Hole Evaporation via Lasers) Experiment: Concept, Design, and Status. Photonics, 9(12), 1003. doi:10.3390/photonics9121003** - *Primary AnaBHEL collaboration paper*
-- **Chen, P., & Mourou, G. (2015). Accelerating plasma mirrors to investigate the black hole information loss paradox. Physical Review Letters, 118(4), 045001. doi:10.1103/PhysRevLett.118.045001** - *Foundational plasma mirror acceleration theory*
+- **Chen, P., & Mourou, G. (2017). Accelerating plasma mirrors to investigate the black hole information loss paradox. Physical Review Letters, 118(4), 045001. doi:10.1103/PhysRevLett.118.045001** - *Foundational plasma mirror acceleration theory*
 - **Chen, P., Besancon, M., Fukuda, Y., Glicenstein, J.-F., Horan, D., et al. (2021). Proposal for a laboratory test of the black hole information loss paradox. Classical and Quantum Gravity, 38(19), 195025. doi:10.1088/1361-6382/ac1bf9**
 
 ## Optical & Laser-Based Analog Systems  

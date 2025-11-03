@@ -217,7 +217,7 @@ The analysis generates:
 
 - Unruh, W. G. (1981). Experimental black-hole evaporation?
 - Steinhauer, J. (2016). Observation of quantum Hawking radiation
-- Chen, P. & Mourou, G. (2015). Accelerating plasma mirrors
+- Chen, P. & Mourou, G. (2017). Accelerating plasma mirrors
 - Hawking, S. W. (1975). Particle creation by black holes
 
 ---

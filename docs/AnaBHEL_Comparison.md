@@ -44,7 +44,11 @@ Interpretation and literature
 - κ scaling depends on profile shape and thresholds; this repo reports a
   threshold‑limited upper bound for the provided synthetic sweeps, not a
   universal limit. Use your own thresholds and profiles to re‑evaluate.
-- Chen & Mourou (2015, 2022) motivate accelerating plasma mirrors and
+- The intensity cap used in shared sweeps ($I < 1\times10^{24}\,\text{W/m}^2$) is a
+  theoretical 1D breakdown bound to standardize comparisons; it exceeds current
+  ELI-scale laser capabilities and should not be interpreted as an achievable
+  experimental setting without additional justification.
+- Chen & Mourou (2017, 2022) motivate accelerating plasma mirrors and
   information tests rather than specifying a κ_max; our estimates are not
   directly comparable without a detailed coupling model.
 - BEC experiments (e.g., Steinhauer) probe a very different regime with κ
@@ -64,4 +68,3 @@ FAQ
   κ can be higher or lower; this is expected.
 - How should I set graybody parameters? Use `acoustic_wkb` for near‑horizon
   acoustic consistency and sweep `alpha_gray` to reflect coupling uncertainty.
-

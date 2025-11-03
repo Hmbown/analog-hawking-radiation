@@ -11,7 +11,7 @@ AnaBHEL (Analog Black Hole Evaporation via Lasers) framework developed by:
 - AnaBHEL Collaboration
 
 Key References:
-- Chen & Mourou (2015). Phys. Rev. Lett. 118, 045001
+- Chen & Mourou (2017). Phys. Rev. Lett. 118, 045001
 - Chen et al. (2022). Photonics 9(12), 1003
 
 IMPORTANT: This implementation explores speculative hybrid coupling with fluid

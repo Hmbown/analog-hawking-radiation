@@ -13,7 +13,7 @@ Primary AnaBHEL Collaboration:
 - AnaBHEL Collaboration (2022) - "AnaBHEL Experiment: Concept, Design, and Status"
 
 Foundational Theory:
-- Chen & Mourou (2015) - "Accelerating plasma mirrors to investigate the 
+- Chen & Mourou (2017) - "Accelerating plasma mirrors to investigate the 
   black hole information loss paradox" - Physical Review Letters 118, 045001
 
 Related Analog Gravity Experts:
@@ -35,7 +35,7 @@ fluid-mirror coupling as explored in this speculative framework.
 # AnaBHEL model parameters from Chen et al. (2022)
 ANABHEL_MIRROR_MAPPING = {
     "model": "anabhel",
-    "kappa_formula": "2π * η_a / D",  # From Chen & Mourou (2015)
+    "kappa_formula": "2π * η_a / D",  # From Chen & Mourou (2017)
     "temperature_relation": "k_B * T_H = (ħ/D) * η_a",
     "reference": "Chen, P., Mourou, G., et al. (2022). Photonics 9(12), 1003"
 }
@@ -47,6 +47,6 @@ concepts developed by P. Chen, G. Mourou, and collaborators. The speculative hyb
 coupling explored here extends beyond established AnaBHEL theory.
 
 Key References:
-- Chen & Mourou (2015). Phys. Rev. Lett. 118, 045001
+- Chen & Mourou (2017). Phys. Rev. Lett. 118, 045001
 - Chen et al. (2022). Photonics 9(12), 1003
 """

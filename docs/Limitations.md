@@ -27,6 +27,8 @@ Several physical effects are simplified or not fully captured in the current mod
 
 * **Exact Acoustic κ Evaluation**: The κ = |∂x(c_s² − v²)|/(2 c_H) form evaluates c_H via interpolation at the root; numerical grid effects can introduce small biases. Multi-stencil estimates are used to report an uncertainty band, but these are numerical rather than physical uncertainties.
 
+* **Intensity Cap Convention**: Threshold sweeps enforce $I < 1\times10^{24}\,\text{W/m}^2$ as a theoretical 1D breakdown bound to keep comparisons consistent. This exceeds present ELI-class facilities (~$10^{23}\,\text{W/m}^2$) and should be treated as a modeling convenience rather than an experimental capability claim.
+
 * **Experimental Enhanced Modules**: The `src/analog_hawking/physics_engine/enhanced_*` modules are experimental collaboration scaffolding. They include runtime warnings and docstring callouts until coefficients and scalings are benchmarked.
 
 Experimental Validation Gap

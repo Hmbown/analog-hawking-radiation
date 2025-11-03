@@ -3,4 +3,4 @@
 
 v_max_fraction_c: 0.5           # Maximum allowed |v| as a fraction of c
 dv_dx_max_s: 4.0e12            # Maximum allowed |dv/dx| in s^-1
-intensity_max_W_m2: 1.0e24     # Maximum allowed intensity in W/m^2 (conservative cap for demos)
+intensity_max_W_m2: 1.0e24     # Maximum allowed intensity in W/m^2 (1D theoretical cap; exceeds current ELI-scale capability)
