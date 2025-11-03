@@ -62,8 +62,8 @@ sweep-thresholds:
 # --- Comprehensive analysis bundle ---
 .PHONY: comprehensive
 comprehensive:
-	python3 comprehensive_analysis.py
-	python3 optimization_analysis.py
+	python3 scripts/analysis/comprehensive_analysis.py
+	python3 scripts/analysis/optimization_analysis.py
 
 .PHONY: results-pack
 results-pack:
@@ -82,6 +82,11 @@ validate:
 .PHONY: bench
 bench:
 	ahr bench
+
+# --- Repo maintenance ---
+.PHONY: lint
+lint:
+	pre-commit run --all-files
 
 # --- Docs ---
 .PHONY: docs-serve

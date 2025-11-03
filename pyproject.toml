@@ -41,6 +41,7 @@ dynamic = ["version"]
 dev = [
     "pytest>=6.0",
     "pytest-cov",
+    "pytest-timeout>=2.2",
     "nbconvert",
     "jupyter",
     "ipykernel",
