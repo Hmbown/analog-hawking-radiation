@@ -31,8 +31,9 @@ def should_generate_plots() -> bool:
     return True
 
 
-def add_graphics_argument(parser: argparse.ArgumentParser,
-                         help_text: Optional[str] = None) -> argparse.ArgumentParser:
+def add_graphics_argument(
+    parser: argparse.ArgumentParser, help_text: Optional[str] = None
+) -> argparse.ArgumentParser:
     """
     Add graphics control argument to an argument parser.
 
@@ -46,19 +47,14 @@ def add_graphics_argument(parser: argparse.ArgumentParser,
     default_help = "Skip graphics generation (faster for CI/CD and batch processing)"
     help_text = help_text or default_help
 
-    parser.add_argument(
-        "--no-plots",
-        action="store_true",
-        help=help_text,
-        default=False
-    )
+    parser.add_argument("--no-plots", action="store_true", help=help_text, default=False)
 
     # Also add the inverse flag for clarity
     parser.add_argument(
         "--generate-plots",
         action="store_true",
         help="Force plot generation even if ANALOG_HAWKING_NO_PLOTS is set",
-        default=False
+        default=False,
     )
 
     return parser
@@ -76,9 +72,9 @@ def get_graphics_preference(args: Optional[argparse.Namespace] = None) -> bool:
     """
     # Command line arguments take precedence over environment
     if args is not None:
-        if hasattr(args, 'generate_plots') and args.generate_plots:
+        if hasattr(args, "generate_plots") and args.generate_plots:
             return True
-        if hasattr(args, 'no_plots') and args.no_plots:
+        if hasattr(args, "no_plots") and args.no_plots:
             return False
 
     # Fall back to environment variable
@@ -102,7 +98,7 @@ def configure_matplotlib():
     try:
         if not should_generate_plots():
             # Use Agg backend for headless operation
-            matplotlib.use('Agg', force=True)
+            matplotlib.use("Agg", force=True)
         yield
     finally:
         # Restore original backend
@@ -110,7 +106,7 @@ def configure_matplotlib():
             matplotlib.use(original_backend, force=True)
 
         # Clean up any open figures to prevent memory leaks
-        plt.close('all')
+        plt.close("all")
 
 
 def conditional_savefig(filename: str, *args, **kwargs) -> bool:
@@ -129,6 +125,7 @@ def conditional_savefig(filename: str, *args, **kwargs) -> bool:
         return False
 
     import matplotlib.pyplot as plt
+
     plt.savefig(filename, *args, **kwargs)
     return True
 
@@ -151,8 +148,7 @@ class GraphicsController:
     useful for complex scripts with multiple plotting phases.
     """
 
-    def __init__(self, enable_plots: Optional[bool] = None,
-                 verbose: bool = True):
+    def __init__(self, enable_plots: Optional[bool] = None, verbose: bool = True):
         """
         Initialize the graphics controller.
 
@@ -185,6 +181,7 @@ class GraphicsController:
             return False
 
         import matplotlib.pyplot as plt
+
         plt.savefig(filename, *args, **kwargs)
         return True
 
@@ -192,7 +189,8 @@ class GraphicsController:
         """Configure matplotlib for the current graphics settings."""
         if not self.enable_plots:
             import matplotlib
-            matplotlib.use('Agg', force=True)
+
+            matplotlib.use("Agg", force=True)
 
     def __enter__(self):
         """Context manager entry."""
@@ -203,12 +201,14 @@ class GraphicsController:
         """Context manager exit - clean up any open figures."""
         if not self.enable_plots:
             import matplotlib.pyplot as plt
-            plt.close('all')
+
+            plt.close("all")
 
 
 # Convenience function for backward compatibility
-def get_graphics_controller(enable_plots: Optional[bool] = None,
-                          verbose: bool = True) -> GraphicsController:
+def get_graphics_controller(
+    enable_plots: Optional[bool] = None, verbose: bool = True
+) -> GraphicsController:
     """
     Get a graphics controller instance.
 

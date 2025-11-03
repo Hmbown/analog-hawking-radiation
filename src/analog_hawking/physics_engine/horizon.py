@@ -26,18 +26,14 @@ import numpy as np
 from scipy.constants import k, m_p, mu_0
 
 
-def sound_speed(T_e, ion_mass: float = m_p, gamma: float = 5.0/3.0):
+def sound_speed(T_e, ion_mass: float = m_p, gamma: float = 5.0 / 3.0):
     """Compute adiabatic sound speed c_s = sqrt(gamma k T_e / m_i).
     T_e can be scalar or array (Kelvin)."""
     T_e = np.asarray(T_e)
     return np.sqrt(np.maximum(gamma * k * T_e / ion_mass, 0.0))
 
 
-def fast_magnetosonic_speed(T_e,
-                            n_e,
-                            B,
-                            ion_mass: float = m_p,
-                            gamma: float = 5.0/3.0):
+def fast_magnetosonic_speed(T_e, n_e, B, ion_mass: float = m_p, gamma: float = 5.0 / 3.0):
     """Approximate fast magnetosonic speed c_f ≈ sqrt(c_s^2 + v_A^2).
     Args:
         T_e: electron temperature (K)
@@ -55,12 +51,12 @@ def fast_magnetosonic_speed(T_e,
 
 @dataclass
 class HorizonResult:
-    positions: np.ndarray        # horizon x-positions
-    kappa: np.ndarray            # surface gravity estimates at horizons (s^-1)
-    kappa_err: np.ndarray        # numerical (grid) uncertainty estimates
-    dvdx: np.ndarray             # dv/dx at horizon (grid-centered)
-    dcsdx: np.ndarray            # dc_s/dx at horizon (grid-centered)
-    c_h: np.ndarray | None = None            # horizon-side sound speed c_H (interpolated at root)
+    positions: np.ndarray  # horizon x-positions
+    kappa: np.ndarray  # surface gravity estimates at horizons (s^-1)
+    kappa_err: np.ndarray  # numerical (grid) uncertainty estimates
+    dvdx: np.ndarray  # dv/dx at horizon (grid-centered)
+    dcsdx: np.ndarray  # dc_s/dx at horizon (grid-centered)
+    c_h: np.ndarray | None = None  # horizon-side sound speed c_H (interpolated at root)
     d_c2_minus_v2_dx: np.ndarray | None = None  # derivative of (c_s^2 - v^2) at horizon
 
 
@@ -88,11 +84,13 @@ def _finite_grad(x, y, idx, stencil=1):
     return (y[i1] - y[i0]) / (x[i1] - x[i0])
 
 
-def find_horizons_with_uncertainty(x: np.ndarray,
-                                    v: np.ndarray,
-                                    c_s: np.ndarray,
-                                    sigma_cells: Optional[np.ndarray] = None,
-                                    kappa_method: str = "acoustic") -> HorizonResult:
+def find_horizons_with_uncertainty(
+    x: np.ndarray,
+    v: np.ndarray,
+    c_s: np.ndarray,
+    sigma_cells: Optional[np.ndarray] = None,
+    kappa_method: str = "acoustic",
+) -> HorizonResult:
     """
     Find positions where |v| = c_s using sign changes in f(x)=|v|-c_s.
     Return surface gravity at each horizon with simple numerical uncertainty
@@ -114,28 +112,34 @@ def find_horizons_with_uncertainty(x: np.ndarray,
         f0, f1 = f[i], f[i + 1]
         if np.sign(f0) == 0 and np.sign(f1) == 0:
             # rare exact equality at multiple points: pick midpoint
-            roots.append(0.5 * (x[i] + x[i+1]))
+            roots.append(0.5 * (x[i] + x[i + 1]))
         elif f0 == 0:
             roots.append(x[i])
         elif f1 == 0:
-            roots.append(x[i+1])
+            roots.append(x[i + 1])
         elif f0 * f1 < 0:
             # bracketed root; refine with bisection on f(x)
             def f_interp(xi):
                 # linear interpolation for v and c_s
                 # improve with local linear segments
                 j = i
-                t = (xi - x[j]) / (x[j+1] - x[j])
-                vxi = v[j] * (1 - t) + v[j+1] * t
-                csxi = c_s[j] * (1 - t) + c_s[j+1] * t
+                t = (xi - x[j]) / (x[j + 1] - x[j])
+                vxi = v[j] * (1 - t) + v[j + 1] * t
+                csxi = c_s[j] * (1 - t) + c_s[j + 1] * t
                 return abs(vxi) - csxi
-            root = _refine_root(x[i], x[i+1], f0, f1, f_interp)
+
+            root = _refine_root(x[i], x[i + 1], f0, f1, f_interp)
             roots.append(root)
 
     roots = np.array(sorted(set([float(r) for r in roots])))
     if roots.size == 0:
-        return HorizonResult(positions=np.array([]), kappa=np.array([]), kappa_err=np.array([]),
-                             dvdx=np.array([]), dcsdx=np.array([]))
+        return HorizonResult(
+            positions=np.array([]),
+            kappa=np.array([]),
+            kappa_err=np.array([]),
+            dvdx=np.array([]),
+            dcsdx=np.array([]),
+        )
 
     # compute gradients and kappa at nearest grid index to each root
     positions = []
@@ -144,7 +148,7 @@ def find_horizons_with_uncertainty(x: np.ndarray,
     dvdx_list = []
     dcsdx_list = []
     for r in roots:
-        idx = int(np.clip(np.searchsorted(x, r), 1, len(x)-2))
+        idx = int(np.clip(np.searchsorted(x, r), 1, len(x) - 2))
         # multi-stencil estimates
         grads = []
         for st in (1, 2, 3):
@@ -177,12 +181,12 @@ def find_horizons_with_uncertainty(x: np.ndarray,
         dcs = _finite_grad(x, c_s, idx, stencil=1)
         dvdx_list.append(dv)
         dcsdx_list.append(dcs)
-        
+
     # Compute diagnostics at roots (interpolated quantities)
     c_h_list: List[float] = []
     dc2mv2_list: List[float] = []
     for r, dv_val, dcs_val in zip(roots, dvdx_list, dcsdx_list):
-        idx = int(np.clip(np.searchsorted(x, r), 1, len(x)-2))
+        idx = int(np.clip(np.searchsorted(x, r), 1, len(x) - 2))
         cH = float(np.interp(r, x, c_s))
         c_h_list.append(cH)
         dc2_minus_v2 = 2.0 * c_s[idx] * dcs_val - 2.0 * v[idx] * dv_val
@@ -197,6 +201,7 @@ def find_horizons_with_uncertainty(x: np.ndarray,
         c_h=np.array(c_h_list),
         d_c2_minus_v2_dx=np.array(dc2mv2_list),
     )
+
 
 # Backward-compatible alias for clarity in downstream code/documentation
 setattr(HorizonResult, "kappa_numerical_err", property(lambda self: self.kappa_err))

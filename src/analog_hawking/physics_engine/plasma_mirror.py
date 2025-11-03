@@ -30,11 +30,11 @@ from scipy.constants import c
 
 @dataclass
 class PlasmaMirrorParams:
-    n_p0: float         # reference plasma density [m^-3]
-    omega_p0: float     # reference plasma freq [rad/s]
-    a: float            # AnaBHEL profile parameter a
-    b: float            # AnaBHEL profile parameter b
-    D: float            # density scale length [m]
+    n_p0: float  # reference plasma density [m^-3]
+    omega_p0: float  # reference plasma freq [rad/s]
+    a: float  # AnaBHEL profile parameter a
+    b: float  # AnaBHEL profile parameter b
+    D: float  # density scale length [m]
     eta_a: float = 1.0  # dimensionless factor from AnaBHEL
     model: str = "unruh"  # 'unruh' | 'anabhel'
 
@@ -56,10 +56,9 @@ def _plasma_freq(x: np.ndarray, p: PlasmaMirrorParams) -> np.ndarray:
     return p.omega_p0 * (p.a + p.b * np.exp(x / p.D))
 
 
-def calculate_plasma_mirror_dynamics(x: np.ndarray,
-                                     laser_intensity: float,
-                                     params: PlasmaMirrorParams,
-                                     t: np.ndarray) -> MirrorDynamics:
+def calculate_plasma_mirror_dynamics(
+    x: np.ndarray, laser_intensity: float, params: PlasmaMirrorParams, t: np.ndarray
+) -> MirrorDynamics:
     """
     Compute an accelerating plasma mirror trajectory consistent with AnaBHEL-style
     profiles. This is a compact surrogate capturing the qualitative features:
@@ -83,7 +82,7 @@ def calculate_plasma_mirror_dynamics(x: np.ndarray,
     domega_dx = (params.omega_p0 * params.b / params.D) * np.exp(x0 / params.D)
     grad_factor = np.tanh(abs(domega_dx) / max(params.omega_p0, 1e-30))
     intensity_scale = np.tanh(laser_intensity / (1e18))  # saturating around ~1e18 W/m^2
-    a0 = (c ** 2 / max(abs(params.D), 1e-30)) * grad_factor * intensity_scale * 0.1
+    a0 = (c**2 / max(abs(params.D), 1e-30)) * grad_factor * intensity_scale * 0.1
 
     # Bell-shaped acceleration vs time (sech^2), centered at peak
     tmin, tmax = float(t[0]), float(t[-1])

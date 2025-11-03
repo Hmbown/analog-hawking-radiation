@@ -38,4 +38,3 @@ Limitations and Scope
 - The optional hybrid (laser-plasma mirror) mode remains exploratory and is clearly labeled as such.
 
 Bottom line: v0.2.0 prioritizes physically grounded definitions and uncertainty reporting, enabling cautious, reproducible claims while keeping conservative fallbacks in place.
-

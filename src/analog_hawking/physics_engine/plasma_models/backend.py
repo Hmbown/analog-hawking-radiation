@@ -51,8 +51,7 @@ class PlasmaState:
 class DiagnosticsSink(Protocol):
     """Protocol for custom diagnostic hooks."""
 
-    def emit(self, name: str, data: Mapping[str, np.ndarray]) -> None:
-        ...
+    def emit(self, name: str, data: Mapping[str, np.ndarray]) -> None: ...
 
 
 class PlasmaBackend(ABC):
@@ -78,7 +77,9 @@ class PlasmaBackend(ABC):
     def shutdown(self) -> None:
         """Tear down internal state and release resources."""
 
-    def attach_fluctuation_injector(self, injector: Any) -> None:  # pragma: no cover - optional extension point
+    def attach_fluctuation_injector(
+        self, injector: Any
+    ) -> None:  # pragma: no cover - optional extension point
         """Attach a quantum fluctuation injector (optional)."""
         raise NotImplementedError("Quantum fluctuation injection not supported by this backend")
 
@@ -88,5 +89,3 @@ class NullDiagnosticsSink:
 
     def emit(self, name: str, data: Mapping[str, np.ndarray]) -> None:  # pragma: no cover - trivial
         return None
-
-

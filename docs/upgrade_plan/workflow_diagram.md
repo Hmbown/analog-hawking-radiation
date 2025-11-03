@@ -9,7 +9,7 @@ graph TD
     C -->|Validation: Convergence & Statistics<br/>Gaussian Fluctuations| D[Phase 3: Experimental Design<br/>- Laser Plasma Specs<br/>- Diagnostics Protocol<br/>- Facility Integration ELI-NP NIF<br/>- SNR Forecasts]
     D -->|Validation: Feasibility Sims<br/>Risk Assessment| E[Phase 4: Validation Publication Prep<br/>- AnaBHEL Benchmarks<br/>- Full Noise Models<br/>- Paper Draft Structure<br/>- 5σ Detection Sims]
     E --> F[Final Outputs: Publication-Ready<br/>Validated Roadmap<br/>Executable Experiments<br/>Conservative Claims]
-    
+
     style A fill:#f9f,stroke:#333
     style F fill:#bbf,stroke:#333
 ```

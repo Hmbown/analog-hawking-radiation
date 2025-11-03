@@ -12,6 +12,7 @@ from .backend import DiagnosticsSink, NullDiagnosticsSink, PlasmaBackend, Plasma
 try:
     import pywarpx  # type: ignore
     from pywarpx import _libwarpx as libwarpx  # type: ignore
+
     warpx = pywarpx
 except ImportError:  # pragma: no cover - optional dependency
     warpx = None
@@ -32,7 +33,9 @@ FieldGetter = Callable[[], np.ndarray]
 MomentGetter = Callable[[], np.ndarray]
 
 
-def _create_getter(cfg: Mapping[str, Any], is_mock: bool = False, mock_size: int = 0) -> FieldGetter:
+def _create_getter(
+    cfg: Mapping[str, Any], is_mock: bool = False, mock_size: int = 0
+) -> FieldGetter:
     """Factory function for creating a getter from a configuration dictionary."""
     getter_type = cfg.get("type")
     if getter_type == "pywarpx":
@@ -62,15 +65,19 @@ def _create_getter(cfg: Mapping[str, Any], is_mock: bool = False, mock_size: int
             raise ValueError("openpmd getter requires 'series_path'")
         # Allow direct HDF5 dataset access for tests
         if "dataset" in cfg:
+
             def _read_direct():
                 try:
                     import h5py  # type: ignore
                 except Exception as exc:
-                    raise RuntimeError("h5py is required for direct dataset OpenPMD fallback") from exc
-                with h5py.File(series_path, 'r') as f:
+                    raise RuntimeError(
+                        "h5py is required for direct dataset OpenPMD fallback"
+                    ) from exc
+                with h5py.File(series_path, "r") as f:
                     dset = f[cfg["dataset"]]
                     data = np.array(dset)
                 return data
+
             return _read_direct
         iteration_value = cfg.get("iteration", None)
         mesh_name = cfg.get("mesh", "electrons")
@@ -78,6 +85,7 @@ def _create_getter(cfg: Mapping[str, Any], is_mock: bool = False, mock_size: int
         component = cfg.get("component", None)
         if not record_name:
             raise ValueError("openpmd getter requires 'record' or 'dataset'")
+
         def _read():
             iteration_id = iteration_value
             if openpmd is not None:
@@ -114,19 +122,19 @@ def _create_getter(cfg: Mapping[str, Any], is_mock: bool = False, mock_size: int
                     import h5py  # type: ignore
                 except Exception as exc:
                     raise RuntimeError("h5py is required for fallback OpenPMD reading") from exc
-                with h5py.File(path, 'r') as f:
+                with h5py.File(path, "r") as f:
                     if dataset in f:
                         dset = f[dataset]
                         data = np.array(dset)
                     else:
                         raise ValueError(f"Dataset {dataset} not found in {path}")
                 return data
+
         return _read
     elif getter_type == "mock_data":
         data = cfg.get("data", np.array([]))
         return lambda: np.asarray(data)
     raise ValueError(f"Unknown or underspecified getter config: {cfg}")
-
 
 
 class WarpXBackend(PlasmaBackend):
@@ -162,11 +170,20 @@ class WarpXBackend(PlasmaBackend):
         self._is_mock = run_config.get("mock", False)
         if not self._is_mock and warpx is None:
             raise RuntimeError("WarpX backend requested but warpx module not available")
-        
-        species_cfgs = run_config.get("species", [])
-        self._species = [SpeciesConfig(name=s.get("name"), charge=s.get("charge"), mass=s.get("mass")) for s in species_cfgs] if species_cfgs else []
 
-        self._grid = np.asarray(run_config.get("grid")) if run_config.get("grid") is not None else None
+        species_cfgs = run_config.get("species", [])
+        self._species = (
+            [
+                SpeciesConfig(name=s.get("name"), charge=s.get("charge"), mass=s.get("mass"))
+                for s in species_cfgs
+            ]
+            if species_cfgs
+            else []
+        )
+
+        self._grid = (
+            np.asarray(run_config.get("grid")) if run_config.get("grid") is not None else None
+        )
         mock_size = len(self._grid) if self._grid is not None else 0
         self._field_getters = {
             name: _create_getter(getter_cfg, is_mock=self._is_mock, mock_size=mock_size)
@@ -182,16 +199,24 @@ class WarpXBackend(PlasmaBackend):
         self._electron_species = run_config.get("electron_species")  # type: ignore[assignment]
         self._ion_species = run_config.get("ion_species")  # type: ignore[assignment]
         self._default_sigma = run_config.get("default_sigma")
-        self._sigma_map = np.asarray(run_config.get("sigma_map")) if run_config.get("sigma_map") is not None else None
+        self._sigma_map = (
+            np.asarray(run_config.get("sigma_map"))
+            if run_config.get("sigma_map") is not None
+            else None
+        )
         self._fluctuation_injector = run_config.get("fluctuation_injector")
         smoothing_cfg = run_config.get("sigma_smoothing", {})
         self._gamma_e = float(run_config.get("gamma_e", smoothing_cfg.get("gamma_e", 1.0)))
         self._gamma_i = float(run_config.get("gamma_i", smoothing_cfg.get("gamma_i", 1.0)))
         self._ion_temperature_fraction = float(
-            run_config.get("ion_temperature_fraction", smoothing_cfg.get("ion_temperature_fraction", 0.01))
+            run_config.get(
+                "ion_temperature_fraction", smoothing_cfg.get("ion_temperature_fraction", 0.01)
+            )
         )
-        self._adaptive_sigma = bool(run_config.get("adaptive_sigma", smoothing_cfg.get("adaptive", False)))
-        
+        self._adaptive_sigma = bool(
+            run_config.get("adaptive_sigma", smoothing_cfg.get("adaptive", False))
+        )
+
         # Phase 3: Enable MHD and nonlinear features
         self._mhd_enabled = run_config.get("mhd_enabled", False)
         self._qft_3d = run_config.get("qft_3d", False)
@@ -199,8 +224,9 @@ class WarpXBackend(PlasmaBackend):
             self._setup_mhd_coupling(run_config)
         if self._qft_3d:
             from .nonlinear_plasma import NonlinearPlasmaSolver  # Forward reference
+
             self._nonlinear_solver = NonlinearPlasmaSolver(run_config.get("nonlinear_config", {}))
-        
+
         self._build_geometry(run_config)
         self._build_species(run_config)
         self._build_lasers(run_config)
@@ -244,11 +270,11 @@ class WarpXBackend(PlasmaBackend):
             # Mock step: update mock observables
             for getter in self._field_getters.values():
                 getter()  # Trigger mock update if needed
-            
+
             # Phase 3: Apply nonlinear effects if enabled
             if self._nonlinear_solver is not None:
                 self._apply_nonlinear_effects()
-            
+
             # Phase 3: Update MHD state if enabled
             if self._mhd_enabled:
                 self._update_mhd_fields()
@@ -318,7 +344,7 @@ class WarpXBackend(PlasmaBackend):
         return result
 
     def shutdown(self) -> None:
-        if hasattr(self._sink, 'shutdown'):
+        if hasattr(self._sink, "shutdown"):
             self._sink.shutdown()
 
     def _extract_field(self, name: str) -> np.ndarray:
@@ -329,7 +355,9 @@ class WarpXBackend(PlasmaBackend):
         # Placeholder: compute number density from particle data
         return np.array([])
 
-    def _compute_bulk_velocity(self, density: np.ndarray, apply_smoothing: bool = True) -> np.ndarray:
+    def _compute_bulk_velocity(
+        self, density: np.ndarray, apply_smoothing: bool = True
+    ) -> np.ndarray:
         # Placeholder: compute bulk velocity from momentum density
         velocity = np.array([])
         if apply_smoothing:
@@ -379,14 +407,20 @@ class WarpXBackend(PlasmaBackend):
         if self._sigma_diagnostics is None:
             # Create a minimal diagnostics placeholder when missing
             self._sigma_diagnostics = SigmaDiagnostics(
-                sigma_means=np.array([float(np.mean(self._sigma_map))]) if self._sigma_map is not None else np.array([0.0]),
+                sigma_means=(
+                    np.array([float(np.mean(self._sigma_map))])
+                    if self._sigma_map is not None
+                    else np.array([0.0])
+                ),
                 kappa_means=np.array([0.0]),
                 horizon_counts=np.array([0]),
                 plateau_index=0,
                 ladder=(1.0,),
                 epsilon=0.05,
             )
-        return self._sigma_map if self._sigma_map is not None else np.zeros_like(density), self._sigma_diagnostics
+        return (
+            self._sigma_map if self._sigma_map is not None else np.zeros_like(density)
+        ), self._sigma_diagnostics
 
     def _species_mass(self, species_name: str) -> Optional[float]:
         for species in self._species:
@@ -425,12 +459,18 @@ class WarpXBackend(PlasmaBackend):
             for species_cfg in self._species:
                 if species_cfg.name not in self._moment_getters:
                     self._moment_getters[species_cfg.name] = {}
-                self._moment_getters[species_cfg.name]["density"] = lambda: np.full(len(self._grid), default_density)
-                self._moment_getters[species_cfg.name]["temperature"] = lambda: np.full(len(self._grid), default_temp)
+                self._moment_getters[species_cfg.name]["density"] = lambda: np.full(
+                    len(self._grid), default_density
+                )
+                self._moment_getters[species_cfg.name]["temperature"] = lambda: np.full(
+                    len(self._grid), default_temp
+                )
         try:
             if warpx is not None and libwarpx is not None:
                 for species_cfg in self._species:
-                    libwarpx.warpx.add_species(species_cfg.name, species_cfg.charge, species_cfg.mass)
+                    libwarpx.warpx.add_species(
+                        species_cfg.name, species_cfg.charge, species_cfg.mass
+                    )
                     # Initialize distribution (e.g., Maxwellian)
                     density = default_density
                     temp = default_temp
@@ -446,7 +486,12 @@ class WarpXBackend(PlasmaBackend):
         if self._is_mock and run_config.get("lasers"):
             # Add mock field perturbation for lasers
             for laser_cfg in run_config["lasers"]:
-                self._field_getters[f"laser_{laser_cfg['name']}"] = lambda amp=laser_cfg["amplitude"]: np.sin(np.linspace(0, 2*np.pi, len(self._grid))) * amp
+                self._field_getters[f"laser_{laser_cfg['name']}"] = (
+                    lambda amp=laser_cfg["amplitude"]: np.sin(
+                        np.linspace(0, 2 * np.pi, len(self._grid))
+                    )
+                    * amp
+                )
         try:
             if warpx is not None and libwarpx is not None and run_config.get("lasers"):
                 for laser_cfg in run_config["lasers"]:
@@ -471,7 +516,9 @@ class WarpXBackend(PlasmaBackend):
                 # Add field probes for E, B
                 fields = ["Ex", "Ey", "Ez", "Bx", "By", "Bz"]
                 for field in fields:
-                    libwarpx.warpx.add_field_probe(field, run_config.get("probe_positions", [0.5e-4]))
+                    libwarpx.warpx.add_field_probe(
+                        field, run_config.get("probe_positions", [0.5e-4])
+                    )
                 # MHD-specific diagnostics if enabled (placeholder)
                 if self._mhd_enabled:
                     # libwarpx.warpx.add_mhd_diagnostics()
@@ -503,13 +550,23 @@ class WarpXBackend(PlasmaBackend):
         else:
             # Mock MHD initialization
             self._em_fields = {
-                "E": np.sin(np.linspace(0, 2*np.pi, len(self._grid))) * 1e5 if self._grid is not None else np.sin(np.linspace(0, 2*np.pi, 100)) * 1e5,
+                "E": (
+                    np.sin(np.linspace(0, 2 * np.pi, len(self._grid))) * 1e5
+                    if self._grid is not None
+                    else np.sin(np.linspace(0, 2 * np.pi, 100)) * 1e5
+                ),
                 "B": np.full(len(self._grid), 0.1) if self._grid is not None else np.full(100, 0.1),
             }
             self._mhd_state = {
                 "density_mhd": np.ones(len(self._grid)) if self._grid is not None else np.ones(100),
-                "velocity_mhd": np.linspace(-0.5, 0.5, len(self._grid)) if self._grid is not None else np.linspace(-0.5, 0.5, 100),
-                "B_field": np.full(len(self._grid), 0.1) if self._grid is not None else np.full(100, 0.1),
+                "velocity_mhd": (
+                    np.linspace(-0.5, 0.5, len(self._grid))
+                    if self._grid is not None
+                    else np.linspace(-0.5, 0.5, 100)
+                ),
+                "B_field": (
+                    np.full(len(self._grid), 0.1) if self._grid is not None else np.full(100, 0.1)
+                ),
             }
 
     def _update_mhd_fields(self) -> None:
@@ -556,9 +613,9 @@ class WarpXBackend(PlasmaBackend):
 
 def _pack_sigma_diagnostics(diagnostics: SigmaDiagnostics) -> Dict[str, Any]:
     """Pack diagnostics into a dictionary for serialization."""
-    if hasattr(diagnostics, '__dict__'):
+    if hasattr(diagnostics, "__dict__"):
         return diagnostics.__dict__
-    elif hasattr(diagnostics, '_asdict'):
+    elif hasattr(diagnostics, "_asdict"):
         return diagnostics._asdict()
     else:
         return {"error": "Unable to pack diagnostics"}

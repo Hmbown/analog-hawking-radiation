@@ -74,9 +74,21 @@ def _write_template(path: Path, params: Dict[str, float | int | str]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate and run a WarpX down-ramp simulation.")
-    parser.add_argument("--deck", type=Path, default=Path("protocols/inputs_downramp_1d.in"), help="WarpX input deck path.")
-    parser.add_argument("--output", type=Path, default=Path("diags/openpmd"), help="Output directory for openPMD diagnostics.")
-    parser.add_argument("--warpx-cmd", default="warpx", help="WarpX executable (or mpirun command).")
+    parser.add_argument(
+        "--deck",
+        type=Path,
+        default=Path("protocols/inputs_downramp_1d.in"),
+        help="WarpX input deck path.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("diags/openpmd"),
+        help="Output directory for openPMD diagnostics.",
+    )
+    parser.add_argument(
+        "--warpx-cmd", default="warpx", help="WarpX executable (or mpirun command)."
+    )
     parser.add_argument("--max-step", type=int, default=400)
     parser.add_argument("--length", type=float, default=1.0e-3)
     parser.add_argument("--n-cell", type=int, default=1024)
@@ -92,8 +104,12 @@ def main() -> int:
     parser.add_argument("--laser-waist", type=float, default=15e-6)
     parser.add_argument("--laser-position", type=float, default=1.0e-4)
     parser.add_argument("--diag-period", type=int, default=50)
-    parser.add_argument("--dry-run", action="store_true", help="Only write the input deck without running WarpX.")
-    parser.add_argument("--force-write", action="store_true", help="Overwrite an existing deck file.")
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Only write the input deck without running WarpX."
+    )
+    parser.add_argument(
+        "--force-write", action="store_true", help="Overwrite an existing deck file."
+    )
     args = parser.parse_args()
 
     params = {

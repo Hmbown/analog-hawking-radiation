@@ -28,6 +28,7 @@ from scipy.interpolate import CubicSpline, PchipInterpolator
 @dataclass
 class NumericalAccuracyReport:
     """Report for numerical accuracy assessment"""
+
     method: str
     order_of_accuracy: float
     error_estimate: float
@@ -39,6 +40,7 @@ class NumericalAccuracyReport:
     def __post_init__(self):
         if self.recommendations is None:
             self.recommendations = []
+
 
 class FourthOrderFiniteDifferences:
     """
@@ -78,14 +80,14 @@ class FourthOrderFiniteDifferences:
         dx = x[1] - x[0]
 
         # Interior points: 4th-order central difference
-        for i in range(2, n-2):
-            dydx[i] = (-y[i+2] + 8*y[i+1] - 8*y[i-1] + y[i-2]) / (12.0 * dx)
+        for i in range(2, n - 2):
+            dydx[i] = (-y[i + 2] + 8 * y[i + 1] - 8 * y[i - 1] + y[i - 2]) / (12.0 * dx)
 
         # Boundary points: 2nd-order (best possible at boundaries)
-        dydx[0] = (-3*y[0] + 4*y[1] - y[2]) / (2.0 * dx)
+        dydx[0] = (-3 * y[0] + 4 * y[1] - y[2]) / (2.0 * dx)
         dydx[1] = (-y[2] + y[0]) / (2.0 * dx)  # Forward difference
-        dydx[n-2] = (y[n-1] - y[n-3]) / (2.0 * dx)  # Backward difference
-        dydx[n-1] = (y[n-3] - 4*y[n-2] + 3*y[n-1]) / (2.0 * dx)
+        dydx[n - 2] = (y[n - 1] - y[n - 3]) / (2.0 * dx)  # Backward difference
+        dydx[n - 1] = (y[n - 3] - 4 * y[n - 2] + 3 * y[n - 1]) / (2.0 * dx)
 
         return dydx
 
@@ -100,9 +102,9 @@ class FourthOrderFiniteDifferences:
 
         for i in range(n):
             # Use 5-point stencil when possible
-            if i >= 2 and i < n-2:
-                x_stencil = x[i-2:i+3]
-                y_stencil = y[i-2:i+3]
+            if i >= 2 and i < n - 2:
+                x_stencil = x[i - 2 : i + 3]
+                y_stencil = y[i - 2 : i + 3]
                 # Compute derivative using 5-point Lagrange polynomial
                 dydx[i] = FourthOrderFiniteDifferences._lagrange_derivative(
                     x[i], x_stencil, y_stencil
@@ -113,13 +115,13 @@ class FourthOrderFiniteDifferences:
                     # Forward difference
                     if n >= 2:
                         dydx[i] = (y[1] - y[0]) / (x[1] - x[0])
-                elif i == n-1:
+                elif i == n - 1:
                     # Backward difference
                     if n >= 2:
-                        dydx[i] = (y[n-1] - y[n-2]) / (x[n-1] - x[n-2])
+                        dydx[i] = (y[n - 1] - y[n - 2]) / (x[n - 1] - x[n - 2])
                 else:
                     # Central difference
-                    dydx[i] = (y[i+1] - y[i-1]) / (x[i+1] - x[i-1])
+                    dydx[i] = (y[i + 1] - y[i - 1]) / (x[i + 1] - x[i - 1])
 
         return dydx
 
@@ -178,16 +180,19 @@ class FourthOrderFiniteDifferences:
         dx = x[1] - x[0]
 
         # Interior points: 4th-order central difference
-        for i in range(2, n-2):
-            d2ydx2[i] = (-y[i+2] + 16*y[i+1] - 30*y[i] + 16*y[i-1] - y[i-2]) / (12.0 * dx**2)
+        for i in range(2, n - 2):
+            d2ydx2[i] = (-y[i + 2] + 16 * y[i + 1] - 30 * y[i] + 16 * y[i - 1] - y[i - 2]) / (
+                12.0 * dx**2
+            )
 
         # Boundary points: use lower-order methods
-        d2ydx2[0] = (2*y[0] - 5*y[1] + 4*y[2] - y[3]) / dx**2
-        d2ydx2[1] = (y[0] - 2*y[1] + y[2]) / dx**2
-        d2ydx2[n-2] = (y[n-3] - 2*y[n-2] + y[n-1]) / dx**2
-        d2ydx2[n-1] = (-y[n-4] + 4*y[n-3] - 5*y[n-2] + 2*y[n-1]) / dx**2
+        d2ydx2[0] = (2 * y[0] - 5 * y[1] + 4 * y[2] - y[3]) / dx**2
+        d2ydx2[1] = (y[0] - 2 * y[1] + y[2]) / dx**2
+        d2ydx2[n - 2] = (y[n - 3] - 2 * y[n - 2] + y[n - 1]) / dx**2
+        d2ydx2[n - 1] = (-y[n - 4] + 4 * y[n - 3] - 5 * y[n - 2] + 2 * y[n - 1]) / dx**2
 
         return d2ydx2
+
 
 class EnhancedInterpolation:
     """
@@ -196,9 +201,9 @@ class EnhancedInterpolation:
     """
 
     @staticmethod
-    def cubic_spline_interpolation(x: np.ndarray, y: np.ndarray,
-                                 bc_type: str = 'natural',
-                                 monotonic: bool = False) -> Callable[[np.ndarray], np.ndarray]:
+    def cubic_spline_interpolation(
+        x: np.ndarray, y: np.ndarray, bc_type: str = "natural", monotonic: bool = False
+    ) -> Callable[[np.ndarray], np.ndarray]:
         """
         Perform cubic spline interpolation with optional monotonicity preservation
 
@@ -225,9 +230,9 @@ class EnhancedInterpolation:
             return CubicSpline(x, y, bc_type=bc_type, extrapolate=False)
 
     @staticmethod
-    def interpolate_with_uncertainty(x: np.ndarray, y: np.ndarray,
-                                   x_new: np.ndarray,
-                                   uncertainty_estimate: float = 0.01) -> Tuple[np.ndarray, np.ndarray]:
+    def interpolate_with_uncertainty(
+        x: np.ndarray, y: np.ndarray, x_new: np.ndarray, uncertainty_estimate: float = 0.01
+    ) -> Tuple[np.ndarray, np.ndarray]:
         """
         Interpolate with uncertainty quantification
 
@@ -256,16 +261,20 @@ class EnhancedInterpolation:
 
         return y_interp, y_uncertainty
 
+
 class AdaptiveThresholding:
     """
     Adaptive thresholding system for physics breakdown detection
     Makes thresholds scale with local plasma parameters
     """
 
-    def __init__(self, base_threshold: float = 0.1,
-                 adaptive_factor: float = 0.5,
-                 min_threshold: float = 0.01,
-                 max_threshold: float = 1.0):
+    def __init__(
+        self,
+        base_threshold: float = 0.1,
+        adaptive_factor: float = 0.5,
+        min_threshold: float = 0.01,
+        max_threshold: float = 1.0,
+    ):
         """
         Initialize adaptive thresholding system
 
@@ -295,41 +304,44 @@ class AdaptiveThresholding:
         threshold = np.full_like(next(iter(local_parameters.values())), self.base_threshold)
 
         # Adapt based on density gradients (high gradients = stricter threshold)
-        if 'density' in local_parameters:
-            density = local_parameters['density']
+        if "density" in local_parameters:
+            density = local_parameters["density"]
             if len(density) > 1:
                 density_grad = np.abs(np.gradient(density))
                 density_grad_normalized = density_grad / (np.mean(density_grad) + 1e-10)
-                threshold *= (1.0 + self.adaptive_factor * density_grad_normalized)
+                threshold *= 1.0 + self.adaptive_factor * density_grad_normalized
 
         # Adapt based on temperature (higher T = more lenient threshold)
-        if 'temperature' in local_parameters:
-            temperature = local_parameters['temperature']
+        if "temperature" in local_parameters:
+            temperature = local_parameters["temperature"]
             temp_normalized = temperature / (np.mean(temperature) + 1e-10)
-            threshold *= (2.0 / (1.0 + temp_normalized))  # Inverse relationship
+            threshold *= 2.0 / (1.0 + temp_normalized)  # Inverse relationship
 
         # Adapt based on velocity gradients
-        if 'velocity' in local_parameters:
-            velocity = local_parameters['velocity']
+        if "velocity" in local_parameters:
+            velocity = local_parameters["velocity"]
             if len(velocity) > 1:
                 vel_grad = np.abs(np.gradient(velocity))
                 vel_grad_normalized = vel_grad / (np.mean(vel_grad) + 1e-10)
-                threshold *= (1.0 + 0.5 * self.adaptive_factor * vel_grad_normalized)
+                threshold *= 1.0 + 0.5 * self.adaptive_factor * vel_grad_normalized
 
         # Adapt based on magnetic field strength
-        if 'magnetic_field' in local_parameters:
-            B = local_parameters['magnetic_field']
+        if "magnetic_field" in local_parameters:
+            B = local_parameters["magnetic_field"]
             B_normalized = B / (np.mean(B) + 1e-10)
-            threshold *= (1.0 + 0.3 * self.adaptive_factor * (B_normalized - 1.0))
+            threshold *= 1.0 + 0.3 * self.adaptive_factor * (B_normalized - 1.0)
 
         # Apply bounds
         threshold = np.clip(threshold, self.min_threshold, self.max_threshold)
 
         return threshold
 
-    def detect_physics_breakdown(self, x: np.ndarray,
-                               physical_quantities: Dict[str, np.ndarray],
-                               diagnostic_functions: Dict[str, Callable]) -> Dict[str, np.ndarray]:
+    def detect_physics_breakdown(
+        self,
+        x: np.ndarray,
+        physical_quantities: Dict[str, np.ndarray],
+        diagnostic_functions: Dict[str, Callable],
+    ) -> Dict[str, np.ndarray]:
         """
         Detect physics breakdown using adaptive thresholds
 
@@ -356,17 +368,20 @@ class AdaptiveThresholding:
 
         return breakdown_flags
 
+
 class RichardsonExtrapolation:
     """
     Richardson extrapolation for convergence order verification and error estimation
     """
 
     @staticmethod
-    def extrapolate(coarse_solution: np.ndarray,
-                   fine_solution: np.ndarray,
-                   coarse_grid: np.ndarray,
-                   fine_grid: np.ndarray,
-                   expected_order: float = 2.0) -> Tuple[np.ndarray, NumericalAccuracyReport]:
+    def extrapolate(
+        coarse_solution: np.ndarray,
+        fine_solution: np.ndarray,
+        coarse_grid: np.ndarray,
+        fine_grid: np.ndarray,
+        expected_order: float = 2.0,
+    ) -> Tuple[np.ndarray, NumericalAccuracyReport]:
         """
         Perform Richardson extrapolation to estimate the converged solution
 
@@ -385,12 +400,16 @@ class RichardsonExtrapolation:
         r = (len(fine_grid) - 1) / (len(coarse_grid) - 1)  # Grid refinement ratio
 
         if not np.isclose(r, round(r)):
-            warnings.warn("Grid refinement ratio is not integer, extrapolation may be less accurate")
+            warnings.warn(
+                "Grid refinement ratio is not integer, extrapolation may be less accurate"
+            )
 
         # Interpolate coarse solution to fine grid
         from scipy.interpolate import interp1d
-        coarse_interpolated = interp1d(coarse_grid, coarse_solution,
-                                      kind='cubic', fill_value='extrapolate')(fine_grid)
+
+        coarse_interpolated = interp1d(
+            coarse_grid, coarse_solution, kind="cubic", fill_value="extrapolate"
+        )(fine_grid)
 
         # Richardson extrapolation formula
         # u_extrap = u_fine + (u_fine - u_coarse) / (r^p - 1)
@@ -413,7 +432,9 @@ class RichardsonExtrapolation:
         if not is_converged:
             recommendations.append("Solution may not be fully converged. Consider finer grid.")
         if abs(actual_order - expected_order) > 0.5:
-            recommendations.append(f"Actual order ({actual_order:.2f}) differs from expected ({expected_order:.2f}).")
+            recommendations.append(
+                f"Actual order ({actual_order:.2f}) differs from expected ({expected_order:.2f})."
+            )
 
         report = NumericalAccuracyReport(
             method="Richardson Extrapolation",
@@ -422,23 +443,26 @@ class RichardsonExtrapolation:
             grid_convergence=is_converged,
             richardson_extrapolated=extrapolated,
             convergence_rate=actual_order,
-            recommendations=recommendations
+            recommendations=recommendations,
         )
 
         return extrapolated, report
 
     @staticmethod
-    def _estimate_order(coarse_solution: np.ndarray,
-                       fine_solution: np.ndarray,
-                       coarse_grid: np.ndarray,
-                       fine_grid: np.ndarray) -> float:
+    def _estimate_order(
+        coarse_solution: np.ndarray,
+        fine_solution: np.ndarray,
+        coarse_grid: np.ndarray,
+        fine_grid: np.ndarray,
+    ) -> float:
         """Estimate actual order of accuracy from two solutions"""
         from scipy.interpolate import interp1d
 
         # Interpolate to common grid
         common_grid = fine_grid
-        coarse_on_fine = interp1d(coarse_grid, coarse_solution,
-                                 kind='cubic', fill_value='extrapolate')(common_grid)
+        coarse_on_fine = interp1d(
+            coarse_grid, coarse_solution, kind="cubic", fill_value="extrapolate"
+        )(common_grid)
 
         # Compute errors
         error_coarse = np.abs(coarse_on_fine - fine_solution)
@@ -456,14 +480,18 @@ class RichardsonExtrapolation:
 
         return 2.0  # Default to second-order if can't estimate
 
+
 class EnhancedNumericalMethods:
     """
     Main class integrating all enhanced numerical methods
     """
 
-    def __init__(self, enable_richardson: bool = True,
-                 enable_adaptive_thresholds: bool = True,
-                 target_accuracy: float = 1e-6):
+    def __init__(
+        self,
+        enable_richardson: bool = True,
+        enable_adaptive_thresholds: bool = True,
+        target_accuracy: float = 1e-6,
+    ):
         """
         Initialize enhanced numerical methods
 
@@ -482,8 +510,9 @@ class EnhancedNumericalMethods:
         self.adaptive_threshold = AdaptiveThresholding() if enable_adaptive_thresholds else None
         self.richardson = RichardsonExtrapolation() if enable_richardson else None
 
-    def compute_enhanced_gradient(self, x: np.ndarray, y: np.ndarray,
-                                method: str = '4th_order') -> np.ndarray:
+    def compute_enhanced_gradient(
+        self, x: np.ndarray, y: np.ndarray, method: str = "4th_order"
+    ) -> np.ndarray:
         """
         Compute gradient with enhanced numerical accuracy
 
@@ -492,11 +521,11 @@ class EnhancedNumericalMethods:
             y: Field values
             method: Gradient method ('4th_order', '2nd_order', 'adaptive')
         """
-        if method == '4th_order':
+        if method == "4th_order":
             return self.fd_solver.gradient_central_4th(x, y)
-        elif method == '2nd_order':
+        elif method == "2nd_order":
             return np.gradient(y, x)
-        elif method == 'adaptive':
+        elif method == "adaptive":
             # Use 4th-order in interior, 2nd-order near boundaries
             if len(x) >= 5:
                 return self.fd_solver.gradient_central_4th(x, y)
@@ -505,62 +534,67 @@ class EnhancedNumericalMethods:
         else:
             raise ValueError(f"Unknown gradient method: {method}")
 
-    def compute_enhanced_profile_analysis(self, x: np.ndarray,
-                                        density: np.ndarray,
-                                        velocity: np.ndarray,
-                                        temperature: np.ndarray,
-                                        magnetic_field: Optional[np.ndarray] = None) -> Dict[str, Any]:
+    def compute_enhanced_profile_analysis(
+        self,
+        x: np.ndarray,
+        density: np.ndarray,
+        velocity: np.ndarray,
+        temperature: np.ndarray,
+        magnetic_field: Optional[np.ndarray] = None,
+    ) -> Dict[str, Any]:
         """
         Perform comprehensive profile analysis with enhanced numerical methods
         """
         results = {}
 
         # High-order gradients
-        results['density_gradient'] = self.compute_enhanced_gradient(x, density)
-        results['velocity_gradient'] = self.compute_enhanced_gradient(x, velocity)
-        results['temperature_gradient'] = self.compute_enhanced_gradient(x, temperature)
+        results["density_gradient"] = self.compute_enhanced_gradient(x, density)
+        results["velocity_gradient"] = self.compute_enhanced_gradient(x, velocity)
+        results["temperature_gradient"] = self.compute_enhanced_gradient(x, temperature)
 
         # High-order second derivatives
-        results['density_curvature'] = self.fd_solver.second_derivative_central_4th(x, density)
-        results['velocity_curvature'] = self.fd_solver.second_derivative_central_4th(x, velocity)
+        results["density_curvature"] = self.fd_solver.second_derivative_central_4th(x, density)
+        results["velocity_curvature"] = self.fd_solver.second_derivative_central_4th(x, velocity)
 
         # Enhanced interpolation
         density_interp = self.interpolator.cubic_spline_interpolation(x, density, monotonic=True)
         velocity_interp = self.interpolator.cubic_spline_interpolation(x, velocity, monotonic=True)
         temperature_interp = self.interpolator.cubic_spline_interpolation(x, temperature)
 
-        results['interpolators'] = {
-            'density': density_interp,
-            'velocity': velocity_interp,
-            'temperature': temperature_interp
+        results["interpolators"] = {
+            "density": density_interp,
+            "velocity": velocity_interp,
+            "temperature": temperature_interp,
         }
 
         # Adaptive thresholding for physics breakdown detection
         if self.adaptive_threshold:
             physical_quantities = {
-                'density': density,
-                'velocity': velocity,
-                'temperature': temperature
+                "density": density,
+                "velocity": velocity,
+                "temperature": temperature,
             }
 
             if magnetic_field is not None:
-                physical_quantities['magnetic_field'] = magnetic_field
+                physical_quantities["magnetic_field"] = magnetic_field
 
             # Define diagnostic functions
             diagnostic_functions = {
-                'density': self._density_continuity_check,
-                'velocity': self._momentum_conservation_check,
-                'temperature': self._energy_conservation_check
+                "density": self._density_continuity_check,
+                "velocity": self._momentum_conservation_check,
+                "temperature": self._energy_conservation_check,
             }
 
             breakdown_flags = self.adaptive_threshold.detect_physics_breakdown(
                 x, physical_quantities, diagnostic_functions
             )
-            results['physics_breakdown'] = breakdown_flags
+            results["physics_breakdown"] = breakdown_flags
 
             # Compute adaptive thresholds
-            adaptive_thresholds = self.adaptive_threshold.compute_adaptive_threshold(physical_quantities)
-            results['adaptive_thresholds'] = adaptive_thresholds
+            adaptive_thresholds = self.adaptive_threshold.compute_adaptive_threshold(
+                physical_quantities
+            )
+            results["adaptive_thresholds"] = adaptive_thresholds
 
         return results
 
@@ -585,9 +619,12 @@ class EnhancedNumericalMethods:
             return grad_temperature / (np.abs(temperature).mean() + 1e-10)
         return np.zeros_like(temperature)
 
-    def perform_grid_convergence_study(self, x_base: np.ndarray,
-                                     physical_model: Callable[[np.ndarray], np.ndarray],
-                                     refinement_levels: int = 3) -> Dict[str, Any]:
+    def perform_grid_convergence_study(
+        self,
+        x_base: np.ndarray,
+        physical_model: Callable[[np.ndarray], np.ndarray],
+        refinement_levels: int = 3,
+    ) -> Dict[str, Any]:
         """
         Perform grid convergence study with Richardson extrapolation
 
@@ -617,37 +654,42 @@ class EnhancedNumericalMethods:
         for i in range(refinement_levels - 1):
             if self.richardson:
                 extrapolated, report = self.richardson.extrapolate(
-                    solutions[i], solutions[i+1], grids[i], grids[i+1]
+                    solutions[i], solutions[i + 1], grids[i], grids[i + 1]
                 )
                 accuracy_reports.append(report)
 
         convergence_results = {
-            'grids': grids,
-            'solutions': solutions,
-            'accuracy_reports': accuracy_reports,
-            'converged': len(accuracy_reports) > 0 and all(r.grid_convergence for r in accuracy_reports)
+            "grids": grids,
+            "solutions": solutions,
+            "accuracy_reports": accuracy_reports,
+            "converged": len(accuracy_reports) > 0
+            and all(r.grid_convergence for r in accuracy_reports),
         }
 
         return convergence_results
 
+
 # Convenience functions for backward compatibility
-def enhanced_gradient(x: np.ndarray, y: np.ndarray, method: str = '4th_order') -> np.ndarray:
+def enhanced_gradient(x: np.ndarray, y: np.ndarray, method: str = "4th_order") -> np.ndarray:
     """Convenience function for enhanced gradient computation"""
     solver = FourthOrderFiniteDifferences()
-    if method == '4th_order':
+    if method == "4th_order":
         return solver.gradient_central_4th(x, y)
     else:
         return np.gradient(y, x)
 
-def enhanced_interpolation(x: np.ndarray, y: np.ndarray,
-                          x_new: np.ndarray,
-                          monotonic: bool = False) -> np.ndarray:
+
+def enhanced_interpolation(
+    x: np.ndarray, y: np.ndarray, x_new: np.ndarray, monotonic: bool = False
+) -> np.ndarray:
     """Convenience function for enhanced interpolation"""
     interp = EnhancedInterpolation.cubic_spline_interpolation(x, y, monotonic=monotonic)
     return interp(x_new)
 
-def adaptive_threshold_detector(physical_quantities: Dict[str, np.ndarray],
-                              base_threshold: float = 0.1) -> Dict[str, np.ndarray]:
+
+def adaptive_threshold_detector(
+    physical_quantities: Dict[str, np.ndarray], base_threshold: float = 0.1
+) -> Dict[str, np.ndarray]:
     """Convenience function for adaptive thresholding"""
     threshold_system = AdaptiveThresholding(base_threshold=base_threshold)
 

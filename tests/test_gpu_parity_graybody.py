@@ -21,8 +21,10 @@ def test_graybody_acoustic_wkb_cpu_gpu_parity():
     # CPU run
     os.environ["ANALOG_HAWKING_FORCE_CPU"] = "1"
     from analog_hawking.utils import array_module as am
+
     importlib.reload(am)
     from analog_hawking.physics_engine.optimization import graybody_1d as gb_cpu
+
     importlib.reload(gb_cpu)
     res_cpu = gb_cpu.compute_graybody(x, v, c, freqs, method="acoustic_wkb", kappa=kappa, alpha=0.3)
 
@@ -31,6 +33,7 @@ def test_graybody_acoustic_wkb_cpu_gpu_parity():
     os.environ["ANALOG_HAWKING_USE_CUPY"] = "1"
     importlib.reload(am)
     from analog_hawking.physics_engine.optimization import graybody_1d as gb_gpu
+
     importlib.reload(gb_gpu)
     res_gpu = gb_gpu.compute_graybody(x, v, c, freqs, method="acoustic_wkb", kappa=kappa, alpha=0.3)
 

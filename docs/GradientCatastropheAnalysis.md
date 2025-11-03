@@ -1,11 +1,11 @@
 # Gradient Catastrophe Analysis
 
-> **Status ✅** Validated analysis summary for the production gradient sweep  
+> **Status ✅** Validated analysis summary for the production gradient sweep
 > **Navigate:** [Docs Index](index.md) · [Playbooks](playbooks.md)
 
-**Version**: 0.3.0  
-**Module**: `scripts/sweep_gradient_catastrophe.py`  
-**Analysis Type**: Physics breakdown boundary mapping  
+**Version**: 0.3.0
+**Module**: `scripts/sweep_gradient_catastrophe.py`
+**Analysis Type**: Physics breakdown boundary mapping
 
 ## Overview
 
@@ -148,7 +148,7 @@ This analysis provides a systematic mapping of breakdown‑limited κ in synthet
 
 The findings impact:
 - **Analog gravity experiments**: Realistic detection prospects
-- **Laser-plasma acceleration**: Relativistic breakdown thresholds  
+- **Laser-plasma acceleration**: Relativistic breakdown thresholds
 - **High-intensity laser physics**: Physics validity boundaries
 
 ### Comparison to Theory

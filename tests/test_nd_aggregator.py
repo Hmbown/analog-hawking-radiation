@@ -8,7 +8,7 @@ from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
 def _make_grid_2d(nx=64, ny=24, x0=5e-6, Lx=10e-6, Ly=5e-6, v0=2.0e6, cs0=1.0e6, sigma=0.5e-6):
     x = np.linspace(0.0, Lx, nx)
     y = np.linspace(0.0, Ly, ny)
-    X, Y = np.meshgrid(x, y, indexing='ij')
+    X, Y = np.meshgrid(x, y, indexing="ij")
     vx = v0 * np.tanh((X - x0) / sigma)
     vy = np.zeros_like(vx)
     v = np.stack([vx, vy], axis=-1)

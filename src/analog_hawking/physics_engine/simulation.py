@@ -37,7 +37,7 @@ class SimulationRunner:
         # Handle 3D grid configuration
         if "3d_grid_config" in run_config:
             config_path = run_config["3d_grid_config"]
-            with open(config_path, 'r') as f:
+            with open(config_path, "r") as f:
                 grid_config = yaml.safe_load(f)
             dimensions = grid_config.get("dimensions", [100, 50, 50])
             dx = grid_config.get("dx", 0.1e-6)
@@ -87,8 +87,8 @@ class SimulationRunner:
             ny, nz = len(y), len(z)
             # Slice at center
             if state.velocity.ndim > 1:
-                v_slice = state.velocity[:, ny//2, nz//2]
-                cs_slice = state.sound_speed[:, ny//2, nz//2]
+                v_slice = state.velocity[:, ny // 2, nz // 2]
+                cs_slice = state.sound_speed[:, ny // 2, nz // 2]
             else:
                 v_slice = state.velocity
                 cs_slice = state.sound_speed
@@ -106,7 +106,9 @@ class SimulationRunner:
             self._write_horizon_sidecar(x_slice, state, horizons)
         return horizons
 
-    def _write_horizon_sidecar(self, x: np.ndarray, state: PlasmaState, horizons: HorizonResult) -> None:
+    def _write_horizon_sidecar(
+        self, x: np.ndarray, state: PlasmaState, horizons: HorizonResult
+    ) -> None:
         if self._result_dir is None:
             return
         sidecar = {
@@ -120,7 +122,11 @@ class SimulationRunner:
             "dvdx": horizons.dvdx.tolist(),
             "dcsdx": horizons.dcsdx.tolist(),
             "c_H": horizons.c_h.tolist() if getattr(horizons, "c_h", None) is not None else [],
-            "d_c2_minus_v2_dx": horizons.d_c2_minus_v2_dx.tolist() if getattr(horizons, "d_c2_minus_v2_dx", None) is not None else [],
+            "d_c2_minus_v2_dx": (
+                horizons.d_c2_minus_v2_dx.tolist()
+                if getattr(horizons, "d_c2_minus_v2_dx", None) is not None
+                else []
+            ),
         }
         meta: Dict[str, object] = {}
         if state.observables is not None:

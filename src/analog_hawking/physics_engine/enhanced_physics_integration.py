@@ -42,15 +42,18 @@ from .physics_validation_framework import PhysicsModelValidator
 
 class PhysicsModel(Enum):
     """Enumeration for different physics model options"""
+
     LEGACY = "legacy"
     RELATIVISTIC = "relativistic"
     ENHANCED_IONIZATION = "enhanced_ionization"
     PLASMA_SURFACE = "plasma_surface"
     COMPREHENSIVE = "comprehensive"
 
+
 @dataclass
 class EnhancedPhysicsConfig:
     """Configuration for enhanced physics models"""
+
     model: PhysicsModel = PhysicsModel.LEGACY
     include_relativistic: bool = False
     include_ionization_dynamics: bool = False
@@ -71,9 +74,11 @@ class EnhancedPhysicsConfig:
     temporal_resolution: int = 100
     spatial_resolution: int = 1000
 
+
 @dataclass
 class EnhancedPhysicsResults:
     """Container for enhanced physics results"""
+
     horizon_positions: np.ndarray
     surface_gravity: np.ndarray
     surface_gravity_uncertainty: np.ndarray
@@ -87,6 +92,7 @@ class EnhancedPhysicsResults:
     ionization_dynamics: Optional[Dict] = None
     surface_interaction: Optional[Dict] = None
     eli_optimization: Optional[Dict] = None
+
 
 class EnhancedPhysicsEngine:
     """
@@ -109,33 +115,43 @@ class EnhancedPhysicsEngine:
     def _initialize_components(self):
         """Initialize physics components based on configuration"""
         # Relativistic physics
-        if self.config.include_relativistic or self.config.model in [PhysicsModel.RELATIVISTIC, PhysicsModel.COMPREHENSIVE]:
+        if self.config.include_relativistic or self.config.model in [
+            PhysicsModel.RELATIVISTIC,
+            PhysicsModel.COMPREHENSIVE,
+        ]:
             self.relativistic_physics = RelativisticPlasmaPhysics(
                 electron_density=1e19,
                 laser_wavelength=self.config.eli_wavelength,
-                laser_intensity=1e20
+                laser_intensity=1e20,
             )
         else:
             self.relativistic_physics = None
 
         # Ionization dynamics
-        if self.config.include_ionization_dynamics or self.config.model in [PhysicsModel.ENHANCED_IONIZATION, PhysicsModel.COMPREHENSIVE]:
+        if self.config.include_ionization_dynamics or self.config.model in [
+            PhysicsModel.ENHANCED_IONIZATION,
+            PhysicsModel.COMPREHENSIVE,
+        ]:
             if self.config.target_material in ATOMIC_DATA:
                 self.ionization_physics = IonizationDynamics(
                     ATOMIC_DATA[self.config.target_material],
-                    laser_wavelength=self.config.eli_wavelength
+                    laser_wavelength=self.config.eli_wavelength,
                 )
             else:
-                warnings.warn(f"Unknown target material: {self.config.target_material}. Using Aluminum.")
+                warnings.warn(
+                    f"Unknown target material: {self.config.target_material}. Using Aluminum."
+                )
                 self.ionization_physics = IonizationDynamics(
-                    ATOMIC_DATA['Al'],
-                    laser_wavelength=self.config.eli_wavelength
+                    ATOMIC_DATA["Al"], laser_wavelength=self.config.eli_wavelength
                 )
         else:
             self.ionization_physics = None
 
         # Surface physics
-        if self.config.include_surface_physics or self.config.model in [PhysicsModel.PLASMA_SURFACE, PhysicsModel.COMPREHENSIVE]:
+        if self.config.include_surface_physics or self.config.model in [
+            PhysicsModel.PLASMA_SURFACE,
+            PhysicsModel.COMPREHENSIVE,
+        ]:
             self.surface_physics = PlasmaDynamicsAtSurface(self.config.target_material)
         else:
             self.surface_physics = None
@@ -144,10 +160,15 @@ class EnhancedPhysicsEngine:
         if self.config.include_validation:
             self.validator = PhysicsModelValidator()
 
-    def enhanced_horizon_finding(self, x: np.ndarray, v: np.ndarray, T_e: np.ndarray,
-                               n_e: Optional[np.ndarray] = None,
-                               B_field: Optional[np.ndarray] = None,
-                               gamma_factor: Optional[np.ndarray] = None) -> EnhancedPhysicsResults:
+    def enhanced_horizon_finding(
+        self,
+        x: np.ndarray,
+        v: np.ndarray,
+        T_e: np.ndarray,
+        n_e: Optional[np.ndarray] = None,
+        B_field: Optional[np.ndarray] = None,
+        gamma_factor: Optional[np.ndarray] = None,
+    ) -> EnhancedPhysicsResults:
         """
         Enhanced horizon finding with relativistic corrections and ionization effects
 
@@ -180,7 +201,7 @@ class EnhancedPhysicsEngine:
                 x, v, T_e, n_e, horizon_result
             )
             # Modify surface gravity based on ionization
-            kappa_modified = horizon_result.kappa * ionization_effects['correction_factor']
+            kappa_modified = horizon_result.kappa * ionization_effects["correction_factor"]
         else:
             kappa_modified = horizon_result.kappa
             ionization_effects = None
@@ -207,9 +228,11 @@ class EnhancedPhysicsEngine:
         relativistic_corrections = None
         if self.relativistic_physics:
             relativistic_corrections = {
-                'gamma_factor': gamma_factor,
-                'relativistic_sound_speed': c_s_enhanced if self.relativistic_physics else c_s_enhanced,
-                'regime': self.relativistic_physics.check_relativistic_regime()
+                "gamma_factor": gamma_factor,
+                "relativistic_sound_speed": (
+                    c_s_enhanced if self.relativistic_physics else c_s_enhanced
+                ),
+                "regime": self.relativistic_physics.check_relativistic_regime(),
             }
 
         return EnhancedPhysicsResults(
@@ -219,12 +242,12 @@ class EnhancedPhysicsEngine:
             hawking_temperature=T_hawking,
             uncertainties=uncertainties,
             relativistic_corrections=relativistic_corrections,
-            ionization_dynamics=ionization_effects
+            ionization_dynamics=ionization_effects,
         )
 
-    def _calculate_ionization_effects_on_horizon(self, x: np.ndarray, v: np.ndarray,
-                                               T_e: np.ndarray, n_e: np.ndarray,
-                                               horizon_result) -> Dict[str, Any]:
+    def _calculate_ionization_effects_on_horizon(
+        self, x: np.ndarray, v: np.ndarray, T_e: np.ndarray, n_e: np.ndarray, horizon_result
+    ) -> Dict[str, Any]:
         """
         Calculate ionization effects on horizon properties
 
@@ -262,13 +285,19 @@ class EnhancedPhysicsEngine:
             correction_factors.append(ionization_correction)
 
         return {
-            'ionization_states': np.array(ionization_states),
-            'correction_factor': np.mean(correction_factors),
-            'charge_distribution': np.array(ionization_states)
+            "ionization_states": np.array(ionization_states),
+            "correction_factor": np.mean(correction_factors),
+            "charge_distribution": np.array(ionization_states),
         }
 
-    def _calculate_uncertainties(self, x: np.ndarray, v: np.ndarray, T_e: np.ndarray,
-                               horizon_result, ionization_effects: Optional[Dict]) -> Dict[str, Any]:
+    def _calculate_uncertainties(
+        self,
+        x: np.ndarray,
+        v: np.ndarray,
+        T_e: np.ndarray,
+        horizon_result,
+        ionization_effects: Optional[Dict],
+    ) -> Dict[str, Any]:
         """
         Calculate uncertainties for enhanced physics predictions
 
@@ -285,35 +314,38 @@ class EnhancedPhysicsEngine:
         uncertainties = {}
 
         # Numerical uncertainties from horizon finding
-        uncertainties['surface_gravity_numerical'] = horizon_result.kappa_err
+        uncertainties["surface_gravity_numerical"] = horizon_result.kappa_err
 
         # Model uncertainties
         if self.relativistic_physics:
             # Relativistic model uncertainty (typically 5-10% for high a0)
             regime = self.relativistic_physics.check_relativistic_regime()
-            if regime['regime'] in ['Relativistic', 'Highly relativistic']:
-                uncertainties['relativistic_model'] = 0.1  # 10% uncertainty
+            if regime["regime"] in ["Relativistic", "Highly relativistic"]:
+                uncertainties["relativistic_model"] = 0.1  # 10% uncertainty
             else:
-                uncertainties['relativistic_model'] = 0.05  # 5% uncertainty
+                uncertainties["relativistic_model"] = 0.05  # 5% uncertainty
 
         if self.ionization_physics:
             # Ionization model uncertainty
-            uncertainties['ionization_model'] = 0.15  # 15% uncertainty
+            uncertainties["ionization_model"] = 0.15  # 15% uncertainty
 
         if self.surface_physics:
             # Surface physics uncertainty
-            uncertainties['surface_physics_model'] = 0.2  # 20% uncertainty
+            uncertainties["surface_physics_model"] = 0.2  # 20% uncertainty
 
         # Combined uncertainty (quadrature sum)
-        model_uncertainties = [v for k, v in uncertainties.items() if k.endswith('_model')]
+        model_uncertainties = [v for k, v in uncertainties.items() if k.endswith("_model")]
         if model_uncertainties:
-            uncertainties['combined_model'] = np.sqrt(sum(u**2 for u in model_uncertainties))
+            uncertainties["combined_model"] = np.sqrt(sum(u**2 for u in model_uncertainties))
 
         return uncertainties
 
-    def enhanced_graybody_calculation(self, frequencies: np.ndarray,
-                                    horizon_results: EnhancedPhysicsResults,
-                                    additional_params: Optional[Dict] = None) -> np.ndarray:
+    def enhanced_graybody_calculation(
+        self,
+        frequencies: np.ndarray,
+        horizon_results: EnhancedPhysicsResults,
+        additional_params: Optional[Dict] = None,
+    ) -> np.ndarray:
         """
         Calculate graybody spectrum with enhanced physics
 
@@ -336,24 +368,29 @@ class EnhancedPhysicsEngine:
 
         # Create graybody spectrum
         graybody_calc = GraybodySpectrumND([1])  # 1D case
-        spectrum = graybody_calc.calculate_spectrum(frequencies, T_H, kappa, additional_params or {})
+        spectrum = graybody_calc.calculate_spectrum(
+            frequencies, T_H, kappa, additional_params or {}
+        )
 
         # Apply enhanced physics corrections
         if horizon_results.relativistic_corrections:
             # Relativistic corrections to spectrum
-            gamma_mean = np.mean(horizon_results.relativistic_corrections['gamma_factor'])
+            gamma_mean = np.mean(horizon_results.relativistic_corrections["gamma_factor"])
             spectrum *= 1.0 / gamma_mean  # Time dilation effect
 
         if horizon_results.ionization_dynamics:
             # Ionization effects on transmission
-            charge_state = np.mean(horizon_results.ionization_dynamics['ionization_states'])
+            charge_state = np.mean(horizon_results.ionization_dynamics["ionization_states"])
             transmission_factor = 1.0 + 0.05 * charge_state  # Simplified model
             spectrum *= transmission_factor
 
         return spectrum
 
-    def eli_facility_optimization(self, parameter_ranges: Dict[str, Tuple[float, float]],
-                                optimization_objective: str = "hawking_temperature") -> Dict[str, Any]:
+    def eli_facility_optimization(
+        self,
+        parameter_ranges: Dict[str, Tuple[float, float]],
+        optimization_objective: str = "hawking_temperature",
+    ) -> Dict[str, Any]:
         """
         Optimize parameters for ELI facility conditions
 
@@ -376,29 +413,29 @@ class EnhancedPhysicsEngine:
                 include_relativistic=self.config.include_relativistic,
                 include_ionization_dynamics=self.config.include_ionization_dynamics,
                 include_surface_physics=self.config.include_surface_physics,
-                eli_optimization=True
+                eli_optimization=True,
             )
 
             # Simulate with test parameters (simplified)
             # In practice, would run full simulation
             if optimization_objective == "hawking_temperature":
                 # Maximizing Hawking temperature
-                return -1.0 * params.get('intensity', 1e20) * params.get('density', 1e19)
+                return -1.0 * params.get("intensity", 1e20) * params.get("density", 1e19)
             elif optimization_objective == "signal_to_noise":
                 # Maximizing signal-to-noise ratio
-                return -1.0 * np.sqrt(params.get('intensity', 1e20) / params.get('density', 1e19))
+                return -1.0 * np.sqrt(params.get("intensity", 1e20) / params.get("density", 1e19))
             else:
                 return 0
 
         # Simple grid-based optimization (in practice, would use more sophisticated methods)
         best_params = {}
-        best_objective = float('inf')
+        best_objective = float("inf")
 
         for param_name, (min_val, max_val) in parameter_ranges.items():
             # Test a few values in each range
             test_values = np.linspace(min_val, max_val, 5)
             best_value = None
-            best_local_objective = float('inf')
+            best_local_objective = float("inf")
 
             for value in test_values:
                 test_params = best_params.copy()
@@ -415,10 +452,10 @@ class EnhancedPhysicsEngine:
                     best_objective = best_local_objective
 
         return {
-            'optimal_parameters': best_params,
-            'objective_value': -best_objective,
-            'optimization_target': optimization_objective,
-            'facility': 'ELI'
+            "optimal_parameters": best_params,
+            "objective_value": -best_objective,
+            "optimization_target": optimization_objective,
+            "facility": "ELI",
         }
 
     def run_validation_suite(self) -> Dict[str, Any]:
@@ -436,26 +473,27 @@ class EnhancedPhysicsEngine:
 
         # Validate relativistic physics
         if self.relativistic_physics:
-            validation_results['relativistic'] = self.validator.validate_relativistic_physics(
+            validation_results["relativistic"] = self.validator.validate_relativistic_physics(
                 self.relativistic_physics
             )
 
         # Validate ionization physics
         if self.ionization_physics:
-            validation_results['ionization'] = self.validator.validate_ionization_physics(
+            validation_results["ionization"] = self.validator.validate_ionization_physics(
                 self.ionization_physics
             )
 
         # Validate surface physics
         if self.surface_physics:
-            validation_results['surface'] = self.validator.validate_surface_physics(
+            validation_results["surface"] = self.validator.validate_surface_physics(
                 self.surface_physics
             )
 
         # Generate comprehensive report
-        validation_results['summary'] = self.validator.generate_validation_report()
+        validation_results["summary"] = self.validator.generate_validation_report()
 
         return validation_results
+
 
 class BackwardCompatibilityWrapper:
     """
@@ -484,19 +522,24 @@ class BackwardCompatibilityWrapper:
             Horizon results in legacy format
         """
         # Convert to enhanced interface
-        T_e = c_s**2 * self.engine.relativistic_physics.m_i / (5/3 * k) if self.engine.relativistic_physics else c_s**2 * m_p / (5/3 * k)
+        T_e = (
+            c_s**2 * self.engine.relativistic_physics.m_i / (5 / 3 * k)
+            if self.engine.relativistic_physics
+            else c_s**2 * m_p / (5 / 3 * k)
+        )
 
         # Use enhanced engine
         enhanced_results = self.engine.enhanced_horizon_finding(x, v, T_e)
 
         # Convert back to legacy format
         from .horizon import HorizonResult
+
         return HorizonResult(
             positions=enhanced_results.horizon_positions,
             kappa=enhanced_results.surface_gravity,
             kappa_err=enhanced_results.surface_gravity_uncertainty,
             dvdx=np.gradient(v, x),
-            dcsdx=np.gradient(c_s, x)
+            dcsdx=np.gradient(c_s, x),
         )
 
     def calculate_hawking_temperature_legacy(self, kappa: np.ndarray):
@@ -511,9 +554,12 @@ class BackwardCompatibilityWrapper:
         """
         return hbar * kappa / (2 * pi * k)
 
-def create_enhanced_pipeline(model_type: PhysicsModel = PhysicsModel.COMPREHENSIVE,
-                           target_material: str = "Al",
-                           eli_optimization: bool = False) -> EnhancedPhysicsEngine:
+
+def create_enhanced_pipeline(
+    model_type: PhysicsModel = PhysicsModel.COMPREHENSIVE,
+    target_material: str = "Al",
+    eli_optimization: bool = False,
+) -> EnhancedPhysicsEngine:
     """
     Factory function to create enhanced physics pipeline
 
@@ -527,14 +573,21 @@ def create_enhanced_pipeline(model_type: PhysicsModel = PhysicsModel.COMPREHENSI
     """
     config = EnhancedPhysicsConfig(
         model=model_type,
-        include_relativistic=(model_type in [PhysicsModel.RELATIVISTIC, PhysicsModel.COMPREHENSIVE]),
-        include_ionization_dynamics=(model_type in [PhysicsModel.ENHANCED_IONIZATION, PhysicsModel.COMPREHENSIVE]),
-        include_surface_physics=(model_type in [PhysicsModel.PLASMA_SURFACE, PhysicsModel.COMPREHENSIVE]),
+        include_relativistic=(
+            model_type in [PhysicsModel.RELATIVISTIC, PhysicsModel.COMPREHENSIVE]
+        ),
+        include_ionization_dynamics=(
+            model_type in [PhysicsModel.ENHANCED_IONIZATION, PhysicsModel.COMPREHENSIVE]
+        ),
+        include_surface_physics=(
+            model_type in [PhysicsModel.PLASMA_SURFACE, PhysicsModel.COMPREHENSIVE]
+        ),
         target_material=target_material,
-        eli_optimization=eli_optimization
+        eli_optimization=eli_optimization,
     )
 
     return EnhancedPhysicsEngine(config)
+
 
 def test_enhanced_integration():
     """
@@ -545,9 +598,7 @@ def test_enhanced_integration():
 
     # Create enhanced physics engine
     engine = create_enhanced_pipeline(
-        model_type=PhysicsModel.COMPREHENSIVE,
-        target_material="Al",
-        eli_optimization=True
+        model_type=PhysicsModel.COMPREHENSIVE, target_material="Al", eli_optimization=True
     )
 
     # Test enhanced horizon finding
@@ -586,17 +637,15 @@ def test_enhanced_integration():
     print("-" * 40)
 
     parameter_ranges = {
-        'intensity': (1e19, 1e22),  # W/m^2
-        'density': (1e18, 1e21),     # m^-3
-        'wavelength': (400e-9, 1064e-9)  # m
+        "intensity": (1e19, 1e22),  # W/m^2
+        "density": (1e18, 1e21),  # m^-3
+        "wavelength": (400e-9, 1064e-9),  # m
     }
 
-    optimization_results = engine.eli_facility_optimization(
-        parameter_ranges, "hawking_temperature"
-    )
+    optimization_results = engine.eli_facility_optimization(parameter_ranges, "hawking_temperature")
 
     print("Optimization results:")
-    for param, value in optimization_results.get('optimal_parameters', {}).items():
+    for param, value in optimization_results.get("optimal_parameters", {}).items():
         print(f"  {param}: {value:.2e}")
 
     # Test validation
@@ -605,13 +654,14 @@ def test_enhanced_integration():
 
     validation_results = engine.run_validation_suite()
     if validation_results:
-        summary = validation_results.get('summary', {})
+        summary = validation_results.get("summary", {})
         print("Validation summary:")
         print(f"  Total tests: {summary.get('total_tests', 0)}")
         print(f"  Passed: {summary.get('passed_tests', 0)}")
         print(f"  Status: {summary.get('overall_status', 'Unknown')}")
 
     print("\nEnhanced Integration Test Complete!")
+
 
 if __name__ == "__main__":
     test_enhanced_integration()

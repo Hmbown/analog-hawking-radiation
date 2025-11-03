@@ -32,7 +32,10 @@ def mock_run_config():
         ],
         "grid": np.linspace(0, 1e-4, 50),
         "field_getters": {
-            "electric_field": {"type": "mock_data", "data": np.sin(np.linspace(0, 2*np.pi, 50)) * 1e5},
+            "electric_field": {
+                "type": "mock_data",
+                "data": np.sin(np.linspace(0, 2 * np.pi, 50)) * 1e5,
+            },
             "magnetic_field": {"type": "mock_data", "data": np.full(50, 0.1)},
         },
         "moment_getters": {
@@ -45,7 +48,7 @@ def mock_run_config():
                 "density": {"type": "mock_data", "data": np.full(50, 1e18)},
                 "bulk_velocity": {"type": "mock_data", "data": np.linspace(-0.5, 0.5, 50)},
                 "temperature": {"type": "mock_data", "data": np.full(50, 1e4)},
-            }
+            },
         },
         "electron_species": "electrons",
         "ion_species": "ions",
@@ -70,7 +73,9 @@ def test_warpx_backend_mhd_coupling(mock_run_config):
     # Step simulation
     state = backend.step(1e-15)
     assert "density_mhd" in state.observables
-    assert np.allclose(state.electric_field, mock_run_config["field_getters"]["electric_field"]["data"], atol=1e-5)
+    assert np.allclose(
+        state.electric_field, mock_run_config["field_getters"]["electric_field"]["data"], atol=1e-5
+    )
 
 
 def test_nonlinear_solver_integration(mock_run_config):
@@ -101,7 +106,9 @@ def test_horizon_kappa_enhancement(mock_run_config):
     enhanced_obs = solver.solve(state.observables)
 
     # Find horizons
-    horizons = find_horizons_with_uncertainty(state.grid, state.velocity, np.full_like(state.velocity, 0.5))
+    horizons = find_horizons_with_uncertainty(
+        state.grid, state.velocity, np.full_like(state.velocity, 0.5)
+    )
     base_kappa = np.mean(horizons.kappa) if horizons.kappa.size > 0 else 1.0
     enhanced_kappa = enhanced_obs["enhanced_kappa"]
 

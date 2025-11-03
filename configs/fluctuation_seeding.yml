@@ -6,4 +6,3 @@ cadence: 5
 band_min: 1.0e6
 band_max: 1.0e9
 background_psd: 1.0e-6
-

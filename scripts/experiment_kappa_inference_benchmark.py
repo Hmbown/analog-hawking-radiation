@@ -38,8 +38,12 @@ FAMILIES = {
 }
 
 
-def _psd_from_profile(profile: Dict[str, np.ndarray], kappa: float, alpha: float) -> Tuple[np.ndarray, np.ndarray]:
-    x = profile["x"]; v = profile["v"]; c = profile["c_s"]
+def _psd_from_profile(
+    profile: Dict[str, np.ndarray], kappa: float, alpha: float
+) -> Tuple[np.ndarray, np.ndarray]:
+    x = profile["x"]
+    v = profile["v"]
+    c = profile["c_s"]
     f = np.logspace(6.0, 11.0, 1000)
     gb = compute_graybody(x, v, c, f, method="acoustic_wkb", kappa=float(kappa), alpha=float(alpha))
     qft = QuantumFieldTheory(surface_gravity=float(kappa), emitting_area_m2=1.0, solid_angle_sr=1.0)
@@ -51,11 +55,17 @@ def _nll_log_psd(y_obs: np.ndarray, y_model: np.ndarray, sigma_rel: float) -> fl
     # Gaussian residuals in log-space with relative noise sigma_rel
     eps = 1e-60
     r = np.log(y_obs + eps) - np.log(y_model + eps)
-    var = float(sigma_rel)**2
-    return 0.5 * float(np.sum(r*r/var))
+    var = float(sigma_rel) ** 2
+    return 0.5 * float(np.sum(r * r / var))
 
 
-def _fit_kappa_alpha(profile: Dict[str, np.ndarray], f: np.ndarray, y_obs: np.ndarray, kappa_ref: float, sigma_rel: float) -> Tuple[float, float, float]:
+def _fit_kappa_alpha(
+    profile: Dict[str, np.ndarray],
+    f: np.ndarray,
+    y_obs: np.ndarray,
+    kappa_ref: float,
+    sigma_rel: float,
+) -> Tuple[float, float, float]:
     # Coarse-to-fine grid search around kappa_ref and α ∈ [0.5, 1.5]
     k_lo, k_hi = 0.3 * kappa_ref, 3.0 * kappa_ref
     a_grid = np.linspace(0.5, 1.5, 11)
@@ -65,28 +75,38 @@ def _fit_kappa_alpha(profile: Dict[str, np.ndarray], f: np.ndarray, y_obs: np.nd
         for a in a_grid:
             # generate model once per κ, α
             # reuse profile speeds for efficiency
-            x = profile["x"]; v = profile["v"]; c = profile["c_s"]
+            x = profile["x"]
+            v = profile["v"]
+            c = profile["c_s"]
             gb = compute_graybody(x, v, c, f, method="acoustic_wkb", kappa=None, alpha=float(a))
             # Override κ in QFT only (graybody uses κ from profile if None)
             for kappa in k_grid:
-                qft = QuantumFieldTheory(surface_gravity=float(kappa), emitting_area_m2=1.0, solid_angle_sr=1.0)
+                qft = QuantumFieldTheory(
+                    surface_gravity=float(kappa), emitting_area_m2=1.0, solid_angle_sr=1.0
+                )
                 y_model = qft.hawking_spectrum(2.0 * np.pi * f, transmission=gb.transmission)
                 nll = _nll_log_psd(y_obs, y_model, sigma_rel)
                 if nll < best[0]:
                     best = (nll, float(kappa), float(a))
         # Refine around best κ
         k_center = best[1]
-        k_lo, k_hi = max(k_center/3.0, 1e-6), k_center*3.0
-        a_grid = np.linspace(max(best[2]-0.2, 0.3), min(best[2]+0.2, 2.0), 11)
+        k_lo, k_hi = max(k_center / 3.0, 1e-6), k_center * 3.0
+        a_grid = np.linspace(max(best[2] - 0.2, 0.3), min(best[2] + 0.2, 2.0), 11)
 
     # Approximate 1σ via profile-likelihood: ΔNLL = 0.5 for 1 parameter
     k_center = best[1]
-    x = profile["x"]; v = profile["v"]; c = profile["c_s"]
+    x = profile["x"]
+    v = profile["v"]
+    c = profile["c_s"]
     gb = compute_graybody(x, v, c, f, method="acoustic_wkb", kappa=None, alpha=float(best[2]))
+
     def nll_at(kval: float) -> float:
-        qft = QuantumFieldTheory(surface_gravity=float(kval), emitting_area_m2=1.0, solid_angle_sr=1.0)
+        qft = QuantumFieldTheory(
+            surface_gravity=float(kval), emitting_area_m2=1.0, solid_angle_sr=1.0
+        )
         y_model = qft.hawking_spectrum(2.0 * np.pi * f, transmission=gb.transmission)
         return _nll_log_psd(y_obs, y_model, sigma_rel)
+
     nll0 = nll_at(k_center)
     target = nll0 + 0.5
     # scan outward geometrically until we bracket the target on both sides
@@ -96,18 +116,20 @@ def _fit_kappa_alpha(profile: Dict[str, np.ndarray], f: np.ndarray, y_obs: np.nd
     k_hi = k_center
     while k_hi < k_center * 10.0 and nll_at(k_hi) < target:
         k_hi *= 1.25
+
     # bisection to locate where NLL crosses target
     def bisect(a: float, b: float) -> float:
         fa = nll_at(a) - target
         fb = nll_at(b) - target
         for _ in range(25):
-            c = 0.5*(a+b)
+            c = 0.5 * (a + b)
             fc = nll_at(c) - target
             if np.sign(fa) == np.sign(fc):
                 a, fa = c, fc
             else:
                 b, fb = c, fc
-        return 0.5*(a+b)
+        return 0.5 * (a + b)
+
     try:
         k_left = bisect(k_lo, k_center) if k_lo < k_center else k_center
         k_right = bisect(k_center, k_hi) if k_hi > k_center else k_center
@@ -120,9 +142,13 @@ def _fit_kappa_alpha(profile: Dict[str, np.ndarray], f: np.ndarray, y_obs: np.nd
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--out", default="results/experiments/kappa_inference")
-    p.add_argument("--families", nargs="*", default=list(FAMILIES.keys()), choices=list(FAMILIES.keys()))
+    p.add_argument(
+        "--families", nargs="*", default=list(FAMILIES.keys()), choices=list(FAMILIES.keys())
+    )
     p.add_argument("--n", type=int, default=64)
-    p.add_argument("--noise", type=float, default=0.08, help="Relative multiplicative noise σ on PSD")
+    p.add_argument(
+        "--noise", type=float, default=0.08, help="Relative multiplicative noise σ on PSD"
+    )
     p.add_argument("--seed", type=int, default=123)
     args = p.parse_args()
 
@@ -144,7 +170,9 @@ def main() -> int:
         for _ in range(per_family):
             seed = int(rng.integers(0, 10_000_000))
             prof = maker(seed)
-            x = prof["x"]; v = prof["v"]; c = prof["c_s"]
+            x = prof["x"]
+            v = prof["v"]
+            c = prof["c_s"]
             hr = find_horizons_with_uncertainty(x, v, c, kappa_method="acoustic_exact")
             if hr.kappa.size == 0:
                 continue
@@ -168,12 +196,20 @@ def main() -> int:
     k_sig_arr = np.asarray(k_sig_list)
     rel_err = np.abs(k_hat_arr - k_true_arr) / np.clip(k_true_arr, 1e-30, None)
     # coverage: |k_hat - k_true| < 1σ
-    coverage = float(np.mean(np.abs(k_hat_arr - k_true_arr) < k_sig_arr)) if k_sig_arr.size else float("nan")
+    coverage = (
+        float(np.mean(np.abs(k_hat_arr - k_true_arr) < k_sig_arr))
+        if k_sig_arr.size
+        else float("nan")
+    )
     med_rel_err = float(np.median(rel_err)) if rel_err.size else float("nan")
 
     # Parity plot
     plt.figure(figsize=(5, 5))
-    lim = [float(np.min(k_true_arr))*0.8, float(np.max(k_true_arr))*1.2] if k_true_arr.size else [1e6, 1e7]
+    lim = (
+        [float(np.min(k_true_arr)) * 0.8, float(np.max(k_true_arr)) * 1.2]
+        if k_true_arr.size
+        else [1e6, 1e7]
+    )
     plt.loglog(k_true_arr, k_hat_arr, "o", alpha=0.6)
     plt.plot(lim, lim, "k--", lw=1.0)
     plt.xlabel("κ_true [s⁻¹]")
@@ -193,7 +229,9 @@ def main() -> int:
     with open(outdir / "kappa_inference_summary.json", "w") as fh:
         json.dump(summary, fh, indent=2)
 
-    print(f"Wrote: {outdir}/kappa_inference_summary.json ; coverage={coverage:.2%} ; med rel err={med_rel_err:.2%}")
+    print(
+        f"Wrote: {outdir}/kappa_inference_summary.json ; coverage={coverage:.2%} ; med rel err={med_rel_err:.2%}"
+    )
     return 0
 
 

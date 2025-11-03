@@ -19,6 +19,7 @@ import numpy as np
 
 class ELIFacilityType(Enum):
     """ELI facility types"""
+
     ELI_BEAMLINES = "ELI-Beamlines"
     ELI_NP = "ELI-Nuclear Physics"
     ELI_ALPS = "ELI-Attosecond Light Pulse Source"
@@ -26,6 +27,7 @@ class ELIFacilityType(Enum):
 
 class DiagnosticCategory(Enum):
     """Diagnostic system categories"""
+
     TEMPORAL = "Temporal Diagnostics"
     SPECTRAL = "Spectral Diagnostics"
     SPATIAL = "Spatial Diagnostics"
@@ -36,6 +38,7 @@ class DiagnosticCategory(Enum):
 
 class ReadinessLevel(Enum):
     """Technology readiness levels for diagnostics"""
+
     LAB_PROTOTYPE = "Laboratory Prototype"
     FIELD_TESTED = "Field Tested"
     OPERATIONAL = "Operational"
@@ -146,9 +149,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=2.0,  # m²
                 cost_tier=2,
                 availability="Standard",
-                maintenance_level="Medium"
+                maintenance_level="Medium",
             ),
-
             "frequency_resolved_optical_gating": DiagnosticSystem(
                 name="Frequency-Resolved Optical Gating (FROG)",
                 category=DiagnosticCategory.TEMPORAL,
@@ -169,9 +171,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=1.5,  # m²
                 cost_tier=2,
                 availability="Standard",
-                maintenance_level="Medium"
+                maintenance_level="Medium",
             ),
-
             "spectral_interferometer": DiagnosticSystem(
                 name="Spectral Interferometer",
                 category=DiagnosticCategory.INTERFEROMETRIC,
@@ -192,9 +193,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=3.0,  # m²
                 cost_tier=3,
                 availability="Standard",
-                maintenance_level="High"
+                maintenance_level="High",
             ),
-
             "thz_time_domain_spectrometer": DiagnosticSystem(
                 name="THz Time-Domain Spectrometer",
                 category=DiagnosticCategory.SPECTRAL,
@@ -215,9 +215,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=5.0,  # m²
                 cost_tier=4,
                 availability="Limited",
-                maintenance_level="High"
+                maintenance_level="High",
             ),
-
             # ELI-NP Diagnostics
             "electron_spectrometer": DiagnosticSystem(
                 name="Electron Spectrometer",
@@ -239,9 +238,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=4.0,  # m²
                 cost_tier=3,
                 availability="Standard",
-                maintenance_level="High"
+                maintenance_level="High",
             ),
-
             "gamma_detector_array": DiagnosticSystem(
                 name="Gamma Detector Array",
                 category=DiagnosticCategory.RADIATION,
@@ -262,9 +260,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=10.0,  # m²
                 cost_tier=5,
                 availability="Special Request",
-                maintenance_level="High"
+                maintenance_level="High",
             ),
-
             # ELI-ALPS Diagnostics
             "attosecond_streak_camera": DiagnosticSystem(
                 name="Attosecond Streak Camera",
@@ -286,9 +283,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=6.0,  # m²
                 cost_tier=5,
                 availability="Limited",
-                maintenance_level="High"
+                maintenance_level="High",
             ),
-
             "xuv_spectrometer": DiagnosticSystem(
                 name="XUV Spectrometer",
                 category=DiagnosticCategory.SPECTRAL,
@@ -309,9 +305,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=3.0,  # m²
                 cost_tier=3,
                 availability="Standard",
-                maintenance_level="Medium"
+                maintenance_level="Medium",
             ),
-
             # General Purpose Diagnostics
             "optical_interferometer": DiagnosticSystem(
                 name="Optical Interferometer",
@@ -333,9 +328,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=2.5,  # m²
                 cost_tier=2,
                 availability="Standard",
-                maintenance_level="Medium"
+                maintenance_level="Medium",
             ),
-
             "shadowgraphy_system": DiagnosticSystem(
                 name="Shadowgraphy System",
                 category=DiagnosticCategory.SPATIAL,
@@ -356,9 +350,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=2.0,  # m²
                 cost_tier=1,
                 availability="Standard",
-                maintenance_level="Low"
+                maintenance_level="Low",
             ),
-
             "plasma_spectrometer": DiagnosticSystem(
                 name="Plasma Spectrometer",
                 category=DiagnosticCategory.SPECTRAL,
@@ -379,8 +372,8 @@ class ELIDiagnosticDatabase:
                 space_requirements=1.5,  # m²
                 cost_tier=2,
                 availability="Standard",
-                maintenance_level="Medium"
-            )
+                maintenance_level="Medium",
+            ),
         }
 
         return diagnostics
@@ -391,7 +384,9 @@ class ELIDiagnosticDatabase:
         facilities = {}
 
         # ELI-Beamlines
-        beamlines_diagnostics = [d for d in self.diagnostics.values() if d.facility == ELIFacilityType.ELI_BEAMLINES]
+        beamlines_diagnostics = [
+            d for d in self.diagnostics.values() if d.facility == ELIFacilityType.ELI_BEAMLINES
+        ]
 
         facilities[ELIFacilityType.ELI_BEAMLINES] = FacilityCapability(
             facility=ELIFacilityType.ELI_BEAMLINES,
@@ -408,12 +403,14 @@ class ELIDiagnosticDatabase:
             experimental_constraints=[
                 "Vacuum chamber size limitations",
                 "Radiation safety requirements",
-                "Target handling system compatibility"
-            ]
+                "Target handling system compatibility",
+            ],
         )
 
         # ELI-NP
-        np_diagnostics = [d for d in self.diagnostics.values() if d.facility == ELIFacilityType.ELI_NP]
+        np_diagnostics = [
+            d for d in self.diagnostics.values() if d.facility == ELIFacilityType.ELI_NP
+        ]
 
         facilities[ELIFacilityType.ELI_NP] = FacilityCapability(
             facility=ELIFacilityType.ELI_NP,
@@ -431,12 +428,14 @@ class ELIDiagnosticDatabase:
                 "High radiation environment",
                 "Strict radiation shielding requirements",
                 "Limited access during operation",
-                "Complex safety protocols"
-            ]
+                "Complex safety protocols",
+            ],
         )
 
         # ELI-ALPS
-        alps_diagnostics = [d for d in self.diagnostics.values() if d.facility == ELIFacilityType.ELI_ALPS]
+        alps_diagnostics = [
+            d for d in self.diagnostics.values() if d.facility == ELIFacilityType.ELI_ALPS
+        ]
 
         facilities[ELIFacilityType.ELI_ALPS] = FacilityCapability(
             facility=ELIFacilityType.ELI_ALPS,
@@ -454,8 +453,8 @@ class ELIDiagnosticDatabase:
                 "XUV optics requirements",
                 "Ultra-high vacuum needed",
                 "Sensitive alignment requirements",
-                "Specialized target systems"
-            ]
+                "Specialized target systems",
+            ],
         )
 
         return facilities
@@ -480,13 +479,12 @@ class ELIDiagnosticIntegrator:
             "Plasma Diagnostics": ["plasma_spectrometer", "shadowgraphy_system"],
             "Temporal Analysis": ["frequency_resolved_optical_gating", "attosecond_streak_camera"],
             "Particle Detection": ["electron_spectrometer"],
-            "Radiation Detection": ["gamma_detector_array"]
+            "Radiation Detection": ["gamma_detector_array"],
         }
 
-    def assess_diagnostic_compatibility(self,
-                                      detection_method: str,
-                                      facility: ELIFacilityType,
-                                      signal_parameters: Dict[str, Any]) -> List[IntegrationAssessment]:
+    def assess_diagnostic_compatibility(
+        self, detection_method: str, facility: ELIFacilityType, signal_parameters: Dict[str, Any]
+    ) -> List[IntegrationAssessment]:
         """Assess diagnostic compatibility for specific detection method"""
 
         assessments = []
@@ -508,13 +506,19 @@ class ELIDiagnosticIntegrator:
             compatibility_score = self._calculate_compatibility_score(diagnostic, signal_parameters)
 
             # Determine integration complexity
-            integration_complexity = self._assess_integration_complexity(diagnostic, signal_parameters)
+            integration_complexity = self._assess_integration_complexity(
+                diagnostic, signal_parameters
+            )
 
             # Identify required modifications
-            required_modifications = self._identify_required_modifications(diagnostic, signal_parameters)
+            required_modifications = self._identify_required_modifications(
+                diagnostic, signal_parameters
+            )
 
             # Estimate integration timeline
-            integration_timeline = self._estimate_integration_timeline(diagnostic, integration_complexity)
+            integration_timeline = self._estimate_integration_timeline(
+                diagnostic, integration_complexity
+            )
 
             # Estimate cost
             cost_estimate = self._estimate_integration_cost(diagnostic, required_modifications)
@@ -534,7 +538,7 @@ class ELIDiagnosticIntegrator:
                 integration_timeline=integration_timeline,
                 cost_estimate=cost_estimate,
                 technical_risks=technical_risks,
-                mitigation_strategies=mitigation_strategies
+                mitigation_strategies=mitigation_strategies,
             )
 
             assessments.append(assessment)
@@ -544,9 +548,9 @@ class ELIDiagnosticIntegrator:
 
         return assessments
 
-    def _calculate_compatibility_score(self,
-                                     diagnostic: DiagnosticSystem,
-                                     signal_parameters: Dict[str, Any]) -> float:
+    def _calculate_compatibility_score(
+        self, diagnostic: DiagnosticSystem, signal_parameters: Dict[str, Any]
+    ) -> float:
         """Calculate compatibility score between diagnostic and signal"""
 
         score = 0.0
@@ -555,21 +559,25 @@ class ELIDiagnosticIntegrator:
             "temporal": 0.25,
             "sensitivity": 0.2,
             "spatial": 0.15,
-            "readiness": 0.1
+            "readiness": 0.1,
         }
 
         # Frequency compatibility
         signal_freq = signal_parameters.get("peak_frequency", 1e14)  # Hz
         signal_wavelength = 3e8 / signal_freq
 
-        if (diagnostic.wavelength_range[0] <= signal_wavelength <= diagnostic.wavelength_range[1]):
+        if diagnostic.wavelength_range[0] <= signal_wavelength <= diagnostic.wavelength_range[1]:
             freq_score = 1.0
         else:
             # Calculate how far outside the range
             if signal_wavelength < diagnostic.wavelength_range[0]:
-                freq_score = max(0, 1 - np.log10(diagnostic.wavelength_range[0] / signal_wavelength))
+                freq_score = max(
+                    0, 1 - np.log10(diagnostic.wavelength_range[0] / signal_wavelength)
+                )
             else:
-                freq_score = max(0, 1 - np.log10(signal_wavelength / diagnostic.wavelength_range[1]))
+                freq_score = max(
+                    0, 1 - np.log10(signal_wavelength / diagnostic.wavelength_range[1])
+                )
         score += weights["frequency"] * freq_score
 
         # Temporal resolution compatibility
@@ -602,15 +610,15 @@ class ELIDiagnosticIntegrator:
             ReadinessLevel.FIELD_TESTED: 0.7,
             ReadinessLevel.OPERATIONAL: 0.8,
             ReadinessLevel.ELI_INTEGRATED: 0.9,
-            ReadinessLevel.PROVEN_ELI: 1.0
+            ReadinessLevel.PROVEN_ELI: 1.0,
         }
         score += weights["readiness"] * readiness_scores[diagnostic.readiness_level]
 
         return min(1.0, score)
 
-    def _assess_integration_complexity(self,
-                                      diagnostic: DiagnosticSystem,
-                                      signal_parameters: Dict[str, Any]) -> str:
+    def _assess_integration_complexity(
+        self, diagnostic: DiagnosticSystem, signal_parameters: Dict[str, Any]
+    ) -> str:
         """Assess integration complexity"""
 
         complexity_score = 0
@@ -632,7 +640,10 @@ class ELIDiagnosticIntegrator:
             complexity_score += 1
 
         # Readiness level
-        if diagnostic.readiness_level in [ReadinessLevel.LAB_PROTOTYPE, ReadinessLevel.FIELD_TESTED]:
+        if diagnostic.readiness_level in [
+            ReadinessLevel.LAB_PROTOTYPE,
+            ReadinessLevel.FIELD_TESTED,
+        ]:
             complexity_score += 2
         elif diagnostic.readiness_level == ReadinessLevel.OPERATIONAL:
             complexity_score += 1
@@ -644,9 +655,9 @@ class ELIDiagnosticIntegrator:
         else:
             return "High"
 
-    def _identify_required_modifications(self,
-                                       diagnostic: DiagnosticSystem,
-                                       signal_parameters: Dict[str, Any]) -> List[str]:
+    def _identify_required_modifications(
+        self, diagnostic: DiagnosticSystem, signal_parameters: Dict[str, Any]
+    ) -> List[str]:
         """Identify required modifications for integration"""
 
         modifications = []
@@ -655,11 +666,17 @@ class ELIDiagnosticIntegrator:
         signal_freq = signal_parameters.get("peak_frequency", 1e14)
         signal_wavelength = 3e8 / signal_freq
 
-        if not (diagnostic.wavelength_range[0] <= signal_wavelength <= diagnostic.wavelength_range[1]):
+        if not (
+            diagnostic.wavelength_range[0] <= signal_wavelength <= diagnostic.wavelength_range[1]
+        ):
             if signal_wavelength < diagnostic.wavelength_range[0]:
-                modifications.append(f"Extend wavelength coverage to {signal_wavelength*1e9:.1f} nm (shorter wavelength)")
+                modifications.append(
+                    f"Extend wavelength coverage to {signal_wavelength*1e9:.1f} nm (shorter wavelength)"
+                )
             else:
-                modifications.append(f"Extend wavelength coverage to {signal_wavelength*1e9:.1f} nm (longer wavelength)")
+                modifications.append(
+                    f"Extend wavelength coverage to {signal_wavelength*1e9:.1f} nm (longer wavelength)"
+                )
 
         # Sensitivity improvements
         signal_power = signal_parameters.get("signal_power", 1e-20)
@@ -686,9 +703,9 @@ class ELIDiagnosticIntegrator:
 
         return modifications
 
-    def _estimate_integration_timeline(self,
-                                      diagnostic: DiagnosticSystem,
-                                      integration_complexity: str) -> str:
+    def _estimate_integration_timeline(
+        self, diagnostic: DiagnosticSystem, integration_complexity: str
+    ) -> str:
         """Estimate integration timeline"""
 
         base_time = {
@@ -696,14 +713,10 @@ class ELIDiagnosticIntegrator:
             ReadinessLevel.FIELD_TESTED: 6,
             ReadinessLevel.OPERATIONAL: 3,
             ReadinessLevel.ELI_INTEGRATED: 1,
-            ReadinessLevel.PROVEN_ELI: 0.5
+            ReadinessLevel.PROVEN_ELI: 0.5,
         }
 
-        complexity_multiplier = {
-            "Low": 1.0,
-            "Medium": 1.5,
-            "High": 2.5
-        }
+        complexity_multiplier = {"Low": 1.0, "Medium": 1.5, "High": 2.5}
 
         base_months = base_time[diagnostic.readiness_level]
         total_months = base_months * complexity_multiplier[integration_complexity]
@@ -719,18 +732,12 @@ class ELIDiagnosticIntegrator:
         else:
             return f"> {int(total_months)} months"
 
-    def _estimate_integration_cost(self,
-                                  diagnostic: DiagnosticSystem,
-                                  required_modifications: List[str]) -> str:
+    def _estimate_integration_cost(
+        self, diagnostic: DiagnosticSystem, required_modifications: List[str]
+    ) -> str:
         """Estimate integration cost"""
 
-        base_cost = {
-            1: "€10k-€50k",
-            2: "€50k-€100k",
-            3: "€100k-€500k",
-            4: "€500k-€1M",
-            5: "€1M+"
-        }
+        base_cost = {1: "€10k-€50k", 2: "€50k-€100k", 3: "€100k-€500k", 4: "€500k-€1M", 5: "€1M+"}
 
         modification_cost = len(required_modifications) * 0.2  # 20% per modification
 
@@ -742,22 +749,27 @@ class ELIDiagnosticIntegrator:
 
         return base_cost[adjusted_tier]
 
-    def _identify_technical_risks(self,
-                                 diagnostic: DiagnosticSystem,
-                                 signal_parameters: Dict[str, Any]) -> List[str]:
+    def _identify_technical_risks(
+        self, diagnostic: DiagnosticSystem, signal_parameters: Dict[str, Any]
+    ) -> List[str]:
         """Identify technical risks for integration"""
 
         risks = []
 
         # Readiness risks
-        if diagnostic.readiness_level in [ReadinessLevel.LAB_PROTOTYPE, ReadinessLevel.FIELD_TESTED]:
+        if diagnostic.readiness_level in [
+            ReadinessLevel.LAB_PROTOTYPE,
+            ReadinessLevel.FIELD_TESTED,
+        ]:
             risks.append("Technology not yet proven at ELI facilities")
 
         # Performance risks
         signal_freq = signal_parameters.get("peak_frequency", 1e14)
         signal_wavelength = 3e8 / signal_freq
 
-        if not (diagnostic.wavelength_range[0] <= signal_wavelength <= diagnostic.wavelength_range[1]):
+        if not (
+            diagnostic.wavelength_range[0] <= signal_wavelength <= diagnostic.wavelength_range[1]
+        ):
             risks.append("Frequency range mismatch may require significant modifications")
 
         # Sensitivity risks
@@ -810,18 +822,22 @@ class ELIDiagnosticIntegrator:
                 strategies.append("Train on-site personnel for basic troubleshooting")
 
         # Add general strategies
-        strategies.extend([
-            "Early engagement with ELI diagnostic experts",
-            "Comprehensive simulation of diagnostic performance",
-            "Contingency planning for diagnostic failures"
-        ])
+        strategies.extend(
+            [
+                "Early engagement with ELI diagnostic experts",
+                "Comprehensive simulation of diagnostic performance",
+                "Contingency planning for diagnostic failures",
+            ]
+        )
 
         return list(set(strategies))  # Remove duplicates
 
-    def generate_integration_plan(self,
-                                 detection_methods: List[str],
-                                 preferred_facility: ELIFacilityType,
-                                 signal_parameters: Dict[str, Any]) -> Dict[str, Any]:
+    def generate_integration_plan(
+        self,
+        detection_methods: List[str],
+        preferred_facility: ELIFacilityType,
+        signal_parameters: Dict[str, Any],
+    ) -> Dict[str, Any]:
         """Generate comprehensive integration plan"""
 
         plan = {
@@ -832,12 +848,14 @@ class ELIDiagnosticIntegrator:
             "facility_recommendations": {},
             "timeline_overview": {},
             "budget_estimates": {},
-            "risk_assessment": {}
+            "risk_assessment": {},
         }
 
         # Assess each detection method
         for method in detection_methods:
-            assessments = self.assess_diagnostic_compatibility(method, preferred_facility, signal_parameters)
+            assessments = self.assess_diagnostic_compatibility(
+                method, preferred_facility, signal_parameters
+            )
             plan["integration_assessments"][method] = [
                 {
                     "diagnostic": a.diagnostic_name,
@@ -847,8 +865,9 @@ class ELIDiagnosticIntegrator:
                     "timeline": a.integration_timeline,
                     "cost": a.cost_estimate,
                     "technical_risks": a.technical_risks,
-                    "mitigation_strategies": a.mitigation_strategies
-                } for a in assessments
+                    "mitigation_strategies": a.mitigation_strategies,
+                }
+                for a in assessments
             ]
 
         # Generate facility recommendations
@@ -859,7 +878,7 @@ class ELIDiagnosticIntegrator:
             "repetition_rate": facility_capability.repetition_rate_Hz,
             "beam_time_availability": facility_capability.beam_time_availability,
             "experimental_constraints": facility_capability.experimental_constraints,
-            "available_diagnostics": [d.name for d in facility_capability.available_diagnostics]
+            "available_diagnostics": [d.name for d in facility_capability.available_diagnostics],
         }
 
         # Generate timeline overview
@@ -876,7 +895,7 @@ class ELIDiagnosticIntegrator:
             "integration_timeline": max(all_timelines) if all_timelines else "Unknown",
             "estimated_preparation_time": "3-6 months",
             "commissioning_time": "1-2 months",
-            "total_time_to_first_detection": "6-12 months"
+            "total_time_to_first_detection": "6-12 months",
         }
 
         # Budget estimates
@@ -885,7 +904,7 @@ class ELIDiagnosticIntegrator:
             "facility_overheads": "€50k-€100k",
             "personnel_costs": "€100k-€200k",
             "contingency": "20% of total",
-            "total_estimated_budget": "€300k-€800k"
+            "total_estimated_budget": "€300k-€800k",
         }
 
         # Risk assessment
@@ -897,7 +916,7 @@ class ELIDiagnosticIntegrator:
         plan["risk_assessment"] = {
             "identified_risks": list(set(all_risks)),
             "risk_level": "Medium" if len(all_risks) <= 5 else "High",
-            "mitigation_priority": "Focus on sensitivity and timing requirements"
+            "mitigation_priority": "Focus on sensitivity and timing requirements",
         }
 
         return plan
@@ -908,8 +927,8 @@ class ELIDiagnosticIntegrator:
         output_file = Path(output_path)
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
-        if output_file.suffix == '.json':
-            with open(output_file, 'w') as f:
+        if output_file.suffix == ".json":
+            with open(output_file, "w") as f:
                 json.dump(plan, f, indent=2, default=str)
         else:
             # Generate markdown report
@@ -954,21 +973,21 @@ class ELIDiagnosticIntegrator:
                 lines.append(f"**Cost Estimate:** {best['cost']}")
                 lines.append("")
 
-                if best['required_modifications']:
+                if best["required_modifications"]:
                     lines.append("**Required Modifications:**")
-                    for mod in best['required_modifications']:
+                    for mod in best["required_modifications"]:
                         lines.append(f"- {mod}")
                     lines.append("")
 
-                if best['technical_risks']:
+                if best["technical_risks"]:
                     lines.append("**Technical Risks:**")
-                    for risk in best['technical_risks']:
+                    for risk in best["technical_risks"]:
                         lines.append(f"- {risk}")
                     lines.append("")
 
-                if best['mitigation_strategies']:
+                if best["mitigation_strategies"]:
                     lines.append("**Mitigation Strategies:**")
-                    for strategy in best['mitigation_strategies']:
+                    for strategy in best["mitigation_strategies"]:
                         lines.append(f"- {strategy}")
                     lines.append("")
             else:
@@ -1039,21 +1058,23 @@ class ELIDiagnosticIntegrator:
 
 
 # Convenience functions
-def assess_eli_compatibility(detection_method: str,
-                           facility: str,
-                           signal_parameters: Dict[str, Any]) -> Dict[str, Any]:
+def assess_eli_compatibility(
+    detection_method: str, facility: str, signal_parameters: Dict[str, Any]
+) -> Dict[str, Any]:
     """Convenience function for ELI compatibility assessment"""
 
     integrator = ELIDiagnosticIntegrator()
     facility_map = {
         "beamlines": ELIFacilityType.ELI_BEAMLINES,
         "np": ELIFacilityType.ELI_NP,
-        "alps": ELIFacilityType.ELI_ALPS
+        "alps": ELIFacilityType.ELI_ALPS,
     }
 
     eli_facility = facility_map.get(facility.lower(), ELIFacilityType.ELI_BEAMLINES)
 
-    assessments = integrator.assess_diagnostic_compatibility(detection_method, eli_facility, signal_parameters)
+    assessments = integrator.assess_diagnostic_compatibility(
+        detection_method, eli_facility, signal_parameters
+    )
 
     return {
         "facility": facility,
@@ -1065,23 +1086,23 @@ def assess_eli_compatibility(detection_method: str,
                 "integration_complexity": a.integration_complexity,
                 "timeline": a.integration_timeline,
                 "cost": a.cost_estimate,
-                "risks": a.technical_risks
-            } for a in assessments
-        ]
+                "risks": a.technical_risks,
+            }
+            for a in assessments
+        ],
     }
 
 
-def generate_eli_integration_plan(detection_methods: List[str],
-                                 facility: str,
-                                 signal_parameters: Dict[str, Any],
-                                 output_path: str) -> str:
+def generate_eli_integration_plan(
+    detection_methods: List[str], facility: str, signal_parameters: Dict[str, Any], output_path: str
+) -> str:
     """Generate comprehensive ELI integration plan"""
 
     integrator = ELIDiagnosticIntegrator()
     facility_map = {
         "beamlines": ELIFacilityType.ELI_BEAMLINES,
         "np": ELIFacilityType.ELI_NP,
-        "alps": ELIFacilityType.ELI_ALPS
+        "alps": ELIFacilityType.ELI_ALPS,
     }
 
     eli_facility = facility_map.get(facility.lower(), ELIFacilityType.ELI_BEAMLINES)

@@ -17,14 +17,16 @@ import numpy as np
 
 class ELIFacility(Enum):
     """ELI facility locations and their primary capabilities"""
+
     ELI_BEAMLINES = "ELI-Beamlines"  # Czech Republic
-    ELI_NP = "ELI-NP"               # Romania (Nuclear Physics)
-    ELI_ALPS = "ELI-ALPS"           # Hungary (Attosecond Light Pulse Source)
+    ELI_NP = "ELI-NP"  # Romania (Nuclear Physics)
+    ELI_ALPS = "ELI-ALPS"  # Hungary (Attosecond Light Pulse Source)
 
 
 @dataclass
 class LaserSystemSpecs:
     """Detailed specifications for a laser system"""
+
     name: str
     facility: ELIFacility
     peak_power_TW: float  # Peak power in terawatts
@@ -66,9 +68,8 @@ class ELICapabilities:
                 contrast_ratio=1e-10,
                 polarization="linear",
                 operational_status="commissioning",
-                experimental_hall="E4"
+                experimental_hall="E4",
             ),
-
             "L2_HAPLS": LaserSystemSpecs(
                 name="L2 HAPLS",
                 facility=ELIFacility.ELI_BEAMLINES,
@@ -82,9 +83,8 @@ class ELICapabilities:
                 contrast_ratio=1e-9,
                 polarization="linear",
                 operational_status="operational",
-                experimental_hall="E2"
+                experimental_hall="E2",
             ),
-
             # ELI-NP Systems (Romania)
             "HPLS_10PW_A": LaserSystemSpecs(
                 name="HPLS 10PW - Arm A",
@@ -99,9 +99,8 @@ class ELICapabilities:
                 contrast_ratio=1e-11,
                 polarization="linear/circular",
                 operational_status="operational",
-                experimental_hall="E1"
+                experimental_hall="E1",
             ),
-
             "HPLS_10PW_B": LaserSystemSpecs(
                 name="HPLS 10PW - Arm B",
                 facility=ELIFacility.ELI_NP,
@@ -115,9 +114,8 @@ class ELICapabilities:
                 contrast_ratio=1e-11,
                 polarization="linear/circular",
                 operational_status="operational",
-                experimental_hall="E2"
+                experimental_hall="E2",
             ),
-
             "HPLS_1PW": LaserSystemSpecs(
                 name="HPLS 1PW",
                 facility=ELIFacility.ELI_NP,
@@ -131,9 +129,8 @@ class ELICapabilities:
                 contrast_ratio=1e-10,
                 polarization="linear/circular",
                 operational_status="operational",
-                experimental_hall="E3"
+                experimental_hall="E3",
             ),
-
             # ELI-ALPS Systems (Hungary)
             "HR1": LaserSystemSpecs(
                 name="HR1 (High Repetition Rate)",
@@ -148,9 +145,8 @@ class ELICapabilities:
                 contrast_ratio=1e-8,
                 polarization="linear",
                 operational_status="operational",
-                experimental_hall="HR1"
+                experimental_hall="HR1",
             ),
-
             "SYLOS": LaserSystemSpecs(
                 name="SYLOS 2PW",
                 facility=ELIFacility.ELI_ALPS,
@@ -164,7 +160,7 @@ class ELICapabilities:
                 contrast_ratio=1e-9,
                 polarization="linear",
                 operational_status="operational",
-                experimental_hall="SYLOS"
+                experimental_hall="SYLOS",
             ),
         }
 
@@ -184,17 +180,16 @@ class ELICapabilities:
                     "Target chamber pressure: <1e-6 mbar",
                     "Radiation shielding requirements for >10^22 W/cm²",
                     "Plasma mirror compatibility verified",
-                    "Electron beamline integration available"
+                    "Electron beamline integration available",
                 ],
                 "diagnostic_capabilities": [
                     "X-ray spectrometry (1-100 keV)",
                     "Electron spectrometry (MeV range)",
                     "Optical probing (fs resolution)",
                     "Thomson scattering diagnostics",
-                    "Interferometry and shadowgraphy"
-                ]
+                    "Interferometry and shadowgraphy",
+                ],
             },
-
             ELIFacility.ELI_NP: {
                 "max_intensity_W_cm2": 1e24,
                 "wavelength_range_nm": (810, 810),  # Fixed Ti:Sapphire
@@ -205,17 +200,16 @@ class ELICapabilities:
                     "Gamma beam system integration",
                     "Nuclear physics target chamber",
                     "Enhanced radiation shielding",
-                    "Heavy-ion target capability"
+                    "Heavy-ion target capability",
                 ],
                 "diagnostic_capabilities": [
                     "Gamma ray detection (20 MeV)",
                     "Nuclear activation analysis",
                     "High-energy particle spectrometry",
                     "Positron production detection",
-                    "Nuclear reaction monitoring"
-                ]
+                    "Nuclear reaction monitoring",
+                ],
             },
-
             ELIFacility.ELI_ALPS: {
                 "max_intensity_W_cm2": 1e22,  # Lower due to higher rep rate focus
                 "wavelength_range_nm": (800, 800),  # Fixed Ti:Sapphire
@@ -226,16 +220,16 @@ class ELICapabilities:
                     "High repetition rate experiments",
                     "Ultra-fast diagnostics emphasis",
                     "Surface physics and thin film targets",
-                    "Gas jet and cluster targets preferred"
+                    "Gas jet and cluster targets preferred",
                 ],
                 "diagnostic_capabilities": [
                     "Attosecond streaking",
                     "Frequency-resolved optical gating (FROG)",
                     "Spatially-resolved spectroscopy",
                     "Photoelectron spectroscopy",
-                    "Time-of-flight mass spectrometry"
-                ]
-            }
+                    "Time-of-flight mass spectrometry",
+                ],
+            },
         }
 
         return constraints
@@ -246,36 +240,37 @@ class ELICapabilities:
         return {
             "safety_limits": {
                 "max_intensity_W_cm2": 1e24,  # Hard limit for all facilities
-                "min_focal_spot_um": 1.0,     # Minimum achievable focal spot
-                "max_pulse_energy_J": 2000,   # Maximum pulse energy
+                "min_focal_spot_um": 1.0,  # Minimum achievable focal spot
+                "max_pulse_energy_J": 2000,  # Maximum pulse energy
                 "radiation_zones": {
                     "controlled": 10,  # meters
                     "supervised": 30,  # meters
-                    "public": 100      # meters
-                }
+                    "public": 100,  # meters
+                },
             },
-
             "technical_constraints": {
                 "pointing_stability_mrad": 0.05,  # Maximum pointing jitter
-                "timing_jitter_fs": 30,           # Maximum timing jitter
-                "energy_stability_percent": 3,    # Maximum energy fluctuation
-                "wavefront_quality_PV": 200e-9,   # Peak-to-valley wavefront error (meters)
-                "contrast_enhancement": 1e-12     # Maximum achievable contrast
+                "timing_jitter_fs": 30,  # Maximum timing jitter
+                "energy_stability_percent": 3,  # Maximum energy fluctuation
+                "wavefront_quality_PV": 200e-9,  # Peak-to-valley wavefront error (meters)
+                "contrast_enhancement": 1e-12,  # Maximum achievable contrast
             },
-
             "experimental_requirements": {
-                "vacuum_level_mbar": 1e-7,        # Required vacuum level
-                "target_positioning_um": 1,       # Target positioning accuracy
-                "plasma_mirror_prep_time_s": 300, # Plasma mirror preparation time
+                "vacuum_level_mbar": 1e-7,  # Required vacuum level
+                "target_positioning_um": 1,  # Target positioning accuracy
+                "plasma_mirror_prep_time_s": 300,  # Plasma mirror preparation time
                 "diagnostic_integration_time_s": 600,  # Diagnostic setup time
-                "shot_cycle_time_s": 60           # Minimum time between shots
-            }
+                "shot_cycle_time_s": 60,  # Minimum time between shots
+            },
         }
 
-    def get_compatible_systems(self, intensity_W_cm2: float,
-                             wavelength_nm: float,
-                             pulse_duration_fs: float,
-                             facility: Optional[ELIFacility] = None) -> List[LaserSystemSpecs]:
+    def get_compatible_systems(
+        self,
+        intensity_W_cm2: float,
+        wavelength_nm: float,
+        pulse_duration_fs: float,
+        facility: Optional[ELIFacility] = None,
+    ) -> List[LaserSystemSpecs]:
         """Get laser systems compatible with experimental requirements"""
 
         compatible = []
@@ -305,17 +300,22 @@ class ELICapabilities:
             compatible.append(system)
 
         # Sort by suitability (prefer operational systems with higher margin)
-        compatible.sort(key=lambda s: (
-            0 if s.operational_status == "operational" else 1,
-            -np.log10(s.max_intensity_W_cm2 / intensity_W_cm2) if intensity_W_cm2 > 0 else 0
-        ))
+        compatible.sort(
+            key=lambda s: (
+                0 if s.operational_status == "operational" else 1,
+                -np.log10(s.max_intensity_W_cm2 / intensity_W_cm2) if intensity_W_cm2 > 0 else 0,
+            )
+        )
 
         return compatible
 
-    def calculate_feasibility_score(self, intensity_W_cm2: float,
-                                  wavelength_nm: float,
-                                  pulse_duration_fs: float,
-                                  facility: Optional[ELIFacility] = None) -> Dict[str, Any]:
+    def calculate_feasibility_score(
+        self,
+        intensity_W_cm2: float,
+        wavelength_nm: float,
+        pulse_duration_fs: float,
+        facility: Optional[ELIFacility] = None,
+    ) -> Dict[str, Any]:
         """Calculate feasibility score for experimental parameters"""
 
         compatible_systems = self.get_compatible_systems(
@@ -329,13 +329,13 @@ class ELICapabilities:
                 "primary_issues": [
                     f"Intensity {intensity_W_cm2:.1e} W/cm² exceeds all facility capabilities",
                     f"Wavelength {wavelength_nm:.0f} nm incompatible with available systems",
-                    f"Pulse duration {pulse_duration_fs:.0f} fs outside operational range"
+                    f"Pulse duration {pulse_duration_fs:.0f} fs outside operational range",
                 ],
                 "recommendations": [
                     "Reduce intensity to ≤10^23 W/cm² for broader compatibility",
                     "Use 800 nm or 1030 nm wavelength for Ti:Sapphire/Yb:YAG systems",
-                    "Adjust pulse duration to 30-200 fs range"
-                ]
+                    "Adjust pulse duration to 30-200 fs range",
+                ],
             }
 
         best_system = compatible_systems[0]
@@ -347,7 +347,10 @@ class ELICapabilities:
         wavelength_match = 1.0 - abs(wavelength_nm - best_system.wavelength_nm) / 100.0
 
         # Calculate duration match (perfect match = 1.0)
-        duration_match = 1.0 - abs(pulse_duration_fs - best_system.pulse_duration_fs) / best_system.pulse_duration_fs
+        duration_match = (
+            1.0
+            - abs(pulse_duration_fs - best_system.pulse_duration_fs) / best_system.pulse_duration_fs
+        )
 
         # Calculate operational factor (operational = 1.0, commissioning = 0.7)
         operational_factor = 1.0 if best_system.operational_status == "operational" else 0.7
@@ -357,11 +360,11 @@ class ELICapabilities:
 
         # Overall feasibility score
         score = (
-            0.3 * np.log10(min(intensity_margin, 100)) / 2.0 +  # Intensity margin
-            0.2 * wavelength_match +                           # Wavelength compatibility
-            0.2 * duration_match +                             # Duration compatibility
-            0.2 * operational_factor +                         # Operational status
-            0.1 * rep_rate_factor                              # Repetition rate
+            0.3 * np.log10(min(intensity_margin, 100)) / 2.0  # Intensity margin
+            + 0.2 * wavelength_match  # Wavelength compatibility
+            + 0.2 * duration_match  # Duration compatibility
+            + 0.2 * operational_factor  # Operational status
+            + 0.1 * rep_rate_factor  # Repetition rate
         )
 
         score = max(0.0, min(1.0, score))
@@ -369,16 +372,24 @@ class ELICapabilities:
         # Generate recommendations
         recommendations = []
         if intensity_margin < 2:
-            recommendations.append(f"Consider reducing intensity to ≤{best_system.max_intensity_W_cm2/2:.1e} W/cm² for safety margin")
+            recommendations.append(
+                f"Consider reducing intensity to ≤{best_system.max_intensity_W_cm2/2:.1e} W/cm² for safety margin"
+            )
 
         if wavelength_match < 0.9:
-            recommendations.append(f"Use {best_system.wavelength_nm:.0f} nm wavelength for optimal compatibility")
+            recommendations.append(
+                f"Use {best_system.wavelength_nm:.0f} nm wavelength for optimal compatibility"
+            )
 
         if duration_match < 0.9:
-            recommendations.append(f"Adjust pulse duration to {best_system.pulse_duration_fs:.0f} fs for optimal performance")
+            recommendations.append(
+                f"Adjust pulse duration to {best_system.pulse_duration_fs:.0f} fs for optimal performance"
+            )
 
         if best_system.operational_status == "commissioning":
-            recommendations.append("System is in commissioning - operational schedule may be limited")
+            recommendations.append(
+                "System is in commissioning - operational schedule may be limited"
+            )
 
         return {
             "feasible": True,
@@ -392,12 +403,17 @@ class ELICapabilities:
             "repetition_rate_Hz": best_system.repetition_rate_Hz,
             "experimental_hall": best_system.experimental_hall,
             "all_compatible_systems": [s.name for s in compatible_systems],
-            "recommendations": recommendations if recommendations else ["Parameters are well within system capabilities"]
+            "recommendations": (
+                recommendations
+                if recommendations
+                else ["Parameters are well within system capabilities"]
+            ),
         }
 
 
-def validate_intensity_range(intensity_W_m2: float,
-                          facility: Optional[ELIFacility] = None) -> Dict[str, Any]:
+def validate_intensity_range(
+    intensity_W_m2: float, facility: Optional[ELIFacility] = None
+) -> Dict[str, Any]:
     """
     Validate laser intensity against ELI facility capabilities
 
@@ -422,7 +438,7 @@ def validate_intensity_range(intensity_W_m2: float,
             "issue": "CRITICAL: Intensity exceeds maximum ELI capability",
             "max_eligible": 1e24,
             "facility_status": "INCOMPATIBLE",
-            "recommendation": "Reduce intensity by factor of ≥10 for ELI compatibility"
+            "recommendation": "Reduce intensity by factor of ≥10 for ELI compatibility",
         }
 
     # Check against facility-specific limits
@@ -435,7 +451,7 @@ def validate_intensity_range(intensity_W_m2: float,
                 "issue": f"Intensity exceeds {facility.value} maximum",
                 "max_eligible": facility_limit,
                 "facility_status": "INCOMPATIBLE",
-                "recommendation": f"Reduce intensity to ≤{facility_limit:.1e} W/cm² for {facility.value}"
+                "recommendation": f"Reduce intensity to ≤{facility_limit:.1e} W/cm² for {facility.value}",
             }
 
     # Determine facility compatibility
@@ -460,7 +476,7 @@ def validate_intensity_range(intensity_W_m2: float,
         "feasibility_level": feasibility,
         "compatible_facilities": compatible_facilities,
         "facility_status": "COMPATIBLE",
-        "recommendations": _generate_intensity_recommendations(intensity_W_cm2)
+        "recommendations": _generate_intensity_recommendations(intensity_W_cm2),
     }
 
 
@@ -470,35 +486,45 @@ def _generate_intensity_recommendations(intensity_W_cm2: float) -> List[str]:
     recommendations = []
 
     if intensity_W_cm2 < 1e18:
-        recommendations.extend([
-            "Intensity is conservative - well within all facility capabilities",
-            "Consider higher intensity for stronger plasma effects",
-            "May be suitable for proof-of-concept experiments"
-        ])
+        recommendations.extend(
+            [
+                "Intensity is conservative - well within all facility capabilities",
+                "Consider higher intensity for stronger plasma effects",
+                "May be suitable for proof-of-concept experiments",
+            ]
+        )
     elif intensity_W_cm2 < 1e20:
-        recommendations.extend([
-            "Good intensity range for initial plasma mirror studies",
-            "Compatible with high repetition rate systems (ELI-ALPS)",
-            "Excellent for statistical data collection"
-        ])
+        recommendations.extend(
+            [
+                "Good intensity range for initial plasma mirror studies",
+                "Compatible with high repetition rate systems (ELI-ALPS)",
+                "Excellent for statistical data collection",
+            ]
+        )
     elif intensity_W_cm2 < 1e22:
-        recommendations.extend([
-            "Strong relativistic regime achieved",
-            "Consider plasma mirror pre-pulse management",
-            "Compatible with most ELI facilities"
-        ])
+        recommendations.extend(
+            [
+                "Strong relativistic regime achieved",
+                "Consider plasma mirror pre-pulse management",
+                "Compatible with most ELI facilities",
+            ]
+        )
     elif intensity_W_cm2 < 1e23:
-        recommendations.extend([
-            "Approaching maximum operational intensity",
-            "Require careful plasma mirror timing",
-            "Limited to ELI-Beamlines and ELI-NP facilities"
-        ])
+        recommendations.extend(
+            [
+                "Approaching maximum operational intensity",
+                "Require careful plasma mirror timing",
+                "Limited to ELI-Beamlines and ELI-NP facilities",
+            ]
+        )
     else:
-        recommendations.extend([
-            "Maximum intensity regime - requires special approval",
-            "Extensive safety procedures required",
-            "Limited shot availability expected"
-        ])
+        recommendations.extend(
+            [
+                "Maximum intensity regime - requires special approval",
+                "Extensive safety procedures required",
+                "Limited shot availability expected",
+            ]
+        )
 
     return recommendations
 
@@ -506,9 +532,11 @@ def _generate_intensity_recommendations(intensity_W_cm2: float) -> List[str]:
 # Create global instance for easy access
 _eli_capabilities = ELICapabilities()
 
+
 def get_eli_capabilities() -> ELICapabilities:
     """Get global ELI capabilities instance"""
     return _eli_capabilities
+
 
 def quick_facility_check(intensity_W_m2: float, wavelength_nm: float = 800) -> str:
     """

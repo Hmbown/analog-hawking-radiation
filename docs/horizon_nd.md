@@ -51,4 +51,3 @@ Future extensions
 - Patch‑wise graybody via local normal profiles
 - Optional CuPy acceleration for large grids
 - Direct OpenPMD→nD pipeline with vector fields from PIC output
-

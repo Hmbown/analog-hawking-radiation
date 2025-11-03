@@ -39,48 +39,56 @@ def create_realistic_signal_scenarios() -> pd.DataFrame:
     scenarios = []
 
     # Scenario 1: Optimistic case (high temperature)
-    scenarios.append({
-        'scenario_name': 'Optimistic High-Temperature',
-        'hawking_temperature_K': 0.1,  # 100 mK
-        'surface_gravity_s': 1e13,      # 10¹³ s⁻¹
-        'peak_frequency_Hz': 2e12,      # 2 THz
-        'plasma_temperature_K': 1e6,    # 1 MK
-        'plasma_density_m3': 1e24,      # 10²⁴ m⁻³
-        'emitting_area_m2': 1e-12       # 1 μm²
-    })
+    scenarios.append(
+        {
+            "scenario_name": "Optimistic High-Temperature",
+            "hawking_temperature_K": 0.1,  # 100 mK
+            "surface_gravity_s": 1e13,  # 10¹³ s⁻¹
+            "peak_frequency_Hz": 2e12,  # 2 THz
+            "plasma_temperature_K": 1e6,  # 1 MK
+            "plasma_density_m3": 1e24,  # 10²⁴ m⁻³
+            "emitting_area_m2": 1e-12,  # 1 μm²
+        }
+    )
 
     # Scenario 2: Realistic case (medium temperature)
-    scenarios.append({
-        'scenario_name': 'Realistic Medium-Temperature',
-        'hawking_temperature_K': 0.01,  # 10 mK
-        'surface_gravity_s': 1e12,      # 10¹² s⁻¹
-        'peak_frequency_Hz': 2e11,      # 200 GHz
-        'plasma_temperature_K': 1e6,    # 1 MK
-        'plasma_density_m3': 1e23,      # 10²³ m⁻³
-        'emitting_area_m2': 1e-12       # 1 μm²
-    })
+    scenarios.append(
+        {
+            "scenario_name": "Realistic Medium-Temperature",
+            "hawking_temperature_K": 0.01,  # 10 mK
+            "surface_gravity_s": 1e12,  # 10¹² s⁻¹
+            "peak_frequency_Hz": 2e11,  # 200 GHz
+            "plasma_temperature_K": 1e6,  # 1 MK
+            "plasma_density_m3": 1e23,  # 10²³ m⁻³
+            "emitting_area_m2": 1e-12,  # 1 μm²
+        }
+    )
 
     # Scenario 3: Conservative case (low temperature)
-    scenarios.append({
-        'scenario_name': 'Conservative Low-Temperature',
-        'hawking_temperature_K': 0.001, # 1 mK
-        'surface_gravity_s': 1e11,      # 10¹¹ s⁻¹
-        'peak_frequency_Hz': 2e10,      # 20 GHz
-        'plasma_temperature_K': 1e6,    # 1 MK
-        'plasma_density_m3': 1e22,      # 10²² m⁻³
-        'emitting_area_m2': 1e-12       # 1 μm²
-    })
+    scenarios.append(
+        {
+            "scenario_name": "Conservative Low-Temperature",
+            "hawking_temperature_K": 0.001,  # 1 mK
+            "surface_gravity_s": 1e11,  # 10¹¹ s⁻¹
+            "peak_frequency_Hz": 2e10,  # 20 GHz
+            "plasma_temperature_K": 1e6,  # 1 MK
+            "plasma_density_m3": 1e22,  # 10²² m⁻³
+            "emitting_area_m2": 1e-12,  # 1 μm²
+        }
+    )
 
     # Scenario 4: Very challenging case
-    scenarios.append({
-        'scenario_name': 'Very Challenging Ultra-Low-Temperature',
-        'hawking_temperature_K': 1e-4,  # 0.1 mK
-        'surface_gravity_s': 1e10,      # 10¹⁰ s⁻¹
-        'peak_frequency_Hz': 2e9,       # 2 GHz
-        'plasma_temperature_K': 1e6,    # 1 MK
-        'plasma_density_m3': 1e21,      # 10²¹ m⁻³
-        'emitting_area_m2': 1e-12       # 1 μm²
-    })
+    scenarios.append(
+        {
+            "scenario_name": "Very Challenging Ultra-Low-Temperature",
+            "hawking_temperature_K": 1e-4,  # 0.1 mK
+            "surface_gravity_s": 1e10,  # 10¹⁰ s⁻¹
+            "peak_frequency_Hz": 2e9,  # 2 GHz
+            "plasma_temperature_K": 1e6,  # 1 MK
+            "plasma_density_m3": 1e21,  # 10²¹ m⁻³
+            "emitting_area_m2": 1e-12,  # 1 μm²
+        }
+    )
 
     return pd.DataFrame(scenarios)
 
@@ -100,23 +108,23 @@ def analyze_detection_feasibility_by_scenario(scenarios_df: pd.DataFrame) -> pd.
             # Assess detection feasibility
             assessments = analyzer.assess_detection_feasibility(
                 signal=SignalCharacteristics(
-                    hawking_temperature=scenario['hawking_temperature_K'],
-                    surface_gravity=scenario['surface_gravity_s'],
-                    peak_frequency=scenario['peak_frequency_Hz'],
-                    bandwidth=scenario['peak_frequency_Hz'] / 10,
+                    hawking_temperature=scenario["hawking_temperature_K"],
+                    surface_gravity=scenario["surface_gravity_s"],
+                    peak_frequency=scenario["peak_frequency_Hz"],
+                    bandwidth=scenario["peak_frequency_Hz"] / 10,
                     total_power=1e-25,  # Will be calculated
                     power_density=1e-30,
-                    signal_temperature=scenario['hawking_temperature_K'] * 0.1,
+                    signal_temperature=scenario["hawking_temperature_K"] * 0.1,
                     pulse_duration=1e-12,
                     rise_time=1e-13,
                     repetition_rate=1.0,
-                    emitting_area=scenario['emitting_area_m2'],
-                    angular_distribution="isotropic"
+                    emitting_area=scenario["emitting_area_m2"],
+                    angular_distribution="isotropic",
                 ),
                 plasma_params={
-                    'temperature': scenario['plasma_temperature_K'],
-                    'density': scenario['plasma_density_m3']
-                }
+                    "temperature": scenario["plasma_temperature_K"],
+                    "density": scenario["plasma_density_m3"],
+                },
             )
 
             # Extract best assessment
@@ -124,58 +132,55 @@ def analyze_detection_feasibility_by_scenario(scenarios_df: pd.DataFrame) -> pd.
 
             if best_assessment:
                 result = {
-                    'scenario_name': scenario['scenario_name'],
-                    'hawking_temperature_K': scenario['hawking_temperature_K'],
-                    'surface_gravity_s': scenario['surface_gravity_s'],
-                    'peak_frequency_Hz': scenario['peak_frequency_Hz'],
-
-                    'best_method': best_assessment.detection_method.value,
-                    'best_detector': best_assessment.detector_type.value,
-                    'best_snr': best_assessment.snr_optimal,
-                    'feasibility_level': best_assessment.feasibility_level.value,
-                    'detection_probability': best_assessment.detection_probability,
-
-                    'integration_time_s': best_assessment.optimal_integration_time,
-                    'required_shots': best_assessment.required_shots,
-                    'experiment_time_hours': best_assessment.total_experiment_time,
-
-                    'dominant_noise': best_assessment.dominant_noise_source,
-                    'cost_estimate': best_assessment.cost_estimate,
-                    'timeline_estimate': best_assessment.timeline_estimate,
-
-                    'top_recommendations': '; '.join(best_assessment.recommendations[:3])
+                    "scenario_name": scenario["scenario_name"],
+                    "hawking_temperature_K": scenario["hawking_temperature_K"],
+                    "surface_gravity_s": scenario["surface_gravity_s"],
+                    "peak_frequency_Hz": scenario["peak_frequency_Hz"],
+                    "best_method": best_assessment.detection_method.value,
+                    "best_detector": best_assessment.detector_type.value,
+                    "best_snr": best_assessment.snr_optimal,
+                    "feasibility_level": best_assessment.feasibility_level.value,
+                    "detection_probability": best_assessment.detection_probability,
+                    "integration_time_s": best_assessment.optimal_integration_time,
+                    "required_shots": best_assessment.required_shots,
+                    "experiment_time_hours": best_assessment.total_experiment_time,
+                    "dominant_noise": best_assessment.dominant_noise_source,
+                    "cost_estimate": best_assessment.cost_estimate,
+                    "timeline_estimate": best_assessment.timeline_estimate,
+                    "top_recommendations": "; ".join(best_assessment.recommendations[:3]),
                 }
             else:
                 result = {
-                    'scenario_name': scenario['scenario_name'],
-                    'hawking_temperature_K': scenario['hawking_temperature_K'],
-                    'surface_gravity_s': scenario['surface_gravity_s'],
-                    'peak_frequency_Hz': scenario['peak_frequency_Hz'],
-
-                    'best_method': 'None',
-                    'best_detector': 'None',
-                    'best_snr': 0.0,
-                    'feasibility_level': 'Impossible',
-                    'detection_probability': 0.0,
-                    'integration_time_s': float('inf'),
-                    'required_shots': 0,
-                    'experiment_time_hours': float('inf'),
-                    'dominant_noise': 'N/A',
-                    'cost_estimate': 'N/A',
-                    'timeline_estimate': 'N/A',
-                    'top_recommendations': 'No feasible detection method'
+                    "scenario_name": scenario["scenario_name"],
+                    "hawking_temperature_K": scenario["hawking_temperature_K"],
+                    "surface_gravity_s": scenario["surface_gravity_s"],
+                    "peak_frequency_Hz": scenario["peak_frequency_Hz"],
+                    "best_method": "None",
+                    "best_detector": "None",
+                    "best_snr": 0.0,
+                    "feasibility_level": "Impossible",
+                    "detection_probability": 0.0,
+                    "integration_time_s": float("inf"),
+                    "required_shots": 0,
+                    "experiment_time_hours": float("inf"),
+                    "dominant_noise": "N/A",
+                    "cost_estimate": "N/A",
+                    "timeline_estimate": "N/A",
+                    "top_recommendations": "No feasible detection method",
                 }
 
             results.append(result)
 
         except Exception as e:
             print(f"    ❌ Error: {e}")
-            results.append({
-                'scenario_name': scenario['scenario_name'],
-                'error': str(e),
-                'best_snr': 0.0,
-                'feasibility_level': 'Error'
-            })
+            results.append(
+                {
+                    "scenario_name": scenario["scenario_name"],
+                    "error": str(e),
+                    "best_snr": 0.0,
+                    "feasibility_level": "Error",
+                }
+            )
 
     return pd.DataFrame(results)
 
@@ -188,72 +193,78 @@ def analyze_eli_facility_compatibility(results_df: pd.DataFrame) -> pd.DataFrame
     facility_analysis = []
 
     integrator = ELIDiagnosticIntegrator()
-    facilities = ['beamlines', 'np', 'alps']
+    facilities = ["beamlines", "np", "alps"]
 
     for idx, result in results_df.iterrows():
-        if 'error' in result:
+        if "error" in result:
             continue
 
         signal_params = {
-            'peak_frequency': result['peak_frequency_Hz'],
-            'signal_power': 1e-25,  # Estimate
-            'pulse_duration': 1e-12,
-            'precise_timing': True,
-            'vacuum_required': True
+            "peak_frequency": result["peak_frequency_Hz"],
+            "signal_power": 1e-25,  # Estimate
+            "pulse_duration": 1e-12,
+            "precise_timing": True,
+            "vacuum_required": True,
         }
 
         for facility in facilities:
             try:
                 # Get best method for this facility
                 compatibility = assess_eli_compatibility(
-                    detection_method=result['best_method'],
+                    detection_method=result["best_method"],
                     facility=facility,
-                    signal_parameters=signal_params
+                    signal_parameters=signal_params,
                 )
 
-                if compatibility['assessments']:
-                    best_assessment = compatibility['assessments'][0]
-                    facility_analysis.append({
-                        'scenario_name': result['scenario_name'],
-                        'facility': facility,
-                        'best_diagnostic': best_assessment['diagnostic'],
-                        'compatibility_score': best_assessment['compatibility_score'],
-                        'integration_complexity': best_assessment['integration_complexity'],
-                        'timeline': best_assessment['timeline'],
-                        'cost': best_assessment['cost'],
-                        'num_risks': len(best_assessment['risks'])
-                    })
+                if compatibility["assessments"]:
+                    best_assessment = compatibility["assessments"][0]
+                    facility_analysis.append(
+                        {
+                            "scenario_name": result["scenario_name"],
+                            "facility": facility,
+                            "best_diagnostic": best_assessment["diagnostic"],
+                            "compatibility_score": best_assessment["compatibility_score"],
+                            "integration_complexity": best_assessment["integration_complexity"],
+                            "timeline": best_assessment["timeline"],
+                            "cost": best_assessment["cost"],
+                            "num_risks": len(best_assessment["risks"]),
+                        }
+                    )
                 else:
-                    facility_analysis.append({
-                        'scenario_name': result['scenario_name'],
-                        'facility': facility,
-                        'best_diagnostic': 'None',
-                        'compatibility_score': 0.0,
-                        'integration_complexity': 'High',
-                        'timeline': 'Unknown',
-                        'cost': 'Unknown',
-                        'num_risks': 999
-                    })
+                    facility_analysis.append(
+                        {
+                            "scenario_name": result["scenario_name"],
+                            "facility": facility,
+                            "best_diagnostic": "None",
+                            "compatibility_score": 0.0,
+                            "integration_complexity": "High",
+                            "timeline": "Unknown",
+                            "cost": "Unknown",
+                            "num_risks": 999,
+                        }
+                    )
 
             except Exception as e:
                 print(f"    ⚠️ Facility {facility} analysis error: {e}")
-                facility_analysis.append({
-                    'scenario_name': result['scenario_name'],
-                    'facility': facility,
-                    'best_diagnostic': 'Error',
-                    'compatibility_score': 0.0,
-                    'integration_complexity': 'High',
-                    'timeline': 'Unknown',
-                    'cost': 'Unknown',
-                    'num_risks': 999
-                })
+                facility_analysis.append(
+                    {
+                        "scenario_name": result["scenario_name"],
+                        "facility": facility,
+                        "best_diagnostic": "Error",
+                        "compatibility_score": 0.0,
+                        "integration_complexity": "High",
+                        "timeline": "Unknown",
+                        "cost": "Unknown",
+                        "num_risks": 999,
+                    }
+                )
 
     return pd.DataFrame(facility_analysis)
 
 
-def generate_comprehensive_plots(detection_results: pd.DataFrame,
-                               facility_results: pd.DataFrame,
-                               output_dir: str):
+def generate_comprehensive_plots(
+    detection_results: pd.DataFrame, facility_results: pd.DataFrame, output_dir: str
+):
     """Generate comprehensive analysis plots"""
 
     print("📊 Generating comprehensive plots...")
@@ -262,99 +273,123 @@ def generate_comprehensive_plots(detection_results: pd.DataFrame,
     output_path.mkdir(exist_ok=True)
 
     # Set up plotting style
-    plt.style.use('default')
-    plt.rcParams.update({'font.size': 10})
+    plt.style.use("default")
+    plt.rcParams.update({"font.size": 10})
 
     # 1. SNR vs Hawking Temperature
     fig, axes = plt.subplots(2, 3, figsize=(18, 12))
 
     # Plot 1: SNR vs Temperature
-    axes[0, 0].scatter(detection_results['hawking_temperature_K'],
-                      detection_results['best_snr'],
-                      s=100, alpha=0.7, color='blue')
-    axes[0, 0].set_xlabel('Hawking Temperature (K)')
-    axes[0, 0].set_ylabel('Best SNR')
-    axes[0, 0].set_title('Detection SNR vs Hawking Temperature')
-    axes[0, 0].set_xscale('log')
-    axes[0, 0].set_yscale('log')
+    axes[0, 0].scatter(
+        detection_results["hawking_temperature_K"],
+        detection_results["best_snr"],
+        s=100,
+        alpha=0.7,
+        color="blue",
+    )
+    axes[0, 0].set_xlabel("Hawking Temperature (K)")
+    axes[0, 0].set_ylabel("Best SNR")
+    axes[0, 0].set_title("Detection SNR vs Hawking Temperature")
+    axes[0, 0].set_xscale("log")
+    axes[0, 0].set_yscale("log")
     axes[0, 0].grid(True, alpha=0.3)
-    axes[0, 0].axhline(y=5, color='red', linestyle='--', alpha=0.7, label='5σ threshold')
+    axes[0, 0].axhline(y=5, color="red", linestyle="--", alpha=0.7, label="5σ threshold")
     axes[0, 0].legend()
 
     # Plot 2: Detection Probability
-    axes[0, 1].bar(range(len(detection_results)),
-                   detection_results['detection_probability'],
-                   color='green', alpha=0.7)
-    axes[0, 1].set_xlabel('Scenario')
-    axes[0, 1].set_ylabel('Detection Probability')
-    axes[0, 1].set_title('Detection Probability by Scenario')
+    axes[0, 1].bar(
+        range(len(detection_results)),
+        detection_results["detection_probability"],
+        color="green",
+        alpha=0.7,
+    )
+    axes[0, 1].set_xlabel("Scenario")
+    axes[0, 1].set_ylabel("Detection Probability")
+    axes[0, 1].set_title("Detection Probability by Scenario")
     axes[0, 1].set_xticks(range(len(detection_results)))
-    axes[0, 1].set_xticklabels([s[:15] + '...' if len(s) > 15 else s
-                                for s in detection_results['scenario_name']],
-                               rotation=45, ha='right')
+    axes[0, 1].set_xticklabels(
+        [s[:15] + "..." if len(s) > 15 else s for s in detection_results["scenario_name"]],
+        rotation=45,
+        ha="right",
+    )
 
     # Plot 3: Integration Time
-    valid_times = detection_results[detection_results['integration_time_s'] != float('inf')]
+    valid_times = detection_results[detection_results["integration_time_s"] != float("inf")]
     if len(valid_times) > 0:
-        axes[0, 2].bar(range(len(valid_times)),
-                       valid_times['integration_time_s'],
-                       color='orange', alpha=0.7)
-        axes[0, 2].set_xlabel('Scenario')
-        axes[0, 2].set_ylabel('Integration Time (s)')
-        axes[0, 2].set_title('Required Integration Time')
-        axes[0, 2].set_yscale('log')
+        axes[0, 2].bar(
+            range(len(valid_times)), valid_times["integration_time_s"], color="orange", alpha=0.7
+        )
+        axes[0, 2].set_xlabel("Scenario")
+        axes[0, 2].set_ylabel("Integration Time (s)")
+        axes[0, 2].set_title("Required Integration Time")
+        axes[0, 2].set_yscale("log")
         axes[0, 2].set_xticks(range(len(valid_times)))
-        axes[0, 2].set_xticklabels([s[:15] + '...' if len(s) > 15 else s
-                                    for s in valid_times['scenario_name']],
-                                   rotation=45, ha='right')
+        axes[0, 2].set_xticklabels(
+            [s[:15] + "..." if len(s) > 15 else s for s in valid_times["scenario_name"]],
+            rotation=45,
+            ha="right",
+        )
 
     # Plot 4: Facility Compatibility Heatmap
-    facility_pivot = facility_results.pivot(index='scenario_name', columns='facility', values='compatibility_score')
-    im1 = axes[1, 0].imshow(facility_pivot.values, aspect='auto', origin='lower', cmap='RdYlGn', vmin=0, vmax=1)
-    axes[1, 0].set_title('ELI Facility Compatibility Scores')
+    facility_pivot = facility_results.pivot(
+        index="scenario_name", columns="facility", values="compatibility_score"
+    )
+    im1 = axes[1, 0].imshow(
+        facility_pivot.values, aspect="auto", origin="lower", cmap="RdYlGn", vmin=0, vmax=1
+    )
+    axes[1, 0].set_title("ELI Facility Compatibility Scores")
     axes[1, 0].set_xticks(range(len(facility_pivot.columns)))
     axes[1, 0].set_xticklabels(facility_pivot.columns)
     axes[1, 0].set_yticks(range(len(facility_pivot.index)))
-    axes[1, 0].set_yticklabels([s[:20] + '...' if len(s) > 20 else s
-                                for s in facility_pivot.index], fontsize=8)
-    plt.colorbar(im1, ax=axes[1, 0], label='Compatibility Score')
+    axes[1, 0].set_yticklabels(
+        [s[:20] + "..." if len(s) > 20 else s for s in facility_pivot.index], fontsize=8
+    )
+    plt.colorbar(im1, ax=axes[1, 0], label="Compatibility Score")
 
     # Plot 5: Required Shots
-    valid_shots = detection_results[detection_results['required_shots'] > 0]
+    valid_shots = detection_results[detection_results["required_shots"] > 0]
     if len(valid_shots) > 0:
-        axes[1, 1].bar(range(len(valid_shots)),
-                       valid_shots['required_shots'],
-                       color='purple', alpha=0.7)
-        axes[1, 1].set_xlabel('Scenario')
-        axes[1, 1].set_ylabel('Required Shots')
-        axes[1, 1].set_title('Number of Shots Required')
-        axes[1, 1].set_yscale('log')
+        axes[1, 1].bar(
+            range(len(valid_shots)), valid_shots["required_shots"], color="purple", alpha=0.7
+        )
+        axes[1, 1].set_xlabel("Scenario")
+        axes[1, 1].set_ylabel("Required Shots")
+        axes[1, 1].set_title("Number of Shots Required")
+        axes[1, 1].set_yscale("log")
         axes[1, 1].set_xticks(range(len(valid_shots)))
-        axes[1, 1].set_xticklabels([s[:15] + '...' if len(s) > 15 else s
-                                    for s in valid_shots['scenario_name']],
-                                   rotation=45, ha='right')
+        axes[1, 1].set_xticklabels(
+            [s[:15] + "..." if len(s) > 15 else s for s in valid_shots["scenario_name"]],
+            rotation=45,
+            ha="right",
+        )
 
     # Plot 6: Feasibility Level Distribution
-    feasibility_counts = detection_results['feasibility_level'].value_counts()
-    axes[1, 2].bar(range(len(feasibility_counts)), feasibility_counts.values, color='red', alpha=0.7)
-    axes[1, 2].set_xlabel('Feasibility Level')
-    axes[1, 2].set_ylabel('Count')
-    axes[1, 2].set_title('Feasibility Level Distribution')
+    feasibility_counts = detection_results["feasibility_level"].value_counts()
+    axes[1, 2].bar(
+        range(len(feasibility_counts)), feasibility_counts.values, color="red", alpha=0.7
+    )
+    axes[1, 2].set_xlabel("Feasibility Level")
+    axes[1, 2].set_ylabel("Count")
+    axes[1, 2].set_title("Feasibility Level Distribution")
     axes[1, 2].set_xticks(range(len(feasibility_counts)))
-    axes[1, 2].set_xticklabels([level[:20] + '...' if len(level) > 20 else level
-                                for level in feasibility_counts.index],
-                               rotation=45, ha='right')
+    axes[1, 2].set_xticklabels(
+        [level[:20] + "..." if len(level) > 20 else level for level in feasibility_counts.index],
+        rotation=45,
+        ha="right",
+    )
 
     plt.tight_layout()
-    plt.savefig(output_path / 'detection_feasibility_comprehensive.png', dpi=300, bbox_inches='tight')
+    plt.savefig(
+        output_path / "detection_feasibility_comprehensive.png", dpi=300, bbox_inches="tight"
+    )
     plt.close()
 
     print(f"✅ Plots saved to {output_path}")
 
 
-def generate_summary_report(detection_results: pd.DataFrame,
-                           facility_results: pd.DataFrame,
-                           output_dir: str):
+def generate_summary_report(
+    detection_results: pd.DataFrame, facility_results: pd.DataFrame, output_dir: str
+):
     """Generate comprehensive summary report"""
 
     print("📄 Generating summary report...")
@@ -371,8 +406,12 @@ def generate_summary_report(detection_results: pd.DataFrame,
     report_lines.append("")
 
     total_scenarios = len(detection_results)
-    feasible_scenarios = len(detection_results[detection_results['best_snr'] >= 5])
-    challenging_scenarios = len(detection_results[(detection_results['best_snr'] >= 1) & (detection_results['best_snr'] < 5)])
+    feasible_scenarios = len(detection_results[detection_results["best_snr"] >= 5])
+    challenging_scenarios = len(
+        detection_results[
+            (detection_results["best_snr"] >= 1) & (detection_results["best_snr"] < 5)
+        ]
+    )
 
     report_lines.append(f"**Total Scenarios Analyzed:** {total_scenarios}")
     report_lines.append(f"**Feasible Detections (SNR ≥ 5):** {feasible_scenarios}")
@@ -381,14 +420,20 @@ def generate_summary_report(detection_results: pd.DataFrame,
     report_lines.append("")
 
     if feasible_scenarios > 0:
-        best_scenario = detection_results.loc[detection_results['best_snr'].idxmax()]
+        best_scenario = detection_results.loc[detection_results["best_snr"].idxmax()]
         report_lines.append("### Most Promising Scenario")
         report_lines.append(f"- **Scenario:** {best_scenario['scenario_name']}")
-        report_lines.append(f"- **Hawking Temperature:** {best_scenario['hawking_temperature_K']:.3f} K")
+        report_lines.append(
+            f"- **Hawking Temperature:** {best_scenario['hawking_temperature_K']:.3f} K"
+        )
         report_lines.append(f"- **Detection Method:** {best_scenario['best_method']}")
         report_lines.append(f"- **Best SNR:** {best_scenario['best_snr']:.2f}")
-        report_lines.append(f"- **Detection Probability:** {best_scenario['detection_probability']:.1%}")
-        report_lines.append(f"- **Required Integration Time:** {best_scenario['integration_time_s']:.2e} s")
+        report_lines.append(
+            f"- **Detection Probability:** {best_scenario['detection_probability']:.1%}"
+        )
+        report_lines.append(
+            f"- **Required Integration Time:** {best_scenario['integration_time_s']:.2e} s"
+        )
         report_lines.append(f"- **Required Shots:** {int(best_scenario['required_shots'])}")
         report_lines.append("")
 
@@ -413,7 +458,7 @@ def generate_summary_report(detection_results: pd.DataFrame,
         report_lines.append(f"- Detection Probability: {scenario['detection_probability']:.1%}")
         report_lines.append("")
 
-        if scenario['integration_time_s'] != float('inf'):
+        if scenario["integration_time_s"] != float("inf"):
             report_lines.append("**Experimental Requirements:**")
             report_lines.append(f"- Integration Time: {scenario['integration_time_s']:.2e} s")
             report_lines.append(f"- Required Shots: {int(scenario['required_shots'])}")
@@ -426,7 +471,7 @@ def generate_summary_report(detection_results: pd.DataFrame,
             report_lines.append("")
 
             report_lines.append("**Top Recommendations:**")
-            for rec in scenario['top_recommendations'].split('; '):
+            for rec in scenario["top_recommendations"].split("; "):
                 report_lines.append(f"- {rec}")
             report_lines.append("")
         else:
@@ -437,19 +482,23 @@ def generate_summary_report(detection_results: pd.DataFrame,
     report_lines.append("## ELI Facility Assessment")
     report_lines.append("")
 
-    for facility in ['beamlines', 'np', 'alps']:
-        facility_data = facility_results[facility_results['facility'] == facility]
+    for facility in ["beamlines", "np", "alps"]:
+        facility_data = facility_results[facility_results["facility"] == facility]
         if len(facility_data) > 0:
-            avg_compatibility = facility_data['compatibility_score'].mean()
-            best_compatibility = facility_data['compatibility_score'].max()
+            avg_compatibility = facility_data["compatibility_score"].mean()
+            best_compatibility = facility_data["compatibility_score"].max()
 
             report_lines.append(f"### {facility.upper()}")
             report_lines.append(f"- Average Compatibility: {avg_compatibility:.1%}")
             report_lines.append(f"- Best Compatibility: {best_compatibility:.1%}")
 
-            best_facility_scenario = facility_data.loc[facility_data['compatibility_score'].idxmax()]
+            best_facility_scenario = facility_data.loc[
+                facility_data["compatibility_score"].idxmax()
+            ]
             report_lines.append(f"- Best Diagnostic: {best_facility_scenario['best_diagnostic']}")
-            report_lines.append(f"- Integration Complexity: {best_facility_scenario['integration_complexity']}")
+            report_lines.append(
+                f"- Integration Complexity: {best_facility_scenario['integration_complexity']}"
+            )
             report_lines.append("")
 
     # Key Findings and Recommendations
@@ -558,12 +607,14 @@ def generate_summary_report(detection_results: pd.DataFrame,
 
     report_lines.append("---")
     report_lines.append("*Report generated by Comprehensive Detection Feasibility Analysis System*")
-    report_lines.append("*Analysis includes realistic noise modeling, ELI facility assessment, and near-term achievable goals*")
+    report_lines.append(
+        "*Analysis includes realistic noise modeling, ELI facility assessment, and near-term achievable goals*"
+    )
 
     report = "\n".join(report_lines)
 
     # Save report
-    report_path = Path(output_dir) / 'detection_feasibility_comprehensive_report.md'
+    report_path = Path(output_dir) / "detection_feasibility_comprehensive_report.md"
     report_path.write_text(report)
 
     print(f"✅ Report saved to {report_path}")
@@ -597,8 +648,8 @@ def main():
     report = generate_summary_report(detection_results, facility_results, output_dir)
 
     # Step 6: Save results
-    detection_results.to_csv(output_dir / 'detection_feasibility_results.csv', index=False)
-    facility_results.to_csv(output_dir / 'facility_compatibility_results.csv', index=False)
+    detection_results.to_csv(output_dir / "detection_feasibility_results.csv", index=False)
+    facility_results.to_csv(output_dir / "facility_compatibility_results.csv", index=False)
 
     # Print summary
     print("\n" + "=" * 60)
@@ -606,8 +657,12 @@ def main():
     print("=" * 60)
 
     total_scenarios = len(detection_results)
-    feasible_scenarios = len(detection_results[detection_results['best_snr'] >= 5])
-    challenging_scenarios = len(detection_results[(detection_results['best_snr'] >= 1) & (detection_results['best_snr'] < 5)])
+    feasible_scenarios = len(detection_results[detection_results["best_snr"] >= 5])
+    challenging_scenarios = len(
+        detection_results[
+            (detection_results["best_snr"] >= 1) & (detection_results["best_snr"] < 5)
+        ]
+    )
 
     print(f"Total scenarios analyzed: {total_scenarios}")
     print(f"Feasible detections (SNR ≥ 5): {feasible_scenarios}")
@@ -615,7 +670,7 @@ def main():
     print(f"Overall feasibility rate: {100*feasible_scenarios/total_scenarios:.1f}%")
 
     if len(detection_results) > 0:
-        best_snr = detection_results['best_snr'].max()
+        best_snr = detection_results["best_snr"].max()
         print(f"Best SNR achieved: {best_snr:.2f}")
 
         if best_snr >= 5:
@@ -625,7 +680,9 @@ def main():
         else:
             print("❌ DETECTION IS NOT CURRENTLY FEASIBLE with predicted signal levels")
 
-        print(f"\n🎯 TOP DETECTION METHOD: {detection_results.loc[detection_results['best_snr'].idxmax(), 'best_method']}")
+        print(
+            f"\n🎯 TOP DETECTION METHOD: {detection_results.loc[detection_results['best_snr'].idxmax(), 'best_method']}"
+        )
         print("🏢 BEST ELI FACILITY: Based on compatibility scores in report")
 
     print(f"\n📁 Results saved to: {output_dir}")

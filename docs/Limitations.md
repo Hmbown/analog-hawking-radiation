@@ -1,7 +1,7 @@
 Limitations
 ===========
 
-> **Status ⚠️** Mixed validated + experimental notes – review before citing  
+> **Status ⚠️** Mixed validated + experimental notes – review before citing
 > **Navigate:** [Docs Index](index.md) · [Gradient Analysis](GradientCatastropheAnalysis.md)
 
 Computational Approximations

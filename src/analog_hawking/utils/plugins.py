@@ -24,4 +24,3 @@ def discover(group: str) -> Dict[str, object]:
 
 
 __all__ = ["discover"]
-

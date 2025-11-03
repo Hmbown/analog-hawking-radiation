@@ -37,4 +37,3 @@ phase_transition:
 performance:
   timeout_per_simulation: 60
   progress_update_interval: 10
-

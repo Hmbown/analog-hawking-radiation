@@ -44,4 +44,3 @@ def test_control_no_horizon_yields_no_spectrum():
     f, psd, rec = _quick_psd(p)
     assert psd.size == 0
     assert rec.success is False
-

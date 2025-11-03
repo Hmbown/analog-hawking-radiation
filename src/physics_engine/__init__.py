@@ -43,4 +43,6 @@ _register_submodules(
     ]
 )
 
-__all__ = getattr(_physics_engine, "__all__", [name for name in dir(_alias_module) if not name.startswith("_")])
+__all__ = getattr(
+    _physics_engine, "__all__", [name for name in dir(_alias_module) if not name.startswith("_")]
+)

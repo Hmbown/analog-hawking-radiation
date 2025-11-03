@@ -15,7 +15,7 @@ Primary AnaBHEL Collaboration:
 - AnaBHEL Collaboration (2022) - "AnaBHEL Experiment: Concept, Design, and Status"
 
 Foundational Theory:
-- Chen & Mourou (2017) - "Accelerating plasma mirrors to investigate the 
+- Chen & Mourou (2017) - "Accelerating plasma mirrors to investigate the
   black hole information loss paradox" - Physical Review Letters 118, 045001
 
 Related Analog Gravity Experts:
@@ -39,7 +39,7 @@ ANABHEL_MIRROR_MAPPING = {
     "model": "anabhel",
     "kappa_formula": "2π * η_a / D",  # From Chen & Mourou (2017)
     "temperature_relation": "k_B * T_H = (ħ/D) * η_a",
-    "reference": "Chen, P., Mourou, G., et al. (2022). Photonics 9(12), 1003"
+    "reference": "Chen, P., Mourou, G., et al. (2022). Photonics 9(12), 1003",
 }
 
 # Acknowledgment text for use in outputs

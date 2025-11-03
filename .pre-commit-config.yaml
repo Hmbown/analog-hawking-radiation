@@ -19,4 +19,3 @@ repos:
       - id: check-yaml
       - id: check-json
       - id: mixed-line-ending
-

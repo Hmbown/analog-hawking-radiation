@@ -34,7 +34,9 @@ def _select_observable(profile: OpenPMDAdapterResult, name: str) -> np.ndarray:
         return profile.velocity
     if name == "sound_speed":
         return profile.sound_speed
-    raise ValueError(f"Observable '{name}' not available in profile (choose density/velocity/sound_speed)")
+    raise ValueError(
+        f"Observable '{name}' not available in profile (choose density/velocity/sound_speed)"
+    )
 
 
 def _sample_iterations(center: int, window: int) -> List[int]:
@@ -67,15 +69,39 @@ def _compute_correlation(samples: np.ndarray) -> np.ndarray:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate horizon-crossing g^2 correlation maps.")
-    parser.add_argument("--series", required=True, help="Path to openPMD series (directory or pattern).")
-    parser.add_argument("--t-index", type=str, default="latest", help="Iteration index or 'latest'.")
-    parser.add_argument("--window", type=int, default=2, help="Number of iterations on each side of t-index.")
-    parser.add_argument("--observable", choices=["density", "velocity", "sound_speed"], default="density")
-    parser.add_argument("--extent", type=float, default=5e-5, help="Spatial extent around horizon (meters).")
-    parser.add_argument("--cells", type=int, default=128, help="Number of spatial cells in the aligned window.")
-    parser.add_argument("--out", type=Path, default=Path("results/correlation/g2_horizon.npz"), help="Output NPZ path.")
-    parser.add_argument("--figure", type=Path, default=Path("figures/g2_horizon_map.png"), help="Optional PNG output.")
-    parser.add_argument("--save-metadata", action="store_true", help="Write JSON sidecar with metadata.")
+    parser.add_argument(
+        "--series", required=True, help="Path to openPMD series (directory or pattern)."
+    )
+    parser.add_argument(
+        "--t-index", type=str, default="latest", help="Iteration index or 'latest'."
+    )
+    parser.add_argument(
+        "--window", type=int, default=2, help="Number of iterations on each side of t-index."
+    )
+    parser.add_argument(
+        "--observable", choices=["density", "velocity", "sound_speed"], default="density"
+    )
+    parser.add_argument(
+        "--extent", type=float, default=5e-5, help="Spatial extent around horizon (meters)."
+    )
+    parser.add_argument(
+        "--cells", type=int, default=128, help="Number of spatial cells in the aligned window."
+    )
+    parser.add_argument(
+        "--out",
+        type=Path,
+        default=Path("results/correlation/g2_horizon.npz"),
+        help="Output NPZ path.",
+    )
+    parser.add_argument(
+        "--figure",
+        type=Path,
+        default=Path("figures/g2_horizon_map.png"),
+        help="Optional PNG output.",
+    )
+    parser.add_argument(
+        "--save-metadata", action="store_true", help="Write JSON sidecar with metadata."
+    )
     args = parser.parse_args()
 
     try:

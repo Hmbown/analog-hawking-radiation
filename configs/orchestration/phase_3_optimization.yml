@@ -24,17 +24,17 @@ parameter_space:
     refinement_factor: 0.3  # 70% reduction in range
     n_points: 12
     log_scale: true
-    
+
   plasma_density:
     refinement_factor: 0.3
     n_points: 12
     log_scale: true
-    
+
   temperature_constant:
     refinement_factor: 0.2
     n_points: 8
     log_scale: true
-    
+
   magnetic_field:
     refinement_factor: 0.5
     n_points: 6

@@ -19,4 +19,3 @@ ahr validate --report results/validation_summary.json
 ```
 
 The report JSON includes a pass/fail summary and categorized details.
-

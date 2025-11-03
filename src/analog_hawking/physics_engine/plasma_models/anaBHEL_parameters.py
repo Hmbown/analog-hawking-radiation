@@ -42,14 +42,11 @@ class AnaBHELExperiment:
         hawking_temperature = max(hawking_temperature, 0.0)
         peak_frequency = 2.82 * k * hawking_temperature / hbar
         bandwidth = 0.1 * peak_frequency
-        total_power = (
-            k * hawking_temperature * bandwidth * self.detection_solid_angle
-        )
+        total_power = k * hawking_temperature * bandwidth * self.detection_solid_angle
         photon_energy = hbar * peak_frequency
         photon_flux = total_power / photon_energy if photon_energy > 0 else 0.0
         snr = (
-            total_power
-            / (k * self.system_temperature * np.sqrt(bandwidth))
+            total_power / (k * self.system_temperature * np.sqrt(bandwidth))
             if bandwidth > 0
             else 0.0
         )
@@ -70,7 +67,7 @@ class AnaBHELExperiment:
 
     def _hawking_temperature_estimate(self) -> float:
         a0 = self._a0_parameter(self.laser_intensity)
-        omega_pe = np.sqrt(e ** 2 * self.plasma_density / (epsilon_0 * m_e))
+        omega_pe = np.sqrt(e**2 * self.plasma_density / (epsilon_0 * m_e))
         kappa = omega_pe * max(a0, 1e-6)
         return float(hbar * kappa / (2.0 * np.pi * k))
 

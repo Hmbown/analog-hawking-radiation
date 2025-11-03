@@ -36,13 +36,15 @@ def main() -> int:
     p.add_argument("--intensity-max", type=float, default=1.0e24)
     args = p.parse_args()
 
-    v_fracs = [float(s) for s in args.v_fracs.split(',') if s]
-    dv_vals = [float(s) for s in args.dv_max.split(',') if s]
+    v_fracs = [float(s) for s in args.v_fracs.split(",") if s]
+    dv_vals = [float(s) for s in args.dv_max.split(",") if s]
 
     results = []
     for vf in v_fracs:
         for dv in dv_vals:
-            thr = ThresholdConfig(v_max_fraction_c=vf, dv_dx_max_s=dv, intensity_max_W_m2=float(args.intensity_max))
+            thr = ThresholdConfig(
+                v_max_fraction_c=vf, dv_dx_max_s=dv, intensity_max_W_m2=float(args.intensity_max)
+            )
             sweep = run_sweep(
                 n_samples=int(args.n_samples),
                 output_dir="results/threshold_sweeps",
@@ -52,15 +54,17 @@ def main() -> int:
                 seed=12345,
             )
             kmax = float(sweep.get("analysis", {}).get("max_kappa", np.nan))
-            results.append({
-                "v_max_fraction_c": vf,
-                "dv_dx_max_s": dv,
-                "intensity_max_W_m2": float(args.intensity_max),
-                "kappa_max": kmax,
-            })
+            results.append(
+                {
+                    "v_max_fraction_c": vf,
+                    "dv_dx_max_s": dv,
+                    "intensity_max_W_m2": float(args.intensity_max),
+                    "kappa_max": kmax,
+                }
+            )
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    with open(args.out, 'w', encoding='utf-8') as fh:
+    with open(args.out, "w", encoding="utf-8") as fh:
         json.dump({"sensitivity": results}, fh, indent=2)
     print(f"Wrote {args.out}")
     return 0

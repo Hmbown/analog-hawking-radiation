@@ -21,12 +21,12 @@ from analog_hawking.detection.radio_snr import (
 
 
 def main() -> int:
-    cases_path = Path('results') / 'horizon_success_cases.json'
+    cases_path = Path("results") / "horizon_success_cases.json"
     if not cases_path.exists():
         print(f"Missing {cases_path}. Run scripts/run_param_sweep.py first.")
         return 1
 
-    with open(cases_path, 'r') as f:
+    with open(cases_path, "r") as f:
         cases = json.load(f)
 
     if not cases:
@@ -34,25 +34,25 @@ def main() -> int:
         return 0
 
     # Use best case by kappa_max
-    best = max(cases, key=lambda c: float(c.get('kappa_max', 0.0)))
-    kappa = float(best.get('kappa_max', 0.0))
+    best = max(cases, key=lambda c: float(c.get("kappa_max", 0.0)))
+    kappa = float(best.get("kappa_max", 0.0))
     if not np.isfinite(kappa) or kappa <= 0:
         print("Best case has invalid kappa_max; aborting heatmap generation.")
         return 1
 
     spec = calculate_hawking_spectrum(
         kappa,
-        emitting_area_m2=1e-6,           # 1 mm^2 aperture
-        solid_angle_sr=5e-2,             # 0.05 sr field of view
-        coupling_efficiency=0.1,         # 10% overall coupling
+        emitting_area_m2=1e-6,  # 1 mm^2 aperture
+        solid_angle_sr=5e-2,  # 0.05 sr field of view
+        coupling_efficiency=0.1,  # 10% overall coupling
     )
-    if not spec.get('success', False):
+    if not spec.get("success", False):
         print("Spectrum calculation failed; aborting heatmap generation.")
         return 1
 
-    freqs = np.asarray(spec['frequencies'])
-    P = np.asarray(spec['power_spectrum'])
-    f_center = float(spec.get('peak_frequency', freqs[np.argmax(P)]))
+    freqs = np.asarray(spec["frequencies"])
+    P = np.asarray(spec["power_spectrum"])
+    f_center = float(spec.get("peak_frequency", freqs[np.argmax(P)]))
 
     # Compute T_sig at a reference bandwidth using dense linear sampling around peak to avoid zero-mask on coarse log grid
     B_vals = np.logspace(5, 11, 61)  # 100 kHz .. 100 GHz
@@ -69,32 +69,36 @@ def main() -> int:
 
     Tgrid = sweep_time_for_5sigma(T_sys_vals, B_vals, T_sig)
 
-    os.makedirs('figures', exist_ok=True)
+    os.makedirs("figures", exist_ok=True)
     plt.figure(figsize=(8, 5))
-    im = plt.contourf(B_vals * 1e-6, T_sys_vals, np.log10(Tgrid / 3600.0), levels=24, cmap='viridis')
-    plt.colorbar(im, label='log10(t_5σ) [hours]')
-    plt.xlabel('Bandwidth [MHz]')
-    plt.ylabel('System Temperature T_sys [K]')
-    plt.title('Detection time heatmap (best horizon configuration)')
+    im = plt.contourf(
+        B_vals * 1e-6, T_sys_vals, np.log10(Tgrid / 3600.0), levels=24, cmap="viridis"
+    )
+    plt.colorbar(im, label="log10(t_5σ) [hours]")
+    plt.xlabel("Bandwidth [MHz]")
+    plt.ylabel("System Temperature T_sys [K]")
+    plt.title("Detection time heatmap (best horizon configuration)")
     plt.tight_layout()
-    out = Path('figures') / 'horizon_analysis_detection_time.png'
+    out = Path("figures") / "horizon_analysis_detection_time.png"
     plt.savefig(out, dpi=200)
     print(f"Saved {out}")
     t_min = float(np.nanmin(Tgrid))
     print(f"Min t_5sigma across grid: {t_min:.3e} s ({t_min/3600:.3e} hours)")
 
     # Also produce a surrogate heatmap using T_H as brightness temperature
-    T_H = float(spec.get('temperature', 0.0))
+    T_H = float(spec.get("temperature", 0.0))
     if T_H > 0:
         Tgrid_TH = sweep_time_for_5sigma(T_sys_vals, B_vals, T_H)
         plt.figure(figsize=(8, 5))
-        im2 = plt.contourf(B_vals * 1e-6, T_sys_vals, np.log10(Tgrid_TH / 3600.0), levels=24, cmap='plasma')
-        plt.colorbar(im2, label='log10(t_5σ) [hours] (T_H surrogate)')
-        plt.xlabel('Bandwidth [MHz]')
-        plt.ylabel('System Temperature T_sys [K]')
-        plt.title('Detection time heatmap (T_H as T_sig surrogate)')
+        im2 = plt.contourf(
+            B_vals * 1e-6, T_sys_vals, np.log10(Tgrid_TH / 3600.0), levels=24, cmap="plasma"
+        )
+        plt.colorbar(im2, label="log10(t_5σ) [hours] (T_H surrogate)")
+        plt.xlabel("Bandwidth [MHz]")
+        plt.ylabel("System Temperature T_sys [K]")
+        plt.title("Detection time heatmap (T_H as T_sig surrogate)")
         plt.tight_layout()
-        out2 = Path('figures') / 'horizon_analysis_detection_time_TH.png'
+        out2 = Path("figures") / "horizon_analysis_detection_time_TH.png"
         plt.savefig(out2, dpi=200)
         print(f"Saved {out2}")
         t_min_th = float(np.nanmin(Tgrid_TH))
@@ -125,13 +129,15 @@ def main() -> int:
                 Tgrid_radio[i, j] = (5.0 * T_sys / (T_sig_j * np.sqrt(B))) ** 2
 
     plt.figure(figsize=(8, 5))
-    im3 = plt.contourf(B_vals * 1e-6, T_sys_vals, np.log10(Tgrid_radio / 3600.0), levels=24, cmap='cividis')
-    plt.colorbar(im3, label='log10(t_5σ) [hours] (1 GHz center)')
-    plt.xlabel('Bandwidth [MHz]')
-    plt.ylabel('System Temperature T_sys [K]')
-    plt.title('Detection time heatmap (radio-only, 1 GHz center)')
+    im3 = plt.contourf(
+        B_vals * 1e-6, T_sys_vals, np.log10(Tgrid_radio / 3600.0), levels=24, cmap="cividis"
+    )
+    plt.colorbar(im3, label="log10(t_5σ) [hours] (1 GHz center)")
+    plt.xlabel("Bandwidth [MHz]")
+    plt.ylabel("System Temperature T_sys [K]")
+    plt.title("Detection time heatmap (radio-only, 1 GHz center)")
     plt.tight_layout()
-    out3 = Path('figures') / 'horizon_analysis_detection_time_radio.png'
+    out3 = Path("figures") / "horizon_analysis_detection_time_radio.png"
     plt.savefig(out3, dpi=200)
     print(f"Saved {out3}")
     t_min_radio = float(np.nanmin(Tgrid_radio))
@@ -139,5 +145,5 @@ def main() -> int:
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())

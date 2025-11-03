@@ -41,4 +41,3 @@ def run_suite(sizes=(500, 1000, 2000, 4000, 8000)):
 if __name__ == "__main__":
     data = run_suite()
     print(json.dumps(data, indent=2))
-

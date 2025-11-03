@@ -8,7 +8,7 @@ from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
 def _tanh_profile_2d(nx=200, ny=50, x0=5e-6, Lx=10e-6, Ly=5e-6, v0=1.5e6, cs0=1.0e6, sigma=0.5e-6):
     x = np.linspace(0.0, Lx, nx)
     y = np.linspace(0.0, Ly, ny)
-    X, Y = np.meshgrid(x, y, indexing='ij')
+    X, Y = np.meshgrid(x, y, indexing="ij")
     vx = v0 * np.tanh((X - x0) / sigma)
     vy = np.zeros_like(vx)
     v = np.stack([vx, vy], axis=-1)  # (nx, ny, 2)
@@ -35,7 +35,9 @@ def test_horizon_nd_2d_tanh_matches_dvdx():
     assert np.isclose(kappa_med, kappa_exp, rtol=0.1), (kappa_med, kappa_exp)
 
 
-def _tanh_profile_3d(nx=80, ny=24, nz=16, x0=5e-6, Lx=10e-6, Ly=5e-6, Lz=5e-6, v0=1.8e6, cs0=1.0e6, sigma=0.6e-6):
+def _tanh_profile_3d(
+    nx=80, ny=24, nz=16, x0=5e-6, Lx=10e-6, Ly=5e-6, Lz=5e-6, v0=1.8e6, cs0=1.0e6, sigma=0.6e-6
+):
     x = np.linspace(0.0, Lx, nx)
     y = np.linspace(0.0, Ly, ny)
     z = np.linspace(0.0, Lz, nz)
@@ -62,4 +64,3 @@ def test_horizon_nd_3d_tanh_sheet_basic():
     kappa_std = float(np.std(surf.kappa))
     assert kappa_med > 0
     assert kappa_std / kappa_med < 0.25
-

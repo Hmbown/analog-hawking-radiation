@@ -44,7 +44,9 @@ def _extract_highlights_numbers(text: str) -> dict:
 
     # Exponents lines (rendered form)
     def _grab(tag: str) -> tuple[float, float, float]:
-        rx = rf"{tag}: exponent ≈\s*([+-]?[0-9.]+)\s*\(95% CI \[([+-]?[0-9.]+),\s*([+-]?[0-9.]+)\]\)"
+        rx = (
+            rf"{tag}: exponent ≈\s*([+-]?[0-9.]+)\s*\(95% CI \[([+-]?[0-9.]+),\s*([+-]?[0-9.]+)\]\)"
+        )
         m = re.search(rx, text)
         if not m:
             return math.nan, math.nan, math.nan

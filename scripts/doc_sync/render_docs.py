@@ -15,15 +15,23 @@ def _sci(x: float) -> str:
 def _pretty_si(x: float, unit: str = "") -> str:
     # Basic SI pretty printing; fallback to sci if extreme
     import math
+
     if x == 0:
         return f"0{unit}"
     exp = int(math.floor(math.log10(abs(x)) / 3) * 3)
     exp = max(min(exp, 12), -12)
     prefixes = {
-        -12: "p", -9: "n", -6: "µ", -3: "m", 0: "",
-        3: "k", 6: "M", 9: "G", 12: "T",
+        -12: "p",
+        -9: "n",
+        -6: "µ",
+        -3: "m",
+        0: "",
+        3: "k",
+        6: "M",
+        9: "G",
+        12: "T",
     }
-    scaled = x / (10 ** exp)
+    scaled = x / (10**exp)
     if exp in prefixes and 0.1 <= abs(scaled) < 1000:
         return f"{scaled:.3g}{prefixes[exp]}{unit}"
     return f"{x:.3e}{unit}"
@@ -66,9 +74,11 @@ def main() -> int:
     cfg = analysis["max_kappa_config"]
     sr = analysis["scaling_relationships"]
     b = analysis["breakdown_statistics"]
+
     # Pre-format values that need fixed decimals
     def exp_fmt(v: float) -> str:
         return f"{v:.2f}"
+
     opt_a0_val = float(cfg.get("a0", float("nan")))
     opt_grad_val = float(cfg.get("gradient_factor", float("nan")))
     ctx = {
@@ -82,12 +92,21 @@ def main() -> int:
         "opt_intensity_pretty": _sci(float(cfg.get("intensity", float("nan")))),
         "exp_a0": exp_fmt(float(sr.get("kappa_vs_a0_exponent", float("nan")))),
         "exp_ne": exp_fmt(float(sr.get("kappa_vs_ne_exponent", float("nan")))),
-        "exp_a0_lo": exp_fmt(float(sr.get("kappa_vs_a0_exponent_ci95", [float("nan"), float("nan")])[0])),
-        "exp_a0_hi": exp_fmt(float(sr.get("kappa_vs_a0_exponent_ci95", [float("nan"), float("nan")])[1])),
-        "exp_ne_lo": exp_fmt(float(sr.get("kappa_vs_ne_exponent_ci95", [float("nan"), float("nan")])[0])),
-        "exp_ne_hi": exp_fmt(float(sr.get("kappa_vs_ne_exponent_ci95", [float("nan"), float("nan")])[1])),
+        "exp_a0_lo": exp_fmt(
+            float(sr.get("kappa_vs_a0_exponent_ci95", [float("nan"), float("nan")])[0])
+        ),
+        "exp_a0_hi": exp_fmt(
+            float(sr.get("kappa_vs_a0_exponent_ci95", [float("nan"), float("nan")])[1])
+        ),
+        "exp_ne_lo": exp_fmt(
+            float(sr.get("kappa_vs_ne_exponent_ci95", [float("nan"), float("nan")])[0])
+        ),
+        "exp_ne_hi": exp_fmt(
+            float(sr.get("kappa_vs_ne_exponent_ci95", [float("nan"), float("nan")])[1])
+        ),
         "valid": int(analysis.get("valid_configurations", 0)),
-        "valid_rate": float(analysis.get("valid_configurations", 0)) / max(int(sweep.get("n_samples", 1)), 1),
+        "valid_rate": float(analysis.get("valid_configurations", 0))
+        / max(int(sweep.get("n_samples", 1)), 1),
         "breakdown_rate": float(b.get("total_breakdown_rate", 0.0)),
         "dominant_mode": _dominant_mode(b),
         "pic_horizons": ", ".join(_sci(float(x)) for x in pic.get("horizon_positions", [])),

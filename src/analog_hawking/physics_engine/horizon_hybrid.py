@@ -33,11 +33,13 @@ def _nearest_index(arr: np.ndarray, value: float) -> int:
     return int(np.clip(np.searchsorted(arr, value), 0, len(arr) - 1))
 
 
-def find_hybrid_horizons(x: np.ndarray,
-                         v_fluid: np.ndarray,
-                         c_s_profile: np.ndarray,
-                         mirror: MirrorDynamics,
-                         params: HybridHorizonParams = HybridHorizonParams()) -> HybridHorizonResult:
+def find_hybrid_horizons(
+    x: np.ndarray,
+    v_fluid: np.ndarray,
+    c_s_profile: np.ndarray,
+    mirror: MirrorDynamics,
+    params: HybridHorizonParams = HybridHorizonParams(),
+) -> HybridHorizonResult:
     """
     Fuse fluid horizon detection with plasma-mirror dynamics by locally enhancing the
     surface gravity near horizons where mirror acceleration aligns and is proximal.
@@ -95,7 +97,7 @@ def find_hybrid_horizons(x: np.ndarray,
         if align_sign <= 0:
             w = 0.0  # conservative: only enhance when aligned
         elif params.alignment_power != 1.0 and w > 0.0:
-            w = float(w ** params.alignment_power)
+            w = float(w**params.alignment_power)
         weights[i] = w
 
         # Hybrid kappa (ensure non-negative)

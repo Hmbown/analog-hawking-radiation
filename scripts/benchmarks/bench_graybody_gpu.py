@@ -27,8 +27,10 @@ def _run_once(use_gpu: bool) -> dict:
     from importlib import reload
 
     from analog_hawking.utils import array_module as am
+
     reload(am)
     from analog_hawking.physics_engine.optimization import graybody_1d
+
     reload(graybody_1d)
 
     # Profile: simple crossing with 4096 points
@@ -57,6 +59,7 @@ def main() -> int:
     results = []
     try:
         import cupy  # noqa: F401
+
         has_cupy = True
     except Exception:
         has_cupy = False
@@ -72,10 +75,11 @@ def main() -> int:
         json.dump(results, fh, indent=2)
     print("Saved results/benchmarks/graybody_gpu_bench.json")
     for r in results:
-        print(f"{r['backend']}: {r['duration_s']*1e3:.2f} ms, checksum={r['transmission_checksum']:.3e}")
+        print(
+            f"{r['backend']}: {r['duration_s']*1e3:.2f} ms, checksum={r['transmission_checksum']:.3e}"
+        )
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -65,16 +65,18 @@ def run_mc(cfg: MCConfig):
     backend = FluidBackend()
 
     for i in range(N):
-        backend.configure({
-            "plasma_density": float(densities[i]),
-            "laser_wavelength": cfg.wavelength,
-            "laser_intensity": cfg.intensity,
-            "grid": grid,
-            "temperature_settings": {"constant": float(temperatures[i])},
-            "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
-            "scale_with_intensity": bool(cfg.scale_with_intensity),
-            "magnetic_field": cfg.magnetic_field,
-        })
+        backend.configure(
+            {
+                "plasma_density": float(densities[i]),
+                "laser_wavelength": cfg.wavelength,
+                "laser_intensity": cfg.intensity,
+                "grid": grid,
+                "temperature_settings": {"constant": float(temperatures[i])},
+                "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
+                "scale_with_intensity": bool(cfg.scale_with_intensity),
+                "magnetic_field": cfg.magnetic_field,
+            }
+        )
         state = backend.step(0.0)
         hz = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed)
         if hz.positions.size:
@@ -99,13 +101,23 @@ def run_mc(cfg: MCConfig):
     # Figure: scatter of samples colored by horizon outcome; annotate probability
     os.makedirs("figures", exist_ok=True)
     plt.figure(figsize=(6, 4))
-    sc0 = plt.scatter(densities[~horizon_flags], temperatures[~horizon_flags], s=10, c="#bbbbbb", label="no horizon")
-    sc1 = plt.scatter(densities[horizon_flags], temperatures[horizon_flags], s=10, c="#d62728", label="horizon")
+    sc0 = plt.scatter(
+        densities[~horizon_flags],
+        temperatures[~horizon_flags],
+        s=10,
+        c="#bbbbbb",
+        label="no horizon",
+    )
+    sc1 = plt.scatter(
+        densities[horizon_flags], temperatures[horizon_flags], s=10, c="#d62728", label="horizon"
+    )
     plt.xscale("log")
     plt.yscale("log")
     plt.xlabel("density n_e")
     plt.ylabel("temperature T")
-    plt.title(f"Horizon probability ≈ {prob:.2f}; κ_mean={kappa_mean:.2e} ± {kappa_std:.2e} s$^{{-1}}$")
+    plt.title(
+        f"Horizon probability ≈ {prob:.2f}; κ_mean={kappa_mean:.2e} ± {kappa_std:.2e} s$^{{-1}}$"
+    )
     plt.legend(markerscale=2)
     plt.tight_layout()
     plt.savefig("figures/horizon_probability_bands.png", dpi=200)

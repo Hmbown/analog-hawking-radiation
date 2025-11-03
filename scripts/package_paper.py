@@ -6,9 +6,9 @@ from pathlib import Path
 
 FIGS = [
     # Minimal figure set used in the reduced paper
-    "formation_frontier.png",                 # Figure 1
-    "horizon_analysis_detection_time.png",    # Figure 2 (left)
-    "horizon_analysis_detection_time_TH.png", # Figure 2 (right)
+    "formation_frontier.png",  # Figure 1
+    "horizon_analysis_detection_time.png",  # Figure 2 (left)
+    "horizon_analysis_detection_time_TH.png",  # Figure 2 (right)
 ]
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,9 +56,9 @@ def main() -> int:
 
     # Create zip
     out_zip = PAPER / "arxiv_package"
-    if (out_zip.with_suffix('.zip')).exists():
-        (out_zip.with_suffix('.zip')).unlink()
-    shutil.make_archive(str(out_zip), 'zip', root_dir=BUILD)
+    if (out_zip.with_suffix(".zip")).exists():
+        (out_zip.with_suffix(".zip")).unlink()
+    shutil.make_archive(str(out_zip), "zip", root_dir=BUILD)
     print(f"[ok] Wrote {out_zip.with_suffix('.zip')}")
     return 0
 

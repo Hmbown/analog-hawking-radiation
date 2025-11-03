@@ -56,7 +56,7 @@ def test_graybody_acoustic_wkb_step_barrier_matches_closed_form_within_factor():
     dx = x[1] - x[0]
     N = int(np.round(2 * L / dx)) + 1
     L_star = (N * dx) / gap_val
-    V0 = (kappa ** 2) * 1.0  # since alpha=1 and S=1 in barrier region
+    V0 = (kappa**2) * 1.0  # since alpha=1 and S=1 in barrier region
     omega = 2 * np.pi * freqs
     T_cf = np.ones_like(omega)
     under = V0 - omega**2
@@ -71,4 +71,4 @@ def test_graybody_acoustic_wkb_step_barrier_matches_closed_form_within_factor():
         finite = np.isfinite(r) & (T_wkb[sel] > 0)
         if np.any(finite):
             r = r[finite]
-            assert np.nanmedian(r) > 1/5 and np.nanmedian(r) < 5.0
+            assert np.nanmedian(r) > 1 / 5 and np.nanmedian(r) < 5.0

@@ -113,11 +113,14 @@ class FluidBackend(PlasmaBackend):
             magnetosonic_speed=magnetosonic_speed,
         )
         self._last_state = state
-        self._sink.emit("fluid_state", {
-            "density": state.density,
-            "velocity": state.velocity,
-            "temperature": state.temperature if state.temperature is not None else np.array([]),
-        })
+        self._sink.emit(
+            "fluid_state",
+            {
+                "density": state.density,
+                "velocity": state.velocity,
+                "temperature": state.temperature if state.temperature is not None else np.array([]),
+            },
+        )
         return state
 
     def export_observables(self, requests: Iterable[str]) -> Dict[str, np.ndarray]:
@@ -167,8 +170,8 @@ class FluidBackend(PlasmaBackend):
         self._model = None
         self._x = None
         self._last_state = None
-        
+
+
 # Backward-compatible aliases with more descriptive names
 EquilibriumFluidModel = FluidBackend
 StaticPonderomotiveModel = FluidBackend
-

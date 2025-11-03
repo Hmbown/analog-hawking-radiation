@@ -36,4 +36,3 @@ Next Steps
   - `gh repo edit --visibility public` (requires GitHub CLI auth)
 - Publish GitHub Release "v0.1.0" and paste these notes.
 - Optionally add issue templates and badges.
-

@@ -27,7 +27,9 @@ def _synthetic_profile():
 def test_plasma_mirror_dynamics_and_kappa_mapping():
     x, _, _ = _synthetic_profile()
     t = np.linspace(0.0, 100e-15, 401)
-    p = PlasmaMirrorParams(n_p0=1e24, omega_p0=1e14, a=0.5, b=0.5, D=10e-6, eta_a=1.0, model="anabhel")
+    p = PlasmaMirrorParams(
+        n_p0=1e24, omega_p0=1e14, a=0.5, b=0.5, D=10e-6, eta_a=1.0, model="anabhel"
+    )
     mirror = calculate_plasma_mirror_dynamics(x, laser_intensity=5e17, params=p, t=t)
     assert mirror.t.shape == t.shape
     assert mirror.xM.shape == t.shape
@@ -42,7 +44,9 @@ def test_hybrid_reduces_to_fluid_when_coupling_zero():
     fluid = find_horizons_with_uncertainty(x, v, c_s)
     # minimal mirror (non-zero but will be suppressed by zero coupling)
     t = np.linspace(0.0, 100e-15, 401)
-    p = PlasmaMirrorParams(n_p0=1e24, omega_p0=1e14, a=0.5, b=0.5, D=10e-6, eta_a=1.0, model="unruh")
+    p = PlasmaMirrorParams(
+        n_p0=1e24, omega_p0=1e14, a=0.5, b=0.5, D=10e-6, eta_a=1.0, model="unruh"
+    )
     mirror = calculate_plasma_mirror_dynamics(x, laser_intensity=5e17, params=p, t=t)
 
     hh = find_hybrid_horizons(x, v, c_s, mirror, HybridHorizonParams(coupling_strength=0.0))
@@ -51,7 +55,9 @@ def test_hybrid_reduces_to_fluid_when_coupling_zero():
 
 
 def test_hybrid_spectrum_success():
-    res = calculate_enhanced_hawking_spectrum(kappa_fluid=1e12, kappa_mirror=1e12, coupling_weight=0.3)
+    res = calculate_enhanced_hawking_spectrum(
+        kappa_fluid=1e12, kappa_mirror=1e12, coupling_weight=0.3
+    )
     assert res.get("success", False)
     assert "frequencies" in res and "power_spectrum" in res
     f = np.asarray(res["frequencies"])  # type: ignore[index]

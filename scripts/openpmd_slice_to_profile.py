@@ -50,7 +50,7 @@ def main() -> int:
     args = p.parse_args()
 
     os.makedirs(os.path.dirname(args.outfile), exist_ok=True)
-    with h5py.File(args.infile, 'r') as f:
+    with h5py.File(args.infile, "r") as f:
         x = _read_dataset(f, args.x_dataset) if args.x_dataset else None
         v = _read_dataset(f, args.vel_dataset) if args.vel_dataset else None
         cs = _read_dataset(f, args.cs_dataset) if args.cs_dataset else None

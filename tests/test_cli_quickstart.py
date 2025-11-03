@@ -18,4 +18,3 @@ def test_quickstart_generates_manifest(tmp_path: Path, monkeypatch: pytest.Monke
     assert "git_commit" in data
     assert "environment" in data
     assert data["outputs"]["n_horizons"] >= 0
-

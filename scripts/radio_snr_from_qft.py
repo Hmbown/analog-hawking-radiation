@@ -27,27 +27,27 @@ from hawking_detection_experiment import calculate_hawking_spectrum
 
 
 def default_kappa_for_radio(T_H=0.01):
-    return 2*pi*k*T_H / hbar
+    return 2 * pi * k * T_H / hbar
 
 
 def main():
     kappa = default_kappa_for_radio(0.01)
     graybody_profile = None
-    sidecar_path = os.path.join('results', 'warpx_profiles.npz')
+    sidecar_path = os.path.join("results", "warpx_profiles.npz")
     if os.path.exists(sidecar_path):
         npz = np.load(sidecar_path)
         graybody_profile = {
-            'x': npz['grid'],
-            'v': npz['velocity'],
-            'c_s': npz['sound_speed'],
+            "x": npz["grid"],
+            "v": npz["velocity"],
+            "c_s": npz["sound_speed"],
         }
     spec = calculate_hawking_spectrum(kappa, graybody_profile=graybody_profile)
-    if not spec.get('success', False):
-        print('Spectrum calculation failed')
+    if not spec.get("success", False):
+        print("Spectrum calculation failed")
         return
-    frequencies = spec['frequencies']
-    power_spectrum = spec['power_spectrum']
-    f_center = spec['peak_frequency']
+    frequencies = spec["frequencies"]
+    power_spectrum = spec["power_spectrum"]
+    f_center = spec["peak_frequency"]
 
     B_vals = np.logspace(5, 9, 25)  # 100 kHz .. 1 GHz
     T_sys_vals = np.linspace(5, 80, 25)
@@ -60,17 +60,17 @@ def main():
     Tgrid = sweep_time_for_5sigma(T_sys_vals, B_vals, T_sig)
 
     plt.figure(figsize=(8, 5))
-    im = plt.contourf(B_vals*1e-6, T_sys_vals, np.log10(Tgrid/3600), levels=20, cmap='viridis')
-    plt.colorbar(im, label='log10(Time for 5σ) [hours]')
-    plt.xlabel('Bandwidth [MHz]')
-    plt.ylabel('System Temperature T_sys [K]')
-    plt.title('Radiometer 5σ Time (from QFT spectrum)')
+    im = plt.contourf(B_vals * 1e-6, T_sys_vals, np.log10(Tgrid / 3600), levels=20, cmap="viridis")
+    plt.colorbar(im, label="log10(Time for 5σ) [hours]")
+    plt.xlabel("Bandwidth [MHz]")
+    plt.ylabel("System Temperature T_sys [K]")
+    plt.title("Radiometer 5σ Time (from QFT spectrum)")
     plt.tight_layout()
-    os.makedirs('figures', exist_ok=True)
-    out = os.path.join('figures', 'radio_snr_from_qft.png')
+    os.makedirs("figures", exist_ok=True)
+    out = os.path.join("figures", "radio_snr_from_qft.png")
     plt.savefig(out, dpi=200)
-    print(f'Saved {out}')
+    print(f"Saved {out}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

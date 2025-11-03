@@ -85,7 +85,9 @@ def estimate_sigma_map(
     ladder = tuple(float(f) for f in ladder)
     sigma_candidates = [np.asarray(sigma_cells * factor, dtype=float) for factor in ladder]
 
-    sigma_means = np.array([float(np.nanmean(candidate)) for candidate in sigma_candidates], dtype=float)
+    sigma_means = np.array(
+        [float(np.nanmean(candidate)) for candidate in sigma_candidates], dtype=float
+    )
     kappa_means = np.zeros(len(sigma_candidates), dtype=float)
     horizon_counts = np.zeros(len(sigma_candidates), dtype=int)
 
@@ -137,7 +139,7 @@ def apply_sigma_smoothing(data: np.ndarray, sigma_map: np.ndarray) -> np.ndarray
         radius = max(int(3.0 * sigma + 0.5), 1)
         left = max(0, i - radius)
         right = min(n - 1, i + radius)
-        window = data[left:right + 1]
+        window = data[left : right + 1]
         offsets = np.arange(left, right + 1, dtype=float) - float(i)
         weights = np.exp(-0.5 * (offsets / sigma) ** 2)
         weights_sum = weights.sum()
@@ -161,5 +163,3 @@ def _select_plateau_index(sigma_means: np.ndarray, kappa_means: np.ndarray, epsi
         if abs(second_derivative[idx]) < epsilon * abs(first_derivative[idx]):
             return idx
     return len(sigma_means) - 1
-
-

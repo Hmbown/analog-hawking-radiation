@@ -55,7 +55,9 @@ def _has_horizon(backend: FluidBackend) -> Tuple[bool, float]:
     return False, 0.0
 
 
-def _bisection_intensity(cfg: FrontierConfig, density: float, temp: float) -> Tuple[Optional[float], float]:
+def _bisection_intensity(
+    cfg: FrontierConfig, density: float, temp: float
+) -> Tuple[Optional[float], float]:
     lo = cfg.intensity_min
     hi = cfg.intensity_max
     kappa_at_hi = 0.0
@@ -63,47 +65,53 @@ def _bisection_intensity(cfg: FrontierConfig, density: float, temp: float) -> Tu
     # Ensure hi is feasible at least once
     backend = FluidBackend()
     grid = np.linspace(cfg.grid_min, cfg.grid_max, cfg.grid_points)
-    backend.configure({
-        "plasma_density": float(density),
-        "laser_wavelength": cfg.wavelength,
-        "laser_intensity": float(hi),
-        "grid": grid,
-        "temperature_settings": {"constant": float(temp)},
-        "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
-        "scale_with_intensity": bool(cfg.scale_with_intensity),
-        "magnetic_field": cfg.magnetic_field,
-    })
+    backend.configure(
+        {
+            "plasma_density": float(density),
+            "laser_wavelength": cfg.wavelength,
+            "laser_intensity": float(hi),
+            "grid": grid,
+            "temperature_settings": {"constant": float(temp)},
+            "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
+            "scale_with_intensity": bool(cfg.scale_with_intensity),
+            "magnetic_field": cfg.magnetic_field,
+        }
+    )
     ok, kappa_at_hi = _has_horizon(backend)
     if not ok:
         return None, 0.0
 
     # Expand/shrink to ensure lo is infeasible
-    backend.configure({
-        "plasma_density": float(density),
-        "laser_wavelength": cfg.wavelength,
-        "laser_intensity": float(lo),
-        "grid": grid,
-        "temperature_settings": {"constant": float(temp)},
-        "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
-        "scale_with_intensity": bool(cfg.scale_with_intensity),
-        "magnetic_field": cfg.magnetic_field,
-    })
+    backend.configure(
+        {
+            "plasma_density": float(density),
+            "laser_wavelength": cfg.wavelength,
+            "laser_intensity": float(lo),
+            "grid": grid,
+            "temperature_settings": {"constant": float(temp)},
+            "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
+            "scale_with_intensity": bool(cfg.scale_with_intensity),
+            "magnetic_field": cfg.magnetic_field,
+        }
+    )
     ok_lo, _ = _has_horizon(backend)
     if ok_lo:
         # Lower until it breaks
         for _ in range(3):
             hi = lo
             lo = lo * 0.3
-            backend.configure({
-                "plasma_density": float(density),
-                "laser_wavelength": cfg.wavelength,
-                "laser_intensity": float(lo),
-                "grid": grid,
-                "temperature_settings": {"constant": float(temp)},
-                "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
-                "scale_with_intensity": bool(cfg.scale_with_intensity),
-                "magnetic_field": cfg.magnetic_field,
-            })
+            backend.configure(
+                {
+                    "plasma_density": float(density),
+                    "laser_wavelength": cfg.wavelength,
+                    "laser_intensity": float(lo),
+                    "grid": grid,
+                    "temperature_settings": {"constant": float(temp)},
+                    "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
+                    "scale_with_intensity": bool(cfg.scale_with_intensity),
+                    "magnetic_field": cfg.magnetic_field,
+                }
+            )
             ok_lo, _ = _has_horizon(backend)
             if not ok_lo:
                 break
@@ -117,16 +125,18 @@ def _bisection_intensity(cfg: FrontierConfig, density: float, temp: float) -> Tu
     best_kappa = kappa_at_hi
     for _ in range(cfg.max_bisection_iter):
         mid = np.sqrt(left * right)  # geometric mean for decades
-        backend.configure({
-            "plasma_density": float(density),
-            "laser_wavelength": cfg.wavelength,
-            "laser_intensity": float(mid),
-            "grid": grid,
-            "temperature_settings": {"constant": float(temp)},
-            "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
-            "scale_with_intensity": bool(cfg.scale_with_intensity),
-            "magnetic_field": cfg.magnetic_field,
-        })
+        backend.configure(
+            {
+                "plasma_density": float(density),
+                "laser_wavelength": cfg.wavelength,
+                "laser_intensity": float(mid),
+                "grid": grid,
+                "temperature_settings": {"constant": float(temp)},
+                "use_fast_magnetosonic": bool(cfg.use_fast_magnetosonic),
+                "scale_with_intensity": bool(cfg.scale_with_intensity),
+                "magnetic_field": cfg.magnetic_field,
+            }
+        )
         ok_mid, k_mid = _has_horizon(backend)
         if ok_mid:
             best_kappa = k_mid
@@ -182,17 +192,25 @@ def compute_frontier(cfg: FrontierConfig):
     cmap0.set_bad(color="#f0f0f0")
     cmap1.set_bad(color="#f0f0f0")
 
-    im0 = ax[0].imshow(Imin_m, origin="lower", aspect="auto",
-                       extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
-                       cmap=cmap0)
+    im0 = ax[0].imshow(
+        Imin_m,
+        origin="lower",
+        aspect="auto",
+        extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
+        cmap=cmap0,
+    )
     ax[0].set_title("log10 I_min [W/m²]")
     ax[0].set_xlabel("log10 T [K]")
     ax[0].set_ylabel("log10 n_e [m⁻³]")
     fig.colorbar(im0, ax=ax[0])
 
-    im1 = ax[1].imshow(Kmin_m, origin="lower", aspect="auto",
-                       extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
-                       cmap=cmap1)
+    im1 = ax[1].imshow(
+        Kmin_m,
+        origin="lower",
+        aspect="auto",
+        extent=[np.log10(TT[0]), np.log10(TT[-1]), np.log10(ne[0]), np.log10(ne[-1])],
+        cmap=cmap1,
+    )
     ax[1].set_title("log10 κ at frontier [s⁻¹]")
     ax[1].set_xlabel("log10 T [K]")
     ax[1].set_ylabel("log10 n_e [m⁻³]")
@@ -231,7 +249,7 @@ def main():
     TT = np.geomspace(args.temp_min, args.temp_max, args.temp_N)
     mf = None if args.no_magnetic_field else args.magnetic_field
     use_ms = args.use_fast_ms and not args.no_use_fast_ms
-    scale_int = (not args.no_scale_with_intensity)
+    scale_int = not args.no_scale_with_intensity
 
     cfg = FrontierConfig(
         densities=ne,

@@ -69,13 +69,13 @@ def objective(params):
     result = run_full_pipeline(**params)
     if result.t5sigma_s is None:
         return -np.inf  # No detection possible
-    
+
     # Convert 5σ time to detection rate
     detection_rate = 1.0 / result.t5sigma_s
-    
+
     # Add penalty for parameter extremity
     penalty = np.sum((np.array(params) - baseline)**2 / ranges**2)
-    
+
     return detection_rate - 0.1 * penalty
 ```
 
@@ -98,8 +98,8 @@ space = [
 ]
 
 result = gp_minimize(
-    objective, 
-    space, 
+    objective,
+    space,
     n_calls=100,
     random_state=42,
     verbose=True
@@ -141,7 +141,7 @@ class HawkingSurrogate(nn.Module):
         super().__init__()
         layers = []
         prev_dim = input_dim
-        
+
         for hidden_dim in hidden_dims:
             layers.extend([
                 nn.Linear(prev_dim, hidden_dim),
@@ -149,10 +149,10 @@ class HawkingSurrogate(nn.Module):
                 nn.Dropout(0.1)
             ])
             prev_dim = hidden_dim
-            
+
         layers.append(nn.Linear(prev_dim, 1))
         self.network = nn.Sequential(*layers)
-    
+
     def forward(self, x):
         return self.network(x)
 ```
@@ -172,20 +172,20 @@ Validate against existing experimental data:
 def validate_detection_model():
     # Load experimental datasets
     datasets = load_experimental_data()
-    
+
     # Run validation pipeline
     results = []
     for dataset in datasets:
         predicted = run_full_pipeline(**dataset['params'])
         actual = dataset['measurement']
-        
+
         results.append({
             'dataset': dataset['name'],
             'predicted_kappa': predicted.kappa[0],
             'actual_kappa': actual['kappa'],
             'relative_error': abs(predicted.kappa[0] - actual['kappa']) / actual['kappa']
         })
-    
+
     return results
 ```
 
@@ -210,18 +210,18 @@ def sensitivity_analysis():
     # Parameter sensitivity using Sobol indices
     from SALib.sample import saltelli
     from SALib.analyze import sobol
-    
+
     problem = {
         'num_vars': 8,
-        'names': ['intensity', 'density', 'magnetic', 'wavelength', 
+        'names': ['intensity', 'density', 'magnetic', 'wavelength',
                  'temperature', 'grid_size', 'mirror_D', 'mirror_eta'],
         'bounds': [[1e16, 1e20], [1e16, 1e20], [0, 100], [400e-9, 1200e-9],
                   [1e3, 1e5], [10e-6, 100e-6], [1e-6, 100e-6], [0.1, 10]]
     }
-    
+
     param_values = saltelli.sample(problem, 1000)
     Y = np.array([objective(p) for p in param_values])
-    
+
     Si = sobol.analyze(problem, Y)
     return Si
 ```
@@ -235,21 +235,21 @@ def sensitivity_analysis():
 plasma:
   density: 5e17  # m^-3
   temperature: 1e4  # K
-  
+
 laser:
   intensity: 5e17  # W/m^2
   wavelength: 800e-9  # m
-  
+
 geometry:
   grid_size: 50e-6  # m
   resolution: 512  # points
-  
+
 detection:
   bandwidth: 1e8  # Hz (100 MHz)
   system_temp: 30  # K
   coupling_efficiency: 0.1
   solid_angle: 0.05  # sr
-  
+
 hybrid:
   enabled: false
   model: "anabhel"
@@ -265,13 +265,13 @@ bayesian_optimization:
   n_initial_points: 20
   n_calls: 100
   random_state: 42
-  
+
 parameter_bounds:
   laser_intensity: [1e16, 1e20]
   plasma_density: [1e16, 1e20]
   magnetic_field: [0, 100]
   temperature: [1e3, 1e5]
-  
+
 constraints:
   - "laser_intensity * plasma_density < 1e37"
   - "temperature > 5e3"
@@ -313,14 +313,14 @@ class ProtocolDataManager:
     def __init__(self, base_path="results"):
         self.base_path = Path(base_path)
         self.base_path.mkdir(exist_ok=True)
-    
+
     def save_run(self, params, results, metadata=None):
         run_id = hashlib.md5(
             json.dumps(params, sort_keys=True).encode()
         ).hexdigest()[:8]
-        
+
         timestamp = datetime.now().isoformat()
-        
+
         data = {
             'run_id': run_id,
             'timestamp': timestamp,
@@ -328,11 +328,11 @@ class ProtocolDataManager:
             'results': results,
             'metadata': metadata or {}
         }
-        
+
         file_path = self.base_path / f"run_{run_id}.json"
         with open(file_path, 'w') as f:
             json.dump(data, f, indent=2)
-        
+
         return run_id
 ```
 
@@ -392,13 +392,13 @@ class TestProtocol:
     def test_parameter_ranges(self):
         validator = ProtocolValidator()
         assert validator.validate_ranges()
-    
+
     def test_reproducibility(self):
         params = {'laser_intensity': 5e17, 'plasma_density': 5e17}
         result1 = run_full_pipeline(**params)
         result2 = run_full_pipeline(**params)
         assert abs(result1.t5sigma_s - result2.t5sigma_s) < 1e-3
-    
+
     def test_uncertainty_propagation(self):
         result = run_full_pipeline(kappa_method="acoustic_exact")
         assert result.t5sigma_s_low is not None
@@ -445,7 +445,7 @@ class ProtocolAnalyzer:
     def __init__(self, results_path):
         self.results_path = Path(results_path)
         self.data = self.load_results()
-    
+
     def load_results(self):
         files = list(self.results_path.glob("*.json"))
         data = []
@@ -453,17 +453,17 @@ class ProtocolAnalyzer:
             with open(file) as f:
                 data.append(json.load(f))
         return pd.DataFrame(data)
-    
+
     def generate_report(self):
         # Parameter sensitivity plots
         self.plot_parameter_sensitivity()
-        
+
         # Detection time distributions
         self.plot_detection_times()
-        
+
         # Optimal parameter regions
         self.plot_optimal_regions()
-        
+
         # Scaling predictions
         self.plot_scaling_predictions()
 ```

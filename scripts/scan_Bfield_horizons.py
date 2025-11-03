@@ -16,8 +16,12 @@ from physics_engine.simulation import SimulationRunner
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="B-field horizon scan")
     parser.add_argument("--config", type=Path, required=True, help="Base WarpX configuration JSON")
-    parser.add_argument("--b-fields", type=str, default="0.0,0.1,0.5,1.0",
-                        help="Comma-separated magnetic field strengths (Tesla)")
+    parser.add_argument(
+        "--b-fields",
+        type=str,
+        default="0.0,0.1,0.5,1.0",
+        help="Comma-separated magnetic field strengths (Tesla)",
+    )
     parser.add_argument("--steps", type=int, default=5)
     parser.add_argument("--results", type=Path, default=Path("results/B_scan_horizons.json"))
     return parser.parse_args()
@@ -49,11 +53,13 @@ def main() -> None:
                 "horizon_count": 0,
             }
             if horizons is not None and horizons.positions.size:
-                record.update({
-                    "horizon_count": int(horizons.positions.size),
-                    "kappa_mean": float(np.mean(horizons.kappa)),
-                    "kappa_std": float(np.std(horizons.kappa)),
-                })
+                record.update(
+                    {
+                        "horizon_count": int(horizons.positions.size),
+                        "kappa_mean": float(np.mean(horizons.kappa)),
+                        "kappa_std": float(np.std(horizons.kappa)),
+                    }
+                )
             records.append(record)
         runner.shutdown()
 

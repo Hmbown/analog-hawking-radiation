@@ -21,6 +21,7 @@ from .eli_capabilities import ELICapabilities, ELIFacility
 
 class RiskLevel(Enum):
     """Risk levels for experimental feasibility"""
+
     LOW = "Low"
     MEDIUM = "Medium"
     HIGH = "High"
@@ -29,6 +30,7 @@ class RiskLevel(Enum):
 
 class TechnicalReadiness(Enum):
     """Technical readiness levels"""
+
     TRL1 = "Basic principles observed"
     TRL2 = "Technology concept formulated"
     TRL3 = "Analytical & experimental proof of concept"
@@ -45,24 +47,24 @@ class FeasibilityCriteria:
     """Criteria for evaluating experimental feasibility"""
 
     # Physics requirements
-    min_horizon_potential: float = 0.3      # Minimum horizon formation potential
-    min_surface_gravity: float = 1e12       # Minimum surface gravity (s^-1)
-    max_hawking_temp_ratio: float = 0.5    # Max T_H / T_plasma ratio for detection
+    min_horizon_potential: float = 0.3  # Minimum horizon formation potential
+    min_surface_gravity: float = 1e12  # Minimum surface gravity (s^-1)
+    max_hawking_temp_ratio: float = 0.5  # Max T_H / T_plasma ratio for detection
 
     # Technical requirements
     min_plasma_mirror_contrast: float = 1e-10  # Minimum laser contrast
-    max_pointing_jitter_mrad: float = 0.05     # Maximum pointing stability
-    max_timing_jitter_fs: float = 30            # Maximum timing jitter
-    min_vacuum_level_mbar: float = 1e-7         # Required vacuum level
+    max_pointing_jitter_mrad: float = 0.05  # Maximum pointing stability
+    max_timing_jitter_fs: float = 30  # Maximum timing jitter
+    min_vacuum_level_mbar: float = 1e-7  # Required vacuum level
 
     # Operational requirements
-    min_shots_per_configuration: int = 100     # Minimum shots for statistics
-    max_setup_time_hours: int = 24             # Maximum setup time
-    max_downtime_percent: float = 20.0         # Maximum allowed downtime
+    min_shots_per_configuration: int = 100  # Minimum shots for statistics
+    max_setup_time_hours: int = 24  # Maximum setup time
+    max_downtime_percent: float = 20.0  # Maximum allowed downtime
 
     # Safety requirements
-    max_radiation_dose_mSv: float = 0.5        # Maximum radiation dose per experiment
-    min_shielding_thickness_cm: float = 50     # Minimum radiation shielding
+    max_radiation_dose_mSv: float = 0.5  # Maximum radiation dose per experiment
+    min_shielding_thickness_cm: float = 50  # Minimum radiation shielding
 
 
 @dataclass
@@ -120,16 +122,11 @@ class ExperimentalFeasibilityAssessor:
     def __init__(self):
         self.eli = ELICapabilities()
         self.criteria = FeasibilityCriteria()
-        self.risk_weights = {
-            "technical": 0.3,
-            "physics": 0.3,
-            "operational": 0.2,
-            "safety": 0.2
-        }
+        self.risk_weights = {"technical": 0.3, "physics": 0.3, "operational": 0.2, "safety": 0.2}
 
-    def assess_configuration(self,
-                           parameters: Dict[str, Any],
-                           facility: Optional[ELIFacility] = None) -> FeasibilityAssessment:
+    def assess_configuration(
+        self, parameters: Dict[str, Any], facility: Optional[ELIFacility] = None
+    ) -> FeasibilityAssessment:
         """
         Perform comprehensive feasibility assessment of experimental configuration
 
@@ -166,10 +163,10 @@ class ExperimentalFeasibilityAssessor:
 
         # Calculate overall feasibility score
         overall_score = (
-            self.risk_weights["technical"] * technical_score +
-            self.risk_weights["physics"] * physics_score +
-            self.risk_weights["operational"] * operational_score +
-            self.risk_weights["safety"] * safety_score
+            self.risk_weights["technical"] * technical_score
+            + self.risk_weights["physics"] * physics_score
+            + self.risk_weights["operational"] * operational_score
+            + self.risk_weights["safety"] * safety_score
         )
 
         # Calculate detection probability
@@ -198,24 +195,19 @@ class ExperimentalFeasibilityAssessor:
             configuration_id=config_id,
             facility=eli_feasibility["facility"],
             overall_feasibility_score=overall_score,
-
             technical_feasibility=technical_score,
             physics_feasibility=physics_score,
             operational_feasibility=operational_score,
             safety_feasibility=safety_score,
-
             detection_probability=detection_prob,
             confidence_interval=confidence_interval,
             required_shots=self._estimate_required_shots(parameters, detection_prob),
             estimated_experiment_time_hours=self._estimate_experiment_time(parameters),
-
             risk_assessment=risk_assessment,
-
             recommendations=recommendations,
             alternative_configurations=alternatives,
-
             overall_trl=overall_trl,
-            critical_path_items=critical_items
+            critical_path_items=critical_items,
         )
 
     def _generate_config_id(self, parameters: Dict[str, Any]) -> str:
@@ -224,9 +216,9 @@ class ExperimentalFeasibilityAssessor:
         density_exp = int(np.log10(parameters["plasma_density_m3"]))
         return f"I{intensity_exp}_N{density_exp}_A{parameters.get('wavelength_nm', 800)}"
 
-    def _assess_technical_feasibility(self,
-                                    parameters: Dict[str, Any],
-                                    eli_feasibility: Dict[str, Any]) -> float:
+    def _assess_technical_feasibility(
+        self, parameters: Dict[str, Any], eli_feasibility: Dict[str, Any]
+    ) -> float:
         """Assess technical feasibility of configuration"""
 
         score = 0.0
@@ -255,11 +247,14 @@ class ExperimentalFeasibilityAssessor:
 
         # Critical density calculation
         omega = 2 * np.pi * 3e8 / (wavelength_nm * 1e-9)
-        n_critical = 8.85e-12 * 9.11e-31 * omega**2 / (1.6e-19)**2
+        n_critical = 8.85e-12 * 9.11e-31 * omega**2 / (1.6e-19) ** 2
 
         if n_critical <= plasma_density <= 100 * n_critical:
             plasma_score = 1.0
-        elif 0.1 * n_critical <= plasma_density < n_critical or 100 * n_critical < plasma_density <= 1000 * n_critical:
+        elif (
+            0.1 * n_critical <= plasma_density < n_critical
+            or 100 * n_critical < plasma_density <= 1000 * n_critical
+        ):
             plasma_score = 0.8
         else:
             plasma_score = 0.5
@@ -268,7 +263,9 @@ class ExperimentalFeasibilityAssessor:
 
         # Diagnostic availability (10% of technical score)
         # Assume good diagnostic coverage for established facilities
-        diagnostic_score = 0.9 if eli_feasibility["facility"] in ["ELI-Beamlines", "ELI-NP"] else 0.8
+        diagnostic_score = (
+            0.9 if eli_feasibility["facility"] in ["ELI-Beamlines", "ELI-NP"] else 0.8
+        )
         score += 0.1 * diagnostic_score
 
         return min(1.0, score)
@@ -362,9 +359,9 @@ class ExperimentalFeasibilityAssessor:
 
         return min(1.0, score)
 
-    def _assess_operational_feasibility(self,
-                                      parameters: Dict[str, Any],
-                                      eli_feasibility: Dict[str, Any]) -> float:
+    def _assess_operational_feasibility(
+        self, parameters: Dict[str, Any], eli_feasibility: Dict[str, Any]
+    ) -> float:
         """Assess operational feasibility"""
 
         score = 0.0
@@ -423,9 +420,9 @@ class ExperimentalFeasibilityAssessor:
 
         return min(1.0, score)
 
-    def _assess_safety_feasibility(self,
-                                 parameters: Dict[str, Any],
-                                 eli_feasibility: Dict[str, Any]) -> float:
+    def _assess_safety_feasibility(
+        self, parameters: Dict[str, Any], eli_feasibility: Dict[str, Any]
+    ) -> float:
         """Assess safety feasibility"""
 
         score = 0.0
@@ -477,9 +474,9 @@ class ExperimentalFeasibilityAssessor:
 
         return min(1.0, score)
 
-    def _calculate_detection_probability(self,
-                                       parameters: Dict[str, Any],
-                                       feasibility_score: float) -> Tuple[float, Tuple[float, float]]:
+    def _calculate_detection_probability(
+        self, parameters: Dict[str, Any], feasibility_score: float
+    ) -> Tuple[float, Tuple[float, float]]:
         """Calculate detection probability and confidence interval"""
 
         # Base probability from overall feasibility
@@ -503,9 +500,9 @@ class ExperimentalFeasibilityAssessor:
 
         return detection_prob, (ci_lower, ci_upper)
 
-    def _estimate_required_shots(self,
-                               parameters: Dict[str, Any],
-                               detection_probability: float) -> int:
+    def _estimate_required_shots(
+        self, parameters: Dict[str, Any], detection_probability: float
+    ) -> int:
         """Estimate number of shots required for detection"""
 
         # Base shot count for 5σ detection
@@ -552,9 +549,9 @@ class ExperimentalFeasibilityAssessor:
 
         return total_hours
 
-    def _assess_risks(self,
-                     parameters: Dict[str, Any],
-                     eli_feasibility: Dict[str, Any]) -> RiskAssessment:
+    def _assess_risks(
+        self, parameters: Dict[str, Any], eli_feasibility: Dict[str, Any]
+    ) -> RiskAssessment:
         """Comprehensive risk assessment"""
 
         assessment = RiskAssessment()
@@ -592,8 +589,12 @@ class ExperimentalFeasibilityAssessor:
             )
 
         # Calculate overall risk score
-        all_risks = (assessment.technical_risks + assessment.physics_risks +
-                    assessment.operational_risks + assessment.safety_risks)
+        all_risks = (
+            assessment.technical_risks
+            + assessment.physics_risks
+            + assessment.operational_risks
+            + assessment.safety_risks
+        )
 
         if all_risks:
             assessment.overall_risk_score = np.mean([risk[2] for risk in all_risks])
@@ -602,8 +603,10 @@ class ExperimentalFeasibilityAssessor:
 
         # Generate mitigation strategies
         assessment.mitigation_strategies = self._generate_mitigation_strategies(
-            assessment.technical_risks + assessment.physics_risks +
-            assessment.operational_risks + assessment.safety_risks
+            assessment.technical_risks
+            + assessment.physics_risks
+            + assessment.operational_risks
+            + assessment.safety_risks
         )
 
         return assessment
@@ -619,7 +622,9 @@ class ExperimentalFeasibilityAssessor:
 
         return a0
 
-    def _generate_mitigation_strategies(self, risks: List[Tuple[str, RiskLevel, float]]) -> List[str]:
+    def _generate_mitigation_strategies(
+        self, risks: List[Tuple[str, RiskLevel, float]]
+    ) -> List[str]:
         """Generate risk mitigation strategies"""
 
         strategies = []
@@ -638,24 +643,30 @@ class ExperimentalFeasibilityAssessor:
                 strategies.append("Implement automated target alignment for faster turnaround")
 
             if "safety" in risk_desc.lower():
-                strategies.append("Implement comprehensive radiation monitoring and shielding verification")
+                strategies.append(
+                    "Implement comprehensive radiation monitoring and shielding verification"
+                )
                 strategies.append("Establish emergency shutdown procedures and safety protocols")
 
         # Add general strategies
-        strategies.extend([
-            "Conduct comprehensive system checkout before high-intensity operations",
-            "Implement real-time plasma diagnostics for optimization",
-            "Establish clear go/no-go decision points based on diagnostic feedback"
-        ])
+        strategies.extend(
+            [
+                "Conduct comprehensive system checkout before high-intensity operations",
+                "Implement real-time plasma diagnostics for optimization",
+                "Establish clear go/no-go decision points based on diagnostic feedback",
+            ]
+        )
 
         return list(set(strategies))  # Remove duplicates
 
-    def _generate_recommendations(self,
-                                parameters: Dict[str, Any],
-                                technical_score: float,
-                                physics_score: float,
-                                operational_score: float,
-                                safety_score: float) -> List[str]:
+    def _generate_recommendations(
+        self,
+        parameters: Dict[str, Any],
+        technical_score: float,
+        physics_score: float,
+        operational_score: float,
+        safety_score: float,
+    ) -> List[str]:
         """Generate specific recommendations for configuration improvement"""
 
         recommendations = []
@@ -664,20 +675,26 @@ class ExperimentalFeasibilityAssessor:
         if technical_score < 0.7:
             intensity_W_m2 = parameters["laser_intensity_W_m2"]
             if intensity_W_m2 < 1e19:
-                recommendations.append("Consider increasing laser intensity to improve plasma formation")
+                recommendations.append(
+                    "Consider increasing laser intensity to improve plasma formation"
+                )
             elif intensity_W_m2 > 1e23:
-                recommendations.append("Consider reducing intensity to improve operational stability")
+                recommendations.append(
+                    "Consider reducing intensity to improve operational stability"
+                )
 
         # Physics recommendations
         if physics_score < 0.7:
             a0 = self._calculate_a0(parameters)
             if a0 < 1:
-                recommendations.append("Increase intensity or adjust wavelength to achieve a0 > 1 for relativistic effects")
+                recommendations.append(
+                    "Increase intensity or adjust wavelength to achieve a0 > 1 for relativistic effects"
+                )
 
             # Check plasma density
             wavelength_nm = parameters.get("wavelength_nm", 800)
             omega = 2 * np.pi * 3e8 / (wavelength_nm * 1e-9)
-            n_critical = 8.85e-12 * 9.11e-31 * omega**2 / (1.6e-19)**2
+            n_critical = 8.85e-12 * 9.11e-31 * omega**2 / (1.6e-19) ** 2
             plasma_density = parameters["plasma_density_m3"]
 
             if plasma_density < n_critical:
@@ -685,19 +702,23 @@ class ExperimentalFeasibilityAssessor:
 
         # Operational recommendations
         if operational_score < 0.7:
-            recommendations.append("Consider facility with higher repetition rate for better statistics")
+            recommendations.append(
+                "Consider facility with higher repetition rate for better statistics"
+            )
             recommendations.append("Optimize experimental setup for faster target replacement")
 
         # Safety recommendations
         if safety_score < 0.7:
             recommendations.append("Implement additional radiation shielding and monitoring")
-            recommendations.append("Review and enhance safety protocols for high-intensity operations")
+            recommendations.append(
+                "Review and enhance safety protocols for high-intensity operations"
+            )
 
         return recommendations
 
-    def _generate_alternatives(self,
-                             parameters: Dict[str, Any],
-                             eli_feasibility: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def _generate_alternatives(
+        self, parameters: Dict[str, Any], eli_feasibility: Dict[str, Any]
+    ) -> List[Dict[str, Any]]:
         """Generate alternative configurations"""
 
         alternatives = []
@@ -711,7 +732,7 @@ class ExperimentalFeasibilityAssessor:
         # Alternative 2: Optimize density
         wavelength_nm = parameters.get("wavelength_nm", 800)
         omega = 2 * np.pi * 3e8 / (wavelength_nm * 1e-9)
-        n_critical = 8.85e-12 * 9.11e-31 * omega**2 / (1.6e-19)**2
+        n_critical = 8.85e-12 * 9.11e-31 * omega**2 / (1.6e-19) ** 2
 
         alt2 = parameters.copy()
         alt2["plasma_density_m3"] = n_critical * 10  # 10x critical density
@@ -726,9 +747,9 @@ class ExperimentalFeasibilityAssessor:
 
         return alternatives[:3]  # Return top 3 alternatives
 
-    def _determine_trl(self,
-                      feasibility_score: float,
-                      risk_assessment: RiskAssessment) -> TechnicalReadiness:
+    def _determine_trl(
+        self, feasibility_score: float, risk_assessment: RiskAssessment
+    ) -> TechnicalReadiness:
         """Determine technical readiness level"""
 
         if feasibility_score >= 0.8 and risk_assessment.overall_risk_score < 0.3:
@@ -748,67 +769,71 @@ class ExperimentalFeasibilityAssessor:
         critical_items = []
 
         # High-risk items become critical path
-        all_risks = (risk_assessment.technical_risks + risk_assessment.physics_risks +
-                    risk_assessment.operational_risks + risk_assessment.safety_risks)
+        all_risks = (
+            risk_assessment.technical_risks
+            + risk_assessment.physics_risks
+            + risk_assessment.operational_risks
+            + risk_assessment.safety_risks
+        )
 
         for risk_desc, risk_level, risk_score in all_risks:
             if risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]:
                 critical_items.append(risk_desc)
 
         # Add standard critical items
-        critical_items.extend([
-            "Laser system performance verification",
-            "Plasma target preparation and characterization",
-            "Diagnostic system calibration and validation",
-            "Data acquisition and analysis pipeline",
-            "Safety system verification and approval"
-        ])
+        critical_items.extend(
+            [
+                "Laser system performance verification",
+                "Plasma target preparation and characterization",
+                "Diagnostic system calibration and validation",
+                "Data acquisition and analysis pipeline",
+                "Safety system verification and approval",
+            ]
+        )
 
         return critical_items
 
-    def _create_infeasible_assessment(self,
-                                   config_id: str,
-                                   parameters: Dict[str, Any],
-                                   eli_feasibility: Dict[str, Any]) -> FeasibilityAssessment:
+    def _create_infeasible_assessment(
+        self, config_id: str, parameters: Dict[str, Any], eli_feasibility: Dict[str, Any]
+    ) -> FeasibilityAssessment:
         """Create assessment for infeasible configurations"""
 
         return FeasibilityAssessment(
             configuration_id=config_id,
             facility="None",
             overall_feasibility_score=0.0,
-
             technical_feasibility=0.0,
             physics_feasibility=0.0,
             operational_feasibility=0.0,
             safety_feasibility=0.0,
-
             detection_probability=0.0,
             confidence_interval=(0.0, 0.0),
             required_shots=0,
             estimated_experiment_time_hours=0.0,
-
             risk_assessment=RiskAssessment(
                 overall_risk_score=1.0,
-                technical_risks=[("Configuration exceeds ELI capabilities", RiskLevel.CRITICAL, 1.0)]
+                technical_risks=[
+                    ("Configuration exceeds ELI capabilities", RiskLevel.CRITICAL, 1.0)
+                ],
             ),
-
             recommendations=[
                 "Reduce laser intensity to within ELI facility limits",
                 "Consider alternative ELI facility with higher capabilities",
-                "Review and adjust experimental parameters"
+                "Review and adjust experimental parameters",
             ],
             alternative_configurations=[],
-
             overall_trl=TechnicalReadiness.TRL1,
-            critical_path_items=["Resolve ELI compatibility issues"]
+            critical_path_items=["Resolve ELI compatibility issues"],
         )
 
 
 # Create global assessor instance
 _feasibility_assessor = ExperimentalFeasibilityAssessor()
 
-def assess_experimental_feasibility(parameters: Dict[str, Any],
-                                  facility: Optional[str] = None) -> FeasibilityAssessment:
+
+def assess_experimental_feasibility(
+    parameters: Dict[str, Any], facility: Optional[str] = None
+) -> FeasibilityAssessment:
     """
     Assess experimental feasibility of configuration
 
@@ -825,7 +850,7 @@ def assess_experimental_feasibility(parameters: Dict[str, Any],
         facility_map = {
             "beamlines": ELIFacility.ELI_BEAMLINES,
             "np": ELIFacility.ELI_NP,
-            "alps": ELIFacility.ELI_ALPS
+            "alps": ELIFacility.ELI_ALPS,
         }
         target_facility = facility_map.get(facility.lower())
 

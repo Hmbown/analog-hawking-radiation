@@ -23,23 +23,23 @@ def test_probabilistic_model():
 
     # --- 1. Define Base Parameters and Uncertainties ---
     base_params = {
-        'plasma_density': 1e24,       # m^-3
-        'laser_intensity': 5e22,      # W/m^2
-        'T_peak': 10e6,               # K
-        'T_background': 2e6           # K
+        "plasma_density": 1e24,  # m^-3
+        "laser_intensity": 5e22,  # W/m^2
+        "T_peak": 10e6,  # K
+        "T_background": 2e6,  # K
     }
 
     param_uncertainties = {
-        'plasma_density': 0.2e24,     # 20% uncertainty
-        'laser_intensity': 1e22,      # 20% uncertainty
-        'T_peak': 2e6                 # 20% uncertainty
+        "plasma_density": 0.2e24,  # 20% uncertainty
+        "laser_intensity": 1e22,  # 20% uncertainty
+        "T_peak": 2e6,  # 20% uncertainty
     }
 
     # --- 2. Initialize the Model ---
     prob_model = ProbabilisticHorizonModel(
         base_params=base_params,
         param_uncertainties=param_uncertainties,
-        n_samples=500  # A smaller number of samples for a quick test
+        n_samples=500,  # A smaller number of samples for a quick test
     )
 
     # --- 3. Define Simulation Grid ---
@@ -57,13 +57,14 @@ def test_probabilistic_model():
     print(f"  Mean Surface Gravity (kappa): {kappa_stats['mean']:.2e} s^-1")
     print(f"  Std Dev of Surface Gravity (kappa): {kappa_stats['std']:.2e} s^-1")
     print("-" * 30)
-    
+
     # --- 6. Assertions for Basic Validation ---
     assert 0.0 <= probability <= 1.0, "Probability should be between 0 and 1."
-    assert kappa_stats['mean'] >= 0, "Mean kappa should not be negative."
-    assert kappa_stats['std'] >= 0, "Kappa std dev should not be negative."
+    assert kappa_stats["mean"] >= 0, "Mean kappa should not be negative."
+    assert kappa_stats["std"] >= 0, "Kappa std dev should not be negative."
 
     print("✅ Probabilistic model test completed successfully.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     test_probabilistic_model()

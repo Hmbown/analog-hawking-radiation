@@ -15,18 +15,20 @@ def _choose_frequency_band(T_H: float) -> tuple[float, float]:
     # Align band gating with scripts/hawking_detection_experiment.py
     if T_H <= 10.0:
         return 1e6, 1e11  # 1 MHz .. 100 GHz (radio/microwave)
-    return 1e12, 1e18      # THz .. PHz
+    return 1e12, 1e18  # THz .. PHz
 
 
-def calculate_enhanced_hawking_spectrum(kappa_fluid: float,
-                                         kappa_mirror: float,
-                                         coupling_weight: float,
-                                         cross_coupling: float = 0.2,
-                                         n_points: int = 1200,
-                                         emitting_area_m2: float | None = 1.0,
-                                         solid_angle_sr: float | None = 1.0,
-                                         coupling_efficiency: float = 1.0,
-                                         graybody_profile: dict | None = None) -> dict:
+def calculate_enhanced_hawking_spectrum(
+    kappa_fluid: float,
+    kappa_mirror: float,
+    coupling_weight: float,
+    cross_coupling: float = 0.2,
+    n_points: int = 1200,
+    emitting_area_m2: float | None = 1.0,
+    solid_angle_sr: float | None = 1.0,
+    coupling_efficiency: float = 1.0,
+    graybody_profile: dict | None = None,
+) -> dict:
     """
     Construct an effective Hawking spectrum combining fluid and mirror contributions.
 
@@ -43,17 +45,21 @@ def calculate_enhanced_hawking_spectrum(kappa_fluid: float,
 
         T_f = _temperature_from_kappa(k_f)
         T_m = _temperature_from_kappa(k_m)
-        T_eff = float(max(0.0, T_f + w * T_m + float(cross_coupling) * np.sqrt(max(T_f, 0.0) * max(T_m, 0.0))))
+        T_eff = float(
+            max(0.0, T_f + w * T_m + float(cross_coupling) * np.sqrt(max(T_f, 0.0) * max(T_m, 0.0)))
+        )
 
         f_min, f_max = _choose_frequency_band(T_eff)
         freqs = np.logspace(np.log10(f_min), np.log10(f_max), int(n_points))
         omega = 2 * np.pi * freqs
 
-        qft = QuantumFieldTheory(surface_gravity=0.0,
-                                 temperature=T_eff,
-                                 emitting_area_m2=emitting_area_m2,
-                                 solid_angle_sr=solid_angle_sr,
-                                 coupling_efficiency=coupling_efficiency)
+        qft = QuantumFieldTheory(
+            surface_gravity=0.0,
+            temperature=T_eff,
+            emitting_area_m2=emitting_area_m2,
+            solid_angle_sr=solid_angle_sr,
+            coupling_efficiency=coupling_efficiency,
+        )
 
         transmission = None
         if graybody_profile is not None:
@@ -68,11 +74,11 @@ def calculate_enhanced_hawking_spectrum(kappa_fluid: float,
         peak_f = float(freqs[peak_idx]) if psd.size else float(0.0)
 
         return {
-            'success': True,
-            'frequencies': freqs,
-            'power_spectrum': psd,
-            'peak_frequency': peak_f,
-            'temperature': T_eff,
+            "success": True,
+            "frequencies": freqs,
+            "power_spectrum": psd,
+            "peak_frequency": peak_f,
+            "temperature": T_eff,
         }
     except Exception as exc:  # pragma: no cover
-        return {'success': False, 'error': str(exc)}
+        return {"success": False, "error": str(exc)}

@@ -54,19 +54,42 @@ class AtomicSpecies:
         if 0 <= charge_state < self.n_states:
             return self.Ip[charge_state]
         else:
-            return float('inf')
+            return float("inf")
+
 
 # Common atomic species for ELI experiments
 ATOMIC_DATA = {
-    'H': AtomicSpecies(1, 'Hydrogen', [13.6]),
-    'He': AtomicSpecies(2, 'Helium', [24.6, 54.4]),
-    'C': AtomicSpecies(6, 'Carbon', [11.3, 24.4, 47.9, 64.5, 392.1, 490.0]),
-    'Al': AtomicSpecies(13, 'Aluminum', [5.99, 18.8, 28.4, 120.0, 153.8, 190.5, 241.8,
-                                         284.6, 330.2, 398.8, 442.1, 2086.0, 2304.0]),
-    'Si': AtomicSpecies(14, 'Silicon', [8.15, 16.3, 33.5, 45.1, 67.0, 99.2, 151.1, 181.7,
-                                        205.3, 236.6, 274.7, 330.4, 400.7, 476.2]),
-    'Au': AtomicSpecies(79, 'Gold', [9.22, 20.5])  # Simplified - only first few states
+    "H": AtomicSpecies(1, "Hydrogen", [13.6]),
+    "He": AtomicSpecies(2, "Helium", [24.6, 54.4]),
+    "C": AtomicSpecies(6, "Carbon", [11.3, 24.4, 47.9, 64.5, 392.1, 490.0]),
+    "Al": AtomicSpecies(
+        13,
+        "Aluminum",
+        [5.99, 18.8, 28.4, 120.0, 153.8, 190.5, 241.8, 284.6, 330.2, 398.8, 442.1, 2086.0, 2304.0],
+    ),
+    "Si": AtomicSpecies(
+        14,
+        "Silicon",
+        [
+            8.15,
+            16.3,
+            33.5,
+            45.1,
+            67.0,
+            99.2,
+            151.1,
+            181.7,
+            205.3,
+            236.6,
+            274.7,
+            330.4,
+            400.7,
+            476.2,
+        ],
+    ),
+    "Au": AtomicSpecies(79, "Gold", [9.22, 20.5]),  # Simplified - only first few states
 }
+
 
 class ADKIonizationModel:
     """
@@ -81,7 +104,7 @@ class ADKIonizationModel:
             atomic_species: AtomicSpecies object containing ionization potentials
         """
         self.atom = atomic_species
-        self.E_a = (2 * self.atom.Ip)**1.5 / (e * hbar)  # Atomic field strength
+        self.E_a = (2 * self.atom.Ip) ** 1.5 / (e * hbar)  # Atomic field strength
         warnings.warn(
             "ADK ionization model constants are placeholders; calibrate against benchmarks "
             "before relying on absolute rates.",
@@ -115,13 +138,17 @@ class ADKIonizationModel:
             return 0.0
 
         # ADK ionization rate
-        W_ADK = (self.E_a[charge_state] / (2 * E_field)) * \
-                (2 * kappa**3 / (pi * E_field)) * \
-                (2 * E_over_Ea)**(2 * n_eff - 1) * \
-                np.exp(-2 * kappa**3 / (3 * E_field))
+        W_ADK = (
+            (self.E_a[charge_state] / (2 * E_field))
+            * (2 * kappa**3 / (pi * E_field))
+            * (2 * E_over_Ea) ** (2 * n_eff - 1)
+            * np.exp(-2 * kappa**3 / (3 * E_field))
+        )
 
         # Statistical factor
-        C_n2 = 2**(2 * n_eff) / (n_eff * gamma_func(n_eff + l_eff + 1) * gamma_func(n_eff - l_eff))
+        C_n2 = 2 ** (2 * n_eff) / (
+            n_eff * gamma_func(n_eff + l_eff + 1) * gamma_func(n_eff - l_eff)
+        )
 
         return W_ADK * C_n2
 
@@ -131,6 +158,7 @@ class ADKIonizationModel:
         for i, E in enumerate(E_field):
             rates[i] = self.adk_rate(E, charge_state)
         return rates
+
 
 class PPTIonizationModel:
     """
@@ -184,9 +212,11 @@ class PPTIonizationModel:
             n_photons = int(np.ceil(Ip / (hbar * omega)))
 
             # Simplified multiphoton rate
-            W_MP = (F0 / (2 * m_e * omega))**(2 * n_photons) * \
-                   (omega / (2 * pi)) * \
-                   np.exp(-2 * n_photons * np.log(1 + gamma_K**2))
+            W_MP = (
+                (F0 / (2 * m_e * omega)) ** (2 * n_photons)
+                * (omega / (2 * pi))
+                * np.exp(-2 * n_photons * np.log(1 + gamma_K**2))
+            )
 
             return W_MP
 
@@ -207,6 +237,7 @@ class PPTIonizationModel:
 
         gamma_K = omega * kappa * m_e / (e * E_field)
         return gamma_K
+
 
 class CollisionalIonizationModel:
     """
@@ -249,13 +280,13 @@ class CollisionalIonizationModel:
         B = 0.5
         C = 1.0
 
-        sigma = A * np.log(E_eV / Ip_eV) / (E_eV * Ip_eV) * \
-                (1 - B * np.exp(-C * E_eV / Ip_eV))
+        sigma = A * np.log(E_eV / Ip_eV) / (E_eV * Ip_eV) * (1 - B * np.exp(-C * E_eV / Ip_eV))
 
         return sigma
 
-    def collisional_rate(self, electron_density: float, electron_temperature: float,
-                        charge_state: int) -> float:
+    def collisional_rate(
+        self, electron_density: float, electron_temperature: float, charge_state: int
+    ) -> float:
         """
         Calculate collisional ionization rate
 
@@ -279,6 +310,7 @@ class CollisionalIonizationModel:
         rate = electron_density * sigma_avg * v_th
         return rate
 
+
 class RecombinationModel:
     """
     Recombination processes (radiative and three-body recombination)
@@ -293,9 +325,9 @@ class RecombinationModel:
         """
         self.atom = atomic_species
 
-    def radiative_recombination_rate(self, electron_density: float,
-                                   electron_temperature: float,
-                                   charge_state: int) -> float:
+    def radiative_recombination_rate(
+        self, electron_density: float, electron_temperature: float, charge_state: int
+    ) -> float:
         """
         Calculate radiative recombination rate
 
@@ -322,9 +354,9 @@ class RecombinationModel:
         rate = electron_density * alpha_rr
         return rate
 
-    def three_body_recombination_rate(self, electron_density: float,
-                                    electron_temperature: float,
-                                    charge_state: int) -> float:
+    def three_body_recombination_rate(
+        self, electron_density: float, electron_temperature: float, charge_state: int
+    ) -> float:
         """
         Calculate three-body recombination rate
 
@@ -347,13 +379,18 @@ class RecombinationModel:
         Z_eff = charge_state
 
         try:
-            alpha_3b = alpha_0 * Z_eff**6 * (13.6 * e / electron_temperature)**(9/2) * \
-                      np.exp(Ip / (k * electron_temperature))
+            alpha_3b = (
+                alpha_0
+                * Z_eff**6
+                * (13.6 * e / electron_temperature) ** (9 / 2)
+                * np.exp(Ip / (k * electron_temperature))
+            )
         except (OverflowError, FloatingPointError):
             alpha_3b = 0.0
 
         rate = electron_density**2 * alpha_3b
         return rate
+
 
 class IonizationDynamics:
     """
@@ -377,8 +414,14 @@ class IonizationDynamics:
         self.collisional_model = CollisionalIonizationModel(atomic_species)
         self.recombination_model = RecombinationModel(atomic_species)
 
-    def rate_equations(self, y: np.ndarray, t: np.ndarray, E_field_func: Callable,
-                      n_e_func: Callable, T_e_func: Callable) -> np.ndarray:
+    def rate_equations(
+        self,
+        y: np.ndarray,
+        t: np.ndarray,
+        E_field_func: Callable,
+        n_e_func: Callable,
+        T_e_func: Callable,
+    ) -> np.ndarray:
         """
         Rate equations for ionization state populations
 
@@ -411,9 +454,11 @@ class IonizationDynamics:
                     # Recombination to neutral
                     if n_e > 0:
                         W_recomb_rad = self.recombination_model.radiative_recombination_rate(
-                            n_e, T_e, charge_state + 1)
+                            n_e, T_e, charge_state + 1
+                        )
                         W_recomb_3b = self.recombination_model.three_body_recombination_rate(
-                            n_e, T_e, charge_state + 1)
+                            n_e, T_e, charge_state + 1
+                        )
                         W_recomb = W_recomb_rad + W_recomb_3b
                     else:
                         W_recomb = 0.0
@@ -429,9 +474,11 @@ class IonizationDynamics:
                 # Recombination from higher charge state
                 if n_e > 0:
                     W_recomb_rad = self.recombination_model.radiative_recombination_rate(
-                        n_e, T_e, charge_state + 1)
+                        n_e, T_e, charge_state + 1
+                    )
                     W_recomb_3b = self.recombination_model.three_body_recombination_rate(
-                        n_e, T_e, charge_state + 1)
+                        n_e, T_e, charge_state + 1
+                    )
                     W_recomb = W_recomb_rad + W_recomb_3b
                 else:
                     W_recomb = 0.0
@@ -439,40 +486,55 @@ class IonizationDynamics:
                 # Recombination to lower charge state
                 if n_e > 0:
                     W_recomb_lower_rad = self.recombination_model.radiative_recombination_rate(
-                        n_e, T_e, charge_state)
+                        n_e, T_e, charge_state
+                    )
                     W_recomb_lower_3b = self.recombination_model.three_body_recombination_rate(
-                        n_e, T_e, charge_state)
+                        n_e, T_e, charge_state
+                    )
                     W_recomb_lower = W_recomb_lower_rad + W_recomb_lower_3b
                 else:
                     W_recomb_lower = 0.0
 
-                dydt[charge_state] = (y[charge_state - 1] * (W_field + W_coll) -
-                                     y[charge_state] * (W_field + W_coll + W_recomb) +
-                                     y[charge_state + 1] * W_recomb -
-                                     y[charge_state] * W_recomb_lower)
+                dydt[charge_state] = (
+                    y[charge_state - 1] * (W_field + W_coll)
+                    - y[charge_state] * (W_field + W_coll + W_recomb)
+                    + y[charge_state + 1] * W_recomb
+                    - y[charge_state] * W_recomb_lower
+                )
 
             else:
                 # Highest ionization state
                 # Can only recombine
                 if n_e > 0:
                     W_recomb_rad = self.recombination_model.radiative_recombination_rate(
-                        n_e, T_e, charge_state)
+                        n_e, T_e, charge_state
+                    )
                     W_recomb_3b = self.recombination_model.three_body_recombination_rate(
-                        n_e, T_e, charge_state)
+                        n_e, T_e, charge_state
+                    )
                     W_recomb = W_recomb_rad + W_recomb_3b
                 else:
                     W_recomb = 0.0
 
-                dydt[charge_state] = (y[charge_state - 1] * (self.ppt_model.ppt_rate(
-                    abs(E_field), charge_state - 1, self.omega_l) +
-                    self.collisional_model.collisional_rate(n_e, T_e, charge_state - 1)) -
-                    y[charge_state] * W_recomb)
+                dydt[charge_state] = (
+                    y[charge_state - 1]
+                    * (
+                        self.ppt_model.ppt_rate(abs(E_field), charge_state - 1, self.omega_l)
+                        + self.collisional_model.collisional_rate(n_e, T_e, charge_state - 1)
+                    )
+                    - y[charge_state] * W_recomb
+                )
 
         return dydt
 
-    def simulate_ionization(self, initial_density: float, time_array: np.ndarray,
-                          E_field_func: Callable, n_e_func: Callable,
-                          T_e_func: Callable) -> Dict[str, np.ndarray]:
+    def simulate_ionization(
+        self,
+        initial_density: float,
+        time_array: np.ndarray,
+        E_field_func: Callable,
+        n_e_func: Callable,
+        T_e_func: Callable,
+    ) -> Dict[str, np.ndarray]:
         """
         Simulate ionization dynamics over time
 
@@ -491,26 +553,28 @@ class IonizationDynamics:
         y0[0] = initial_density
 
         # Solve rate equations
-        solution = odeint(self.rate_equations, y0, time_array,
-                         args=(E_field_func, n_e_func, T_e_func))
+        solution = odeint(
+            self.rate_equations, y0, time_array, args=(E_field_func, n_e_func, T_e_func)
+        )
 
         # Calculate derived quantities
         total_density = np.sum(solution, axis=1)
         charge_state_distribution = solution / total_density[:, np.newaxis]
-        average_charge_state = np.sum(charge_state_distribution *
-                                    np.arange(self.atom.n_states), axis=1)
+        average_charge_state = np.sum(
+            charge_state_distribution * np.arange(self.atom.n_states), axis=1
+        )
 
         return {
-            'time': time_array,
-            'populations': solution,
-            'charge_state_distribution': charge_state_distribution,
-            'average_charge_state': average_charge_state,
-            'total_density': total_density
+            "time": time_array,
+            "populations": solution,
+            "charge_state_distribution": charge_state_distribution,
+            "average_charge_state": average_charge_state,
+            "total_density": total_density,
         }
 
-    def ionization_front_position(self, time_array: np.ndarray,
-                                E_field_profile: Callable,
-                                intensity: float) -> np.ndarray:
+    def ionization_front_position(
+        self, time_array: np.ndarray, E_field_profile: Callable, intensity: float
+    ) -> np.ndarray:
         """
         Calculate ionization front position (simplified model)
 
@@ -545,7 +609,7 @@ def test_ionization_physics():
     print("=" * 50)
 
     # Test with Aluminum (common ELI target)
-    atom = ATOMIC_DATA['Al']
+    atom = ATOMIC_DATA["Al"]
     print(f"Testing with {atom.name} (Z={atom.Z})")
     print(f"Number of ionization states: {atom.n_states}")
 
@@ -579,9 +643,15 @@ def test_ionization_physics():
     # Test recombination
     print("\nRecombination Rates:")
     for charge_state in [1, 2, 3]:
-        rad_rate = ionization.recombination_model.radiative_recombination_rate(n_e, T_e, charge_state)
-        three_body_rate = ionization.recombination_model.three_body_recombination_rate(n_e, T_e, charge_state)
-        print(f"  +{charge_state} -> +{charge_state-1}: Rad = {rad_rate:.2e}, 3-body = {three_body_rate:.2e} s^-1")
+        rad_rate = ionization.recombination_model.radiative_recombination_rate(
+            n_e, T_e, charge_state
+        )
+        three_body_rate = ionization.recombination_model.three_body_recombination_rate(
+            n_e, T_e, charge_state
+        )
+        print(
+            f"  +{charge_state} -> +{charge_state-1}: Rad = {rad_rate:.2e}, 3-body = {three_body_rate:.2e} s^-1"
+        )
 
     print("\nIonization Physics Test Complete!")
 

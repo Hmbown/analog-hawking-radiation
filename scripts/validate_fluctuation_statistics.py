@@ -16,12 +16,20 @@ from physics_engine.plasma_models.fluctuation_injector import (
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate fluctuation statistics")
-    parser.add_argument("--config", type=Path, default=Path("configs/fluctuation_seeding.yml"),
-                        help="YAML configuration for the injector")
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=Path("configs/fluctuation_seeding.yml"),
+        help="YAML configuration for the injector",
+    )
     parser.add_argument("--modes", type=int, default=512, help="Number of Fourier modes to sample")
     parser.add_argument("--trials", type=int, default=200, help="Number of random draws")
-    parser.add_argument("--output", type=Path, default=Path("results/fluctuation_validation.json"),
-                        help="Output summary path")
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("results/fluctuation_validation.json"),
+        help="Output summary path",
+    )
     return parser.parse_args()
 
 
@@ -60,5 +68,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-

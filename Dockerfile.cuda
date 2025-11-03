@@ -14,4 +14,3 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip \
 
 # Test CLI by default
 CMD ["ahr", "gpu-info"]
-

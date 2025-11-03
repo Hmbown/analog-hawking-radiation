@@ -16,7 +16,9 @@ class NonlinearPlasmaSolver:
     def __init__(self, config: Mapping[str, object]) -> None:
         self._nonlinear_strength = config.get("nonlinear_strength", 0.1)
         self._qft_modes = config.get("qft_modes", 10)  # Number of transverse modes
-        self._kappa_enhancement_factor = config.get("kappa_enhancement", 10.0)  # 10-100x as per plan
+        self._kappa_enhancement_factor = config.get(
+            "kappa_enhancement", 10.0
+        )  # 10-100x as per plan
         self._t_h_target = config.get("t_h_target", 1e-3)  # >1 mK GHz
         self._universality_target = config.get("universality_r2", 0.98)
         # Nonlinear ODE solver for plasma waves
@@ -25,6 +27,7 @@ class NonlinearPlasmaSolver:
 
     def _setup_nonlinear_ode(self, config: Mapping[str, object]) -> None:
         """Setup nonlinear ODE for plasma dynamics (e.g., Zakharov equations approximation)."""
+
         def nonlinear_ode(t: float, y: np.ndarray) -> np.ndarray:
             # Simplified: dy/dt = -nonlinear_strength * y^3 + forcing (QFT modes)
             nonlinear_term = self._nonlinear_strength * y**3
@@ -32,6 +35,7 @@ class NonlinearPlasmaSolver:
             # Tile/resize forcing to match state size to avoid broadcasting errors
             qft_forcing = np.resize(base, y.shape)
             return -nonlinear_term + qft_forcing
+
         self._ode_fun = nonlinear_ode
 
     def solve(self, observables: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
@@ -47,14 +51,16 @@ class NonlinearPlasmaSolver:
         if self._ode_fun is not None:
             sol = solve_ivp(self._ode_fun, t_span, y0, method="RK45", rtol=1e-6)
             updated_fields = sol.y[:, -1] if sol.success else y0
-            electric_field = updated_fields[:len(electric_field)]
-            velocity = updated_fields[len(electric_field):]
+            electric_field = updated_fields[: len(electric_field)]
+            velocity = updated_fields[len(electric_field) :]
 
         # 3D QFT approximation: Enhance kappa via mode summation
         grid = observables.get("grid", np.linspace(0, 1e-4, len(density)))
         horizons = find_horizons_with_uncertainty(grid, velocity, np.full_like(velocity, 0.5))
         base_kappa = np.mean(horizons.kappa) if horizons.kappa.size > 0 else 1.0
-        enhanced_kappa = base_kappa * self._kappa_enhancement_factor * (1 + self._nonlinear_strength)
+        enhanced_kappa = (
+            base_kappa * self._kappa_enhancement_factor * (1 + self._nonlinear_strength)
+        )
 
         # Hawking temperature with Planckian corrections
         t_hawking = self._t_h_target * (enhanced_kappa / base_kappa)
@@ -69,10 +75,12 @@ class NonlinearPlasmaSolver:
 
         # Detection time for 5σ
         snr = np.sqrt(np.sum(spectrum**2))  # Simplified SNR
-        t_5sigma = (5 / snr)**2 if snr > 0 else 1.0  # <1s target
+        t_5sigma = (5 / snr) ** 2 if snr > 0 else 1.0  # <1s target
 
         # Stability: κ variance <3%
-        kappa_stability = np.std(horizons.kappa) / np.mean(horizons.kappa) if horizons.kappa.size > 1 else 0.0
+        kappa_stability = (
+            np.std(horizons.kappa) / np.mean(horizons.kappa) if horizons.kappa.size > 1 else 0.0
+        )
 
         return {
             "enhanced_kappa": enhanced_kappa,
@@ -95,6 +103,10 @@ if __name__ == "__main__":
     # Example usage
     config = {"nonlinear_strength": 0.1, "qft_modes": 5}
     solver = NonlinearPlasmaSolver(config)
-    obs = {"density": np.ones(100), "bulk_velocity": np.linspace(0, 1, 100), "electric_field": np.zeros(100)}
+    obs = {
+        "density": np.ones(100),
+        "bulk_velocity": np.linspace(0, 1, 100),
+        "electric_field": np.zeros(100),
+    }
     result = solver.solve(obs)
     print(result)

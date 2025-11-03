@@ -16,10 +16,9 @@ from scipy.constants import k
 from scipy.stats import pearsonr
 
 
-def band_power_from_spectrum(frequencies: np.ndarray,
-                             power_spectrum: np.ndarray,
-                             f_center: float,
-                             bandwidth: float) -> float:
+def band_power_from_spectrum(
+    frequencies: np.ndarray, power_spectrum: np.ndarray, f_center: float, bandwidth: float
+) -> float:
     """Integrate power spectrum over a band centered at ``f_center`` with width ``bandwidth``.
 
     Args:
@@ -52,7 +51,7 @@ def volume_integrated_psd(
     volume_elements: np.ndarray,  # dx*dy*dz per voxel
     f_center: float,
     bandwidth: float,
-    axis: int = -1  # Frequency axis
+    axis: int = -1,  # Frequency axis
 ) -> float:
     """Integrate 3D PSD over volume and band for total power.
 
@@ -95,7 +94,7 @@ def unruh_correlation(
     psd_hawking: np.ndarray,
     psd_unruh: np.ndarray,
     frequencies: np.ndarray,
-    corr_window: float = 0.1  # Relative bandwidth for correlation
+    corr_window: float = 0.1,  # Relative bandwidth for correlation
 ) -> float:
     """Simple correlation metric between Hawking and Unruh modes as entanglement proxy.
 
@@ -125,9 +124,7 @@ def unruh_correlation(
     return float(r)
 
 
-def sweep_time_for_5sigma(T_sys_vals: np.ndarray,
-                          B_vals: np.ndarray,
-                          T_sig: float) -> np.ndarray:
+def sweep_time_for_5sigma(T_sys_vals: np.ndarray, B_vals: np.ndarray, T_sig: float) -> np.ndarray:
     """Compute integration time grid for 5σ detection using the radiometer equation.
 
     For SNR = (T_sig/T_sys) * sqrt(B t), set SNR = 5 and solve for t.

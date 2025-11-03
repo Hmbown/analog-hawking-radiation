@@ -74,4 +74,3 @@ logging:
   file: "orchestration_quickstart.log"
   max_file_size: "10MB"
   backup_count: 1
-

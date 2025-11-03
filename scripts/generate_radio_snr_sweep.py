@@ -9,7 +9,7 @@ peak in the hundreds of MHz.
 import matplotlib
 import numpy as np
 
-matplotlib.use('Agg')  # non-interactive backend for CI
+matplotlib.use("Agg")  # non-interactive backend for CI
 import os
 import sys
 
@@ -29,7 +29,7 @@ def synth_spectrum():
     # Gaussian-like bump centered at 200 MHz, arbitrary amplitude
     f0 = 2e8
     bw = 5e7
-    psd = 1e-24 * np.exp(-0.5 * ((f - f0)/bw)**2)  # W/Hz
+    psd = 1e-24 * np.exp(-0.5 * ((f - f0) / bw) ** 2)  # W/Hz
     return f, psd
 
 
@@ -50,17 +50,17 @@ def main():
     Tgrid = sweep_time_for_5sigma(T_sys_vals, B_vals, T_sig)
 
     plt.figure(figsize=(8, 5))
-    im = plt.contourf(B_vals*1e-6, T_sys_vals, np.log10(Tgrid/3600), levels=20, cmap='viridis')
-    plt.colorbar(im, label='log10(Time for 5σ) [hours]')
-    plt.xlabel('Bandwidth [MHz]')
-    plt.ylabel('System Temperature T_sys [K]')
-    plt.title('Radiometer 5σ Time (synthetic spectrum)')
+    im = plt.contourf(B_vals * 1e-6, T_sys_vals, np.log10(Tgrid / 3600), levels=20, cmap="viridis")
+    plt.colorbar(im, label="log10(Time for 5σ) [hours]")
+    plt.xlabel("Bandwidth [MHz]")
+    plt.ylabel("System Temperature T_sys [K]")
+    plt.title("Radiometer 5σ Time (synthetic spectrum)")
     plt.tight_layout()
-    os.makedirs('figures', exist_ok=True)
-    out = os.path.join('figures', 'radio_snr_sweep.png')
+    os.makedirs("figures", exist_ok=True)
+    out = os.path.join("figures", "radio_snr_sweep.png")
     plt.savefig(out, dpi=200)
-    print(f'Saved {out}')
+    print(f"Saved {out}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

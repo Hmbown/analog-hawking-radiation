@@ -1,8 +1,8 @@
 # Integration Testing Report
 ## Analog Hawking Radiation Simulation Framework
 
-**Date**: October 15, 2025  
-**Version**: 0.1.0  
+**Date**: October 15, 2025
+**Version**: 0.1.0
 **Tester**: Integration Tester (AI Testing Team)
 
 ---

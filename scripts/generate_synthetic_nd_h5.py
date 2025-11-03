@@ -40,16 +40,16 @@ def main() -> int:
     z = np.linspace(0.0, args.Lz, args.nz)
 
     if args.dim == 2:
-        X, Y = np.meshgrid(x, y, indexing='ij')
+        X, Y = np.meshgrid(x, y, indexing="ij")
         vx = args.v0 * np.tanh((X - args.x0) / args.sigma)
         vy = np.zeros_like(vx)
         cs = np.full((args.nx, args.ny), args.cs0, dtype=float)
-        with h5py.File(args.out, 'w') as f:
-            f.create_dataset('/mesh/x', data=x)
-            f.create_dataset('/mesh/y', data=y)
-            f.create_dataset('/fields/vx', data=vx)
-            f.create_dataset('/fields/vy', data=vy)
-            f.create_dataset('/fields/c_s', data=cs)
+        with h5py.File(args.out, "w") as f:
+            f.create_dataset("/mesh/x", data=x)
+            f.create_dataset("/mesh/y", data=y)
+            f.create_dataset("/fields/vx", data=vx)
+            f.create_dataset("/fields/vy", data=vy)
+            f.create_dataset("/fields/c_s", data=cs)
     else:
         X = x[:, None, None]
         vx = args.v0 * np.tanh((X - args.x0) / args.sigma)
@@ -57,14 +57,14 @@ def main() -> int:
         vy = np.zeros_like(vx)
         vz = np.zeros_like(vx)
         cs = np.full((args.nx, args.ny, args.nz), args.cs0, dtype=float)
-        with h5py.File(args.out, 'w') as f:
-            f.create_dataset('/mesh/x', data=x)
-            f.create_dataset('/mesh/y', data=y)
-            f.create_dataset('/mesh/z', data=z)
-            f.create_dataset('/fields/vx', data=vx)
-            f.create_dataset('/fields/vy', data=vy)
-            f.create_dataset('/fields/vz', data=vz)
-            f.create_dataset('/fields/c_s', data=cs)
+        with h5py.File(args.out, "w") as f:
+            f.create_dataset("/mesh/x", data=x)
+            f.create_dataset("/mesh/y", data=y)
+            f.create_dataset("/mesh/z", data=z)
+            f.create_dataset("/fields/vx", data=vx)
+            f.create_dataset("/fields/vy", data=vy)
+            f.create_dataset("/fields/vz", data=vz)
+            f.create_dataset("/fields/c_s", data=cs)
 
     print(f"Wrote synthetic nD file to {args.out}")
     return 0
@@ -72,4 +72,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

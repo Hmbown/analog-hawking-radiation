@@ -18,7 +18,7 @@ from analog_hawking.physics_engine.multi_beam_superposition import simulate_grad
 
 
 def main():
-    configs = ['two_opposed','triangular','square','pentagram','hexagon','standing_wave']
+    configs = ["two_opposed", "triangular", "square", "pentagram", "hexagon", "standing_wave"]
     n_trials = 30
     wavelength = 800e-9
     w0 = 5e-6
@@ -31,27 +31,35 @@ def main():
         rng = np.random.default_rng(42)
         for _ in range(n_trials):
             # simulate with random phases by setting phase_align=False
-            res = simulate_gradient_enhancement(name, wavelength=wavelength, w0=w0, I_total=1.0,
-                                                grid_half_width=12e-6, n_grid=141, n_time=12,
-                                                radius_for_max=2.5e-6, phase_align=False,
-                                                coarse_grain_length=coarse_len)
-            vals.append(res['enhancement'])
+            res = simulate_gradient_enhancement(
+                name,
+                wavelength=wavelength,
+                w0=w0,
+                I_total=1.0,
+                grid_half_width=12e-6,
+                n_grid=141,
+                n_time=12,
+                radius_for_max=2.5e-6,
+                phase_align=False,
+                coarse_grain_length=coarse_len,
+            )
+            vals.append(res["enhancement"])
         vals = np.array(vals)
         means.append(np.nanmean(vals))
         stds.append(np.nanstd(vals))
 
     x = np.arange(len(configs))
-    plt.figure(figsize=(9,5))
-    plt.bar(x, means, yerr=stds, align='center', alpha=0.7, ecolor='black', capsize=5)
+    plt.figure(figsize=(9, 5))
+    plt.bar(x, means, yerr=stds, align="center", alpha=0.7, ecolor="black", capsize=5)
     plt.xticks(x, configs, rotation=30)
-    plt.ylabel('Gradient enhancement (mean ± std)')
-    plt.title('Phase jitter robustness (equal total power, coarse-grained)')
+    plt.ylabel("Gradient enhancement (mean ± std)")
+    plt.title("Phase jitter robustness (equal total power, coarse-grained)")
     plt.tight_layout()
-    os.makedirs('figures', exist_ok=True)
-    out = os.path.join('figures', 'phase_jitter_stability.png')
+    os.makedirs("figures", exist_ok=True)
+    out = os.path.join("figures", "phase_jitter_stability.png")
     plt.savefig(out, dpi=200)
-    print(f'Saved {out}')
+    print(f"Saved {out}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

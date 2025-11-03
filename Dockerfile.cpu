@@ -8,4 +8,3 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 # Default command prints help
 CMD ["ahr", "--help"]
-

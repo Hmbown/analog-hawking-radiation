@@ -17,7 +17,7 @@ import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 import numpy as np
 import pandas as pd
@@ -43,18 +43,20 @@ class ELICompliantAnalysisPipeline:
             facility_map = {
                 "beamlines": ELIFacility.ELI_BEAMLINES,
                 "np": ELIFacility.ELI_NP,
-                "alps": ELIFacility.ELI_ALPS
+                "alps": ELIFacility.ELI_ALPS,
             }
             self.target_facility = facility_map.get(facility.lower())
 
         self.results = []
         self.analysis_log = []
 
-    def run_parameter_sweep(self,
-                          n_samples: int = 100,
-                          intensity_range: Optional[Tuple[float, float]] = None,
-                          density_range: Optional[Tuple[float, float]] = None,
-                          **kwargs) -> pd.DataFrame:
+    def run_parameter_sweep(
+        self,
+        n_samples: int = 100,
+        intensity_range: Optional[Tuple[float, float]] = None,
+        density_range: Optional[Tuple[float, float]] = None,
+        **kwargs,
+    ) -> pd.DataFrame:
         """
         Run ELI-compliant parameter sweep with facility constraints
 
@@ -69,7 +71,9 @@ class ELICompliantAnalysisPipeline:
         """
 
         print("🚀 STARTING ELI-COMPLIANT PARAMETER SWEEP")
-        print(f"   Target facility: {self.target_facility.value if self.target_facility else 'All facilities'}")
+        print(
+            f"   Target facility: {self.target_facility.value if self.target_facility else 'All facilities'}"
+        )
         print(f"   Sample size: {n_samples}")
 
         # Define ELI-compliant parameter ranges
@@ -78,7 +82,7 @@ class ELICompliantAnalysisPipeline:
             if intensity_range is None:
                 intensity_range = (
                     facility_config["max_intensity_W_cm2"] / 1e4 * 0.01,  # 1% of max
-                    facility_config["max_intensity_W_cm2"] / 1e4 * 0.8     # 80% of max
+                    facility_config["max_intensity_W_cm2"] / 1e4 * 0.8,  # 80% of max
                 )
         else:
             if intensity_range is None:
@@ -118,8 +122,11 @@ class ELICompliantAnalysisPipeline:
                 physics_result = run_single_configuration(
                     laser_intensity=sample["laser_intensity"],
                     plasma_density=sample["plasma_density"],
-                    **{k: v for k, v in sample.items()
-                       if k not in ["laser_intensity", "plasma_density"]}
+                    **{
+                        k: v
+                        for k, v in sample.items()
+                        if k not in ["laser_intensity", "plasma_density"]
+                    },
                 )
 
                 # Combine with ELI assessment
@@ -127,13 +134,16 @@ class ELICompliantAnalysisPipeline:
                     **sample,
                     **physics_result,
                     "eli_compatible": True,
-                    "eli_feasibility_score": 1.0 if eli_validation["feasibility_level"].startswith("HIGH") else 0.7,
-                    "compatible_facilities": eli_validation.get("compatible_facilities", [])
+                    "eli_feasibility_score": (
+                        1.0 if eli_validation["feasibility_level"].startswith("HIGH") else 0.7
+                    ),
+                    "compatible_facilities": eli_validation.get("compatible_facilities", []),
                 }
 
                 # Add experimental feasibility assessment
-                feasibility = assess_experimental_feasibility(sample,
-                    self.target_facility.value if self.target_facility else None)
+                feasibility = assess_experimental_feasibility(
+                    sample, self.target_facility.value if self.target_facility else None
+                )
                 sample_result["experimental_feasibility"] = feasibility.overall_feasibility_score
                 sample_result["detection_probability"] = feasibility.detection_probability
                 sample_result["required_shots"] = feasibility.required_shots
@@ -142,9 +152,7 @@ class ELICompliantAnalysisPipeline:
                 results.append(sample_result)
 
             except Exception as e:
-                self.analysis_log.append(
-                    f"Physics analysis failed for sample {i}: {str(e)}"
-                )
+                self.analysis_log.append(f"Physics analysis failed for sample {i}: {str(e)}")
                 continue
 
         # Create results DataFrame
@@ -202,7 +210,8 @@ class ELICompliantAnalysisPipeline:
                     "detection_probability": feasibility.detection_probability,
                     "required_shots": feasibility.required_shots,
                     "experiment_time_hours": feasibility.estimated_experiment_time_hours,
-                    "overall_score": eli_feasibility["score"] * 0.5 + feasibility.overall_feasibility_score * 0.5
+                    "overall_score": eli_feasibility["score"] * 0.5
+                    + feasibility.overall_feasibility_score * 0.5,
                 }
 
                 results.append(result)
@@ -224,10 +233,7 @@ class ELICompliantAnalysisPipeline:
         print("📈 GENERATING OPTIMIZATION REPORT")
 
         if df.empty:
-            return {
-                "status": "error",
-                "message": "No feasible configurations found"
-            }
+            return {"status": "error", "message": "No feasible configurations found"}
 
         # Find optimal configurations
         if "overall_score" in df.columns:
@@ -251,26 +257,32 @@ class ELICompliantAnalysisPipeline:
         report = {
             "summary": {
                 "total_configurations": len(df),
-                "best_score": best_configs["overall_score"].iloc[0] if "overall_score" in best_configs.columns else 0.0,
+                "best_score": (
+                    best_configs["overall_score"].iloc[0]
+                    if "overall_score" in best_configs.columns
+                    else 0.0
+                ),
                 "feasible_configurations": len(df[df["experimental_feasibility"] > 0.6]),
                 "average_detection_probability": df["detection_probability"].mean(),
-                "average_experiment_time": df["experiment_time_hours"].mean()
+                "average_experiment_time": df["experiment_time_hours"].mean(),
             },
             "optimal_configurations": best_configs.to_dict("records"),
             "parameter_sensitivity": sensitivity,
             "facility_recommendations": facility_recommendations,
             "risk_assessment": risk_assessment,
             "resource_requirements": resource_requirements,
-            "analysis_log": self.analysis_log
+            "analysis_log": self.analysis_log,
         }
 
         return report
 
-    def _generate_parameter_samples(self,
-                                 n_samples: int,
-                                 intensity_range: Tuple[float, float],
-                                 density_range: Tuple[float, float],
-                                 **kwargs) -> List[Dict[str, Any]]:
+    def _generate_parameter_samples(
+        self,
+        n_samples: int,
+        intensity_range: Tuple[float, float],
+        density_range: Tuple[float, float],
+        **kwargs,
+    ) -> List[Dict[str, Any]]:
         """Generate parameter samples within ELI constraints"""
 
         samples = []
@@ -292,7 +304,7 @@ class ELICompliantAnalysisPipeline:
                 "magnetic_field": 0.0,  # No magnetic field baseline
                 "wavelength": 800e-9,  # 800 nm
                 "pulse_duration": 150e-15,  # 150 fs
-                "grid_size": 50
+                "grid_size": 50,
             }
 
             # Add any additional parameters
@@ -311,24 +323,28 @@ class ELICompliantAnalysisPipeline:
 
         # Intensity sensitivity
         if "laser_intensity" in df.columns and "experimental_feasibility" in df.columns:
-            intensity_corr = np.corrcoef(np.log10(df["laser_intensity"]), df["experimental_feasibility"])[0, 1]
+            intensity_corr = np.corrcoef(
+                np.log10(df["laser_intensity"]), df["experimental_feasibility"]
+            )[0, 1]
             sensitivity["intensity_sensitivity"] = {
                 "correlation": intensity_corr,
                 "optimal_range": [
                     df["laser_intensity"].quantile(0.25),
-                    df["laser_intensity"].quantile(0.75)
-                ]
+                    df["laser_intensity"].quantile(0.75),
+                ],
             }
 
         # Density sensitivity
         if "plasma_density" in df.columns and "experimental_feasibility" in df.columns:
-            density_corr = np.corrcoef(np.log10(df["plasma_density"]), df["experimental_feasibility"])[0, 1]
+            density_corr = np.corrcoef(
+                np.log10(df["plasma_density"]), df["experimental_feasibility"]
+            )[0, 1]
             sensitivity["density_sensitivity"] = {
                 "correlation": density_corr,
                 "optimal_range": [
                     df["plasma_density"].quantile(0.25),
-                    df["plasma_density"].quantile(0.75)
-                ]
+                    df["plasma_density"].quantile(0.75),
+                ],
             }
 
         return sensitivity
@@ -340,12 +356,18 @@ class ELICompliantAnalysisPipeline:
 
         if "facility" in df.columns:
             # Group by facility
-            facility_stats = df.groupby("facility").agg({
-                "experimental_feasibility": "mean",
-                "detection_probability": "mean",
-                "experiment_time_hours": "mean",
-                "overall_score": "mean" if "overall_score" in df.columns else lambda x: 0
-            }).sort_values("overall_score", ascending=False)
+            facility_stats = (
+                df.groupby("facility")
+                .agg(
+                    {
+                        "experimental_feasibility": "mean",
+                        "detection_probability": "mean",
+                        "experiment_time_hours": "mean",
+                        "overall_score": "mean" if "overall_score" in df.columns else lambda x: 0,
+                    }
+                )
+                .sort_values("overall_score", ascending=False)
+            )
 
             for facility, stats in facility_stats.iterrows():
                 recommendation = {
@@ -353,7 +375,7 @@ class ELICompliantAnalysisPipeline:
                     "average_feasibility": stats["experimental_feasibility"],
                     "average_detection_probability": stats["detection_probability"],
                     "average_experiment_time": stats["experiment_time_hours"],
-                    "recommendation": self._get_facility_recommendation_text(facility, stats)
+                    "recommendation": self._get_facility_recommendation_text(facility, stats),
                 }
                 recommendations.append(recommendation)
 
@@ -361,23 +383,29 @@ class ELICompliantAnalysisPipeline:
             # General recommendations based on parameter ranges
             avg_intensity = df["laser_intensity"].mean()
             if avg_intensity > 1e22:
-                recommendations.append({
-                    "facility": "ELI-Beamlines",
-                    "reason": "High intensity requirements (>10^22 W/m²)",
-                    "confidence": 0.9
-                })
+                recommendations.append(
+                    {
+                        "facility": "ELI-Beamlines",
+                        "reason": "High intensity requirements (>10^22 W/m²)",
+                        "confidence": 0.9,
+                    }
+                )
             elif avg_intensity > 1e21:
-                recommendations.append({
-                    "facility": "ELI-NP",
-                    "reason": "Moderate-high intensity with nuclear physics capability",
-                    "confidence": 0.8
-                })
+                recommendations.append(
+                    {
+                        "facility": "ELI-NP",
+                        "reason": "Moderate-high intensity with nuclear physics capability",
+                        "confidence": 0.8,
+                    }
+                )
             else:
-                recommendations.append({
-                    "facility": "ELI-ALPS",
-                    "reason": "Moderate intensity suitable for high-repetition rate experiments",
-                    "confidence": 0.7
-                })
+                recommendations.append(
+                    {
+                        "facility": "ELI-ALPS",
+                        "reason": "Moderate intensity suitable for high-repetition rate experiments",
+                        "confidence": 0.7,
+                    }
+                )
 
         return recommendations
 
@@ -398,11 +426,7 @@ class ELICompliantAnalysisPipeline:
     def _assess_experimental_risks(self, df: pd.DataFrame) -> Dict[str, Any]:
         """Assess experimental risks across configurations"""
 
-        risks = {
-            "technical_risks": [],
-            "physics_risks": [],
-            "operational_risks": []
-        }
+        risks = {"technical_risks": [], "physics_risks": [], "operational_risks": []}
 
         # Check for high-intensity configurations
         if "laser_intensity" in df.columns:
@@ -444,7 +468,7 @@ class ELICompliantAnalysisPipeline:
                 "minimum": df["experiment_time_hours"].min(),
                 "average": df["experiment_time_hours"].mean(),
                 "maximum": df["experiment_time_hours"].max(),
-                "recommended_allocation": df["experiment_time_hours"].quantile(0.75)
+                "recommended_allocation": df["experiment_time_hours"].quantile(0.75),
             }
 
         # Shot requirements
@@ -452,7 +476,7 @@ class ELICompliantAnalysisPipeline:
             requirements["required_shots"] = {
                 "minimum": int(df["required_shots"].min()),
                 "average": int(df["required_shots"].mean()),
-                "maximum": int(df["required_shots"].max())
+                "maximum": int(df["required_shots"].max()),
             }
 
         # Personnel requirements (estimated)
@@ -463,7 +487,7 @@ class ELICompliantAnalysisPipeline:
             "target_specialists": 1,
             "diagnostic_engineers": 1,
             "safety_officers": 1,
-            "estimated_total_person_hours": avg_exp_time * 6  # 6 people total
+            "estimated_total_person_hours": avg_exp_time * 6,  # 6 people total
         }
 
         return requirements
@@ -476,50 +500,19 @@ def main():
         description="Run ELI-compliant analysis for analog Hawking radiation experiments"
     )
     parser.add_argument(
-        "--mode",
-        choices=["sweep", "comparison", "single"],
-        default="sweep",
-        help="Analysis mode"
+        "--mode", choices=["sweep", "comparison", "single"], default="sweep", help="Analysis mode"
     )
     parser.add_argument(
-        "--facility",
-        choices=["beamlines", "np", "alps"],
-        help="Target ELI facility"
+        "--facility", choices=["beamlines", "np", "alps"], help="Target ELI facility"
     )
+    parser.add_argument("--n-samples", type=int, default=100, help="Number of parameter samples")
+    parser.add_argument("--intensity-range", nargs=2, type=float, help="Intensity range (W/m²)")
+    parser.add_argument("--density-range", nargs=2, type=float, help="Plasma density range (m⁻³)")
+    parser.add_argument("--config-file", type=str, help="JSON file with parameter configurations")
     parser.add_argument(
-        "--n-samples",
-        type=int,
-        default=100,
-        help="Number of parameter samples"
+        "--output", type=str, default="eli_analysis_results.json", help="Output file for results"
     )
-    parser.add_argument(
-        "--intensity-range",
-        nargs=2,
-        type=float,
-        help="Intensity range (W/m²)"
-    )
-    parser.add_argument(
-        "--density-range",
-        nargs=2,
-        type=float,
-        help="Plasma density range (m⁻³)"
-    )
-    parser.add_argument(
-        "--config-file",
-        type=str,
-        help="JSON file with parameter configurations"
-    )
-    parser.add_argument(
-        "--output",
-        type=str,
-        default="eli_analysis_results.json",
-        help="Output file for results"
-    )
-    parser.add_argument(
-        "--csv-output",
-        type=str,
-        help="CSV output for detailed results"
-    )
+    parser.add_argument("--csv-output", type=str, help="CSV output for detailed results")
 
     args = parser.parse_args()
 
@@ -532,7 +525,7 @@ def main():
         df = pipeline.run_parameter_sweep(
             n_samples=args.n_samples,
             intensity_range=tuple(args.intensity_range) if args.intensity_range else None,
-            density_range=tuple(args.density_range) if args.density_range else None
+            density_range=tuple(args.density_range) if args.density_range else None,
         )
 
     elif args.mode == "comparison":
@@ -541,7 +534,7 @@ def main():
             print("❌ ERROR: --config-file required for comparison mode")
             return 1
 
-        with open(args.config_file, 'r') as f:
+        with open(args.config_file, "r") as f:
             configurations = json.load(f)
 
         df = pipeline.run_facility_comparison(configurations)
@@ -552,7 +545,7 @@ def main():
             print("❌ ERROR: --config-file required for single mode")
             return 1
 
-        with open(args.config_file, 'r') as f:
+        with open(args.config_file, "r") as f:
             config = json.load(f)
 
         # Convert to list for compatibility
@@ -568,13 +561,13 @@ def main():
         "parameters": {
             "n_samples": args.n_samples,
             "intensity_range": args.intensity_range,
-            "density_range": args.density_range
+            "density_range": args.density_range,
         },
         "data": df.to_dict("records") if not df.empty else [],
-        "report": report
+        "report": report,
     }
 
-    with open(args.output, 'w') as f:
+    with open(args.output, "w") as f:
         json.dump(results, f, indent=2, default=str)
     print(f"\n💾 Results saved to: {args.output}")
 
@@ -588,7 +581,9 @@ def main():
     print(f"   Mode: {args.mode}")
     print(f"   Configurations analyzed: {len(df)}")
     print(f"   Best score: {report['summary']['best_score']:.3f}")
-    print(f"   Average detection probability: {report['summary']['average_detection_probability']:.3f}")
+    print(
+        f"   Average detection probability: {report['summary']['average_detection_probability']:.3f}"
+    )
     print(f"   Average experiment time: {report['summary']['average_experiment_time']:.1f} hours")
 
     return 0

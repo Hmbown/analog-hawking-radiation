@@ -39,18 +39,22 @@ from analog_hawking.physics_engine.plasma_mirror import (
 from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 
 
-def compute_baseline(plasma_density=5e17, laser_wavelength=800e-9, laser_intensity=5e17, temperature_constant=1e4):
+def compute_baseline(
+    plasma_density=5e17, laser_wavelength=800e-9, laser_intensity=5e17, temperature_constant=1e4
+):
     grid = np.linspace(0.0, 50e-6, 512)
     backend = FluidBackend()
-    backend.configure({
-        "plasma_density": plasma_density,
-        "laser_wavelength": laser_wavelength,
-        "laser_intensity": laser_intensity,
-        "grid": grid,
-        "temperature_settings": {"constant": temperature_constant},
-        "use_fast_magnetosonic": False,
-        "scale_with_intensity": True,
-    })
+    backend.configure(
+        {
+            "plasma_density": plasma_density,
+            "laser_wavelength": laser_wavelength,
+            "laser_intensity": laser_intensity,
+            "grid": grid,
+            "temperature_settings": {"constant": temperature_constant},
+            "use_fast_magnetosonic": False,
+            "scale_with_intensity": True,
+        }
+    )
     state = backend.step(0.0)
     horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed)
     if not horizons.positions.size:
@@ -59,15 +63,15 @@ def compute_baseline(plasma_density=5e17, laser_wavelength=800e-9, laser_intensi
     x = state.grid
     v = state.velocity
     cs = state.sound_speed
-    idx = int(np.clip(np.searchsorted(x, float(horizons.positions[0])), 1, len(x)-2))
+    idx = int(np.clip(np.searchsorted(x, float(horizons.positions[0])), 1, len(x) - 2))
     f = np.abs(v) - cs
     df_dx = np.gradient(f, x)
     slope = float(abs(df_dx[idx])) if np.isfinite(df_dx[idx]) else 0.0
-    dx = float(x[1]-x[0]) if len(x) > 1 else 1.0
+    dx = float(x[1] - x[0]) if len(x) > 1 else 1.0
     f_thresh = 0.1 * float(np.nanmax(np.abs(f))) if np.isfinite(np.nanmax(np.abs(f))) else 0.0
     if slope > 0 and dx > 0:
         L_half = f_thresh / slope
-        cells_half = int(np.clip(np.ceil(L_half / dx), 10, len(x)//5))
+        cells_half = int(np.clip(np.ceil(L_half / dx), 10, len(x) // 5))
     else:
         cells_half = 20
     i0 = max(0, idx - cells_half)
@@ -96,7 +100,11 @@ def compute_baseline(plasma_density=5e17, laser_wavelength=800e-9, laser_intensi
             psd_band = np.interp(fb, freqs_f, P_f)
             inband_power_f = float(np.trapezoid(psd_band, x=fb))
     T_sig_f = equivalent_signal_temperature(inband_power_f, 1e8)
-    t_f = float(sweep_time_for_5sigma(np.array([30.0]), np.array([1e8]), T_sig_f)[0,0]) if T_sig_f > 0 else float("inf")
+    t_f = (
+        float(sweep_time_for_5sigma(np.array([30.0]), np.array([1e8]), T_sig_f)[0, 0])
+        if T_sig_f > 0
+        else float("inf")
+    )
 
     return state, horizons, gray_profile, peak_frequency, T_sig_f, t_f
 
@@ -118,18 +126,45 @@ def main() -> int:
 
     with open(os.path.join("results", "hybrid_sweep.csv"), "w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["coupling_strength","D","eta_a","w_effective","kappa_mirror","T_sig_fluid","T_sig_hybrid","t5_fluid","t5_hybrid","ratio_fluid_over_hybrid"])
+        w.writerow(
+            [
+                "coupling_strength",
+                "D",
+                "eta_a",
+                "w_effective",
+                "kappa_mirror",
+                "T_sig_fluid",
+                "T_sig_hybrid",
+                "t5_fluid",
+                "t5_hybrid",
+                "ratio_fluid_over_hybrid",
+            ]
+        )
 
         for iD, D in enumerate(Ds):
             # Mirror for this D
             n_p0 = 1.0e24
             omega_p0 = float(np.sqrt(e**2 * n_p0 / (epsilon_0 * m_e)))
-            p = PlasmaMirrorParams(n_p0=n_p0, omega_p0=omega_p0, a=0.5, b=0.5, D=float(D), eta_a=float(eta_a), model="anabhel")
+            p = PlasmaMirrorParams(
+                n_p0=n_p0,
+                omega_p0=omega_p0,
+                a=0.5,
+                b=0.5,
+                D=float(D),
+                eta_a=float(eta_a),
+                model="anabhel",
+            )
             t_m = np.linspace(0.0, 100e-15, 401)
             mirror = calculate_plasma_mirror_dynamics(state.grid, float(5e17), p, t_m)
 
             for iw, cs in enumerate(coupling_strengths):
-                hh = find_hybrid_horizons(state.grid, state.velocity, state.sound_speed, mirror, HybridHorizonParams(coupling_strength=float(cs)))
+                hh = find_hybrid_horizons(
+                    state.grid,
+                    state.velocity,
+                    state.sound_speed,
+                    mirror,
+                    HybridHorizonParams(coupling_strength=float(cs)),
+                )
                 w_eff = float(np.max(hh.coupling_weight)) if hh.coupling_weight.size else 0.0
                 spec_h = calculate_enhanced_hawking_spectrum(
                     k_fluid_ref,
@@ -154,16 +189,38 @@ def main() -> int:
                         psd_band = np.interp(fb, freqs_h, P_h)
                         inband_power_h = float(np.trapezoid(psd_band, x=fb))
                 T_sig_h = equivalent_signal_temperature(inband_power_h, 1e8)
-                t_h = float(sweep_time_for_5sigma(np.array([30.0]), np.array([1e8]), T_sig_h)[0,0]) if T_sig_h > 0 else float("inf")
+                t_h = (
+                    float(sweep_time_for_5sigma(np.array([30.0]), np.array([1e8]), T_sig_h)[0, 0])
+                    if T_sig_h > 0
+                    else float("inf")
+                )
                 ratio = t_f / max(t_h, 1e-30)
                 ratio_map[iD, iw] = ratio
 
-                w.writerow([cs, D, eta_a, w_eff, float(mirror.kappa_mirror), T_sig_f, T_sig_h, t_f, t_h, ratio])
+                w.writerow(
+                    [
+                        cs,
+                        D,
+                        eta_a,
+                        w_eff,
+                        float(mirror.kappa_mirror),
+                        T_sig_f,
+                        T_sig_h,
+                        t_f,
+                        t_h,
+                        ratio,
+                    ]
+                )
 
     # Heatmap (eta_a=1 slice): rows=D, cols=coupling_strength
     plt.figure(figsize=(6, 3.5))
-    im = plt.imshow(ratio_map, aspect="auto", origin="lower", interpolation="nearest",
-                    extent=(coupling_strengths[0], coupling_strengths[-1], Ds[0]*1e6, Ds[-1]*1e6))
+    im = plt.imshow(
+        ratio_map,
+        aspect="auto",
+        origin="lower",
+        interpolation="nearest",
+        extent=(coupling_strengths[0], coupling_strengths[-1], Ds[0] * 1e6, Ds[-1] * 1e6),
+    )
     plt.colorbar(im, label="t_5σ fluid / t_5σ hybrid (ratio)")
     plt.xlabel("coupling_strength")
     plt.ylabel("D [µm]")

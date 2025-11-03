@@ -38,4 +38,3 @@ def load_thresholds(path: Optional[str | Path]) -> Thresholds:
     except Exception:
         # On any parsing error, return defaults (fail-safe)
         return defaults
-

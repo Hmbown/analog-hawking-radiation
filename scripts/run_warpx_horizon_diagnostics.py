@@ -15,19 +15,47 @@ from physics_engine.simulation import SimulationRunner
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run WarpX horizon diagnostics")
-    parser.add_argument("--config", type=Path, help="Path to JSON configuration file for WarpX setup")
-    parser.add_argument("--steps", type=int, default=1, help="Number of simulation steps to execute")
-    parser.add_argument("--dt", type=float, default=0.0, help="Time step per iteration (WarpX uses internal dt)")
-    parser.add_argument("--results-dir", type=Path, default=Path("results"), help="Directory for diagnostic outputs")
-    parser.add_argument("--sigma-policy", choices=["fixed", "adaptive"], default="adaptive",
-                        help="Smoothing policy for diagnostics")
-    parser.add_argument("--sigma", type=float, default=2.0, help="Default Gaussian smoothing width in cells")
-    parser.add_argument("--sigma-ladder", type=str, default="0.5,1.0,2.0,4.0",
-                        help="Comma-separated ladder for adaptive sigma exploration")
-    parser.add_argument("--sigma-epsilon", type=float, default=0.05,
-                        help="Plateau tolerance for adaptive sigma selection")
-    parser.add_argument("--save-profiles", type=Path, help="Path to save velocity and sound speed profiles (NPZ format)")
-    parser.add_argument("--overwrite", action="store_true", help="Allow appending to existing results directory")
+    parser.add_argument(
+        "--config", type=Path, help="Path to JSON configuration file for WarpX setup"
+    )
+    parser.add_argument(
+        "--steps", type=int, default=1, help="Number of simulation steps to execute"
+    )
+    parser.add_argument(
+        "--dt", type=float, default=0.0, help="Time step per iteration (WarpX uses internal dt)"
+    )
+    parser.add_argument(
+        "--results-dir", type=Path, default=Path("results"), help="Directory for diagnostic outputs"
+    )
+    parser.add_argument(
+        "--sigma-policy",
+        choices=["fixed", "adaptive"],
+        default="adaptive",
+        help="Smoothing policy for diagnostics",
+    )
+    parser.add_argument(
+        "--sigma", type=float, default=2.0, help="Default Gaussian smoothing width in cells"
+    )
+    parser.add_argument(
+        "--sigma-ladder",
+        type=str,
+        default="0.5,1.0,2.0,4.0",
+        help="Comma-separated ladder for adaptive sigma exploration",
+    )
+    parser.add_argument(
+        "--sigma-epsilon",
+        type=float,
+        default=0.05,
+        help="Plateau tolerance for adaptive sigma selection",
+    )
+    parser.add_argument(
+        "--save-profiles",
+        type=Path,
+        help="Path to save velocity and sound speed profiles (NPZ format)",
+    )
+    parser.add_argument(
+        "--overwrite", action="store_true", help="Allow appending to existing results directory"
+    )
     return parser.parse_args()
 
 
@@ -37,7 +65,9 @@ def _load_config(path: Path) -> Dict[str, object]:
     return data
 
 
-def _prepare_backend_config(namespace: argparse.Namespace, base_config: Dict[str, object]) -> Dict[str, object]:
+def _prepare_backend_config(
+    namespace: argparse.Namespace, base_config: Dict[str, object]
+) -> Dict[str, object]:
     smoothing_cfg = base_config.get("smoothing", {})
     if namespace.sigma_policy == "fixed":
         smoothing_cfg = dict(smoothing_cfg, sigma=namespace.sigma, adaptive=False)
@@ -61,7 +91,9 @@ def _prepare_backend_config(namespace: argparse.Namespace, base_config: Dict[str
 
 def _ensure_results_dir(path: Path, overwrite: bool) -> None:
     if path.exists() and not overwrite:
-        raise FileExistsError(f"results directory {path} already exists (use --overwrite to override)")
+        raise FileExistsError(
+            f"results directory {path} already exists (use --overwrite to override)"
+        )
     path.mkdir(parents=True, exist_ok=True)
 
 
@@ -91,11 +123,13 @@ def main() -> None:
     backend = WarpXBackend()
     runner = SimulationRunner(backend)
 
-    runner.configure({
-        **backend_config,
-        "results_dir": str(args.results_dir),
-        "write_sidecar": True,
-    })
+    runner.configure(
+        {
+            **backend_config,
+            "results_dir": str(args.results_dir),
+            "write_sidecar": True,
+        }
+    )
 
     horizon_records: List[Dict[str, object]] = []
 
@@ -109,11 +143,13 @@ def main() -> None:
             "sigma_policy": args.sigma_policy,
         }
         if horizons is not None and horizons.positions.size:
-            record.update({
-                "horizon_count": int(horizons.positions.size),
-                "kappa_mean": float(np.mean(horizons.kappa)),
-                "kappa_std": float(np.std(horizons.kappa)),
-            })
+            record.update(
+                {
+                    "horizon_count": int(horizons.positions.size),
+                    "kappa_mean": float(np.mean(horizons.kappa)),
+                    "kappa_std": float(np.std(horizons.kappa)),
+                }
+            )
         else:
             record["horizon_count"] = 0
         horizon_records.append(record)
@@ -127,5 +163,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-

@@ -27,4 +27,3 @@ def test_kappa_methods_relative_scaling_linear_profile():
     assert np.isclose(res_ac.kappa[0], abs(a), rtol=5e-2)
     assert np.isclose(res_ex.kappa[0], abs(a), rtol=5e-2)
     assert np.isclose(res_legacy.kappa[0], 0.5 * abs(a), rtol=5e-2)
-

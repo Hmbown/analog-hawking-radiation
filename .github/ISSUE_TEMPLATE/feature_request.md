@@ -15,4 +15,3 @@ assignees: ''
 ## Alternatives considered
 
 ## Additional context
-

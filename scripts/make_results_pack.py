@@ -21,9 +21,21 @@ def _render_card(sweep: dict, pic: dict, tmpl_path: Path, out_path: Path) -> Non
     analysis = sweep["analysis"]
     ctx = {
         "kappa_max_pretty": f"{analysis['max_kappa']:.2e}",
-        "opt_a0": f"{analysis['max_kappa_config']['a0']:.2f}" if analysis.get("max_kappa_config") else "na",
-        "opt_ne_pretty": f"{analysis['max_kappa_config']['n_e']:.2e}" if analysis.get("max_kappa_config") else "na",
-        "opt_grad": f"{analysis['max_kappa_config']['gradient_factor']:.2f}" if analysis.get("max_kappa_config") else "na",
+        "opt_a0": (
+            f"{analysis['max_kappa_config']['a0']:.2f}"
+            if analysis.get("max_kappa_config")
+            else "na"
+        ),
+        "opt_ne_pretty": (
+            f"{analysis['max_kappa_config']['n_e']:.2e}"
+            if analysis.get("max_kappa_config")
+            else "na"
+        ),
+        "opt_grad": (
+            f"{analysis['max_kappa_config']['gradient_factor']:.2f}"
+            if analysis.get("max_kappa_config")
+            else "na"
+        ),
         "exp_a0": f"{analysis['scaling_relationships']['kappa_vs_a0_exponent']:.2f}",
         "exp_a0_lo": f"{analysis['scaling_relationships']['kappa_vs_a0_exponent_ci95'][0]:.2f}",
         "exp_a0_hi": f"{analysis['scaling_relationships']['kappa_vs_a0_exponent_ci95'][1]:.2f}",
@@ -67,4 +79,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

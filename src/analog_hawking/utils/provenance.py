@@ -80,7 +80,14 @@ def build_manifest(
         "package_version": package_version,
         "python": python_info(),
         "system": system_info(),
-        "env": {k: os.environ.get(k, "") for k in ("ANALOG_HAWKING_NO_PLOTS", "ANALOG_HAWKING_USE_CUPY", "ANALOG_HAWKING_FORCE_CPU")},
+        "env": {
+            k: os.environ.get(k, "")
+            for k in (
+                "ANALOG_HAWKING_NO_PLOTS",
+                "ANALOG_HAWKING_USE_CUPY",
+                "ANALOG_HAWKING_FORCE_CPU",
+            )
+        },
     }
     return Manifest(
         tool=tool,
@@ -108,4 +115,3 @@ __all__ = [
     "python_info",
     "system_info",
 ]
-

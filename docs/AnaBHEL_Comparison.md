@@ -1,6 +1,6 @@
 # AnaBHEL-Oriented Comparison and Usage Notes
 
-> **Status ℹ️** Collaboration guidance mixing validated results with experimental scaffolding  
+> **Status ℹ️** Collaboration guidance mixing validated results with experimental scaffolding
 > **Navigate:** [Docs Index](index.md) · [Limitations](Limitations.md)
 
 This repository provides exploratory modeling tools for analog Hawking systems

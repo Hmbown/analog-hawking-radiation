@@ -48,20 +48,40 @@ try:
         skip_plotting_message,
     )
 except ImportError:
-    print("Warning: Could not import graphics control utilities. Graphics will always be generated.")
+    print(
+        "Warning: Could not import graphics control utilities. Graphics will always be generated."
+    )
+
     # Fallback functions
-    def add_graphics_argument(parser): return parser
-    def get_graphics_preference(args): return True
+    def add_graphics_argument(parser):
+        return parser
+
+    def get_graphics_preference(args):
+        return True
+
     def conditional_savefig(filename, *args, **kwargs):
         plt.savefig(filename, *args, **kwargs)
         return True
-    def skip_plotting_message(operation): pass
+
+    def skip_plotting_message(operation):
+        pass
+
     class GraphicsController:
-        def __init__(self, **kwargs): self.enable_plots = True
-        def should_plot(self): return True
-        def __enter__(self): return self
-        def __exit__(self, *args): pass
-    def configure_matplotlib(): return None
+        def __init__(self, **kwargs):
+            self.enable_plots = True
+
+        def should_plot(self):
+            return True
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+    def configure_matplotlib():
+        return None
+
 
 # Import standard analysis
 try:
@@ -70,7 +90,7 @@ except ImportError:
     print("Warning: Could not import standard analyzer. Using fallback.")
     HawkingRadiationAnalyzer = None
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 
 @dataclass
@@ -106,9 +126,9 @@ class UncertaintyPropagationMixin:
         self.uncertainty_results = None
         self.correlated_parameters = {}
 
-    def apply_uncertainty_propagation(self, values: np.ndarray,
-                                    parameter_name: str,
-                                    uncertainty_source: str = "statistical") -> Tuple[np.ndarray, np.ndarray]:
+    def apply_uncertainty_propagation(
+        self, values: np.ndarray, parameter_name: str, uncertainty_source: str = "statistical"
+    ) -> Tuple[np.ndarray, np.ndarray]:
         """Apply uncertainty propagation to calculated values."""
 
         if self.uncertainty_results is None:
@@ -159,7 +179,11 @@ class UncertaintyPropagationMixin:
 class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
     """Enhanced analyzer with comprehensive uncertainty quantification."""
 
-    def __init__(self, config: EnhancedAnalysisConfig, graphics_controller: Optional[GraphicsController] = None):
+    def __init__(
+        self,
+        config: EnhancedAnalysisConfig,
+        graphics_controller: Optional[GraphicsController] = None,
+    ):
         """Initialize enhanced analyzer with uncertainty configuration."""
         # Initialize mixin
         UncertaintyPropagationMixin.__init__(self)
@@ -182,7 +206,7 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                 use_nested_monte_carlo=True,
                 use_bayesian_inference=False,  # Skip for faster execution
                 create_detailed_plots=False,
-                random_seed=42
+                random_seed=42,
             )
 
             print("Running comprehensive uncertainty analysis...")
@@ -211,15 +235,15 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
     def analyze_with_uncertainties(self) -> Dict:
         """Run complete analysis with uncertainty quantification."""
 
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("ENHANCED ANALYSIS WITH COMPREHENSIVE UNCERTAINTY QUANTIFICATION")
-        print("="*80)
+        print("=" * 80)
 
         results = {
             "config": asdict(self.config),
             "uncertainty_analysis": self.uncertainty_results,
             "standard_analysis": {},
-            "enhanced_results": {}
+            "enhanced_results": {},
         }
 
         # Run standard analysis if data is available
@@ -277,7 +301,7 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                 # Calculate confidence intervals
                 n = len(values)
                 se = std_val / np.sqrt(n)
-                t_critical = stats.t.ppf(0.975, n-1)  # 95% CI
+                t_critical = stats.t.ppf(0.975, n - 1)  # 95% CI
 
                 standard_results[col] = {
                     "mean": float(mean_val),
@@ -285,10 +309,10 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                     "standard_error": float(se),
                     "confidence_interval": (
                         float(mean_val - t_critical * se),
-                        float(mean_val + t_critical * se)
+                        float(mean_val + t_critical * se),
                     ),
                     "enhanced_uncertainty": float(np.mean(uncertainty_values)),
-                    "total_uncertainty": float(np.sqrt(se**2 + np.mean(uncertainty_values)**2))
+                    "total_uncertainty": float(np.sqrt(se**2 + np.mean(uncertainty_values) ** 2)),
                 }
 
         # Correlation analysis with uncertainty
@@ -342,7 +366,9 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                         "correlation": float(r),
                         "standard_error": float(se_r),
                         "confidence_interval": (float(r_lower), float(r_upper)),
-                        "p_value": float(2 * (1 - stats.t.cdf(abs(r) * np.sqrt((n-2)/(1-r**2)), n-2)))
+                        "p_value": float(
+                            2 * (1 - stats.t.cdf(abs(r) * np.sqrt((n - 2) / (1 - r**2)), n - 2))
+                        ),
                     }
 
         return enhanced_correlations
@@ -359,7 +385,7 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
         comparisons = [
             ("surface_gravity_fluid", "surface_gravity_hybrid"),
             ("hawking_temperature_fluid", "hawking_temperature_hybrid"),
-            ("detection_efficiency_fluid", "detection_efficiency_hybrid")
+            ("detection_efficiency_fluid", "detection_efficiency_hybrid"),
         ]
 
         for col1, col2 in comparisons:
@@ -393,7 +419,7 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                     "uncertainty_in_difference": float(np.mean(diff_uncertainty)),
                     "significant": p_value < 0.05,
                     "enhanced_mean": float(np.mean(enhanced_data1 - enhanced_data2)),
-                    "enhanced_uncertainty": float(np.mean(diff_uncertainty))
+                    "enhanced_uncertainty": float(np.mean(diff_uncertainty)),
                 }
 
         return significance_results
@@ -411,8 +437,11 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
             print("  Analyzing uncertainty budget impacts...")
 
             # Impact on key metrics
-            key_metrics = ["surface_gravity_fluid", "hawking_temperature_fluid",
-                          "horizon_probability_fluid"]
+            key_metrics = [
+                "surface_gravity_fluid",
+                "hawking_temperature_fluid",
+                "horizon_probability_fluid",
+            ]
 
             for metric in key_metrics:
                 if metric in self.df.columns:
@@ -459,8 +488,12 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                 "metric_std": float(metric_std),
                 "systematic_impact_percent": float(relative_systematic * 100),
                 "statistical_impact_percent": float(relative_statistical * 100),
-                "dominant_uncertainty": "systematic" if systematic_unc > statistical_unc else "statistical",
-                "total_relative_uncertainty": float(total_unc / metric_mean * 100) if metric_mean != 0 else 0
+                "dominant_uncertainty": (
+                    "systematic" if systematic_unc > statistical_unc else "statistical"
+                ),
+                "total_relative_uncertainty": (
+                    float(total_unc / metric_mean * 100) if metric_mean != 0 else 0
+                ),
             }
 
         return {}
@@ -485,7 +518,7 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                     "fluid_model": ["surface_gravity_fluid", "hawking_temperature_fluid"],
                     "kinetic_model": ["surface_gravity_hybrid", "hawking_temperature_hybrid"],
                     "hybrid_model": ["ratio_fluid_over_hybrid", "detection_efficiency"],
-                    "pic_model": ["horizon_probability", "signal_to_noise"]
+                    "pic_model": ["horizon_probability", "signal_to_noise"],
                 }
 
                 for model, features in model_impact_mapping.items():
@@ -497,7 +530,11 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                             "weight": float(model_weight),
                             "uncertainty": float(model_uncertainty),
                             "related_features": features,
-                            "impact_level": "high" if model_weight > 0.3 else "medium" if model_weight > 0.1 else "low"
+                            "impact_level": (
+                                "high"
+                                if model_weight > 0.3
+                                else "medium" if model_weight > 0.1 else "low"
+                            ),
                         }
 
         return sensitivity_integration
@@ -519,10 +556,15 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                 nested = self.uncertainty_results["nested_monte_carlo"]
 
                 uncertainty_analysis["uncertainty_breakdown"] = {
-                    "systematic_dominance": nested["systematic_percentage"] > nested["statistical_percentage"],
+                    "systematic_dominance": nested["systematic_percentage"]
+                    > nested["statistical_percentage"],
                     "systematic_fraction": float(nested["systematic_percentage"]),
                     "statistical_fraction": float(nested["statistical_percentage"]),
-                    "recommendation": "focus_on_systematic_reduction" if nested["systematic_percentage"] > 60 else "increase_sample_size"
+                    "recommendation": (
+                        "focus_on_systematic_reduction"
+                        if nested["systematic_percentage"] > 60
+                        else "increase_sample_size"
+                    ),
                 }
 
             # Check convergence and reliability
@@ -532,7 +574,11 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                 uncertainty_analysis["reliability_assessment"] = {
                     "convergence_achieved": standard["sample_statistics"]["valid_horizons"] > 0,
                     "sample_adequacy": standard["sample_statistics"]["valid_horizons"] > 10,
-                    "uncertainty_level": "acceptable" if standard["kappa_std"] / standard["kappa_mean"] < 0.2 else "high"
+                    "uncertainty_level": (
+                        "acceptable"
+                        if standard["kappa_std"] / standard["kappa_mean"] < 0.2
+                        else "high"
+                    ),
                 }
 
         return uncertainty_analysis
@@ -546,8 +592,10 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
         summary = {
             "analysis_type": "enhanced_with_uncertainties",
             "total_datasets": 1 if self.df is not None else 0,
-            "uncertainty_methods_used": self.uncertainty_results.get("methods_used", []) if self.uncertainty_results else [],
-            "key_findings": []
+            "uncertainty_methods_used": (
+                self.uncertainty_results.get("methods_used", []) if self.uncertainty_results else []
+            ),
+            "key_findings": [],
         }
 
         # Add key findings
@@ -557,19 +605,21 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                 f"Systematic uncertainties dominate at {nested['systematic_percentage']:.1f}%"
             )
 
-        if "standard_analysis" in results and "significance_testing" in results["standard_analysis"]:
+        if (
+            "standard_analysis" in results
+            and "significance_testing" in results["standard_analysis"]
+        ):
             sig_results = results["standard_analysis"]["significance_testing"]
-            significant_tests = sum(1 for test in sig_results.values() if test.get("significant", False))
+            significant_tests = sum(
+                1 for test in sig_results.values() if test.get("significant", False)
+            )
             total_tests = len(sig_results)
             summary["key_findings"].append(
                 f"{significant_tests}/{total_tests} comparisons remain significant after uncertainty consideration"
             )
 
         # Combine with full results
-        full_report = {
-            "summary": summary,
-            "detailed_results": results
-        }
+        full_report = {"summary": summary, "detailed_results": results}
 
         with open(report_path, "w") as f:
             json.dump(full_report, f, indent=2, default=str)
@@ -588,11 +638,18 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
 
         # 2. Enhanced correlations with uncertainty
         if "standard_analysis" in results and "correlations" in results["standard_analysis"]:
-            self.plot_correlations_with_uncertainty(results["standard_analysis"]["correlations"], fig_dir)
+            self.plot_correlations_with_uncertainty(
+                results["standard_analysis"]["correlations"], fig_dir
+            )
 
         # 3. Significance testing with uncertainty
-        if "standard_analysis" in results and "significance_testing" in results["standard_analysis"]:
-            self.plot_significance_with_uncertainty(results["standard_analysis"]["significance_testing"], fig_dir)
+        if (
+            "standard_analysis" in results
+            and "significance_testing" in results["standard_analysis"]
+        ):
+            self.plot_significance_with_uncertainty(
+                results["standard_analysis"]["significance_testing"], fig_dir
+            )
 
         # 4. Summary dashboard
         self.create_uncertainty_dashboard(results, fig_dir)
@@ -606,26 +663,35 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
             return
 
         fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-        fig.suptitle('Enhanced Analysis: Uncertainty Budget Integration', fontsize=16, fontweight='bold')
+        fig.suptitle(
+            "Enhanced Analysis: Uncertainty Budget Integration", fontsize=16, fontweight="bold"
+        )
 
         # Plot 1: Systematic vs Statistical comparison
         if "nested_monte_carlo" in self.uncertainty_results:
             nested = self.uncertainty_results["nested_monte_carlo"]
 
-            categories = ['Systematic', 'Statistical']
+            categories = ["Systematic", "Statistical"]
             values = [nested["systematic_uncertainty"], nested["statistical_uncertainty"]]
-            colors = ['#ff7f0e', '#2ca02c']
+            colors = ["#ff7f0e", "#2ca02c"]
 
             bars = axes[0, 0].bar(categories, values, color=colors, alpha=0.7)
-            axes[0, 0].set_ylabel('Uncertainty Magnitude')
-            axes[0, 0].set_title('Systematic vs Statistical Uncertainty')
+            axes[0, 0].set_ylabel("Uncertainty Magnitude")
+            axes[0, 0].set_title("Systematic vs Statistical Uncertainty")
             axes[0, 0].grid(True, alpha=0.3)
 
             # Add percentage labels
-            for bar, perc in zip(bars, [nested["systematic_percentage"], nested["statistical_percentage"]]):
+            for bar, perc in zip(
+                bars, [nested["systematic_percentage"], nested["statistical_percentage"]]
+            ):
                 height = bar.get_height()
-                axes[0, 0].text(bar.get_x() + bar.get_width()/2, height,
-                               f'{perc:.1f}%', ha='center', va='bottom')
+                axes[0, 0].text(
+                    bar.get_x() + bar.get_width() / 2,
+                    height,
+                    f"{perc:.1f}%",
+                    ha="center",
+                    va="bottom",
+                )
 
         # Plot 2: Impact on analysis conclusions
         if "uncertainty_impact_analysis" in results:
@@ -634,47 +700,69 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
                 breakdown = impact["uncertainty_breakdown"]
 
                 # Create impact assessment plot
-                impact_categories = ['Conclusion Stability', 'Statistical Power', 'Confidence Level']
+                impact_categories = [
+                    "Conclusion Stability",
+                    "Statistical Power",
+                    "Confidence Level",
+                ]
                 impact_values = [0.8, 0.6, 0.75]  # Example values
 
-                bars = axes[0, 1].bar(impact_categories, impact_values, color='skyblue', alpha=0.7)
-                axes[0, 1].set_ylabel('Assessment Score')
-                axes[0, 1].set_title('Uncertainty Impact on Analysis')
-                axes[0, 1].tick_params(axis='x', rotation=45)
+                bars = axes[0, 1].bar(impact_categories, impact_values, color="skyblue", alpha=0.7)
+                axes[0, 1].set_ylabel("Assessment Score")
+                axes[0, 1].set_title("Uncertainty Impact on Analysis")
+                axes[0, 1].tick_params(axis="x", rotation=45)
                 axes[0, 1].grid(True, alpha=0.3)
 
         # Plot 3: Model contribution from Bayesian analysis
-        if "bayesian_inference" in self.uncertainty_results and "error" not in self.uncertainty_results["bayesian_inference"]:
+        if (
+            "bayesian_inference" in self.uncertainty_results
+            and "error" not in self.uncertainty_results["bayesian_inference"]
+        ):
             bayesian = self.uncertainty_results["bayesian_inference"]
             weights = bayesian["model_weights"]["mean"]
-            model_names = ['Fluid', 'Kinetic', 'Hybrid', 'PIC']
+            model_names = ["Fluid", "Kinetic", "Hybrid", "PIC"]
 
-            bars = axes[1, 0].bar(model_names, weights, color='lightcoral', alpha=0.7)
-            axes[1, 0].set_ylabel('Model Weight')
-            axes[1, 0].set_title('Bayesian Model Contributions')
-            axes[1, 0].tick_params(axis='x', rotation=45)
+            bars = axes[1, 0].bar(model_names, weights, color="lightcoral", alpha=0.7)
+            axes[1, 0].set_ylabel("Model Weight")
+            axes[1, 0].set_title("Bayesian Model Contributions")
+            axes[1, 0].tick_params(axis="x", rotation=45)
             axes[1, 0].grid(True, alpha=0.3)
 
         # Plot 4: Summary statistics
         summary_text = "Enhanced Analysis Summary:\n\n"
         if self.uncertainty_results:
-            summary_text += f"Uncertainty methods: {len(self.uncertainty_results.get('methods_used', []))}\n"
+            summary_text += (
+                f"Uncertainty methods: {len(self.uncertainty_results.get('methods_used', []))}\n"
+            )
 
         if self.df is not None:
             summary_text += f"Dataset size: {len(self.df)}\n"
 
         if "nested_monte_carlo" in self.uncertainty_results:
             nested = self.uncertainty_results["nested_monte_carlo"]
-            summary_text += f"Systematic dominance: {'Yes' if nested['systematic_percentage'] > 50 else 'No'}\n"
+            summary_text += (
+                f"Systematic dominance: {'Yes' if nested['systematic_percentage'] > 50 else 'No'}\n"
+            )
             summary_text += f"Total samples: {nested['n_total_samples']}\n"
 
-        axes[1, 1].text(0.1, 0.9, summary_text, transform=axes[1, 1].transAxes,
-                        fontsize=10, verticalalignment='top', fontfamily='monospace',
-                        bbox=dict(boxstyle='round', facecolor='lightgray', alpha=0.8))
-        axes[1, 1].axis('off')
+        axes[1, 1].text(
+            0.1,
+            0.9,
+            summary_text,
+            transform=axes[1, 1].transAxes,
+            fontsize=10,
+            verticalalignment="top",
+            fontfamily="monospace",
+            bbox=dict(boxstyle="round", facecolor="lightgray", alpha=0.8),
+        )
+        axes[1, 1].axis("off")
 
         plt.tight_layout()
-        conditional_savefig(os.path.join(fig_dir, "uncertainty_budget_integration.png"), dpi=300, bbox_inches='tight')
+        conditional_savefig(
+            os.path.join(fig_dir, "uncertainty_budget_integration.png"),
+            dpi=300,
+            bbox_inches="tight",
+        )
         plt.close()
 
     def plot_correlations_with_uncertainty(self, correlations: Dict, fig_dir: str):
@@ -718,39 +806,55 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
 
         # Correlation matrix
-        im1 = ax1.imshow(corr_matrix, cmap='RdBu_r', vmin=-1, vmax=1)
+        im1 = ax1.imshow(corr_matrix, cmap="RdBu_r", vmin=-1, vmax=1)
         ax1.set_xticks(range(n_vars))
         ax1.set_yticks(range(n_vars))
-        ax1.set_xticklabels(unique_vars, rotation=45, ha='right')
+        ax1.set_xticklabels(unique_vars, rotation=45, ha="right")
         ax1.set_yticklabels(unique_vars)
-        ax1.set_title('Correlation Matrix with Uncertainty Analysis')
+        ax1.set_title("Correlation Matrix with Uncertainty Analysis")
 
         # Add correlation values
         for i in range(n_vars):
             for j in range(n_vars):
-                text = ax1.text(j, i, f'{corr_matrix[i, j]:.2f}',
-                               ha="center", va="center", color="black", fontsize=8)
+                text = ax1.text(
+                    j,
+                    i,
+                    f"{corr_matrix[i, j]:.2f}",
+                    ha="center",
+                    va="center",
+                    color="black",
+                    fontsize=8,
+                )
 
         plt.colorbar(im1, ax=ax1, fraction=0.046, pad=0.04)
 
         # Uncertainty matrix
-        im2 = ax2.imshow(uncertainty_matrix, cmap='YlOrRd', vmin=0)
+        im2 = ax2.imshow(uncertainty_matrix, cmap="YlOrRd", vmin=0)
         ax2.set_xticks(range(n_vars))
         ax2.set_yticks(range(n_vars))
-        ax2.set_xticklabels(unique_vars, rotation=45, ha='right')
+        ax2.set_xticklabels(unique_vars, rotation=45, ha="right")
         ax2.set_yticklabels(unique_vars)
-        ax2.set_title('Correlation Uncertainty Bounds')
+        ax2.set_title("Correlation Uncertainty Bounds")
 
         # Add uncertainty values
         for i in range(n_vars):
             for j in range(n_vars):
-                text = ax2.text(j, i, f'{uncertainty_matrix[i, j]:.2f}',
-                               ha="center", va="center", color="black", fontsize=8)
+                text = ax2.text(
+                    j,
+                    i,
+                    f"{uncertainty_matrix[i, j]:.2f}",
+                    ha="center",
+                    va="center",
+                    color="black",
+                    fontsize=8,
+                )
 
         plt.colorbar(im2, ax=ax2, fraction=0.046, pad=0.04)
 
         plt.tight_layout()
-        conditional_savefig(os.path.join(fig_dir, "correlations_with_uncertainty.png"), dpi=300, bbox_inches='tight')
+        conditional_savefig(
+            os.path.join(fig_dir, "correlations_with_uncertainty.png"), dpi=300, bbox_inches="tight"
+        )
         plt.close()
 
     def plot_significance_with_uncertainty(self, significance_results: Dict, fig_dir: str):
@@ -768,14 +872,16 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
         # P-values with uncertainty bars
-        colors = ['red' if sig else 'blue' for sig in significant]
+        colors = ["red" if sig else "blue" for sig in significant]
         bars = ax1.bar(range(len(comparisons)), p_values, color=colors, alpha=0.7)
 
-        ax1.axhline(y=0.05, color='black', linestyle='--', label='Significance threshold')
-        ax1.set_ylabel('P-value')
-        ax1.set_title('Statistical Significance with Uncertainty')
+        ax1.axhline(y=0.05, color="black", linestyle="--", label="Significance threshold")
+        ax1.set_ylabel("P-value")
+        ax1.set_title("Statistical Significance with Uncertainty")
         ax1.set_xticks(range(len(comparisons)))
-        ax1.set_xticklabels([comp.replace("_vs_", " vs ") for comp in comparisons], rotation=45, ha='right')
+        ax1.set_xticklabels(
+            [comp.replace("_vs_", " vs ") for comp in comparisons], rotation=45, ha="right"
+        )
         ax1.legend()
         ax1.grid(True, alpha=0.3)
 
@@ -783,24 +889,28 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
         for i, (comp, bar) in enumerate(zip(comparisons, bars)):
             if "enhanced_uncertainty" in significance_results[comp]:
                 unc = significance_results[comp]["enhanced_uncertainty"]
-                ax1.errorbar(i, p_values[i], yerr=unc, fmt='none', color='black', capsize=5)
+                ax1.errorbar(i, p_values[i], yerr=unc, fmt="none", color="black", capsize=5)
 
         # Effect sizes
-        bars2 = ax2.bar(range(len(comparisons)), effect_sizes, color='green', alpha=0.7)
-        ax2.set_ylabel('Effect Size')
-        ax2.set_title('Effect Sizes')
+        bars2 = ax2.bar(range(len(comparisons)), effect_sizes, color="green", alpha=0.7)
+        ax2.set_ylabel("Effect Size")
+        ax2.set_title("Effect Sizes")
         ax2.set_xticks(range(len(comparisons)))
-        ax2.set_xticklabels([comp.replace("_vs_", " vs ") for comp in comparisons], rotation=45, ha='right')
+        ax2.set_xticklabels(
+            [comp.replace("_vs_", " vs ") for comp in comparisons], rotation=45, ha="right"
+        )
         ax2.grid(True, alpha=0.3)
 
         # Add effect size interpretation
-        ax2.axhline(y=0.2, color='orange', linestyle='--', alpha=0.5, label='Small effect')
-        ax2.axhline(y=0.5, color='red', linestyle='--', alpha=0.5, label='Medium effect')
-        ax2.axhline(y=0.8, color='purple', linestyle='--', alpha=0.5, label='Large effect')
+        ax2.axhline(y=0.2, color="orange", linestyle="--", alpha=0.5, label="Small effect")
+        ax2.axhline(y=0.5, color="red", linestyle="--", alpha=0.5, label="Medium effect")
+        ax2.axhline(y=0.8, color="purple", linestyle="--", alpha=0.5, label="Large effect")
         ax2.legend()
 
         plt.tight_layout()
-        conditional_savefig(os.path.join(fig_dir, "significance_with_uncertainty.png"), dpi=300, bbox_inches='tight')
+        conditional_savefig(
+            os.path.join(fig_dir, "significance_with_uncertainty.png"), dpi=300, bbox_inches="tight"
+        )
         plt.close()
 
     def create_uncertainty_dashboard(self, results: Dict, fig_dir: str):
@@ -810,7 +920,7 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
         gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
 
         # Title
-        fig.suptitle('Enhanced Analysis Uncertainty Dashboard', fontsize=16, fontweight='bold')
+        fig.suptitle("Enhanced Analysis Uncertainty Dashboard", fontsize=16, fontweight="bold")
 
         # 1. Summary statistics
         ax1 = fig.add_subplot(gs[0, 0])
@@ -828,21 +938,28 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
             nested = self.uncertainty_results["nested_monte_carlo"]
             summary_text += f"Sys. unc.: {nested['systematic_percentage']:.1f}%\n"
 
-        ax1.text(0.1, 0.9, summary_text, transform=ax1.transAxes,
-                fontsize=10, verticalalignment='top', fontfamily='monospace',
-                bbox=dict(boxstyle='round', facecolor='lightblue', alpha=0.8))
-        ax1.axis('off')
+        ax1.text(
+            0.1,
+            0.9,
+            summary_text,
+            transform=ax1.transAxes,
+            fontsize=10,
+            verticalalignment="top",
+            fontfamily="monospace",
+            bbox=dict(boxstyle="round", facecolor="lightblue", alpha=0.8),
+        )
+        ax1.axis("off")
 
         # 2. Uncertainty breakdown pie chart
         ax2 = fig.add_subplot(gs[0, 1])
         if "nested_monte_carlo" in self.uncertainty_results:
             nested = self.uncertainty_results["nested_monte_carlo"]
             sizes = [nested["systematic_percentage"], nested["statistical_percentage"]]
-            labels = ['Systematic', 'Statistical']
-            colors = ['#ff7f0e', '#2ca02c']
+            labels = ["Systematic", "Statistical"]
+            colors = ["#ff7f0e", "#2ca02c"]
 
-            ax2.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-            ax2.set_title('Uncertainty Breakdown')
+            ax2.pie(sizes, labels=labels, colors=colors, autopct="%1.1f%%", startangle=90)
+            ax2.set_title("Uncertainty Breakdown")
 
         # 3. Key metrics with error bars
         ax3 = fig.add_subplot(gs[0, 2])
@@ -858,9 +975,9 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
 
             if means:
                 bars = ax3.bar(range(len(means)), means, yerr=errors, capsize=5, alpha=0.7)
-                ax3.set_ylabel('Value')
-                ax3.set_title('Key Metrics with Uncertainty')
-                ax3.tick_params(axis='x', rotation=45)
+                ax3.set_ylabel("Value")
+                ax3.set_title("Key Metrics with Uncertainty")
+                ax3.tick_params(axis="x", rotation=45)
                 ax3.grid(True, alpha=0.3)
 
         # 4. Recommendations
@@ -879,39 +996,58 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
             if "reliability_assessment" in impact:
                 reliability = impact["reliability_assessment"]
                 recommendations_text += f"• Convergence: {'Achieved' if reliability.get('convergence_achieved') else 'Not achieved'}\n"
-                recommendations_text += f"• Uncertainty level: {reliability.get('uncertainty_level', 'unknown')}\n"
+                recommendations_text += (
+                    f"• Uncertainty level: {reliability.get('uncertainty_level', 'unknown')}\n"
+                )
 
-        ax4.text(0.1, 0.9, recommendations_text, transform=ax4.transAxes,
-                fontsize=11, verticalalignment='top', fontfamily='monospace',
-                bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.8))
-        ax4.axis('off')
+        ax4.text(
+            0.1,
+            0.9,
+            recommendations_text,
+            transform=ax4.transAxes,
+            fontsize=11,
+            verticalalignment="top",
+            fontfamily="monospace",
+            bbox=dict(boxstyle="round", facecolor="lightyellow", alpha=0.8),
+        )
+        ax4.axis("off")
 
         # 5. Quality assessment
         ax5 = fig.add_subplot(gs[2, 0])
-        quality_metrics = ['Data Quality', 'Uncertainty Quantification', 'Statistical Power', 'Convergence']
+        quality_metrics = [
+            "Data Quality",
+            "Uncertainty Quantification",
+            "Statistical Power",
+            "Convergence",
+        ]
         quality_scores = [0.85, 0.92, 0.78, 0.88]  # Example scores
 
-        bars = ax5.barh(quality_metrics, quality_scores, color='lightgreen', alpha=0.7)
-        ax5.set_xlabel('Quality Score')
-        ax5.set_title('Analysis Quality Assessment')
+        bars = ax5.barh(quality_metrics, quality_scores, color="lightgreen", alpha=0.7)
+        ax5.set_xlabel("Quality Score")
+        ax5.set_title("Analysis Quality Assessment")
         ax5.set_xlim(0, 1)
         ax5.grid(True, alpha=0.3)
 
         # Add score labels
         for bar, score in zip(bars, quality_scores):
-            ax5.text(score + 0.02, bar.get_y() + bar.get_height()/2,
-                    f'{score:.2f}', ha='left', va='center')
+            ax5.text(
+                score + 0.02,
+                bar.get_y() + bar.get_height() / 2,
+                f"{score:.2f}",
+                ha="left",
+                va="center",
+            )
 
         # 6. Convergence plot
         ax6 = fig.add_subplot(gs[2, 1])
         sample_sizes = [10, 25, 50, 100, 200]
         convergence_data = [1.0, 0.8, 0.65, 0.58, 0.55]  # Example convergence
 
-        ax6.plot(sample_sizes, convergence_data, 'o-', color='purple', markersize=6)
-        ax6.set_xlabel('Sample Size')
-        ax6.set_ylabel('Uncertainty')
-        ax6.set_title('Convergence Analysis')
-        ax6.set_xscale('log')
+        ax6.plot(sample_sizes, convergence_data, "o-", color="purple", markersize=6)
+        ax6.set_xlabel("Sample Size")
+        ax6.set_ylabel("Uncertainty")
+        ax6.set_title("Convergence Analysis")
+        ax6.set_xscale("log")
         ax6.grid(True, alpha=0.3)
 
         # 7. Method comparison
@@ -920,16 +1056,20 @@ class EnhancedHawkingRadiationAnalyzer(UncertaintyPropagationMixin):
             methods = self.uncertainty_results.get("methods_used", [])
             method_performance = [0.85, 0.92, 0.78]  # Example performance scores
 
-            actual_methods = methods[:3] if len(methods) >= 3 else methods + [''] * (3 - len(methods))
-            actual_performance = method_performance[:len(actual_methods)]
+            actual_methods = (
+                methods[:3] if len(methods) >= 3 else methods + [""] * (3 - len(methods))
+            )
+            actual_performance = method_performance[: len(actual_methods)]
 
-            bars = ax7.bar(actual_methods, actual_performance, color='skyblue', alpha=0.7)
-            ax7.set_ylabel('Performance Score')
-            ax7.set_title('Method Performance')
-            ax7.tick_params(axis='x', rotation=45)
+            bars = ax7.bar(actual_methods, actual_performance, color="skyblue", alpha=0.7)
+            ax7.set_ylabel("Performance Score")
+            ax7.set_title("Method Performance")
+            ax7.tick_params(axis="x", rotation=45)
             ax7.grid(True, alpha=0.3)
 
-        conditional_savefig(os.path.join(fig_dir, "uncertainty_dashboard.png"), dpi=300, bbox_inches='tight')
+        conditional_savefig(
+            os.path.join(fig_dir, "uncertainty_dashboard.png"), dpi=300, bbox_inches="tight"
+        )
         plt.close()
 
 
@@ -948,25 +1088,34 @@ Examples:
 
   # Run with environment variable
   ANALOG_HAWKING_NO_PLOTS=1 python enhanced_analysis_pipeline.py
-        """
+        """,
     )
 
     # Add graphics control argument
     add_graphics_argument(parser)
 
     # Add analysis configuration arguments
-    parser.add_argument("--data-path", type=str, default="results/hybrid_sweep.csv",
-                        help="Path to input data file (default: results/hybrid_sweep.csv)")
-    parser.add_argument("--output-dir", type=str, default="results/enhanced_analysis",
-                        help="Output directory (default: results/enhanced_analysis)")
-    parser.add_argument("--confidence-level", type=float, default=0.95,
-                        help="Confidence level for uncertainty analysis (default: 0.95)")
-    parser.add_argument("--no-correlation", action="store_true",
-                        help="Skip correlation analysis")
-    parser.add_argument("--no-significance", action="store_true",
-                        help="Skip significance testing")
-    parser.add_argument("--no-uncertainty", action="store_true",
-                        help="Skip uncertainty analysis")
+    parser.add_argument(
+        "--data-path",
+        type=str,
+        default="results/hybrid_sweep.csv",
+        help="Path to input data file (default: results/hybrid_sweep.csv)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="results/enhanced_analysis",
+        help="Output directory (default: results/enhanced_analysis)",
+    )
+    parser.add_argument(
+        "--confidence-level",
+        type=float,
+        default=0.95,
+        help="Confidence level for uncertainty analysis (default: 0.95)",
+    )
+    parser.add_argument("--no-correlation", action="store_true", help="Skip correlation analysis")
+    parser.add_argument("--no-significance", action="store_true", help="Skip significance testing")
+    parser.add_argument("--no-uncertainty", action="store_true", help="Skip uncertainty analysis")
 
     args = parser.parse_args()
 
@@ -974,9 +1123,9 @@ Examples:
     graphics_pref = get_graphics_preference(args)
     graphics_controller = GraphicsController(enable_plots=graphics_pref)
 
-    print("="*80)
+    print("=" * 80)
     print("ENHANCED ANALYSIS PIPELINE WITH COMPREHENSIVE UNCERTAINTY QUANTIFICATION")
-    print("="*80)
+    print("=" * 80)
 
     if not graphics_pref:
         print("Running in headless mode (graphics generation disabled)")
@@ -991,7 +1140,7 @@ Examples:
         run_significance_testing=not args.no_significance,
         generate_detailed_plots=graphics_pref,
         create_summary_report=True,
-        create_visualization_suite=graphics_pref
+        create_visualization_suite=graphics_pref,
     )
 
     # Check if data file exists
@@ -1005,9 +1154,9 @@ Examples:
         analyzer = EnhancedHawkingRadiationAnalyzer(config, graphics_controller)
         results = analyzer.analyze_with_uncertainties()
 
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("ENHANCED ANALYSIS COMPLETE")
-    print("="*80)
+    print("=" * 80)
 
     # Print summary
     if "summary" in results:
@@ -1017,7 +1166,7 @@ Examples:
         print(f"  Methods used: {', '.join(summary.get('uncertainty_methods_used', []))}")
         print(f"  Key findings: {len(summary.get('key_findings', []))}")
 
-        for finding in summary.get('key_findings', []):
+        for finding in summary.get("key_findings", []):
             print(f"    • {finding}")
 
     print(f"\nResults saved to: {config.output_dir}")

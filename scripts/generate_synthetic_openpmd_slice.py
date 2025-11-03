@@ -26,14 +26,13 @@ def main() -> int:
     x = np.linspace(-1.0, 1.0, N)
     v = 1.0 * x  # linear flow
     Te = 1.0e4 * np.ones_like(x)  # 1e4 K constant
-    with h5py.File(path, 'w') as f:
-        f.create_dataset('/x', data=x)
-        f.create_dataset('/vel', data=v)
-        f.create_dataset('/Te', data=Te)
+    with h5py.File(path, "w") as f:
+        f.create_dataset("/x", data=x)
+        f.create_dataset("/vel", data=v)
+        f.create_dataset("/Te", data=Te)
     print(f"Wrote {path}")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

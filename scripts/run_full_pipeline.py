@@ -110,7 +110,7 @@ def run_full_pipeline(
     respect_parametric_bounds: bool = False,
 ) -> FullPipelineSummary:
     # Ensure defaults for variables used in return even if certain branches are not taken
-    t5sigma_TH = float('inf')
+    t5sigma_TH = float("inf")
     # 1) Configure backend
     grid = np.linspace(grid_min, grid_max, grid_points)
     backend = FluidBackend()
@@ -131,7 +131,9 @@ def run_full_pipeline(
     state = backend.step(0.0)
 
     # 3) Horizon detection
-    horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed, kappa_method=str(kappa_method))
+    horizons = find_horizons_with_uncertainty(
+        state.grid, state.velocity, state.sound_speed, kappa_method=str(kappa_method)
+    )
     positions = horizons.positions.tolist() if horizons.positions.size else []
     kappa = horizons.kappa.tolist() if horizons.kappa.size else []
     kappa_err_list = horizons.kappa_err.tolist() if horizons.kappa_err.size else []
@@ -170,7 +172,9 @@ def run_full_pipeline(
             df_dx = np.gradient(f, x)
             slope = float(abs(df_dx[idx])) if np.isfinite(df_dx[idx]) else 0.0
             dx = float(x[1] - x[0]) if len(x) > 1 else 1.0
-            f_thresh = 0.1 * float(np.nanmax(np.abs(f))) if np.isfinite(np.nanmax(np.abs(f))) else 0.0
+            f_thresh = (
+                0.1 * float(np.nanmax(np.abs(f))) if np.isfinite(np.nanmax(np.abs(f))) else 0.0
+            )
             if graybody_window_cells is not None:
                 chosen_window_cells = int(graybody_window_cells)
             else:
@@ -196,7 +200,11 @@ def run_full_pipeline(
                 emitting_area_m2=1e-6,
                 solid_angle_sr=5e-2,
                 coupling_efficiency=0.1,
-                graybody_method=str(graybody) if graybody in {"dimensionless", "wkb", "acoustic_wkb"} else "dimensionless",
+                graybody_method=(
+                    str(graybody)
+                    if graybody in {"dimensionless", "wkb", "acoustic_wkb"}
+                    else "dimensionless"
+                ),
                 alpha_gray=float(alpha_gray),
             )
         # Spectrum with fallback graybody
@@ -205,7 +213,11 @@ def run_full_pipeline(
             emitting_area_m2=1e-6,
             solid_angle_sr=5e-2,
             coupling_efficiency=0.1,
-            graybody_method=str(graybody) if graybody in {"dimensionless", "wkb", "acoustic_wkb"} else "dimensionless",
+            graybody_method=(
+                str(graybody)
+                if graybody in {"dimensionless", "wkb", "acoustic_wkb"}
+                else "dimensionless"
+            ),
             alpha_gray=float(alpha_gray),
         )
 
@@ -238,7 +250,7 @@ def run_full_pipeline(
                 # Avoid division by zero; where T_base=0, use absolute scaling via clipping
                 scale_low = np.ones_like(P)
                 scale_high = np.ones_like(P)
-                with np.errstate(divide='ignore', invalid='ignore'):
+                with np.errstate(divide="ignore", invalid="ignore"):
                     scale_low = np.clip((T_base - T_unc) / np.clip(T_base, 1e-30, None), 0.0, None)
                     scale_high = np.clip((T_base + T_unc) / np.clip(T_base, 1e-30, None), 0.0, None)
                 P_low = P * scale_low
@@ -261,7 +273,7 @@ def run_full_pipeline(
                         k_bound = max(k0 + sign * dk, 0.0)
                         spec_b = calculate_hawking_spectrum(
                             k_bound,
-                            graybody_profile=gray_profile if 'gray_profile' in locals() else None,
+                            graybody_profile=gray_profile if "gray_profile" in locals() else None,
                             emitting_area_m2=1e-6,
                             solid_angle_sr=5e-2,
                             coupling_efficiency=0.1,
@@ -269,34 +281,64 @@ def run_full_pipeline(
                         if spec_b.get("success"):
                             fb = np.asarray(spec_b["frequencies"])  # type: ignore[index]
                             Pb = np.asarray(spec_b["power_spectrum"])  # type: ignore[index]
-                            inband_b = band_power_from_spectrum(fb, Pb, float(peak_frequency), B_ref)
+                            inband_b = band_power_from_spectrum(
+                                fb, Pb, float(peak_frequency), B_ref
+                            )
                             if inband_b == 0.0:
                                 f_lo = float(peak_frequency) - 0.5 * B_ref
                                 f_hi = float(peak_frequency) + 0.5 * B_ref
-                                f_band = np.linspace(max(f_lo, float(fb[0])), min(f_hi, float(fb[-1])), 2001)
+                                f_band = np.linspace(
+                                    max(f_lo, float(fb[0])), min(f_hi, float(fb[-1])), 2001
+                                )
                                 if f_band[-1] > f_band[0]:
                                     psd_band = np.interp(f_band, fb, Pb)
                                     inband_b = float(_TRAPEZOID(psd_band, x=f_band))
                             T_sig_b = equivalent_signal_temperature(inband_b, B_ref)
                             # Combine with transmission envelope if available, conservatively
-                            if 'T_sig_b_lo' in locals() and 'T_sig_b_hi' in locals():
+                            if "T_sig_b_lo" in locals() and "T_sig_b_hi" in locals():
                                 if holder == "low":
                                     T_sig_combined = min(T_sig_b, T_sig_b_lo)
                                 else:
                                     T_sig_combined = max(T_sig_b, T_sig_b_hi)
                             else:
                                 T_sig_combined = T_sig_b
-                            t_b = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_combined, 0.0))[0, 0]) if T_sig_combined > 0 else float("inf")
+                            t_b = (
+                                float(
+                                    sweep_time_for_5sigma(
+                                        np.array([T_sys]),
+                                        np.array([B_ref]),
+                                        max(T_sig_combined, 0.0),
+                                    )[0, 0]
+                                )
+                                if T_sig_combined > 0
+                                else float("inf")
+                            )
                             if holder == "low":
                                 t5sigma_low = t_b
                             else:
                                 t5sigma_high = t_b
 
             # If only transmission envelope exists (no kappa bounds), still record bounds
-            if t5sigma_low is None and 'T_sig_b_lo' in locals():
-                t5sigma_low = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_b_lo, 0.0))[0, 0]) if T_sig_b_lo > 0 else float("inf")
-            if t5sigma_high is None and 'T_sig_b_hi' in locals():
-                t5sigma_high = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), max(T_sig_b_hi, 0.0))[0, 0]) if T_sig_b_hi > 0 else float("inf")
+            if t5sigma_low is None and "T_sig_b_lo" in locals():
+                t5sigma_low = (
+                    float(
+                        sweep_time_for_5sigma(
+                            np.array([T_sys]), np.array([B_ref]), max(T_sig_b_lo, 0.0)
+                        )[0, 0]
+                    )
+                    if T_sig_b_lo > 0
+                    else float("inf")
+                )
+            if t5sigma_high is None and "T_sig_b_hi" in locals():
+                t5sigma_high = (
+                    float(
+                        sweep_time_for_5sigma(
+                            np.array([T_sys]), np.array([B_ref]), max(T_sig_b_hi, 0.0)
+                        )[0, 0]
+                    )
+                    if T_sig_b_hi > 0
+                    else float("inf")
+                )
 
         # Sanity: compare κ to parametric upper bound from production sweep
         kappa_bound = None
@@ -318,11 +360,15 @@ def run_full_pipeline(
                 k_capped = float(kappa_bound)
                 spec_cap = calculate_hawking_spectrum(
                     k_capped,
-                    graybody_profile=locals().get('gray_profile'),
+                    graybody_profile=locals().get("gray_profile"),
                     emitting_area_m2=1e-6,
                     solid_angle_sr=5e-2,
                     coupling_efficiency=0.1,
-                    graybody_method=str(graybody) if graybody in {"dimensionless", "wkb", "acoustic_wkb"} else "dimensionless",
+                    graybody_method=(
+                        str(graybody)
+                        if graybody in {"dimensionless", "wkb", "acoustic_wkb"}
+                        else "dimensionless"
+                    ),
                     alpha_gray=float(alpha_gray),
                 )
                 if spec_cap.get("success"):
@@ -336,18 +382,24 @@ def run_full_pipeline(
                     t5sigma = float(t_grid[0, 0])
                 # Update reported κ to reflect the cap, preserving deviation in kappa_err
                 if kappa_err_list:
-                    kappa_err_list[0] = max(float(kappa_err_list[0]), abs(float(kappa[0]) - kappa_bound))
+                    kappa_err_list[0] = max(
+                        float(kappa_err_list[0]), abs(float(kappa[0]) - kappa_bound)
+                    )
                 else:
                     kappa_err_list = [abs(float(kappa[0]) - kappa_bound)]
                 kappa[0] = k_capped
             # Attach note for downstream JSON emission
             os.environ["AHR_SANITY_NOTE"] = violation_note
 
-            if perform_kappa_inference and infer_kappa_from_psd is not None and make_graybody_model is not None:
+            if (
+                perform_kappa_inference
+                and infer_kappa_from_psd is not None
+                and make_graybody_model is not None
+            ):
                 try:
                     model = make_graybody_model(
                         freqs,
-                        graybody_profile=gray_profile if 'gray_profile' in locals() else None,
+                        graybody_profile=gray_profile if "gray_profile" in locals() else None,
                         graybody_method=str(graybody),
                         alpha_gray=float(alpha_gray),
                         emitting_area_m2=1e-6,
@@ -392,7 +444,9 @@ def run_full_pipeline(
                     print(f"[WARN] κ inference failed: {exc}")
         else:
             if perform_kappa_inference and infer_kappa_from_psd is None:
-                print("[INFO] κ inference requested but scikit-optimize is not installed; skipping.")
+                print(
+                    "[INFO] κ inference requested but scikit-optimize is not installed; skipping."
+                )
 
         # Save comparison figure (profile vs fallback) unless suppressed (e.g. during sweeps)
         if save_graybody_figure:
@@ -426,25 +480,37 @@ def run_full_pipeline(
             t_grid_TH = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), float(T_H))
             t5sigma_TH = float(t_grid_TH[0, 0])
         else:
-            t5sigma_TH = float('inf')
+            t5sigma_TH = float("inf")
 
         # Optional multi-band evaluation if bands provided (format: "f1:B1,f2:B2,...")
         if bands:
             try:
                 t_best = None
-                for pair in str(bands).split(','):
+                for pair in str(bands).split(","):
                     if not pair:
                         continue
-                    if ':' not in pair:
+                    if ":" not in pair:
                         continue
-                    fc_str, bw_str = pair.split(':', 1)
-                    fc = float(eval(fc_str)) if any(ch.isalpha() for ch in fc_str) else float(fc_str)
-                    bw = float(eval(bw_str)) if any(ch.isalpha() for ch in bw_str) else float(bw_str)
+                    fc_str, bw_str = pair.split(":", 1)
+                    fc = (
+                        float(eval(fc_str)) if any(ch.isalpha() for ch in fc_str) else float(fc_str)
+                    )
+                    bw = (
+                        float(eval(bw_str)) if any(ch.isalpha() for ch in bw_str) else float(bw_str)
+                    )
                     Psel = np.asarray(spec.get("power_spectrum", P))
                     fsel = np.asarray(spec.get("frequencies", freqs))
                     inband = band_power_from_spectrum(fsel, Psel, fc, bw)
                     Tsig_band = equivalent_signal_temperature(inband, bw)
-                    t_band = float(sweep_time_for_5sigma(np.array([T_sys]), np.array([bw]), Tsig_band)[0, 0]) if Tsig_band > 0 else float("inf")
+                    t_band = (
+                        float(
+                            sweep_time_for_5sigma(np.array([T_sys]), np.array([bw]), Tsig_band)[
+                                0, 0
+                            ]
+                        )
+                        if Tsig_band > 0
+                        else float("inf")
+                    )
                     if t_best is None or t_band < t_best:
                         t_best = t_band
                 if t_best is not None:
@@ -465,10 +531,23 @@ def run_full_pipeline(
                     PlasmaMirrorParams,
                     calculate_plasma_mirror_dynamics,
                 )
-                p = PlasmaMirrorParams(n_p0=n_p0, omega_p0=omega_p0, a=0.5, b=0.5, D=float(mirror_D), eta_a=float(mirror_eta), model=str(hybrid_model))
+
+                p = PlasmaMirrorParams(
+                    n_p0=n_p0,
+                    omega_p0=omega_p0,
+                    a=0.5,
+                    b=0.5,
+                    D=float(mirror_D),
+                    eta_a=float(mirror_eta),
+                    model=str(hybrid_model),
+                )
                 t_m = np.linspace(0.0, 100e-15, 401)
-                mirror = calculate_plasma_mirror_dynamics(state.grid, float(laser_intensity), p, t_m)
-                hh = find_hybrid_horizons(state.grid, state.velocity, state.sound_speed, mirror, HybridHorizonParams())
+                mirror = calculate_plasma_mirror_dynamics(
+                    state.grid, float(laser_intensity), p, t_m
+                )
+                hh = find_hybrid_horizons(
+                    state.grid, state.velocity, state.sound_speed, mirror, HybridHorizonParams()
+                )
                 if hh.hybrid_kappa.size:
                     j = int(np.argmax(hh.hybrid_kappa))
                     hybrid_kappa_eff = float(hh.hybrid_kappa[j])
@@ -482,24 +561,32 @@ def run_full_pipeline(
                         emitting_area_m2=1e-6,
                         solid_angle_sr=5e-2,
                         coupling_efficiency=0.1,
-                        graybody_profile=gray_profile if 'gray_profile' in locals() else None,
+                        graybody_profile=gray_profile if "gray_profile" in locals() else None,
                     )
                     if spec_h.get("success"):
                         freqs_h = np.asarray(spec_h["frequencies"])
                         P_h = np.asarray(spec_h["power_spectrum"])
                         # Apples-to-apples: integrate around the fluid's peak_frequency
                         if peak_frequency is not None and P_h.size:
-                            inband_power_h = band_power_from_spectrum(freqs_h, P_h, float(peak_frequency), B_ref)
+                            inband_power_h = band_power_from_spectrum(
+                                freqs_h, P_h, float(peak_frequency), B_ref
+                            )
                             if inband_power_h == 0.0:
                                 f_lo = float(peak_frequency) - 0.5 * B_ref
                                 f_hi = float(peak_frequency) + 0.5 * B_ref
-                                f_band = np.linspace(max(f_lo, float(freqs_h[0])), min(f_hi, float(freqs_h[-1])), 2001)
+                                f_band = np.linspace(
+                                    max(f_lo, float(freqs_h[0])),
+                                    min(f_hi, float(freqs_h[-1])),
+                                    2001,
+                                )
                                 if f_band[-1] > f_band[0]:
                                     psd_band = np.interp(f_band, freqs_h, P_h)
                                     inband_power_h = float(_TRAPEZOID(psd_band, x=f_band))
                             T_sig_h = equivalent_signal_temperature(inband_power_h, B_ref)
                             if T_sig_h > 0:
-                                t_grid_h = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig_h)
+                                t_grid_h = sweep_time_for_5sigma(
+                                    np.array([T_sys]), np.array([B_ref]), T_sig_h
+                                )
                                 hybrid_t5 = float(t_grid_h[0, 0])
                                 hybrid_T_sig = float(T_sig_h)
                                 hybrid_used = True
@@ -545,30 +632,53 @@ def main() -> int:
     p.add_argument("--intensity", type=float, default=None)
     p.add_argument("--temperature", type=float, default=None)
     p.add_argument("--window-cells", type=int, default=None)
-    p.add_argument("--kappa-method", type=str, choices=["acoustic", "legacy", "acoustic_exact"], default="acoustic")
-    p.add_argument("--graybody", type=str, choices=["dimensionless", "wkb", "acoustic_wkb"], default="dimensionless")
+    p.add_argument(
+        "--kappa-method",
+        type=str,
+        choices=["acoustic", "legacy", "acoustic_exact"],
+        default="acoustic",
+    )
+    p.add_argument(
+        "--graybody",
+        type=str,
+        choices=["dimensionless", "wkb", "acoustic_wkb"],
+        default="dimensionless",
+    )
     p.add_argument("--alpha-gray", type=float, default=1.0)
-    p.add_argument("--bands", type=str, default=None, help="Comma-separated list of f_center:bandwidth pairs (e.g., '1e8:1e8,2e8:5e7')")
+    p.add_argument(
+        "--bands",
+        type=str,
+        default=None,
+        help="Comma-separated list of f_center:bandwidth pairs (e.g., '1e8:1e8,2e8:5e7')",
+    )
     p.add_argument("--Tsys", type=float, default=None, help="System temperature [K]")
     p.add_argument("--hybrid", action="store_true")
     p.add_argument("--hybrid-model", type=str, choices=["unruh", "anabhel"], default="anabhel")
     p.add_argument("--mirror-D", type=float, default=10e-6)
     p.add_argument("--mirror-eta", type=float, default=1.0)
-    p.add_argument("--respect-thresholds", action="store_true",
-                   help="Conservatively cap reported demo metrics at production parametric upper bounds if exceeded.")
-    p.add_argument("--safe-demo", action="store_true",
-                   help="Choose conservative demo parameters expected to stay within parametric bounds.")
+    p.add_argument(
+        "--respect-thresholds",
+        action="store_true",
+        help="Conservatively cap reported demo metrics at production parametric upper bounds if exceeded.",
+    )
+    p.add_argument(
+        "--safe-demo",
+        action="store_true",
+        help="Choose conservative demo parameters expected to stay within parametric bounds.",
+    )
     args = p.parse_args()
 
     kwargs = {}
     if args.demo:
-        kwargs.update(dict(
-            laser_intensity=5e17,
-            temperature_constant=1e4,
-            magnetic_field=None,
-            use_fast_magnetosonic=False,
-            scale_with_intensity=True,
-        ))
+        kwargs.update(
+            dict(
+                laser_intensity=5e17,
+                temperature_constant=1e4,
+                magnetic_field=None,
+                use_fast_magnetosonic=False,
+                scale_with_intensity=True,
+            )
+        )
         if args.safe_demo:
             # Reduce intensity and keep modest grid to limit gradients
             kwargs["laser_intensity"] = min(kwargs["laser_intensity"], 1e16)

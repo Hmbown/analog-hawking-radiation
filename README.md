@@ -86,7 +86,7 @@ pip install -r requirements-verified.txt  # Pinned deps
 pytest -q                                  # Verify environment (42 tests pass)
 ```
 
-> Default pytest discovery is scoped to `tests/` to keep core runs self-contained.  
+> Default pytest discovery is scoped to `tests/` to keep core runs self-contained.
 > Install the optional extras and invoke `pytest scripts/` if you need to exercise the demo pipelines.
 
 > Documentation hub: start with the [Docs Index](docs/index.md) for validated vs experimental modules and navigation.
@@ -104,8 +104,8 @@ pytest -q                                  # Verify environment (42 tests pass)
 
 ## 🎯 Latest Research Snapshot (v0.3.0 - October 2025)
 
-- Threshold-limited sweep yields κ_max ≈ **5.94×10¹² Hz** with acoustic-exact κ and enforced breakdown thresholds.  
-- Scaling: κ ∝ a₀^0.66 (95% CI [0.44, 0.89]); κ ∝ nₑ^-0.02 (95% CI [-0.14, 0.10]).  
+- Threshold-limited sweep yields κ_max ≈ **5.94×10¹² Hz** with acoustic-exact κ and enforced breakdown thresholds.
+- Scaling: κ ∝ a₀^0.66 (95% CI [0.44, 0.89]); κ ∝ nₑ^-0.02 (95% CI [-0.14, 0.10]).
 - Velocity < 0.5c, |dv/dx| < 4×10¹² s⁻¹, intensity < 1×10²⁴ W/m² (1D theoretical cap, exceeds current ELI facilities).
 
 📄 **[RESEARCH_HIGHLIGHTS.md](RESEARCH_HIGHLIGHTS.md)** | 📊 **[Gradient Catastrophe Analysis](docs/GradientCatastropheAnalysis.md)** | 🧭 **[Docs Index](docs/index.md)**

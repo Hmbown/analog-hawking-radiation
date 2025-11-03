@@ -139,7 +139,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     # validate
     v = sub.add_parser("validate", help="Run comprehensive physics validation suite")
-    v.add_argument("--report", type=str, help="Write JSON validation summary to this path", default=None)
+    v.add_argument(
+        "--report", type=str, help="Write JSON validation summary to this path", default=None
+    )
     v.set_defaults(func=cmd_validate)
 
     # bench
@@ -149,21 +151,30 @@ def build_parser() -> argparse.ArgumentParser:
 
     # gpu-info
     gi = sub.add_parser("gpu-info", help="Show active array backend and CuPy availability")
+
     def _cmd_gpu_info(_args: argparse.Namespace) -> int:
         from ..utils import array_module as am
+
         backend = "cupy" if am.using_cupy() else "numpy"
         try:
             import cupy as _cupy  # noqa: F401
+
             cupy_status = "installed"
         except Exception:
             cupy_status = "not installed"
-        print(json.dumps({
-            "backend": backend,
-            "cupy": cupy_status,
-            "ANALOG_HAWKING_FORCE_CPU": os.getenv("ANALOG_HAWKING_FORCE_CPU", ""),
-            "ANALOG_HAWKING_USE_CUPY": os.getenv("ANALOG_HAWKING_USE_CUPY", ""),
-        }, indent=2))
+        print(
+            json.dumps(
+                {
+                    "backend": backend,
+                    "cupy": cupy_status,
+                    "ANALOG_HAWKING_FORCE_CPU": os.getenv("ANALOG_HAWKING_FORCE_CPU", ""),
+                    "ANALOG_HAWKING_USE_CUPY": os.getenv("ANALOG_HAWKING_USE_CUPY", ""),
+                },
+                indent=2,
+            )
+        )
         return 0
+
     gi.set_defaults(func=_cmd_gpu_info)
 
     # regress
@@ -202,6 +213,7 @@ def build_parser() -> argparse.ArgumentParser:
                     ok = False
         print("[regress] status:", "PASS" if ok else "FAIL")
         return 0 if ok else 1
+
     rg = sub.add_parser("regress", help="Run golden regression checks")
     rg.set_defaults(func=_cmd_regress)
 

@@ -26,6 +26,7 @@ from scipy.stats import norm
 
 class DetectionMethod(Enum):
     """Available detection methods for analog Hawking radiation"""
+
     RADIO_SPECTROSCOPY = "Radio Spectroscopy"
     OPTICAL_SPECTROSCOPY = "Optical Spectroscopy"
     INTERFEROMETRY = "Interferometry"
@@ -36,6 +37,7 @@ class DetectionMethod(Enum):
 
 class DiagnosticType(Enum):
     """Diagnostic system types"""
+
     HETERODYNE = "Heterodyne Receiver"
     BOLometer = "Bolometer"
     CCD = "CCD Camera"
@@ -48,6 +50,7 @@ class DiagnosticType(Enum):
 
 class FeasibilityLevel(Enum):
     """Detection feasibility levels"""
+
     IMPOSSIBLE = "Impossible (SNR < 1)"
     HIGHLY_CHALLENGING = "Highly Challenging (SNR 1-3)"
     CHALLENGING = "Challenging (SNR 3-5)"
@@ -187,9 +190,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-3,  # 1 mW
                 operating_temperature=300,
                 cooling_required=False,
-                cost_tier=3
+                cost_tier=3,
             ),
-
             DiagnosticType.BOLometer: DetectorCharacteristics(
                 name="Cryogenic Bolometer",
                 detection_method=DetectionMethod.RADIO_SPECTROSCOPY,
@@ -205,9 +207,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-6,  # 1 μW
                 operating_temperature=0.1,
                 cooling_required=True,
-                cost_tier=5
+                cost_tier=5,
             ),
-
             DiagnosticType.CCD: DetectorCharacteristics(
                 name="Scientific CCD",
                 detection_method=DetectionMethod.IMAGING,
@@ -223,9 +224,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-2,  # 10 mW
                 operating_temperature=200,
                 cooling_required=True,
-                cost_tier=2
+                cost_tier=2,
             ),
-
             DiagnosticType.STREAK_CAMERA: DetectorCharacteristics(
                 name="Ultrafast Streak Camera",
                 detection_method=DetectionMethod.IMAGING,
@@ -241,9 +241,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-1,  # 100 mW
                 operating_temperature=300,
                 cooling_required=False,
-                cost_tier=4
+                cost_tier=4,
             ),
-
             DiagnosticType.SPECTROMETER: DetectorCharacteristics(
                 name="Optical Spectrometer",
                 detection_method=DetectionMethod.OPTICAL_SPECTROSCOPY,
@@ -259,9 +258,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-3,  # 1 mW
                 operating_temperature=300,
                 cooling_required=False,
-                cost_tier=2
+                cost_tier=2,
             ),
-
             DiagnosticType.INTERFEROMETER: DetectorCharacteristics(
                 name="Optical Interferometer",
                 detection_method=DetectionMethod.INTERFEROMETRY,
@@ -277,9 +275,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-2,  # 10 mW
                 operating_temperature=300,
                 cooling_required=False,
-                cost_tier=3
+                cost_tier=3,
             ),
-
             DiagnosticType.PHOTOMULTIPLIER: DetectorCharacteristics(
                 name="Photomultiplier Tube",
                 detection_method=DetectionMethod.OPTICAL_SPECTROSCOPY,
@@ -295,9 +292,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-4,  # 100 μW
                 operating_temperature=300,
                 cooling_required=False,
-                cost_tier=2
+                cost_tier=2,
             ),
-
             DiagnosticType.ANTENNA_ARRAY: DetectorCharacteristics(
                 name="Radio Antenna Array",
                 detection_method=DetectionMethod.RADIO_SPECTROSCOPY,
@@ -313,8 +309,8 @@ class NoiseModelingFramework:
                 saturation_power=1e-6,  # 1 μW
                 operating_temperature=50,
                 cooling_required=True,
-                cost_tier=4
-            )
+                cost_tier=4,
+            ),
         }
 
         return detectors
@@ -348,7 +344,7 @@ class NoiseModelingFramework:
         def atmospheric_emission(f: float, T_atm: float = 288) -> float:
             """Atmospheric thermal emission"""
             # Simplified model
-            tau_atm = 0.1 * (f / 1e12)**2  # Atmospheric opacity
+            tau_atm = 0.1 * (f / 1e12) ** 2  # Atmospheric opacity
             return k * T_atm * tau_atm
 
         def plasma_bremsstrahlung(f: float, T_plasma: float = 1e6, n_e: float = 1e24) -> float:
@@ -384,14 +380,16 @@ class NoiseModelingFramework:
             "laser": laser_system_noise,
             "emi": electromagnetic_interference,
             "shot": lambda f: shot_noise(f, 1e-6),
-            "readout": lambda f: readout_noise(f, 1e-19)
+            "readout": lambda f: readout_noise(f, 1e-19),
         }
 
-    def calculate_total_noise_spectral_density(self,
-                                             frequencies: np.ndarray,
-                                             detector: DetectorCharacteristics,
-                                             include_background: bool = True,
-                                             plasma_params: Optional[Dict[str, float]] = None) -> np.ndarray:
+    def calculate_total_noise_spectral_density(
+        self,
+        frequencies: np.ndarray,
+        detector: DetectorCharacteristics,
+        include_background: bool = True,
+        plasma_params: Optional[Dict[str, float]] = None,
+    ) -> np.ndarray:
         """Calculate total noise spectral density across frequency range"""
 
         total_noise = np.zeros_like(frequencies)
@@ -428,16 +426,18 @@ class NoiseModelingFramework:
 
         # Apply efficiency factor (reduces signal, not noise, but affects SNR)
         # and noise figure
-        total_noise *= (1 / detector.efficiency) * 10**(detector.noise_figure / 10)
+        total_noise *= (1 / detector.efficiency) * 10 ** (detector.noise_figure / 10)
 
         return total_noise
 
-    def calculate_snr(self,
-                     signal: SignalCharacteristics,
-                     detector: DetectorCharacteristics,
-                     integration_time: float,
-                     bandwidth: Optional[float] = None,
-                     plasma_params: Optional[Dict[str, float]] = None) -> Dict[str, float]:
+    def calculate_snr(
+        self,
+        signal: SignalCharacteristics,
+        detector: DetectorCharacteristics,
+        integration_time: float,
+        bandwidth: Optional[float] = None,
+        plasma_params: Optional[Dict[str, float]] = None,
+    ) -> Dict[str, float]:
         """Calculate signal-to-noise ratio for detection"""
 
         if bandwidth is None:
@@ -445,8 +445,8 @@ class NoiseModelingFramework:
 
         # Define frequency range around signal peak
         f_center = signal.peak_frequency
-        f_min = max(detector.frequency_range[0], f_center - bandwidth/2)
-        f_max = min(detector.frequency_range[1], f_center + bandwidth/2)
+        f_min = max(detector.frequency_range[0], f_center - bandwidth / 2)
+        f_max = min(detector.frequency_range[1], f_center + bandwidth / 2)
 
         frequencies = np.logspace(np.log10(f_min), np.log10(f_max), 1000)
 
@@ -459,7 +459,11 @@ class NoiseModelingFramework:
             if x > 100:  # Avoid overflow
                 return 0.0
             try:
-                return signal.power_density * (x**3) / (np.exp(x) - 1) if x > 0.01 else signal.power_density * x**2
+                return (
+                    signal.power_density * (x**3) / (np.exp(x) - 1)
+                    if x > 0.01
+                    else signal.power_density * x**2
+                )
             except (FloatingPointError, OverflowError, ZeroDivisionError):
                 return 0.0
 
@@ -486,7 +490,11 @@ class NoiseModelingFramework:
 
         # Optimal SNR (radiometer equation)
         if detector.noise_temperature > 0 and bandwidth > 0:
-            snr_radiometer = signal.signal_temperature / detector.noise_temperature * np.sqrt(bandwidth * integration_time)
+            snr_radiometer = (
+                signal.signal_temperature
+                / detector.noise_temperature
+                * np.sqrt(bandwidth * integration_time)
+            )
         else:
             snr_radiometer = 0.0
 
@@ -498,13 +506,15 @@ class NoiseModelingFramework:
             "signal_power_density": signal.power_density,
             "noise_power_density": noise_power / bandwidth if bandwidth > 0 else 0,
             "bandwidth_used": bandwidth,
-            "integration_time": integration_time
+            "integration_time": integration_time,
         }
 
-    def find_optimal_parameters(self,
-                               signal: SignalCharacteristics,
-                               detector: DetectorCharacteristics,
-                               plasma_params: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
+    def find_optimal_parameters(
+        self,
+        signal: SignalCharacteristics,
+        detector: DetectorCharacteristics,
+        plasma_params: Optional[Dict[str, float]] = None,
+    ) -> Dict[str, Any]:
         """Find optimal bandwidth and integration time for detection"""
 
         # Test different bandwidths
@@ -512,11 +522,7 @@ class NoiseModelingFramework:
         integration_times = np.logspace(-9, 0, 50)  # 1 ns to 1 s
 
         best_snr = 0
-        best_params = {
-            "bandwidth": detector.bandwidth,
-            "integration_time": 1e-6,
-            "snr": 0
-        }
+        best_params = {"bandwidth": detector.bandwidth, "integration_time": 1e-6, "snr": 0}
 
         # Optimize for 5σ detection (minimum integration time)
         target_snr = 5.0
@@ -537,18 +543,20 @@ class NoiseModelingFramework:
                         "integration_time": int_time,
                         "snr": current_snr,
                         "signal_power": snr_result["signal_power"],
-                        "noise_power": snr_result["noise_power"]
+                        "noise_power": snr_result["noise_power"],
                     }
 
                 # Stop if we've achieved target SNR and this is faster than current best
                 if current_snr >= target_snr and int_time < best_params["integration_time"]:
-                    best_params.update({
-                        "bandwidth": bandwidth,
-                        "integration_time": int_time,
-                        "snr": current_snr,
-                        "signal_power": snr_result["signal_power"],
-                        "noise_power": snr_result["noise_power"]
-                    })
+                    best_params.update(
+                        {
+                            "bandwidth": bandwidth,
+                            "integration_time": int_time,
+                            "snr": current_snr,
+                            "signal_power": snr_result["signal_power"],
+                            "noise_power": snr_result["noise_power"],
+                        }
+                    )
 
         return best_params
 
@@ -567,33 +575,27 @@ class DetectionFeasibilityAnalyzer:
             DetectionMethod.RADIO_SPECTROSCOPY: [
                 DiagnosticType.HETERODYNE,
                 DiagnosticType.BOLometer,
-                DiagnosticType.ANTENNA_ARRAY
+                DiagnosticType.ANTENNA_ARRAY,
             ],
             DetectionMethod.OPTICAL_SPECTROSCOPY: [
                 DiagnosticType.SPECTROMETER,
-                DiagnosticType.PHOTOMULTIPLIER
+                DiagnosticType.PHOTOMULTIPLIER,
             ],
-            DetectionMethod.INTERFEROMETRY: [
-                DiagnosticType.INTERFEROMETER
-            ],
-            DetectionMethod.IMAGING: [
-                DiagnosticType.CCD,
-                DiagnosticType.STREAK_CAMERA
-            ],
-            DetectionMethod.CORRELATION: [
-                DiagnosticType.INTERFEROMETER,
-                DiagnosticType.HETERODYNE
-            ],
+            DetectionMethod.INTERFEROMETRY: [DiagnosticType.INTERFEROMETER],
+            DetectionMethod.IMAGING: [DiagnosticType.CCD, DiagnosticType.STREAK_CAMERA],
+            DetectionMethod.CORRELATION: [DiagnosticType.INTERFEROMETER, DiagnosticType.HETERODYNE],
             DetectionMethod.PLASMA_DIAGNOSTICS: [
                 DiagnosticType.SPECTROMETER,
-                DiagnosticType.INTERFEROMETER
-            ]
+                DiagnosticType.INTERFEROMETER,
+            ],
         }
 
-    def assess_detection_feasibility(self,
-                                   signal: SignalCharacteristics,
-                                   plasma_params: Dict[str, float],
-                                   target_snr: float = 5.0) -> List[DetectionAssessment]:
+    def assess_detection_feasibility(
+        self,
+        signal: SignalCharacteristics,
+        plasma_params: Dict[str, float],
+        target_snr: float = 5.0,
+    ) -> List[DetectionAssessment]:
         """Comprehensive detection feasibility assessment"""
 
         assessments = []
@@ -604,7 +606,11 @@ class DetectionFeasibilityAnalyzer:
                 detector = self.noise_model.detectors[diag_type]
 
                 # Check frequency compatibility
-                if not (detector.frequency_range[0] <= signal.peak_frequency <= detector.frequency_range[1]):
+                if not (
+                    detector.frequency_range[0]
+                    <= signal.peak_frequency
+                    <= detector.frequency_range[1]
+                ):
                     continue  # Skip incompatible detectors
 
                 # Find optimal detection parameters
@@ -614,10 +620,11 @@ class DetectionFeasibilityAnalyzer:
 
                 # Calculate detailed SNR analysis
                 snr_analysis = self.noise_model.calculate_snr(
-                    signal, detector,
+                    signal,
+                    detector,
                     optimal_params["integration_time"],
                     optimal_params["bandwidth"],
-                    plasma_params
+                    plasma_params,
                 )
 
                 # Determine feasibility level
@@ -639,38 +646,30 @@ class DetectionFeasibilityAnalyzer:
                 )
 
                 # Noise breakdown
-                noise_breakdown = self._analyze_noise_breakdown(
-                    signal, detector, plasma_params
-                )
+                noise_breakdown = self._analyze_noise_breakdown(signal, detector, plasma_params)
 
                 assessment = DetectionAssessment(
                     configuration_id=f"{method.value}_{diag_type.value}",
                     detection_method=method,
                     detector_type=diag_type,
-
                     snr_peak=snr_analysis["snr"],
                     snr_integrated=snr_analysis["snr_radiometer"],
                     snr_optimal=optimal_params["snr"],
                     optimal_bandwidth=optimal_params["bandwidth"],
                     optimal_integration_time=optimal_params["integration_time"],
-
                     feasibility_level=feasibility_level,
                     detection_probability=detection_prob,
                     confidence_interval=confidence_interval,
-
                     minimum_integration_time=requirements["min_integration_time"],
                     required_shots=requirements["required_shots"],
                     total_experiment_time=requirements["total_time"],
-
                     noise_breakdown=noise_breakdown,
                     dominant_noise_source=requirements["dominant_noise"],
-
                     recommendations=recommendations,
                     alternative_methods=self._find_alternative_methods(method),
-
                     technical_requirements=requirements["technical"],
                     cost_estimate=requirements["cost"],
-                    timeline_estimate=requirements["timeline"]
+                    timeline_estimate=requirements["timeline"],
                 )
 
                 assessments.append(assessment)
@@ -694,9 +693,9 @@ class DetectionFeasibilityAnalyzer:
         else:
             return FeasibilityLevel.STRAIGHTFORWARD
 
-    def _calculate_detection_probability(self,
-                                       snr: float,
-                                       integration_time: float) -> Tuple[float, Tuple[float, float]]:
+    def _calculate_detection_probability(
+        self, snr: float, integration_time: float
+    ) -> Tuple[float, Tuple[float, float]]:
         """Calculate detection probability and confidence interval"""
 
         # Detection probability based on SNR and integration time
@@ -714,11 +713,13 @@ class DetectionFeasibilityAnalyzer:
 
         return detection_prob, (ci_lower, ci_upper)
 
-    def _generate_recommendations(self,
-                                method: DetectionMethod,
-                                detector_type: DiagnosticType,
-                                snr_analysis: Dict[str, float],
-                                feasibility_level: FeasibilityLevel) -> List[str]:
+    def _generate_recommendations(
+        self,
+        method: DetectionMethod,
+        detector_type: DiagnosticType,
+        snr_analysis: Dict[str, float],
+        feasibility_level: FeasibilityLevel,
+    ) -> List[str]:
         """Generate specific recommendations for detection improvement"""
 
         recommendations = []
@@ -740,7 +741,9 @@ class DetectionFeasibilityAnalyzer:
                 recommendations.append("Ensure proper thermal shielding and vibration isolation")
 
         elif method == DetectionMethod.OPTICAL_SPECTROSCOPY:
-            recommendations.append("Implement high-resolution spectrometer for narrow line features")
+            recommendations.append(
+                "Implement high-resolution spectrometer for narrow line features"
+            )
             recommendations.append("Consider background subtraction techniques")
 
         elif method == DetectionMethod.INTERFEROMETRY:
@@ -749,19 +752,21 @@ class DetectionFeasibilityAnalyzer:
 
         return recommendations
 
-    def _calculate_requirements(self,
-                              signal: SignalCharacteristics,
-                              detector: DetectorCharacteristics,
-                              optimal_params: Dict[str, Any],
-                              target_snr: float) -> Dict[str, Any]:
+    def _calculate_requirements(
+        self,
+        signal: SignalCharacteristics,
+        detector: DetectorCharacteristics,
+        optimal_params: Dict[str, Any],
+        target_snr: float,
+    ) -> Dict[str, Any]:
         """Calculate technical and operational requirements"""
 
         # Integration time for target SNR
         if optimal_params["snr"] > 0:
-            integration_factor = (target_snr / optimal_params["snr"])**2
+            integration_factor = (target_snr / optimal_params["snr"]) ** 2
             min_integration_time = optimal_params["integration_time"] * integration_factor
         else:
-            min_integration_time = float('inf')
+            min_integration_time = float("inf")
 
         # Required shots
         shot_duration = signal.pulse_duration + detector.response_time
@@ -771,8 +776,7 @@ class DetectionFeasibilityAnalyzer:
         total_time = required_shots * (shot_duration + 0.1) + 24  # 24h setup time
 
         # Cost estimate
-        cost_map = {1: "$10k-$50k", 2: "$50k-$100k", 3: "$100k-$500k",
-                   4: "$500k-$1M", 5: ">$1M"}
+        cost_map = {1: "$10k-$50k", 2: "$50k-$100k", 3: "$100k-$500k", 4: "$500k-$1M", 5: ">$1M"}
 
         # Timeline
         timeline_map = {
@@ -780,7 +784,7 @@ class DetectionFeasibilityAnalyzer:
             2: "3-6 months",
             3: "6-12 months",
             4: "1-2 years",
-            5: "2+ years"
+            5: "2+ years",
         }
 
         # Technical requirements
@@ -790,8 +794,8 @@ class DetectionFeasibilityAnalyzer:
             "magnetic_shielding": detector.cost_tier >= 3,
             "vibration_isolation": detector.detection_method
             in {DetectionMethod.INTERFEROMETRY, DetectionMethod.IMAGING},
-            "data_acquisition_rate": 1/optimal_params["integration_time"],
-            "storage_requirements": f"{required_shots * 100} MB"  # Rough estimate
+            "data_acquisition_rate": 1 / optimal_params["integration_time"],
+            "storage_requirements": f"{required_shots * 100} MB",  # Rough estimate
         }
 
         return {
@@ -801,13 +805,15 @@ class DetectionFeasibilityAnalyzer:
             "dominant_noise": "thermal" if detector.noise_temperature > 100 else "readout",
             "technical": technical,
             "cost": cost_map[detector.cost_tier],
-            "timeline": timeline_map[detector.cost_tier]
+            "timeline": timeline_map[detector.cost_tier],
         }
 
-    def _analyze_noise_breakdown(self,
-                               signal: SignalCharacteristics,
-                               detector: DetectorCharacteristics,
-                               plasma_params: Dict[str, float]) -> Dict[str, float]:
+    def _analyze_noise_breakdown(
+        self,
+        signal: SignalCharacteristics,
+        detector: DetectorCharacteristics,
+        plasma_params: Dict[str, float],
+    ) -> Dict[str, float]:
         """Analyze contribution of different noise sources"""
 
         f_center = signal.peak_frequency
@@ -838,7 +844,9 @@ class DetectionFeasibilityAnalyzer:
 
         # Apply efficiency and noise figure
         total_noise = sum(noise_sources.values())
-        adjusted_total = total_noise * (1 / detector.efficiency) * 10**(detector.noise_figure / 10)
+        adjusted_total = (
+            total_noise * (1 / detector.efficiency) * 10 ** (detector.noise_figure / 10)
+        )
 
         # Normalize to percentages
         if adjusted_total > 0:
@@ -853,19 +861,23 @@ class DetectionFeasibilityAnalyzer:
         alternatives = []
 
         if primary_method == DetectionMethod.RADIO_SPECTROSCOPY:
-            alternatives.extend([DetectionMethod.OPTICAL_SPECTROSCOPY, DetectionMethod.INTERFEROMETRY])
+            alternatives.extend(
+                [DetectionMethod.OPTICAL_SPECTROSCOPY, DetectionMethod.INTERFEROMETRY]
+            )
         elif primary_method == DetectionMethod.OPTICAL_SPECTROSCOPY:
             alternatives.extend([DetectionMethod.RADIO_SPECTROSCOPY, DetectionMethod.IMAGING])
         elif primary_method == DetectionMethod.INTERFEROMETRY:
             alternatives.extend([DetectionMethod.OPTICAL_SPECTROSCOPY, DetectionMethod.CORRELATION])
         elif primary_method == DetectionMethod.IMAGING:
-            alternatives.extend([DetectionMethod.OPTICAL_SPECTROSCOPY, DetectionMethod.PLASMA_DIAGNOSTICS])
+            alternatives.extend(
+                [DetectionMethod.OPTICAL_SPECTROSCOPY, DetectionMethod.PLASMA_DIAGNOSTICS]
+            )
 
         return alternatives[:3]  # Return top 3 alternatives
 
-    def generate_feasibility_report(self,
-                                  assessments: List[DetectionAssessment],
-                                  output_path: Optional[str] = None) -> str:
+    def generate_feasibility_report(
+        self, assessments: List[DetectionAssessment], output_path: Optional[str] = None
+    ) -> str:
         """Generate comprehensive feasibility report"""
 
         report_lines = []
@@ -878,16 +890,22 @@ class DetectionFeasibilityAnalyzer:
         # Summary table
         report_lines.append("## Detection Feasibility Summary")
         report_lines.append("")
-        report_lines.append("| Method | Detector | SNR | Feasibility | Detection Probability | Integration Time |")
-        report_lines.append("|--------|----------|-----|-------------|----------------------|------------------|")
+        report_lines.append(
+            "| Method | Detector | SNR | Feasibility | Detection Probability | Integration Time |"
+        )
+        report_lines.append(
+            "|--------|----------|-----|-------------|----------------------|------------------|"
+        )
 
         for assessment in assessments[:10]:  # Top 10 methods
-            report_lines.append(f"| {assessment.detection_method.value} | "
-                              f"{assessment.detector_type.value} | "
-                              f"{assessment.snr_optimal:.2f} | "
-                              f"{assessment.feasibility_level.value} | "
-                              f"{assessment.detection_probability:.1%} | "
-                              f"{assessment.optimal_integration_time:.2e} s |")
+            report_lines.append(
+                f"| {assessment.detection_method.value} | "
+                f"{assessment.detector_type.value} | "
+                f"{assessment.snr_optimal:.2f} | "
+                f"{assessment.feasibility_level.value} | "
+                f"{assessment.detection_probability:.1%} | "
+                f"{assessment.optimal_integration_time:.2e} s |"
+            )
 
         report_lines.append("")
 
@@ -896,19 +914,25 @@ class DetectionFeasibilityAnalyzer:
         report_lines.append("")
 
         for i, assessment in enumerate(assessments[:5]):  # Top 5 detailed
-            report_lines.append(f"### {i+1}. {assessment.detection_method.value} with {assessment.detector_type.value}")
+            report_lines.append(
+                f"### {i+1}. {assessment.detection_method.value} with {assessment.detector_type.value}"
+            )
             report_lines.append("")
             report_lines.append(f"**Feasibility Level:** {assessment.feasibility_level.value}")
             report_lines.append(f"**Optimal SNR:** {assessment.snr_optimal:.2f}")
-            report_lines.append(f"**Detection Probability:** {assessment.detection_probability:.1%} "
-                              f"(95% CI: {assessment.confidence_interval[0]:.1%} - {assessment.confidence_interval[1]:.1%})")
+            report_lines.append(
+                f"**Detection Probability:** {assessment.detection_probability:.1%} "
+                f"(95% CI: {assessment.confidence_interval[0]:.1%} - {assessment.confidence_interval[1]:.1%})"
+            )
             report_lines.append("")
 
             report_lines.append("**Optimal Parameters:**")
             report_lines.append(f"- Bandwidth: {assessment.optimal_bandwidth:.2e} Hz")
             report_lines.append(f"- Integration Time: {assessment.optimal_integration_time:.2e} s")
             report_lines.append(f"- Required Shots: {assessment.required_shots}")
-            report_lines.append(f"- Total Experiment Time: {assessment.total_experiment_time:.1f} hours")
+            report_lines.append(
+                f"- Total Experiment Time: {assessment.total_experiment_time:.1f} hours"
+            )
             report_lines.append("")
 
             report_lines.append("**Noise Breakdown:**")
@@ -936,22 +960,29 @@ class DetectionFeasibilityAnalyzer:
         report_lines.append("## Near-Term Achievable Detection Goals")
         report_lines.append("")
 
-        feasible_methods = [a for a in assessments if a.feasibility_level in
-                          [FeasibilityLevel.FEASIBLE, FeasibilityLevel.STRAIGHTFORWARD]]
+        feasible_methods = [
+            a
+            for a in assessments
+            if a.feasibility_level in [FeasibilityLevel.FEASIBLE, FeasibilityLevel.STRAIGHTFORWARD]
+        ]
 
         if feasible_methods:
             report_lines.append("### Immediately Feasible Detection Methods:")
             for method in feasible_methods:
-                report_lines.append(f"- **{method.detection_method.value}**: "
-                                  f"SNR {method.snr_optimal:.1f}, "
-                                  f"requires {method.required_shots} shots, "
-                                  f"estimated {method.cost_estimate}")
+                report_lines.append(
+                    f"- **{method.detection_method.value}**: "
+                    f"SNR {method.snr_optimal:.1f}, "
+                    f"requires {method.required_shots} shots, "
+                    f"estimated {method.cost_estimate}"
+                )
         else:
             report_lines.append("### Most Promising Detection Methods (requiring optimization):")
             for method in assessments[:3]:
-                report_lines.append(f"- **{method.detection_method.value}**: "
-                                  f"SNR {method.snr_optimal:.1f} (target: 5+), "
-                                  f"requires signal enhancement by factor {5/max(0.1, method.snr_optimal):.1f}")
+                report_lines.append(
+                    f"- **{method.detection_method.value}**: "
+                    f"SNR {method.snr_optimal:.1f} (target: 5+), "
+                    f"requires signal enhancement by factor {5/max(0.1, method.snr_optimal):.1f}"
+                )
 
         report_lines.append("")
 
@@ -960,7 +991,9 @@ class DetectionFeasibilityAnalyzer:
         report_lines.append("")
         report_lines.append("### Recommended ELI Facility Diagnostics:")
         report_lines.append("- **High-bandwidth heterodyne receivers** for microwave/THz detection")
-        report_lines.append("- **Optical spectrometers** with cryogenic CCDs for visible/IR detection")
+        report_lines.append(
+            "- **Optical spectrometers** with cryogenic CCDs for visible/IR detection"
+        )
         report_lines.append("- **Ultrafast streak cameras** for temporal resolution")
         report_lines.append("- **Interferometric diagnostics** for phase-sensitive detection")
         report_lines.append("")
@@ -979,8 +1012,12 @@ class DetectionFeasibilityAnalyzer:
         best_method = assessments[0] if assessments else None
 
         if best_method and best_method.snr_optimal >= 5:
-            report_lines.append("✅ **Detection is feasible** with current technology and ELI facilities.")
-            report_lines.append(f"**Recommended primary method:** {best_method.detection_method.value}")
+            report_lines.append(
+                "✅ **Detection is feasible** with current technology and ELI facilities."
+            )
+            report_lines.append(
+                f"**Recommended primary method:** {best_method.detection_method.value}"
+            )
             report_lines.append(f"**Expected detection timeline:** {best_method.timeline_estimate}")
         elif best_method and best_method.snr_optimal >= 1:
             report_lines.append("⚠️ **Detection is challenging but achievable** with optimization.")
@@ -989,7 +1026,9 @@ class DetectionFeasibilityAnalyzer:
             report_lines.append("- Signal averaging over multiple shots")
             report_lines.append("- Optimized plasma parameters for stronger signal")
         else:
-            report_lines.append("❌ **Detection is not currently feasible** with predicted signal levels.")
+            report_lines.append(
+                "❌ **Detection is not currently feasible** with predicted signal levels."
+            )
             report_lines.append("**Required breakthroughs:**")
             report_lines.append("- Significant signal enhancement (10-100×)")
             report_lines.append("- Revolutionary detector technology")
@@ -997,7 +1036,9 @@ class DetectionFeasibilityAnalyzer:
 
         report_lines.append("")
         report_lines.append("---")
-        report_lines.append("*Report generated by Analog Hawking Radiation Detection Feasibility Analyzer*")
+        report_lines.append(
+            "*Report generated by Analog Hawking Radiation Detection Feasibility Analyzer*"
+        )
 
         report = "\n".join(report_lines)
 
@@ -1009,10 +1050,12 @@ class DetectionFeasibilityAnalyzer:
 
 
 # Convenience functions for external use
-def create_signal_characteristics(hawking_temperature: float,
-                                 surface_gravity: float,
-                                 peak_frequency: float,
-                                 emitting_area: float = 1e-12) -> SignalCharacteristics:
+def create_signal_characteristics(
+    hawking_temperature: float,
+    surface_gravity: float,
+    peak_frequency: float,
+    emitting_area: float = 1e-12,
+) -> SignalCharacteristics:
     """Create signal characteristics from basic parameters"""
 
     # Calculate signal power using Stefan-Boltzmann-like law for Hawking radiation
@@ -1039,16 +1082,18 @@ def create_signal_characteristics(hawking_temperature: float,
         rise_time=1e-13,  # 0.1 ps
         repetition_rate=1.0,  # 1 Hz
         emitting_area=emitting_area,
-        angular_distribution="isotropic"
+        angular_distribution="isotropic",
     )
 
 
-def assess_detection_feasibility_simple(hawking_temperature: float,
-                                      surface_gravity: float,
-                                      peak_frequency: float,
-                                      plasma_temperature: float = 1e6,
-                                      plasma_density: float = 1e24,
-                                      emitting_area: float = 1e-12) -> List[DetectionAssessment]:
+def assess_detection_feasibility_simple(
+    hawking_temperature: float,
+    surface_gravity: float,
+    peak_frequency: float,
+    plasma_temperature: float = 1e6,
+    plasma_density: float = 1e24,
+    emitting_area: float = 1e-12,
+) -> List[DetectionAssessment]:
     """Simple interface for detection feasibility assessment"""
 
     analyzer = DetectionFeasibilityAnalyzer()
@@ -1057,9 +1102,6 @@ def assess_detection_feasibility_simple(hawking_temperature: float,
         hawking_temperature, surface_gravity, peak_frequency, emitting_area
     )
 
-    plasma_params = {
-        "temperature": plasma_temperature,
-        "density": plasma_density
-    }
+    plasma_params = {"temperature": plasma_temperature, "density": plasma_density}
 
     return analyzer.assess_detection_feasibility(signal, plasma_params)

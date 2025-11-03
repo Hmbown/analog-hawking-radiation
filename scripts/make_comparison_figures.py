@@ -69,9 +69,11 @@ def kappa_methods_comparison():
     ka = find_horizons_with_uncertainty(x, v, c, kappa_method="acoustic").kappa
     ke = find_horizons_with_uncertainty(x, v, c, kappa_method="acoustic_exact").kappa
     kl = find_horizons_with_uncertainty(x, v, c, kappa_method="legacy").kappa
-    vals = [float(ka[0]) if ka.size else 0.0,
-            float(ke[0]) if ke.size else 0.0,
-            float(kl[0]) if kl.size else 0.0]
+    vals = [
+        float(ka[0]) if ka.size else 0.0,
+        float(ke[0]) if ke.size else 0.0,
+        float(kl[0]) if kl.size else 0.0,
+    ]
     labels = ["acoustic", "acoustic_exact", "legacy"]
 
     plt.figure(figsize=(6, 4))
@@ -97,4 +99,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

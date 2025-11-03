@@ -16,10 +16,9 @@ def test_graybody_applied_once_matches_manual():
     # Build manual base PSD using B_nu scaled by A*Omega*eta
     kappa = 1e12
     A, Omega, eta = 1e-6, 0.05, 0.1
-    qft = QuantumFieldTheory(surface_gravity=kappa,
-                             emitting_area_m2=A,
-                             solid_angle_sr=Omega,
-                             coupling_efficiency=eta)
+    qft = QuantumFieldTheory(
+        surface_gravity=kappa, emitting_area_m2=A, solid_angle_sr=Omega, coupling_efficiency=eta
+    )
     freqs = np.logspace(6, 8, 100)  # 1 MHz .. 100 MHz
     omega = 2 * np.pi * freqs
 

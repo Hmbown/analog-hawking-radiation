@@ -32,14 +32,16 @@ def _choose_frequency_band(T_H: float) -> tuple[float, float]:
     return 1e12, 1e18
 
 
-def calculate_hawking_spectrum(kappa: float,
-                               n_points: int = 1200,
-                               graybody_profile: dict | None = None,
-                               emitting_area_m2: float | None = None,
-                               solid_angle_sr: float | None = None,
-                               coupling_efficiency: float = 1.0,
-                               graybody_method: str = "dimensionless",
-                               alpha_gray: float = 1.0) -> dict:
+def calculate_hawking_spectrum(
+    kappa: float,
+    n_points: int = 1200,
+    graybody_profile: dict | None = None,
+    emitting_area_m2: float | None = None,
+    solid_angle_sr: float | None = None,
+    coupling_efficiency: float = 1.0,
+    graybody_method: str = "dimensionless",
+    alpha_gray: float = 1.0,
+) -> dict:
     try:
         T_H = _temperature_from_kappa(float(kappa))
         f_min, f_max = _choose_frequency_band(T_H)
@@ -50,10 +52,12 @@ def calculate_hawking_spectrum(kappa: float,
         if solid_angle_sr is None:
             solid_angle_sr = 1.0
 
-        qft = QuantumFieldTheory(surface_gravity=float(kappa),
-                                 emitting_area_m2=emitting_area_m2,
-                                 solid_angle_sr=solid_angle_sr,
-                                 coupling_efficiency=coupling_efficiency)
+        qft = QuantumFieldTheory(
+            surface_gravity=float(kappa),
+            emitting_area_m2=emitting_area_m2,
+            solid_angle_sr=solid_angle_sr,
+            coupling_efficiency=coupling_efficiency,
+        )
         omega = 2 * np.pi * freqs
 
         transmission = None
@@ -62,7 +66,15 @@ def calculate_hawking_spectrum(kappa: float,
             x = np.asarray(graybody_profile["x"])
             velocity = np.asarray(graybody_profile["v"])
             sound_speed = np.asarray(graybody_profile["c_s"])
-            graybody = compute_graybody(x, velocity, sound_speed, freqs, method=graybody_method, kappa=float(kappa), alpha=float(alpha_gray))
+            graybody = compute_graybody(
+                x,
+                velocity,
+                sound_speed,
+                freqs,
+                method=graybody_method,
+                kappa=float(kappa),
+                alpha=float(alpha_gray),
+            )
             transmission = graybody.transmission
             uncertainties = graybody.uncertainties
 
@@ -72,28 +84,31 @@ def calculate_hawking_spectrum(kappa: float,
         peak_f = float(freqs[peak_idx]) if psd.size else float(0.0)
 
         result = {
-            'success': True,
-            'frequencies': freqs,
-            'power_spectrum': psd,
-            'peak_frequency': peak_f,
-            'temperature': T_H,
+            "success": True,
+            "frequencies": freqs,
+            "power_spectrum": psd,
+            "peak_frequency": peak_f,
+            "temperature": T_H,
         }
         if transmission is not None:
-            result['transmission'] = transmission
+            result["transmission"] = transmission
         if uncertainties is not None:
-            result['transmission_uncertainty'] = uncertainties
+            result["transmission_uncertainty"] = uncertainties
         return result
     except Exception as exc:  # pragma: no cover - robustness for scripts
         return {
-            'success': False,
-            'error': str(exc),
+            "success": False,
+            "error": str(exc),
         }
 
 
 if __name__ == "__main__":
     # Simple smoke test
     from scipy.constants import hbar, k, pi
+
     target_T = 0.01  # K (radio regime)
     kappa = 2 * pi * k * target_T / hbar
     out = calculate_hawking_spectrum(kappa)
-    print(f"success={out.get('success')} peak={out.get('peak_frequency', 0):.3e} Hz band=[{out['frequencies'][0]:.3e},{out['frequencies'][-1]:.3e}] Hz")
+    print(
+        f"success={out.get('success')} peak={out.get('peak_frequency', 0):.3e} Hz band=[{out['frequencies'][0]:.3e},{out['frequencies'][-1]:.3e}] Hz"
+    )

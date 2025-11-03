@@ -29,7 +29,7 @@ class AggregatedSpectrum:
 def aggregate_patchwise_graybody(
     grids: Sequence[np.ndarray],
     v_field: np.ndarray,  # (..., D)
-    c_s: np.ndarray,      # (...,)
+    c_s: np.ndarray,  # (...,)
     kappa_eff: float,
     *,
     graybody_method: str = "dimensionless",
@@ -64,6 +64,7 @@ def aggregate_patchwise_graybody(
 
     # Lazy import to avoid circular dependencies in tests
     from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
+
     try:
         from scripts.hawking_detection_experiment import calculate_hawking_spectrum  # type: ignore
     except Exception:
@@ -96,7 +97,7 @@ def aggregate_patchwise_graybody(
             v_line_vec = v_field[sl]  # shape (n_line, D)
             if v_line_vec.ndim != 2:
                 v_line_vec = np.reshape(v_line_vec, (-1, dims))
-            v_line = np.sqrt(np.sum(v_line_vec ** 2, axis=-1))
+            v_line = np.sqrt(np.sum(v_line_vec**2, axis=-1))
             cs_line = c_s[sl]
             if cs_line.ndim != 1:
                 cs_line = np.reshape(cs_line, (-1,))
@@ -117,7 +118,7 @@ def aggregate_patchwise_graybody(
                 v_line_vec = v_field[sl]
                 if v_line_vec.ndim != 2:
                     v_line_vec = np.reshape(v_line_vec, (-1, dims))
-                v_line = np.sqrt(np.sum(v_line_vec ** 2, axis=-1))
+                v_line = np.sqrt(np.sum(v_line_vec**2, axis=-1))
                 cs_line = c_s[sl]
                 if cs_line.ndim != 1:
                     cs_line = np.reshape(cs_line, (-1,))
@@ -222,7 +223,7 @@ class GraybodySpectrumND:
             # Avoid division by zero; return zeros for non-physical temperatures.
             return np.zeros_like(frequencies)
         freq = np.asarray(frequencies, dtype=float)
-        numerator = 2.0 * h * (freq ** 3) / (c ** 2)
+        numerator = 2.0 * h * (freq**3) / (c**2)
         exponent = h * freq / (k * temperature)
         with np.errstate(over="ignore", invalid="ignore"):
             denom = np.expm1(exponent)
@@ -230,7 +231,9 @@ class GraybodySpectrumND:
         return numerator / denom
 
     @staticmethod
-    def _dimensionless_transmission(frequencies: np.ndarray, kappa: float, alpha: float) -> np.ndarray:
+    def _dimensionless_transmission(
+        frequencies: np.ndarray, kappa: float, alpha: float
+    ) -> np.ndarray:
         """Dimensionless graybody transmission used in legacy code paths."""
         if kappa is None or not np.isfinite(kappa) or kappa <= 0.0:
             kappa_eff = 1.0
@@ -242,7 +245,7 @@ class GraybodySpectrumND:
         if omega_c <= 0.0:
             omega_c = 1.0
         r = omega / omega_c
-        transmission = (r ** 2) / (1.0 + r ** 2)
+        transmission = (r**2) / (1.0 + r**2)
         return np.clip(transmission, 0.0, 1.0)
 
     def calculate_spectrum(
@@ -263,7 +266,9 @@ class GraybodySpectrumND:
         coupling = float(params.get("coupling_efficiency", params.get("coupling", 1.0)))
 
         if method not in {"dimensionless", "wkb", "acoustic_wkb"}:
-            warnings.warn(f"Unknown graybody method '{method}', using dimensionless fallback.", RuntimeWarning)
+            warnings.warn(
+                f"Unknown graybody method '{method}', using dimensionless fallback.", RuntimeWarning
+            )
             method = "dimensionless"
 
         if method in {"wkb", "acoustic_wkb"}:

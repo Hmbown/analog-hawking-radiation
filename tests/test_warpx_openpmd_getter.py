@@ -10,33 +10,32 @@ def test_openpmd_getter_reads_series(tmp_path):
         import h5py  # type: ignore
     except Exception:
         import pytest
+
         pytest.skip("h5py not available for testing")
     data = np.linspace(0.0, 1.0, 32)
     h5path = str(tmp_path / "sample.h5")
-    with h5py.File(h5path, 'w') as f:
-        f.create_dataset('/data', data=data)
+    with h5py.File(h5path, "w") as f:
+        f.create_dataset("/data", data=data)
 
     grid = np.linspace(0.0, 1.0, data.size)
     backend = WarpXBackend()
-    backend.configure({
-        "mock": True,
-        "grid": grid,
-        "moment_getters": {
-            "electrons": {
-                "bulk_velocity": {"type": "mock_data", "data": np.zeros_like(grid)},
-                "sound_speed": {"type": "mock_data", "data": np.full_like(grid, 0.5)},
-                "density": {"type": "mock_data", "data": np.full_like(grid, 1.0)},
-                "temperature": {"type": "mock_data", "data": np.full_like(grid, 1.0)},
-            }
-        },
-        "field_getters": {
-            "vel": {
-                "type": "openpmd",
-                "series_path": h5path,
-                "dataset": "/data"
-            }
+    backend.configure(
+        {
+            "mock": True,
+            "grid": grid,
+            "moment_getters": {
+                "electrons": {
+                    "bulk_velocity": {"type": "mock_data", "data": np.zeros_like(grid)},
+                    "sound_speed": {"type": "mock_data", "data": np.full_like(grid, 0.5)},
+                    "density": {"type": "mock_data", "data": np.full_like(grid, 1.0)},
+                    "temperature": {"type": "mock_data", "data": np.full_like(grid, 1.0)},
+                }
+            },
+            "field_getters": {
+                "vel": {"type": "openpmd", "series_path": h5path, "dataset": "/data"}
+            },
         }
-    })
+    )
 
     # Run one step to populate observables
     state = backend.step(0.0)
@@ -62,21 +61,25 @@ def test_horizons_from_openpmd_data():
 
     grid = x
     backend = WarpXBackend()
-    backend.configure({
-        "mock": True,
-        "grid": grid,
-        "moment_getters": {
-            "electrons": {
-                "bulk_velocity": {"type": "mock_data", "data": v},
-                "sound_speed": {"type": "mock_data", "data": cs},
-                "density": {"type": "mock_data", "data": density},
-                "temperature": {"type": "mock_data", "data": T_e},
-            }
-        },
-    })
+    backend.configure(
+        {
+            "mock": True,
+            "grid": grid,
+            "moment_getters": {
+                "electrons": {
+                    "bulk_velocity": {"type": "mock_data", "data": v},
+                    "sound_speed": {"type": "mock_data", "data": cs},
+                    "density": {"type": "mock_data", "data": density},
+                    "temperature": {"type": "mock_data", "data": T_e},
+                }
+            },
+        }
+    )
 
     state = backend.step(0.0)
-    horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed, kappa_method="acoustic_exact")
+    horizons = find_horizons_with_uncertainty(
+        state.grid, state.velocity, state.sound_speed, kappa_method="acoustic_exact"
+    )
 
     # Analytic: horizon where v = cs =0.5, 0.6x = 0.5 => x = 0.5 / 0.6 = 0.8333, kappa = |dv/dx| =0.6
     expected_pos = 0.8333

@@ -52,7 +52,7 @@ class GlowMeritFunction:
             return 0.0
 
         # Convert the mean kappa to an expected Hawking temperature
-        mean_kappa = kappa_stats['mean']
+        mean_kappa = kappa_stats["mean"]
         expected_T_H = self.snr_model.kappa_to_hawking_temperature(mean_kappa)
 
         # Calculate the SNR for this expected temperature

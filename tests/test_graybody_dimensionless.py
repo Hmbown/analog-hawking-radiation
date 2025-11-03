@@ -16,4 +16,3 @@ def test_graybody_dimensionless_monotonic_in_frequency_ratio():
     assert np.all(np.diff(T) >= -1e-12)
     # Low-frequency suppression and high-frequency transparency
     assert T[0] < 0.1 and T[-1] > 0.9
-

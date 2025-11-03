@@ -66,9 +66,13 @@ def _squeeze_1d(data) -> np.ndarray:
     return arr
 
 
-def _read_openpmd_record(iteration, mesh: str, record: str, component: Optional[str]) -> Tuple[np.ndarray, Mapping[str, Any]]:
+def _read_openpmd_record(
+    iteration, mesh: str, record: str, component: Optional[str]
+) -> Tuple[np.ndarray, Mapping[str, Any]]:
     if mesh not in iteration.meshes:
-        raise KeyError(f"mesh '{mesh}' not found; available meshes: {list(iteration.meshes.keys())}")
+        raise KeyError(
+            f"mesh '{mesh}' not found; available meshes: {list(iteration.meshes.keys())}"
+        )
     mesh_obj = iteration.meshes[mesh]
     if record not in mesh_obj:
         raise KeyError(f"record '{record}' not found in mesh '{mesh}'")
@@ -111,7 +115,9 @@ def _construct_grid(length: int, attrs: Mapping[str, Any]) -> np.ndarray:
 
 def _read_h5_dataset(path: str, dataset: str) -> np.ndarray:
     if h5py is None:
-        raise RuntimeError("h5py is required to read openPMD datasets without the openPMD-api package")
+        raise RuntimeError(
+            "h5py is required to read openPMD datasets without the openPMD-api package"
+        )
     with h5py.File(path, "r") as handle:
         if dataset not in handle:
             raise KeyError(f"dataset '{dataset}' not found in file '{path}'")
@@ -125,7 +131,7 @@ def _compute_uncertainty(arr: np.ndarray, window: int = 3) -> np.ndarray:
     extended = np.pad(arr, pad_width=pad, mode="edge")
     local_std = []
     for i in range(arr.size):
-        segment = extended[i:i + window]
+        segment = extended[i : i + window]
         local_std.append(float(np.std(segment)))
     return np.asarray(local_std)
 
@@ -207,7 +213,11 @@ def from_openpmd(
     temperature = None
     metadata: Dict[str, Any] = {"series_uri": series_uri}
 
-    if openpmd is not None and ("%T" in series_uri or os.path.isdir(os.path.dirname(series_uri)) or os.path.isdir(series_uri)):
+    if openpmd is not None and (
+        "%T" in series_uri
+        or os.path.isdir(os.path.dirname(series_uri))
+        or os.path.isdir(series_uri)
+    ):
         access_uri = series_uri
         if "%T" not in access_uri and os.path.isdir(access_uri):
             access_uri = os.path.join(access_uri, "openpmd_%T.h5")
@@ -215,22 +225,30 @@ def from_openpmd(
         try:
             idx = _resolve_iteration(series, iteration_index, latest=(iteration_label != "first"))
             iteration = series.iterations[idx]
-            velocity, v_attrs = _read_openpmd_record(iteration, v_src["mesh"], v_src["record"], v_src.get("component"))
+            velocity, v_attrs = _read_openpmd_record(
+                iteration, v_src["mesh"], v_src["record"], v_src.get("component")
+            )
             grid = _construct_grid(len(velocity), v_attrs)
             metadata["iteration"] = idx
             metadata["velocity_attrs"] = dict(v_attrs)
             try:
-                sound_speed_arr, cs_attrs = _read_openpmd_record(iteration, cs_src["mesh"], cs_src["record"], cs_src.get("component"))
+                sound_speed_arr, cs_attrs = _read_openpmd_record(
+                    iteration, cs_src["mesh"], cs_src["record"], cs_src.get("component")
+                )
                 metadata["sound_speed_attrs"] = dict(cs_attrs)
             except KeyError:
                 sound_speed_arr = None
             try:
-                density, ne_attrs = _read_openpmd_record(iteration, ne_src["mesh"], ne_src["record"], ne_src.get("component"))
+                density, ne_attrs = _read_openpmd_record(
+                    iteration, ne_src["mesh"], ne_src["record"], ne_src.get("component")
+                )
                 metadata["density_attrs"] = dict(ne_attrs)
             except KeyError:
                 density = None
             try:
-                temperature, te_attrs = _read_openpmd_record(iteration, te_src["mesh"], te_src["record"], te_src.get("component"))
+                temperature, te_attrs = _read_openpmd_record(
+                    iteration, te_src["mesh"], te_src["record"], te_src.get("component")
+                )
                 metadata["temperature_attrs"] = dict(te_attrs)
             except KeyError:
                 temperature = None

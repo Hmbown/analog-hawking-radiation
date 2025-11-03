@@ -8,12 +8,12 @@ import numpy as np
 
 
 def main() -> int:
-    cases_path = Path('results') / 'horizon_success_cases.json'
-    out_path = Path('docs') / 'Successful_Configurations.md'
+    cases_path = Path("results") / "horizon_success_cases.json"
+    out_path = Path("docs") / "Successful_Configurations.md"
     if not cases_path.exists():
         print(f"No success cases at {cases_path}")
         return 1
-    with open(cases_path, 'r') as f:
+    with open(cases_path, "r") as f:
         cases = json.load(f)
     if not cases:
         content = """# Successful Configurations
@@ -25,18 +25,18 @@ No horizon-forming configurations were found in the latest sweep.
         return 0
 
     # Sort by kappa_max desc
-    cases = [c for c in cases if 'kappa_max' in c]
-    cases.sort(key=lambda c: float(c['kappa_max']), reverse=True)
+    cases = [c for c in cases if "kappa_max" in c]
+    cases.sort(key=lambda c: float(c["kappa_max"]), reverse=True)
     top = cases[:10]
 
     def fmt_case(c):
         return {
-            'n_cm3': float(c.get('input_density_cm3', np.nan)),
-            'I_Wcm2': float(c.get('input_intensity_Wcm2', np.nan)),
-            'T_K': float(c.get('input_temperature_K', np.nan)),
-            'B_T': float(c.get('input_B_T', np.nan)),
-            'kappa_max': float(c.get('kappa_max', np.nan)),
-            't5sigma_s': c.get('t5sigma_s', None),
+            "n_cm3": float(c.get("input_density_cm3", np.nan)),
+            "I_Wcm2": float(c.get("input_intensity_Wcm2", np.nan)),
+            "T_K": float(c.get("input_temperature_K", np.nan)),
+            "B_T": float(c.get("input_B_T", np.nan)),
+            "kappa_max": float(c.get("kappa_max", np.nan)),
+            "t5sigma_s": c.get("t5sigma_s", None),
         }
 
     rows = [fmt_case(c) for c in top]
@@ -55,8 +55,14 @@ No horizon-forming configurations were found in the latest sweep.
         "|---:|---:|---:|---:|---:|---:|",
     ]
     for r in rows:
-        t_str = f"{r['t5sigma_s']:.3e}" if isinstance(r['t5sigma_s'], (int, float)) else str(r['t5sigma_s'])
-        lines.append(f"| {r['n_cm3']:.3e} | {r['I_Wcm2']:.3e} | {r['T_K']:.3e} | {r['B_T']:.2f} | {r['kappa_max']:.3e} | {t_str} |")
+        t_str = (
+            f"{r['t5sigma_s']:.3e}"
+            if isinstance(r["t5sigma_s"], (int, float))
+            else str(r["t5sigma_s"])
+        )
+        lines.append(
+            f"| {r['n_cm3']:.3e} | {r['I_Wcm2']:.3e} | {r['T_K']:.3e} | {r['B_T']:.2f} | {r['kappa_max']:.3e} | {t_str} |"
+        )
 
     lines += [
         "",
@@ -72,5 +78,5 @@ No horizon-forming configurations were found in the latest sweep.
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())

@@ -29,11 +29,23 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
-def build_profile(dim: int, nx: int, ny: int, nz: int, x0: float, Lx: float, Ly: float, Lz: float, v0: float, cs0: float, sigma: float):
+def build_profile(
+    dim: int,
+    nx: int,
+    ny: int,
+    nz: int,
+    x0: float,
+    Lx: float,
+    Ly: float,
+    Lz: float,
+    v0: float,
+    cs0: float,
+    sigma: float,
+):
     if dim == 2:
         x = np.linspace(0.0, Lx, nx)
         y = np.linspace(0.0, Ly, ny)
-        X, Y = np.meshgrid(x, y, indexing='ij')
+        X, Y = np.meshgrid(x, y, indexing="ij")
         vx = v0 * np.tanh((X - x0) / sigma)
         vy = np.zeros_like(vx)
         v = np.stack([vx, vy], axis=-1)
@@ -72,7 +84,17 @@ def main() -> int:
     args = p.parse_args()
 
     grids, v, cs = build_profile(
-        args.dim, args.nx, args.ny, args.nz, args.x0, args.Lx, args.Ly, args.Lz, args.v0, args.cs0, args.sigma
+        args.dim,
+        args.nx,
+        args.ny,
+        args.nz,
+        args.x0,
+        args.Lx,
+        args.Ly,
+        args.Lz,
+        args.v0,
+        args.cs0,
+        args.sigma,
     )
     surf = find_horizon_surface_nd(grids, v, cs, scan_axis=args.scan_axis)
 
@@ -118,4 +140,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

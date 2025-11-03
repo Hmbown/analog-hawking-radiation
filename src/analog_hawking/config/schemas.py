@@ -22,6 +22,7 @@ try:
         results_dir: str = Field("results/quickstart", description="Output directory")
 
 except Exception:  # pragma: no cover - allow import when pydantic not installed
+
     @dataclass
     class QuickstartConfig:  # type: ignore
         nx: int = 1000

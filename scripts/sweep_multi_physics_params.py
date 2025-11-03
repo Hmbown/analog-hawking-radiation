@@ -26,7 +26,7 @@ def run_sweep(param_ranges: dict[str, list[float]], n_steps: int = 10, mock: boo
     """Run parameter sweep over multi-physics configs."""
     results = []
     total_configs = np.prod([len(vals) for vals in param_ranges.values()])
-    
+
     with tqdm(total=total_configs, desc="Sweeping params") as pbar:
         for config_params in itertools.product(*(param_ranges[k] for k in param_ranges)):
             params = dict(zip(param_ranges.keys(), config_params))
@@ -45,38 +45,43 @@ def run_sweep(param_ranges: dict[str, list[float]], n_steps: int = 10, mock: boo
                 "species": [{"name": "electrons", "charge": -1.6e-19, "mass": 9.1e-31}],
                 "grid": np.linspace(0, 1e-4, 100),
                 "field_getters": {"electric_field": {"type": "mock_data", "data": np.zeros(100)}},
-                "moment_getters": {"electrons": {"density": {"type": "mock_data", "data": np.full(100, params["plasma_density"])}}},
+                "moment_getters": {
+                    "electrons": {
+                        "density": {
+                            "type": "mock_data",
+                            "data": np.full(100, params["plasma_density"]),
+                        }
+                    }
+                },
             }
-            
+
             backend = WarpXBackend()
             backend.configure(run_config)
-            
+
             # Run simulation steps
             state = backend.step(1e-15)  # dt ~1 fs
             for _ in range(n_steps - 1):
                 state = backend.step(1e-15)
-            
+
             # Compute metrics using nonlinear solver
             solver = NonlinearPlasmaSolver(run_config["nonlinear_config"])
             enhanced_obs = solver.solve(state.observables)
-            
+
             # Universality R² (PSD collapse to blackbody)
             r2 = enhanced_obs.get("universality_r2", 0.0)
-            
+
             # Kappa stability <3%
-            horizons = find_horizons_with_uncertainty(
-                state.grid, state.velocity, state.sound_speed
-            )
+            horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed)
             kappa_mean = np.mean(horizons.kappa) if horizons.kappa.size > 0 else 1.0
             kappa_std = np.std(horizons.kappa) if horizons.kappa.size > 1 else 0.0
             kappa_stability = (kappa_std / kappa_mean) if kappa_mean > 0 else 0.0
-            
+
             # t_5σ <1s (simplified from SNR)
             t_5sigma = enhanced_obs.get("t_5sigma", 1.0)
-            
+
             # Check criteria
             meets_criteria = (r2 > 0.98) and (kappa_stability < 0.03) and (t_5sigma < 1.0)
-            
+
             result = {
                 **params,
                 "r2": r2,
@@ -88,13 +93,15 @@ def run_sweep(param_ranges: dict[str, list[float]], n_steps: int = 10, mock: boo
             }
             results.append(result)
             pbar.update(1)
-            
+
             backend.shutdown()
-    
+
     # Summary
     success_rate = np.mean([r["meets_criteria"] for r in results])
-    print(f"Success rate: {success_rate:.2%} ({success_rate * len(results):.0f}/{len(results)} configs meet criteria)")
-    
+    print(
+        f"Success rate: {success_rate:.2%} ({success_rate * len(results):.0f}/{len(results)} configs meet criteria)"
+    )
+
     return {"results": results, "success_rate": float(success_rate), "param_ranges": param_ranges}
 
 
@@ -107,21 +114,23 @@ def main() -> int:
         "qft_modes": [5, 10, 15],
         "kappa_enhancement": [10.0, 50.0, 100.0],
     }
-    
+
     output_dir = Path("results/phase3_sweeps")
     output_dir.mkdir(exist_ok=True)
-    
+
     sweep_results = run_sweep(param_ranges, n_steps=5, mock=True)  # Short run for desktop
-    
+
     # Save results
     with open(output_dir / "sweep_results.json", "w") as f:
         json.dump(sweep_results, f, indent=2, default=str)
-    
+
     print(f"Results saved to {output_dir / 'sweep_results.json'}")
     print(f"Achieved R²>0.98 in {np.mean([r['r2'] > 0.98 for r in sweep_results['results']]):.2%}")
-    print(f"κ stability <3% in {np.mean([r['kappa_stability'] < 0.03 for r in sweep_results['results']]):.2%}")
+    print(
+        f"κ stability <3% in {np.mean([r['kappa_stability'] < 0.03 for r in sweep_results['results']]):.2%}"
+    )
     print(f"t_{{5σ}} <1s in {np.mean([r['t_5sigma'] < 1.0 for r in sweep_results['results']]):.2%}")
-    
+
     return 0
 
 

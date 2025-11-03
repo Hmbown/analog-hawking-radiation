@@ -59,5 +59,3 @@ Recommendation: Integrate WarpX first due to permissive license, mature Python A
 - **Post-Processing Pipeline**:
   - Automate spectral fitting, entropy estimation, and correlation analysis within `scripts/`.
   - Maintain provenance logs linking run configuration, backend version, and diagnostic results.
-
-

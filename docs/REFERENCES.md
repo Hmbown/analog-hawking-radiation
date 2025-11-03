@@ -1,6 +1,6 @@
 # References
 
-> **Status ✅** Curated reference list for validated and experimental modules  
+> **Status ✅** Curated reference list for validated and experimental modules
 > **Navigate:** [Docs Index](index.md) · [AnaBHEL Comparison](AnaBHEL_Comparison.md)
 
 This repository draws on foundational literature in analog gravity, plasma physics, black hole radiation, and radiometry. Key references are listed for context and further reading.
@@ -24,7 +24,7 @@ This repository draws on foundational literature in analog gravity, plasma physi
 - **Chen, P., & Mourou, G. (2017). Accelerating plasma mirrors to investigate the black hole information loss paradox. Physical Review Letters, 118(4), 045001. doi:10.1103/PhysRevLett.118.045001** - *Foundational plasma mirror acceleration theory*
 - **Chen, P., Besancon, M., Fukuda, Y., Glicenstein, J.-F., Horan, D., et al. (2021). Proposal for a laboratory test of the black hole information loss paradox. Classical and Quantum Gravity, 38(19), 195025. doi:10.1088/1361-6382/ac1bf9**
 
-## Optical & Laser-Based Analog Systems  
+## Optical & Laser-Based Analog Systems
 
 - **Faccio, D., & Wright, E. M. (2013). Nonlinear dynamics and quantum phenomena in optical fibers. In P. Chamorro-Posada & F. Fraile-Peláez (Eds.), Nonlinear Optical Phenomena in Fibers (pp. 39-62). Academic Press.** - *Bridge between fluid and laser-based analog systems*
 - Belgiorno, F., Cacciatori, S. L., Clerici, M., Gorini, V., Ortenzi, G., Rizzi, L., ... & Faccio, D. (2010). Hawking radiation from ultrashort laser pulse filaments. Physical Review Letters, 105(20), 203901. doi:10.1103/PhysRevLett.105.203901

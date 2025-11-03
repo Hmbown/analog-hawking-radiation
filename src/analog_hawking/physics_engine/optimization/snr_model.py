@@ -62,6 +62,6 @@ class RadioSNRModel:
         """
         if kappa <= 0:
             return 0.0
-            
+
         T_H = (hbar * kappa) / (2 * np.pi * k)
         return T_H

@@ -16,7 +16,7 @@ import warnings
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 import numpy as np
 import pandas as pd
@@ -41,7 +41,7 @@ class ELICompliantParameterGenerator:
                 "alps": ELIFacility.ELI_ALPS,
                 "eli-beamlines": ELIFacility.ELI_BEAMLINES,
                 "eli-np": ELIFacility.ELI_NP,
-                "eli-alps": ELIFacility.ELI_ALPS
+                "eli-alps": ELIFacility.ELI_ALPS,
             }
 
             if facility.lower() in facility_map:
@@ -60,25 +60,25 @@ class ELICompliantParameterGenerator:
         base_ranges = {
             # Additional physics parameters
             "plasma_density": {
-                "min": 1e23,   # Optimal for sonic horizon formation
-                "max": 1e25,   # Solid density regime
-                "log_scale": True
+                "min": 1e23,  # Optimal for sonic horizon formation
+                "max": 1e25,  # Solid density regime
+                "log_scale": True,
             },
             "magnetic_field": {
-                "min": 0.0,    # No field baseline
-                "max": 50.0,   # Realistic laboratory fields
-                "log_scale": False
+                "min": 0.0,  # No field baseline
+                "max": 50.0,  # Realistic laboratory fields
+                "log_scale": False,
             },
             "temperature": {
-                "min": 1e3,    # Cold plasma start
-                "max": 1e5,    # Warm plasma
-                "log_scale": True
+                "min": 1e3,  # Cold plasma start
+                "max": 1e5,  # Warm plasma
+                "log_scale": True,
             },
             "grid_size": {
-                "min": 20,     # Minimum for physics accuracy
-                "max": 100,    # Maximum for computational efficiency
-                "log_scale": False
-            }
+                "min": 20,  # Minimum for physics accuracy
+                "max": 100,  # Maximum for computational efficiency
+                "log_scale": False,
+            },
         }
 
         if self.target_facility:
@@ -87,54 +87,55 @@ class ELICompliantParameterGenerator:
             facility_ranges = {
                 "laser_intensity": {
                     "min": facility_config["max_intensity_W_cm2"] / 1e4 * 0.01,  # 1% of max
-                    "max": facility_config["max_intensity_W_cm2"] / 1e4 * 0.8,    # 80% of max
-                    "log_scale": True
+                    "max": facility_config["max_intensity_W_cm2"] / 1e4 * 0.8,  # 80% of max
+                    "log_scale": True,
                 },
                 "wavelength": {
                     "min": facility_config["wavelength_range_nm"][0],
                     "max": facility_config["wavelength_range_nm"][1],
-                    "log_scale": False
+                    "log_scale": False,
                 },
                 "pulse_duration": {
                     "min": facility_config["pulse_duration_range_fs"][0],
                     "max": facility_config["pulse_duration_range_fs"][1],
-                    "log_scale": False
+                    "log_scale": False,
                 },
                 "repetition_rate": {
                     "min": facility_config["repetition_rate_limits_Hz"][0],
                     "max": facility_config["repetition_rate_limits_Hz"][1],
-                    "log_scale": True
-                }
+                    "log_scale": True,
+                },
             }
             return {**facility_ranges, **base_ranges}
         else:
             # Unified optimal ranges for analog Hawking experiments
             unified_ranges = {
                 "laser_intensity": {
-                    "min": 1e19,   # Conservative minimum for plasma mirror formation
-                    "max": 1e22,   # Well within ELI capabilities
-                    "log_scale": True
+                    "min": 1e19,  # Conservative minimum for plasma mirror formation
+                    "max": 1e22,  # Well within ELI capabilities
+                    "log_scale": True,
                 },
                 "wavelength": {
-                    "min": 800,    # Ti:Sapphire standard
-                    "max": 810,    # Small range for compatibility
-                    "log_scale": False
+                    "min": 800,  # Ti:Sapphire standard
+                    "max": 810,  # Small range for compatibility
+                    "log_scale": False,
                 },
                 "pulse_duration": {
-                    "min": 100,    # Good balance for intensity and temporal resolution
-                    "max": 200,    # Compatible with 10 PW systems
-                    "log_scale": False
+                    "min": 100,  # Good balance for intensity and temporal resolution
+                    "max": 200,  # Compatible with 10 PW systems
+                    "log_scale": False,
                 },
                 "repetition_rate": {
-                    "min": 0.1,    # Balance data collection and intensity
-                    "max": 10.0,   # High rep rate for good statistics
-                    "log_scale": True
-                }
+                    "min": 0.1,  # Balance data collection and intensity
+                    "max": 10.0,  # High rep rate for good statistics
+                    "log_scale": True,
+                },
             }
             return {**unified_ranges, **base_ranges}
 
-    def generate_parameter_set(self, n_samples: int = 100,
-                             design_type: str = "sobol") -> pd.DataFrame:
+    def generate_parameter_set(
+        self, n_samples: int = 100, design_type: str = "sobol"
+    ) -> pd.DataFrame:
         """Generate ELI-compliant parameter sets"""
 
         print(f"🎯 Generating {n_samples} ELI-compliant parameter sets...")
@@ -188,12 +189,14 @@ class ELICompliantParameterGenerator:
                 intensity_W_m2 / 1e4,  # Convert to W/cm²
                 wavelength_nm,
                 pulse_duration_fs,
-                self.target_facility
+                self.target_facility,
             )
 
             df.loc[idx, "eli_feasibility_score"] = feasibility["score"]
             df.loc[idx, "best_eli_facility"] = feasibility.get("facility", "Unknown")
-            df.loc[idx, "eli_compatible_systems"] = ",".join(feasibility.get("all_compatible_systems", []))
+            df.loc[idx, "eli_compatible_systems"] = ",".join(
+                feasibility.get("all_compatible_systems", [])
+            )
             df.loc[idx, "intensity_margin"] = feasibility.get("intensity_margin", 1.0)
 
         # Filter out infeasible configurations
@@ -307,10 +310,12 @@ class ELICompliantParameterGenerator:
 
         print("📊 Top 10 configurations by experimental feasibility:")
         for i, (idx, row) in enumerate(ranked_df.head(10).iterrows(), 1):
-            print(f"   {i:2d}. Score: {row['experimental_feasibility_score']:.3f} | "
-                  f"Facility: {row['best_eli_facility']} | "
-                  f"I: {row['laser_intensity']:.1e} W/m² | "
-                  f"a₀: {row['normalized_vector_potential']:.1f}")
+            print(
+                f"   {i:2d}. Score: {row['experimental_feasibility_score']:.3f} | "
+                f"Facility: {row['best_eli_facility']} | "
+                f"I: {row['laser_intensity']:.1e} W/m² | "
+                f"a₀: {row['normalized_vector_potential']:.1f}"
+            )
 
         return ranked_df
 
@@ -340,39 +345,43 @@ class ELICompliantParameterGenerator:
                     "plasma_density_m3": float(row["plasma_density"]),
                     "magnetic_field_T": float(row["magnetic_field"]),
                     "temperature_K": float(row["temperature"]),
-                    "grid_size": int(row["grid_size"])
+                    "grid_size": int(row["grid_size"]),
                 },
                 "eli_assessment": {
                     "feasibility_score": float(row["eli_feasibility_score"]),
                     "best_facility": str(row["best_eli_facility"]),
                     "compatible_systems": str(row["eli_compatible_systems"]),
-                    "intensity_margin": float(row["intensity_margin"])
+                    "intensity_margin": float(row["intensity_margin"]),
                 },
                 "physics_metrics": {
                     "normalized_vector_potential": float(row["normalized_vector_potential"]),
                     "plasma_frequency_Hz": float(row["plasma_frequency_Hz"]),
                     "density_overcritical_ratio": float(row["density_overcritical_ratio"]),
                     "sound_speed_m_s": float(row["sound_speed_m_s"]),
-                    "horizon_formation_potential": float(row["horizon_formation_potential"])
+                    "horizon_formation_potential": float(row["horizon_formation_potential"]),
                 },
-                "experimental_score": float(row["experimental_feasibility_score"])
+                "experimental_score": float(row["experimental_feasibility_score"]),
             }
             recommendations.append(config)
 
         return {
-            "facility_target": self.target_facility.value if self.target_facility else "all_facilities",
+            "facility_target": (
+                self.target_facility.value if self.target_facility else "all_facilities"
+            ),
             "total_configurations": len(recommendations),
             "parameter_ranges_used": self.parameter_ranges,
             "configurations": recommendations,
             "summary_statistics": {
                 "avg_feasibility_score": float(top_configs["eli_feasibility_score"].mean()),
-                "avg_experimental_score": float(top_configs["experimental_feasibility_score"].mean()),
+                "avg_experimental_score": float(
+                    top_configs["experimental_feasibility_score"].mean()
+                ),
                 "intensity_range": [
                     float(top_configs["laser_intensity"].min()),
-                    float(top_configs["laser_intensity"].max())
+                    float(top_configs["laser_intensity"].max()),
                 ],
-                "facility_distribution": top_configs["best_eli_facility"].value_counts().to_dict()
-            }
+                "facility_distribution": top_configs["best_eli_facility"].value_counts().to_dict(),
+            },
         }
 
 
@@ -385,24 +394,19 @@ def main():
     parser.add_argument(
         "--facility",
         choices=["beamlines", "np", "alps"],
-        help="Target ELI facility (beamlines=ELI-Beamlines, np=ELI-NP, alps=ELI-ALPS)"
+        help="Target ELI facility (beamlines=ELI-Beamlines, np=ELI-NP, alps=ELI-ALPS)",
     )
     parser.add_argument(
-        "--n-configs",
-        type=int,
-        default=20,
-        help="Number of optimized configurations to generate"
+        "--n-configs", type=int, default=20, help="Number of optimized configurations to generate"
     )
     parser.add_argument(
         "--output",
         type=str,
         default="eli_compliant_configurations.json",
-        help="Output file for configurations"
+        help="Output file for configurations",
     )
     parser.add_argument(
-        "--csv-output",
-        type=str,
-        help="Optional CSV output for detailed parameter sets"
+        "--csv-output", type=str, help="Optional CSV output for detailed parameter sets"
     )
 
     args = parser.parse_args()
@@ -417,7 +421,7 @@ def main():
     results = generator.generate_optimized_configurations(n_top=args.n_configs)
 
     # Save results
-    with open(args.output, 'w') as f:
+    with open(args.output, "w") as f:
         json.dump(results, f, indent=2)
     print(f"\n💾 Configurations saved to: {args.output}")
 
@@ -426,8 +430,12 @@ def main():
         # Convert configurations to DataFrame
         config_data = []
         for config in results["configurations"]:
-            row = {**config["parameters"], **config["eli_assessment"],
-                   **config["physics_metrics"], "experimental_score": config["experimental_score"]}
+            row = {
+                **config["parameters"],
+                **config["eli_assessment"],
+                **config["physics_metrics"],
+                "experimental_score": config["experimental_score"],
+            }
             config_data.append(row)
 
         df = pd.DataFrame(config_data)
@@ -438,13 +446,19 @@ def main():
     print("\n📋 GENERATION SUMMARY:")
     print(f"   Target facility: {results['facility_target']}")
     print(f"   Configurations generated: {results['total_configurations']}")
-    print(f"   Average ELI feasibility: {results['summary_statistics']['avg_feasibility_score']:.3f}")
-    print(f"   Average experimental score: {results['summary_statistics']['avg_experimental_score']:.3f}")
-    print(f"   Intensity range: {results['summary_statistics']['intensity_range'][0]:.1e} - "
-          f"{results['summary_statistics']['intensity_range'][1]:.1e} W/m²")
+    print(
+        f"   Average ELI feasibility: {results['summary_statistics']['avg_feasibility_score']:.3f}"
+    )
+    print(
+        f"   Average experimental score: {results['summary_statistics']['avg_experimental_score']:.3f}"
+    )
+    print(
+        f"   Intensity range: {results['summary_statistics']['intensity_range'][0]:.1e} - "
+        f"{results['summary_statistics']['intensity_range'][1]:.1e} W/m²"
+    )
 
     print("\n🏢 FACILITY DISTRIBUTION:")
-    for facility, count in results['summary_statistics']['facility_distribution'].items():
+    for facility, count in results["summary_statistics"]["facility_distribution"].items():
         print(f"   {facility}: {count} configurations")
 
     return 0

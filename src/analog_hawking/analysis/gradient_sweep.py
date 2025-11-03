@@ -59,7 +59,9 @@ class GradientCatastropheDetector:
 
         velocity = simulation_data.get("velocity", None)
         if velocity is not None:
-            max_v = float(np.max(np.abs(velocity))) if hasattr(velocity, "__iter__") else abs(velocity)
+            max_v = (
+                float(np.max(np.abs(velocity))) if hasattr(velocity, "__iter__") else abs(velocity)
+            )
             if max_v > self.thresholds.v_max_fraction_c * c:
                 breakdown_modes["relativistic_breakdown"] = True
                 breakdown_modes["validity_score"] *= 0.3
@@ -185,7 +187,9 @@ def analyze_catastrophe_boundaries(results: List[Dict[str, object]]) -> Dict[str
 
     kappas = [float(r.get("kappa", 0.0)) for r in valid_results]
     max_kappa = max(kappas) if kappas else 0.0
-    max_kappa_config = max(valid_results, key=lambda r: float(r.get("kappa", 0.0))) if valid_results else None
+    max_kappa_config = (
+        max(valid_results, key=lambda r: float(r.get("kappa", 0.0))) if valid_results else None
+    )
 
     breakdown_stats: Dict[str, Dict[str, float]] = {}
     modes = [
@@ -199,7 +203,9 @@ def analyze_catastrophe_boundaries(results: List[Dict[str, object]]) -> Dict[str
     for mode in modes:
         count = sum(1 for r in results if r.get("breakdown_modes", {}).get(mode, False))
         breakdown_stats[mode] = {"count": count, "rate": count / len(results) if results else 0.0}
-    breakdown_stats["total_breakdown_rate"] = len(invalid_results) / len(results) if results else 0.0
+    breakdown_stats["total_breakdown_rate"] = (
+        len(invalid_results) / len(results) if results else 0.0
+    )
 
     valid_a0 = [float(r["a0"]) for r in valid_results]
     valid_ne = [float(r["n_e"]) for r in valid_results]
@@ -240,7 +246,9 @@ def analyze_catastrophe_boundaries(results: List[Dict[str, object]]) -> Dict[str
             "max_valid_a0": max(valid_a0) if valid_a0 else float("nan"),
             "max_valid_ne": max(valid_ne) if valid_ne else float("nan"),
             "max_valid_gradient": float(
-                max([r.get("gradient_factor", 0) for r in valid_results]) if valid_results else float("nan")
+                max([r.get("gradient_factor", 0) for r in valid_results])
+                if valid_results
+                else float("nan")
             ),
         },
     }
@@ -265,11 +273,23 @@ def run_sweep(
 ) -> Dict[str, object]:
     thr = load_thresholds(thresholds_path)
     if vmax_frac is not None:
-        thr = Thresholds(v_max_fraction_c=vmax_frac, dv_dx_max_s=thr.dv_dx_max_s, intensity_max_W_m2=thr.intensity_max_W_m2)
+        thr = Thresholds(
+            v_max_fraction_c=vmax_frac,
+            dv_dx_max_s=thr.dv_dx_max_s,
+            intensity_max_W_m2=thr.intensity_max_W_m2,
+        )
     if dvdx_max is not None:
-        thr = Thresholds(v_max_fraction_c=thr.v_max_fraction_c, dv_dx_max_s=dvdx_max, intensity_max_W_m2=thr.intensity_max_W_m2)
+        thr = Thresholds(
+            v_max_fraction_c=thr.v_max_fraction_c,
+            dv_dx_max_s=dvdx_max,
+            intensity_max_W_m2=thr.intensity_max_W_m2,
+        )
     if intensity_max is not None:
-        thr = Thresholds(v_max_fraction_c=thr.v_max_fraction_c, dv_dx_max_s=thr.dv_dx_max_s, intensity_max_W_m2=intensity_max)
+        thr = Thresholds(
+            v_max_fraction_c=thr.v_max_fraction_c,
+            dv_dx_max_s=thr.dv_dx_max_s,
+            intensity_max_W_m2=intensity_max,
+        )
 
     # Default ranges (log-spaced)
     default_a0 = np.logspace(0, 2, 20)
@@ -321,7 +341,9 @@ def run_sweep(
             results.append(run_single_configuration(a0, ne, gf, thresholds=thr))
             valid_kappas = [r["kappa"] for r in results if float(r.get("validity_score", 0)) > 0.5]
             max_kappa = max(valid_kappas) if valid_kappas else 0.0
-            pbar.set_postfix({"max_kappa": f"{max_kappa:.2e}", "valid": f"{len(valid_kappas)}/{len(results)}"})
+            pbar.set_postfix(
+                {"max_kappa": f"{max_kappa:.2e}", "valid": f"{len(valid_kappas)}/{len(results)}"}
+            )
             pbar.update(1)
 
     analysis = analyze_catastrophe_boundaries(results)

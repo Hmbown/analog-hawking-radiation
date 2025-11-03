@@ -104,7 +104,7 @@ class QuantumFluctuationInjector:
         `FluctuationConfig(...)` using legacy fields.
         """
         if isinstance(config, str):
-            with open(config, 'r', encoding='utf-8') as f:
+            with open(config, "r", encoding="utf-8") as f:
                 data = yaml.safe_load(f)
             self._config = FluctuationConfig.from_yaml_dict(data)
         elif isinstance(config, FluctuationConfig):
@@ -118,13 +118,15 @@ class QuantumFluctuationInjector:
         self._current_noise = None  # For OU persistence
         self._dt = 1e-12  # Assume default dt; can be set in backend
         self._theta = 1.0 / self._config.correlation_time
-        self._sigma = np.sqrt(2 * self._theta * (self._config.amplitude ** 2))  # For variance = amplitude^2
+        self._sigma = np.sqrt(
+            2 * self._theta * (self._config.amplitude**2)
+        )  # For variance = amplitude^2
 
     def attach_to_backend(self, backend) -> None:
         self._backend = backend
         backend.attach_fluctuation_injector(self)
         # Initialize noise array size from grid
-        if hasattr(backend, '_grid') and backend._grid is not None:
+        if hasattr(backend, "_grid") and backend._grid is not None:
             size = len(backend._grid)
             self._current_noise = np.zeros(size)
 
@@ -143,8 +145,7 @@ class QuantumFluctuationInjector:
         # Generate Ornstein-Uhlenbeck noise
         dW = self._rng.normal(0, np.sqrt(self._dt), size)
         self._current_noise = (
-            self._current_noise - self._theta * self._current_noise * self._dt
-            + self._sigma * dW
+            self._current_noise - self._theta * self._current_noise * self._dt + self._sigma * dW
         )
 
         # Band-limit: simple low-pass filter approximation for [f_min, f_max]
@@ -166,11 +167,15 @@ class QuantumFluctuationInjector:
             self._backend._raw_observables[target] += self._config.amplitude * noise
         else:
             # If not present, add it
-            self._backend._raw_observables[target] = self._config.amplitude * noise + self._backend._call_moment_getter("electrons", target) if target in ["sound_speed", "velocity"] else self._config.amplitude * noise
+            self._backend._raw_observables[target] = (
+                self._config.amplitude * noise
+                + self._backend._call_moment_getter("electrons", target)
+                if target in ["sound_speed", "velocity"]
+                else self._config.amplitude * noise
+            )
 
     def sample_fourier_modes(self, k_values: Iterable[float]) -> np.ndarray:
         k_array = np.asarray(list(k_values))
         amplitude = self._config.amplitude
         phases = self._rng.uniform(0, 2 * np.pi, size=k_array.shape)
         return amplitude * np.exp(1j * phases)
-

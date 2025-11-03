@@ -46,7 +46,7 @@ def main() -> int:
     args = p.parse_args()
 
     os.makedirs(os.path.dirname(args.outfile), exist_ok=True)
-    with h5py.File(args.infile, 'r') as f:
+    with h5py.File(args.infile, "r") as f:
         x = _read(f, args.x)
         y = _read(f, args.y)
         z = _read(f, args.z)
@@ -59,6 +59,7 @@ def main() -> int:
     if cs is None and Te is not None:
         # Avoid import cycles; compute rough c_s from Te (Kelvin)
         from analog_hawking.physics_engine.horizon import sound_speed
+
         Te_arr = np.array(Te)
         if args.Te_unit == "eV":
             Te_arr = Te_arr * 11604.51812
@@ -87,4 +88,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -17,7 +17,7 @@ import warnings
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 
 # Add src to path for imports
@@ -50,89 +50,81 @@ class ELICompatibilityValidator:
             {
                 "source": "experimental_protocol.md",
                 "intensity_W_m2": 1e16,
-                "description": "Minimum laser intensity in experimental protocol"
+                "description": "Minimum laser intensity in experimental protocol",
             },
             {
                 "source": "experimental_protocol.md",
                 "intensity_W_m2": 1e20,
-                "description": "Maximum laser intensity in experimental protocol"
+                "description": "Maximum laser intensity in experimental protocol",
             },
             {
                 "source": "experimental_protocol.md",
                 "intensity_W_m2": 5e17,
-                "description": "Baseline laser intensity in experimental protocol"
+                "description": "Baseline laser intensity in experimental protocol",
             },
-
             # From enhanced_parameter_generator.py
             {
                 "source": "enhanced_parameter_generator.py",
                 "intensity_W_m2": 1e21,
-                "description": "High-intensity range for strongly nonlinear regime"
+                "description": "High-intensity range for strongly nonlinear regime",
             },
             {
                 "source": "enhanced_parameter_generator.py",
                 "intensity_W_m2": 1e24,
-                "description": "Maximum intensity in parameter generator"
+                "description": "Maximum intensity in parameter generator",
             },
-
             # From optimization scripts
             {
                 "source": "optimize_glow_detection.py",
                 "intensity_W_m2": 1e22,
-                "description": "Minimum intensity for glow detection optimization"
+                "description": "Minimum intensity for glow detection optimization",
             },
             {
                 "source": "optimize_glow_detection.py",
                 "intensity_W_m2": 1e23,
-                "description": "Maximum intensity for glow detection optimization"
+                "description": "Maximum intensity for glow detection optimization",
             },
-
             # From guidance map generation
             {
                 "source": "generate_guidance_map.py",
                 "intensity_W_m2": 1.152e22,
-                "description": "Optimal intensity from guidance map"
+                "description": "Optimal intensity from guidance map",
             },
-
             # From test scripts
             {
                 "source": "test_probabilistic_model.py",
                 "intensity_W_m2": 5e22,
-                "description": "High-intensity test case in probabilistic model"
+                "description": "High-intensity test case in probabilistic model",
             },
             {
                 "source": "test_probabilistic_model.py",
                 "intensity_W_m2": 1e22,
-                "description": "Alternative high-intensity test case"
+                "description": "Alternative high-intensity test case",
             },
-
             # From validation scripts
             {
                 "source": "validation/quality_assurance.py",
                 "intensity_W_m2": 1e21,
-                "description": "Maximum intensity in quality assurance validation"
+                "description": "Maximum intensity in quality assurance validation",
             },
-
             # From comprehensive Monte Carlo
             {
                 "source": "comprehensive_monte_carlo_uncertainty.py",
                 "intensity_W_m2": 5e16,
-                "description": "Baseline intensity for Monte Carlo analysis"
+                "description": "Baseline intensity for Monte Carlo analysis",
             },
-
             # From physics model validator
             {
                 "source": "validation/physics_model_validator.py",
                 "intensity_W_m2": 1e22,
-                "description": "Upper limit in physics model validation"
+                "description": "Upper limit in physics model validation",
             },
-
             # From configuration thresholds
             {
                 "source": "config/thresholds.py",
                 "intensity_W_m2": 6.0e50,
-                "description": "CRITICAL: Unrealistic maximum intensity threshold"
-            }
+                "description": "CRITICAL: Unrealistic maximum intensity threshold",
+            },
         ]
 
         # Validate each parameter set
@@ -155,12 +147,14 @@ class ELICompatibilityValidator:
 
         # Check for critical issues
         if intensity_W_m2 > 1e25:
-            self.critical_issues.append({
-                "source": source,
-                "intensity": intensity_W_m2,
-                "issue": "PHYSICALLY IMPOSSIBLE INTENSITY",
-                "description": description
-            })
+            self.critical_issues.append(
+                {
+                    "source": source,
+                    "intensity": intensity_W_m2,
+                    "issue": "PHYSICALLY IMPOSSIBLE INTENSITY",
+                    "description": description,
+                }
+            )
             print("   ❌ CRITICAL: Intensity exceeds physical limits!")
             return
 
@@ -168,23 +162,24 @@ class ELICompatibilityValidator:
         validation_result = validate_intensity_range(intensity_W_m2)
 
         if not validation_result["valid"]:
-            self.critical_issues.append({
-                "source": source,
-                "intensity": intensity_W_m2,
-                "issue": validation_result["issue"],
-                "description": description
-            })
+            self.critical_issues.append(
+                {
+                    "source": source,
+                    "intensity": intensity_W_m2,
+                    "issue": validation_result["issue"],
+                    "description": description,
+                }
+            )
             print(f"   ❌ {validation_result['issue']}")
             print(f"   💡 Recommendation: {validation_result['recommendation']}")
         else:
             print(f"   ✅ {validation_result['feasibility_level']}")
-            print(f"   🏢 Compatible facilities: {', '.join(validation_result['compatible_facilities'])}")
+            print(
+                f"   🏢 Compatible facilities: {', '.join(validation_result['compatible_facilities'])}"
+            )
 
         # Add to validation results
-        self.validation_results.append({
-            **params,
-            **validation_result
-        })
+        self.validation_results.append({**params, **validation_result})
 
     def _generate_summary_report(self) -> Dict[str, Any]:
         """Generate comprehensive summary report"""
@@ -211,7 +206,7 @@ class ELICompatibilityValidator:
             "Moderate (1e18-1e20 W/m²)": sum(1 for i in intensities if 1e18 <= i < 1e20),
             "High (1e20-1e22 W/m²)": sum(1 for i in intensities if 1e20 <= i < 1e22),
             "Very High (1e22-1e24 W/m²)": sum(1 for i in intensities if 1e22 <= i < 1e24),
-            "Extreme (>1e24 W/m²)": sum(1 for i in intensities if i >= 1e24)
+            "Extreme (>1e24 W/m²)": sum(1 for i in intensities if i >= 1e24),
         }
 
         print("\n📊 INTENSITY DISTRIBUTION:")
@@ -245,13 +240,13 @@ class ELICompatibilityValidator:
                 "total_parameters": total_parameters,
                 "critical_issues": critical_issues_count,
                 "compatible_parameters": compatible_count,
-                "compatibility_rate": 100*compatible_count/total_parameters
+                "compatibility_rate": 100 * compatible_count / total_parameters,
             },
             "intensity_distribution": intensity_ranges,
             "facility_compatibility": facility_compatibility,
             "critical_issues": self.critical_issues,
             "recommendations": self.recommendations,
-            "validation_results": self.validation_results
+            "validation_results": self.validation_results,
         }
 
     def _generate_recommendations(self) -> None:
@@ -295,13 +290,16 @@ class ELICompatibilityValidator:
             "Add facility-specific validation functions",
             "Update configuration thresholds with realistic values",
             "Create experimental feasibility scoring system",
-            "Implement automated ELI compatibility checks"
+            "Implement automated ELI compatibility checks",
         ]
 
-    def validate_specific_configuration(self, intensity_W_m2: float,
-                                      wavelength_nm: float = 800,
-                                      pulse_duration_fs: float = 150,
-                                      facility: Optional[str] = None) -> Dict[str, Any]:
+    def validate_specific_configuration(
+        self,
+        intensity_W_m2: float,
+        wavelength_nm: float = 800,
+        pulse_duration_fs: float = 150,
+        facility: Optional[str] = None,
+    ) -> Dict[str, Any]:
         """Validate a specific experimental configuration"""
 
         print("\n🔬 VALIDATING SPECIFIC CONFIGURATION:")
@@ -318,7 +316,9 @@ class ELICompatibilityValidator:
         target_facility = None
         if facility:
             try:
-                target_facility = ELIFacility(facility.lower().replace("-", "_").replace("eli_", ""))
+                target_facility = ELIFacility(
+                    facility.lower().replace("-", "_").replace("eli_", "")
+                )
             except ValueError:
                 print(f"   ⚠️  Unknown facility: {facility}")
                 target_facility = None
@@ -365,22 +365,22 @@ class ELICompatibilityValidator:
                 "wavelength_nm": (800, 1030),
                 "pulse_duration_fs": (30, 150),
                 "repetition_rate_Hz": (0.017, 10),
-                "best_use_cases": ["High-intensity plasma physics", "Relativistic regimes"]
+                "best_use_cases": ["High-intensity plasma physics", "Relativistic regimes"],
             },
             "ELI-NP": {
                 "intensity_W_m2": (1e19, 1e24),  # Higher minimum for nuclear physics
                 "wavelength_nm": (810, 810),  # Fixed Ti:Sapphire
                 "pulse_duration_fs": (150, 200),
                 "repetition_rate_Hz": (0.003, 0.1),
-                "best_use_cases": ["Nuclear physics experiments", "Dual-beam configurations"]
+                "best_use_cases": ["Nuclear physics experiments", "Dual-beam configurations"],
             },
             "ELI-ALPS": {
                 "intensity_W_m2": (1e16, 1e22),  # Lower due to high rep rate focus
                 "wavelength_nm": (800, 800),  # Fixed Ti:Sapphire
                 "pulse_duration_fs": (6, 17),
                 "repetition_rate_Hz": (10, 100000),
-                "best_use_cases": ["High-repetition rate studies", "Attosecond physics"]
-            }
+                "best_use_cases": ["High-repetition rate studies", "Attosecond physics"],
+            },
         }
 
         # Generate unified recommended ranges for analog Hawking experiments
@@ -396,30 +396,50 @@ class ELICompatibilityValidator:
                 "X-ray spectrometry (1-100 keV)",
                 "Electron spectrometry",
                 "Optical probing (fs resolution)",
-                "Radio detection (30K system temperature)"
-            ]
+                "Radio detection (30K system temperature)",
+            ],
         }
 
         print("\n📋 FACILITY-SPECIFIC RANGES:")
         for facility, ranges in facility_ranges.items():
             print(f"\n   {facility}:")
-            print(f"      Intensity: {ranges['intensity_W_m2'][0]:.1e} - {ranges['intensity_W_m2'][1]:.1e} W/m²")
-            print(f"      Wavelength: {ranges['wavelength_nm'][0]:.0f} - {ranges['wavelength_nm'][1]:.0f} nm")
-            print(f"      Pulse Duration: {ranges['pulse_duration_fs'][0]:.0f} - {ranges['pulse_duration_fs'][1]:.0f} fs")
-            print(f"      Repetition Rate: {ranges['repetition_rate_Hz'][0]:.3f} - {ranges['repetition_rate_Hz'][1]:.1f} Hz")
+            print(
+                f"      Intensity: {ranges['intensity_W_m2'][0]:.1e} - {ranges['intensity_W_m2'][1]:.1e} W/m²"
+            )
+            print(
+                f"      Wavelength: {ranges['wavelength_nm'][0]:.0f} - {ranges['wavelength_nm'][1]:.0f} nm"
+            )
+            print(
+                f"      Pulse Duration: {ranges['pulse_duration_fs'][0]:.0f} - {ranges['pulse_duration_fs'][1]:.0f} fs"
+            )
+            print(
+                f"      Repetition Rate: {ranges['repetition_rate_Hz'][0]:.3f} - {ranges['repetition_rate_Hz'][1]:.1f} Hz"
+            )
             print(f"      Best Use Cases: {', '.join(ranges['best_use_cases'])}")
 
         print("\n🎯 OPTIMAL RANGES FOR ANALOG HAWKING EXPERIMENTS:")
-        print(f"      Intensity: {hawking_optimal_ranges['intensity_W_m2'][0]:.1e} - {hawking_optimal_ranges['intensity_W_m2'][1]:.1e} W/m²")
-        print(f"      Wavelength: {hawking_optimal_ranges['wavelength_nm'][0]:.0f} - {hawking_optimal_ranges['wavelength_nm'][1]:.0f} nm")
-        print(f"      Pulse Duration: {hawking_optimal_ranges['pulse_duration_fs'][0]:.0f} - {hawking_optimal_ranges['pulse_duration_fs'][1]:.0f} fs")
-        print(f"      Repetition Rate: {hawking_optimal_ranges['repetition_rate_Hz'][0]:.2f} - {hawking_optimal_ranges['repetition_rate_Hz'][1]:.1f} Hz")
-        print(f"      Plasma Density: {hawking_optimal_ranges['plasma_density_m3'][0]:.1e} - {hawking_optimal_ranges['plasma_density_m3'][1]:.1e} m⁻³")
-        print(f"      Magnetic Field: {hawking_optimal_ranges['magnetic_field_T'][0]:.1f} - {hawking_optimal_ranges['magnetic_field_T'][1]:.1f} T")
+        print(
+            f"      Intensity: {hawking_optimal_ranges['intensity_W_m2'][0]:.1e} - {hawking_optimal_ranges['intensity_W_m2'][1]:.1e} W/m²"
+        )
+        print(
+            f"      Wavelength: {hawking_optimal_ranges['wavelength_nm'][0]:.0f} - {hawking_optimal_ranges['wavelength_nm'][1]:.0f} nm"
+        )
+        print(
+            f"      Pulse Duration: {hawking_optimal_ranges['pulse_duration_fs'][0]:.0f} - {hawking_optimal_ranges['pulse_duration_fs'][1]:.0f} fs"
+        )
+        print(
+            f"      Repetition Rate: {hawking_optimal_ranges['repetition_rate_Hz'][0]:.2f} - {hawking_optimal_ranges['repetition_rate_Hz'][1]:.1f} Hz"
+        )
+        print(
+            f"      Plasma Density: {hawking_optimal_ranges['plasma_density_m3'][0]:.1e} - {hawking_optimal_ranges['plasma_density_m3'][1]:.1e} m⁻³"
+        )
+        print(
+            f"      Magnetic Field: {hawking_optimal_ranges['magnetic_field_T'][0]:.1f} - {hawking_optimal_ranges['magnetic_field_T'][1]:.1f} T"
+        )
 
         return {
             "facility_ranges": facility_ranges,
-            "hawking_optimal_ranges": hawking_optimal_ranges
+            "hawking_optimal_ranges": hawking_optimal_ranges,
         }
 
 
@@ -433,35 +453,13 @@ def main():
         "--mode",
         choices=["repository", "specific", "ranges"],
         default="repository",
-        help="Validation mode: repository scan, specific configuration, or generate ranges"
+        help="Validation mode: repository scan, specific configuration, or generate ranges",
     )
-    parser.add_argument(
-        "--intensity",
-        type=float,
-        help="Specific intensity to validate (W/m²)"
-    )
-    parser.add_argument(
-        "--wavelength",
-        type=float,
-        default=800,
-        help="Laser wavelength (nm)"
-    )
-    parser.add_argument(
-        "--pulse-duration",
-        type=float,
-        default=150,
-        help="Pulse duration (fs)"
-    )
-    parser.add_argument(
-        "--facility",
-        type=str,
-        help="Target ELI facility"
-    )
-    parser.add_argument(
-        "--output",
-        type=str,
-        help="Output file for validation results (JSON)"
-    )
+    parser.add_argument("--intensity", type=float, help="Specific intensity to validate (W/m²)")
+    parser.add_argument("--wavelength", type=float, default=800, help="Laser wavelength (nm)")
+    parser.add_argument("--pulse-duration", type=float, default=150, help="Pulse duration (fs)")
+    parser.add_argument("--facility", type=str, help="Target ELI facility")
+    parser.add_argument("--output", type=str, help="Output file for validation results (JSON)")
 
     args = parser.parse_args()
 
@@ -489,7 +487,7 @@ def main():
 
     # Save results if requested
     if args.output:
-        with open(args.output, 'w') as f:
+        with open(args.output, "w") as f:
             json.dump(results, f, indent=2, default=str)
         print(f"\n💾 Results saved to: {args.output}")
 

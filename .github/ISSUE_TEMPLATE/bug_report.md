@@ -25,4 +25,3 @@ Steps to reproduce the behavior:
 - GPU (if any):
 
 ## Additional context
-

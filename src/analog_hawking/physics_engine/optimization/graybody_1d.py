@@ -30,7 +30,9 @@ def _effective_potential(x: np.ndarray, v: np.ndarray, c_s: np.ndarray) -> np.nd
     return (np.abs(v) - c_s) ** 2
 
 
-def _wkb_transmission(omega: float, potential: Callable[[float], float], x_bounds: Tuple[float, float]) -> float:
+def _wkb_transmission(
+    omega: float, potential: Callable[[float], float], x_bounds: Tuple[float, float]
+) -> float:
     def integrand(x: float) -> float:
         V = float(potential(x))
         if V > omega:
@@ -75,6 +77,7 @@ def compute_graybody(
             # Estimate κ from local profiles (acoustic definition)
             try:
                 from ..horizon import find_horizons_with_uncertainty
+
                 hr = find_horizons_with_uncertainty(x, velocity, sound_speed)
                 kappa_est = float(np.max(hr.kappa)) if hr.kappa.size else 0.0
             except Exception:
@@ -100,9 +103,9 @@ def compute_graybody(
         def potential_interp(xi: float) -> float:
             return float(np.interp(xi, x, potential))
 
-        transmission = np.array([
-            _wkb_transmission(omega, potential_interp, (x[0], x[-1])) for omega in omega_values
-        ])
+        transmission = np.array(
+            [_wkb_transmission(omega, potential_interp, (x[0], x[-1])) for omega in omega_values]
+        )
 
         upper = _effective_potential(
             x, velocity * (1.0 + perturbation), sound_speed * (1.0 - perturbation)
@@ -117,12 +120,12 @@ def compute_graybody(
         def lower_interp(xi: float) -> float:
             return float(np.interp(xi, x, lower))
 
-        transmission_upper = np.array([
-            _wkb_transmission(omega, upper_interp, (x[0], x[-1])) for omega in omega_values
-        ])
-        transmission_lower = np.array([
-            _wkb_transmission(omega, lower_interp, (x[0], x[-1])) for omega in omega_values
-        ])
+        transmission_upper = np.array(
+            [_wkb_transmission(omega, upper_interp, (x[0], x[-1])) for omega in omega_values]
+        )
+        transmission_lower = np.array(
+            [_wkb_transmission(omega, lower_interp, (x[0], x[-1])) for omega in omega_values]
+        )
 
         uncertainties = 0.5 * np.abs(transmission_upper - transmission_lower)
 
@@ -148,6 +151,7 @@ def compute_graybody(
     if kappa is None or kappa <= 0.0:
         try:
             from ..horizon import find_horizons_with_uncertainty
+
             hr = find_horizons_with_uncertainty(x_np, v_np, cs_np, kappa_method="acoustic_exact")
             kappa_eff = float(np.max(hr.kappa)) if hr.kappa.size else 1.0
         except Exception:
@@ -168,7 +172,7 @@ def compute_graybody(
         return xp.cumsum(padded)
 
     def _normalized_gap_sq(gap_vals: np.ndarray) -> any:
-        s_raw = gap_vals ** 2
+        s_raw = gap_vals**2
         s_max = float(np.max(to_numpy(s_raw))) if s_raw.size else 1.0
         if not np.isfinite(s_max) or s_max <= 0.0:
             s_max = 1.0
@@ -182,9 +186,9 @@ def compute_graybody(
 
     # Effective potential in ω^2 units: V = (α κ)^2 S(x*)
     k_scale = max(alpha * kappa_eff, 1e-30)
-    V_vals = (k_scale ** 2) * S
+    V_vals = (k_scale**2) * S
     # Use compact barrier region where V is significant to avoid far-field artifacts
-    barrier_np = to_numpy(V_vals > 0.5 * (k_scale ** 2))
+    barrier_np = to_numpy(V_vals > 0.5 * (k_scale**2))
     if barrier_np.any():
         xs_use = x_star[barrier_np]
         V_use = V_vals[barrier_np]
@@ -199,6 +203,7 @@ def compute_graybody(
         if not np.isfinite(integral):
             return 0.0
         return float(np.exp(-2.0 * integral))
+
     transmission = np.array([trans_from_threshold(omega**2) for omega in omega_values])
 
     # Uncertainty via small perturbations in v and c
@@ -207,8 +212,8 @@ def compute_graybody(
     gap_up = xp_abs(xp_abs(v_up) - cs_dn)
     x_star_up = _tortoise(gap_up)
     S_up = _normalized_gap_sq(gap_up)
-    V_up = (k_scale ** 2) * S_up
-    mask_up_np = to_numpy(V_up > 0.5 * (k_scale ** 2))
+    V_up = (k_scale**2) * S_up
+    mask_up_np = to_numpy(V_up > 0.5 * (k_scale**2))
     xs_up_use = x_star_up[mask_up_np] if mask_up_np.any() else x_star_up
     V_up_use = V_up[mask_up_np] if mask_up_np.any() else V_up
 
@@ -217,8 +222,8 @@ def compute_graybody(
     gap_dn = xp_abs(xp_abs(v_dn) - cs_up)
     x_star_dn = _tortoise(gap_dn)
     S_dn = _normalized_gap_sq(gap_dn)
-    V_dn = (k_scale ** 2) * S_dn
-    mask_dn_np = to_numpy(V_dn > 0.5 * (k_scale ** 2))
+    V_dn = (k_scale**2) * S_dn
+    mask_dn_np = to_numpy(V_dn > 0.5 * (k_scale**2))
     xs_dn_use = x_star_dn[mask_dn_np] if mask_dn_np.any() else x_star_dn
     V_dn_use = V_dn[mask_dn_np] if mask_dn_np.any() else V_dn
 
@@ -226,10 +231,12 @@ def compute_graybody(
         yu = xp.sqrt(xp_clip(V_up_use - thr, 0.0, None))
         integ = as_scalar(xp_trapezoid(yu, xs_up_use)) if xs_up_use.size > 1 else 0.0
         return float(np.exp(-2.0 * integ)) if np.isfinite(integ) else 0.0
+
     def trans_dn(thr: float) -> float:
         yd = xp.sqrt(xp_clip(V_dn_use - thr, 0.0, None))
         integ = as_scalar(xp_trapezoid(yd, xs_dn_use)) if xs_dn_use.size > 1 else 0.0
         return float(np.exp(-2.0 * integ)) if np.isfinite(integ) else 0.0
+
     T_up = np.array([trans_up(omega**2) for omega in omega_values])
     T_dn = np.array([trans_dn(omega**2) for omega in omega_values])
     uncertainties = 0.5 * np.abs(T_up - T_dn)

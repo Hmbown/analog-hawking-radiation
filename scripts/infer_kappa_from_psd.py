@@ -44,13 +44,33 @@ def _load_psd(path: Path) -> Tuple[np.ndarray, np.ndarray]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Infer κ from PSD files.")
-    parser.add_argument("psd_glob", nargs="+", help="NPZ files or glob patterns with frequencies/power_spectrum arrays")
-    parser.add_argument("--graybody-profile", help="Optional NPZ with x,v,c_s for graybody modelling")
-    parser.add_argument("--graybody-method", default="dimensionless", choices=["dimensionless", "wkb", "acoustic_wkb"])
+    parser.add_argument(
+        "psd_glob",
+        nargs="+",
+        help="NPZ files or glob patterns with frequencies/power_spectrum arrays",
+    )
+    parser.add_argument(
+        "--graybody-profile", help="Optional NPZ with x,v,c_s for graybody modelling"
+    )
+    parser.add_argument(
+        "--graybody-method",
+        default="dimensionless",
+        choices=["dimensionless", "wkb", "acoustic_wkb"],
+    )
     parser.add_argument("--alpha-gray", type=float, default=1.0)
-    parser.add_argument("--bounds", type=str, default="1e4,1e12", help="κ bounds as min,max in SI (default: 1e4,1e12)")
+    parser.add_argument(
+        "--bounds",
+        type=str,
+        default="1e4,1e12",
+        help="κ bounds as min,max in SI (default: 1e4,1e12)",
+    )
     parser.add_argument("--calls", type=int, default=40, help="Number of optimizer evaluations")
-    parser.add_argument("--out-dir", type=Path, default=Path("results/kappa_inference"), help="Directory for inference outputs")
+    parser.add_argument(
+        "--out-dir",
+        type=Path,
+        default=Path("results/kappa_inference"),
+        help="Directory for inference outputs",
+    )
     parser.add_argument("--emit-json", action="store_true", help="Print JSON summary to stdout")
     args = parser.parse_args()
 
@@ -112,7 +132,9 @@ def main() -> int:
         meta_path = args.out_dir / f"{stem}_summary.json"
         with meta_path.open("w", encoding="utf-8") as fh:
             json.dump(summary, fh, indent=2)
-        print(f"{path}: κ̂={inference.kappa_hat:.4e} ± {inference.kappa_err:.2e} (95% CI ~ {inference.credible_interval[0]:.4e}-{inference.credible_interval[1]:.4e})")
+        print(
+            f"{path}: κ̂={inference.kappa_hat:.4e} ± {inference.kappa_err:.2e} (95% CI ~ {inference.credible_interval[0]:.4e}-{inference.credible_interval[1]:.4e})"
+        )
         summaries.append(summary)
 
     if args.emit_json:

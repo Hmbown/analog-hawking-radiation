@@ -18,24 +18,23 @@ from .visualization_pipeline import FigureSpecification, VisualizationBundle, Vi
 
 __all__ = [
     # Main classes
-    'ReportGenerator',
-    'VisualizationPipeline', 
-    'SynthesisEngine',
-    'PublicationFormatter',
-    
+    "ReportGenerator",
+    "VisualizationPipeline",
+    "SynthesisEngine",
+    "PublicationFormatter",
     # Data structures
-    'ScientificReport',
-    'ExecutiveSummary',
-    'TechnicalReport',
-    'FigureSpecification',
-    'VisualizationBundle',
-    'TrendAnalysis',
-    'PatternRecognition', 
-    'MetaAnalysis',
-    'LaTeXDocument',
-    'MarkdownDocument',
-    'PresentationSlides',
-    'DataTables'
+    "ScientificReport",
+    "ExecutiveSummary",
+    "TechnicalReport",
+    "FigureSpecification",
+    "VisualizationBundle",
+    "TrendAnalysis",
+    "PatternRecognition",
+    "MetaAnalysis",
+    "LaTeXDocument",
+    "MarkdownDocument",
+    "PresentationSlides",
+    "DataTables",
 ]
 
 __version__ = "1.0.0"

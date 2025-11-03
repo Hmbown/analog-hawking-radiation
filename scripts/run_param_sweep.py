@@ -41,7 +41,9 @@ def run_sweep(
     entries: list[dict] = []
     prob_map: list[list[float]] = []
     kappa_map: list[list[float]] = []
-    total_cases = len(intensities_Wcm2) * len(densities_cm3) * len(temperatures_K) * len(magnetic_fields_T)
+    total_cases = (
+        len(intensities_Wcm2) * len(densities_cm3) * len(temperatures_K) * len(magnetic_fields_T)
+    )
     done = 0
     for I_cm2 in intensities_Wcm2:
         row_prob: list[float] = []
@@ -64,17 +66,21 @@ def run_sweep(
                         save_graybody_figure=False,
                     )
                     entry = asdict(summary)
-                    entry.update({
-                        "input_intensity_Wcm2": float(I_cm2),
-                        "input_density_cm3": float(n_cm3),
-                        "input_temperature_K": float(T),
-                        "input_B_T": float(B),
-                    })
+                    entry.update(
+                        {
+                            "input_intensity_Wcm2": float(I_cm2),
+                            "input_density_cm3": float(n_cm3),
+                            "input_temperature_K": float(T),
+                            "input_B_T": float(B),
+                        }
+                    )
                     entries.append(entry)
                     total += 1
                     done += 1
                     if progress and (done % max(1, int(progress_every)) == 0):
-                        print(f"[sweep] {done}/{total_cases} cases \u2014 I={I_cm2:.2e} W/cm^2, n={n_cm3:.2e} cm^-3, T={T:.2e} K, B={B:.2e} T")
+                        print(
+                            f"[sweep] {done}/{total_cases} cases \u2014 I={I_cm2:.2e} W/cm^2, n={n_cm3:.2e} cm^-3, T={T:.2e} K, B={B:.2e} T"
+                        )
                     if summary.kappa:
                         success += 1
                         local_kappa_max = max(local_kappa_max, float(max(summary.kappa)))
@@ -102,8 +108,12 @@ def main() -> int:
     parser.add_argument("--nB", type=int, default=4)
     parser.add_argument("--grid_points", type=int, default=512)
     parser.add_argument("--mode", type=str, choices=["default", "radio"], default="default")
-    parser.add_argument("--progress", action="store_true", help="Print periodic progress updates during the sweep")
-    parser.add_argument("--progress-every", type=int, default=50, help="How many cases between progress prints")
+    parser.add_argument(
+        "--progress", action="store_true", help="Print periodic progress updates during the sweep"
+    )
+    parser.add_argument(
+        "--progress-every", type=int, default=50, help="How many cases between progress prints"
+    )
     args = parser.parse_args()
 
     if args.mode == "radio":
@@ -118,7 +128,10 @@ def main() -> int:
         B_vals = np.linspace(0.0, 0.1, args.nB)
 
     result = run_sweep(
-        I_vals, n_vals, T_vals, B_vals,
+        I_vals,
+        n_vals,
+        T_vals,
+        B_vals,
         grid_points=args.grid_points,
         progress=bool(args.progress),
         progress_every=int(args.progress_every),

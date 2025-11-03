@@ -23,19 +23,19 @@ parameter_space:
     max: 1e20
     n_points: 8
     log_scale: true
-    
+
   plasma_density:
     min: 1e16
     max: 1e20
     n_points: 8
     log_scale: true
-    
+
   temperature_constant:
     min: 1e3
     max: 1e5
     n_points: 4
     log_scale: true
-    
+
   magnetic_field:
     min: 0.0
     max: 10.0

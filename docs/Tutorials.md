@@ -12,4 +12,3 @@ You can open them in Jupyter:
 pip install -e .[dev]
 jupyter notebook
 ```
-

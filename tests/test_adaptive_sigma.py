@@ -17,6 +17,7 @@ def test_estimate_sigma_map_plateau_detection():
     assert diagnostics.plateau_index >= 0
     assert diagnostics.sigma_means[diagnostics.plateau_index] > 0
 
+
 def test_apply_sigma_smoothing_reduces_variance():
     data = np.random.randn(100)
     sigma_map = np.full_like(data, 2.0)

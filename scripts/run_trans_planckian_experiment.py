@@ -71,9 +71,7 @@ def _default_mock_config(grid_points: int = DEFAULT_GRID_POINTS) -> Dict[str, An
     return {
         "mock": True,
         "grid": grid,
-        "field_getters": {
-            "Ex": {"type": "pywarpx", "field": "Ex"}
-        },
+        "field_getters": {"Ex": {"type": "pywarpx", "field": "Ex"}},
         "moment_getters": {
             "electrons": {
                 "density": {"type": "pywarpx", "moment": "density"},
@@ -137,14 +135,28 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument("--config", type=Path, help="Path to YAML/JSON run configuration.")
-    parser.add_argument("--mock", action="store_true", help="Force mock mode (no WarpX dependency).")
+    parser.add_argument(
+        "--mock", action="store_true", help="Force mock mode (no WarpX dependency)."
+    )
     parser.add_argument("--steps", type=int, default=10, help="Number of WarpX steps to execute.")
-    parser.add_argument("--dt", type=float, default=DEFAULT_DT, help="Timestep passed to backend (seconds).")
-    parser.add_argument("--results-dir", type=Path, default=Path("results/trans_planckian_experiment"),
-                        help="Directory for summaries and diagnostics.")
-    parser.add_argument("--spectrum", action="store_true", help="Emit Hawking spectrum JSON for best κ.")
-    parser.add_argument("--grid-points", type=int, default=DEFAULT_GRID_POINTS,
-                        help="Grid points for mock configuration.")
+    parser.add_argument(
+        "--dt", type=float, default=DEFAULT_DT, help="Timestep passed to backend (seconds)."
+    )
+    parser.add_argument(
+        "--results-dir",
+        type=Path,
+        default=Path("results/trans_planckian_experiment"),
+        help="Directory for summaries and diagnostics.",
+    )
+    parser.add_argument(
+        "--spectrum", action="store_true", help="Emit Hawking spectrum JSON for best κ."
+    )
+    parser.add_argument(
+        "--grid-points",
+        type=int,
+        default=DEFAULT_GRID_POINTS,
+        help="Grid points for mock configuration.",
+    )
     return parser.parse_args()
 
 

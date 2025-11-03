@@ -10,12 +10,12 @@ from analog_hawking.detection.radio_snr import (
 def test_band_power_uniform_psd_matches_area():
     # Construct a frequency grid around f0 with uniform PSD A inside the band
     f0 = 2.0e8  # 200 MHz
-    B = 1.0e8   # 100 MHz
+    B = 1.0e8  # 100 MHz
     A = 1.0e-22  # W/Hz (uniform PSD)
 
-    f = np.linspace(f0 - 2*B, f0 + 2*B, 10_000)
+    f = np.linspace(f0 - 2 * B, f0 + 2 * B, 10_000)
     psd = np.zeros_like(f)
-    mask = (f >= f0 - B/2) & (f <= f0 + B/2)
+    mask = (f >= f0 - B / 2) & (f <= f0 + B / 2)
     psd[mask] = A
 
     P = band_power_from_spectrum(f, psd, f0, B)

@@ -39,6 +39,7 @@ from analog_hawking.physics_engine.plasma_models.quantum_field_theory import Qua
 # Analytic flow families
 # ------------------------------
 
+
 def _grid(n: int = 2048, L: float = 1.0) -> np.ndarray:
     return np.linspace(-L, L, int(n))
 
@@ -47,7 +48,7 @@ def make_linear_profile(seed: int = 0) -> Dict[str, np.ndarray]:
     rng = np.random.default_rng(seed)
     x = _grid()
     c0 = float(rng.uniform(1.0e5, 3.0e5))  # m/s
-    a = float(rng.uniform(5.0e5, 1.5e6))   # s^-1 scale (via dv/dx)
+    a = float(rng.uniform(5.0e5, 1.5e6))  # s^-1 scale (via dv/dx)
     x0 = float(rng.uniform(-0.2, 0.2))
     v = a * (x - x0)
     c_s = np.full_like(x, c0)
@@ -89,9 +90,11 @@ def make_piecewise_ramp_profile(seed: int = 3) -> Dict[str, np.ndarray]:
     v_left = float(rng.uniform(-6.0e5, -1.0e5))
     v_right = float(rng.uniform(1.0e5, 6.0e5))
     # Linear ramps to create a crossing
-    v = np.where(x < x_break,
-                 np.interp(x, [x[0], x_break], [v_left, 0.0]),
-                 np.interp(x, [x_break, x[-1]], [0.0, v_right]))
+    v = np.where(
+        x < x_break,
+        np.interp(x, [x[0], x_break], [v_left, 0.0]),
+        np.interp(x, [x_break, x[-1]], [0.0, v_right]),
+    )
     c_s = np.full_like(x, c0)
     return {"x": x, "v": v, "c_s": c_s}
 
@@ -133,8 +136,12 @@ class SpectrumRecord:
     success: bool
 
 
-def _spectrum_for_profile(profile: Dict[str, np.ndarray], *, alpha: float, B: float, T_sys: float) -> Tuple[np.ndarray, np.ndarray, SpectrumRecord]:
-    x = np.asarray(profile["x"]) ; v = np.asarray(profile["v"]) ; c = np.asarray(profile["c_s"])  # noqa: E702
+def _spectrum_for_profile(
+    profile: Dict[str, np.ndarray], *, alpha: float, B: float, T_sys: float
+) -> Tuple[np.ndarray, np.ndarray, SpectrumRecord]:
+    x = np.asarray(profile["x"])
+    v = np.asarray(profile["v"])
+    c = np.asarray(profile["c_s"])  # noqa: E702
     hr = find_horizons_with_uncertainty(x, v, c, kappa_method="acoustic_exact")
     if hr.kappa.size == 0 or float(np.max(hr.kappa)) <= 0.0:
         # No horizon
@@ -142,28 +149,39 @@ def _spectrum_for_profile(profile: Dict[str, np.ndarray], *, alpha: float, B: fl
     kappa = float(np.max(hr.kappa))
 
     # Frequency grid chosen based on temperature scale
-    qft = QuantumFieldTheory(surface_gravity=kappa, emitting_area_m2=1.0, solid_angle_sr=1.0, coupling_efficiency=1.0)
+    qft = QuantumFieldTheory(
+        surface_gravity=kappa, emitting_area_m2=1.0, solid_angle_sr=1.0, coupling_efficiency=1.0
+    )
     # Use a band that spans radio→microwave to capture shape near the peak for low T
     f = np.logspace(6.0, 11.0, 1200)
     gb = compute_graybody(x, v, c, f, method="acoustic_wkb", kappa=kappa, alpha=float(alpha))
     psd = qft.hawking_spectrum(2.0 * np.pi * f, transmission=gb.transmission)
 
     T_sig, t5 = band_temperature_and_t5sig(f, psd, B=B, T_sys=T_sys)
-    rec = SpectrumRecord("unknown", 0, kappa, float(f[int(np.argmax(psd))]), float(T_sig), float(t5), True)
+    rec = SpectrumRecord(
+        "unknown", 0, kappa, float(f[int(np.argmax(psd))]), float(T_sig), float(t5), True
+    )
     return f, psd, rec
 
 
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--out", default="results/experiments/universality")
-    p.add_argument("--families", nargs="*", default=list(FAMILIES.keys()), choices=list(FAMILIES.keys()))
+    p.add_argument(
+        "--families", nargs="*", default=list(FAMILIES.keys()), choices=list(FAMILIES.keys())
+    )
     p.add_argument("--n", type=int, default=24, help="Total spectra across families (approx)")
     p.add_argument("--alpha", type=float, default=0.8, help="Graybody acoustic_WKB alpha scale")
     p.add_argument("--B", type=float, default=1e8, help="Bandwidth in Hz (default 100 MHz)")
     p.add_argument("--Tsys", type=float, default=30.0, help="System temperature in K")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--include-controls", action="store_true")
-    p.add_argument("--pic-profiles", nargs="*", default=[], help="Paths or globs to PIC/OpenPMD .npz profiles (keys: x, v, c_s)")
+    p.add_argument(
+        "--pic-profiles",
+        nargs="*",
+        default=[],
+        help="Paths or globs to PIC/OpenPMD .npz profiles (keys: x, v, c_s)",
+    )
     args = p.parse_args()
 
     rng = np.random.default_rng(args.seed)
@@ -185,7 +203,9 @@ def main() -> int:
         for j in range(per_family):
             seed = int(rng.integers(0, 10_000_000))
             profile = maker(seed)
-            f, psd, rec = _spectrum_for_profile(profile, alpha=args.alpha, B=args.B, T_sys=args.Tsys)
+            f, psd, rec = _spectrum_for_profile(
+                profile, alpha=args.alpha, B=args.B, T_sys=args.Tsys
+            )
             if psd.size == 0:
                 continue
             rec.family = fam
@@ -218,8 +238,14 @@ def main() -> int:
             data = dict(np.load(npz_path))
             if not all(k in data for k in ("x", "v", "c_s")):
                 continue
-            profile = {"x": np.asarray(data["x"]), "v": np.asarray(data["v"]), "c_s": np.asarray(data["c_s"]) }
-            f, psd, rec = _spectrum_for_profile(profile, alpha=args.alpha, B=args.B, T_sys=args.Tsys)
+            profile = {
+                "x": np.asarray(data["x"]),
+                "v": np.asarray(data["v"]),
+                "c_s": np.asarray(data["c_s"]),
+            }
+            f, psd, rec = _spectrum_for_profile(
+                profile, alpha=args.alpha, B=args.B, T_sys=args.Tsys
+            )
             if psd.size == 0:
                 continue
             rec.family = f"pic:{npz_path.name}"
@@ -260,8 +286,14 @@ def main() -> int:
     for y in all_curves:
         plt.plot(stats_grid, y, color="tab:blue", alpha=0.35, linewidth=1.0)
     plt.plot(stats_grid, stats_mean, color="k", linewidth=2.0, label="mean")
-    plt.fill_between(stats_grid, stats_mean - stats_std, stats_mean + stats_std,
-                     color="orange", alpha=0.25, label="±1σ")
+    plt.fill_between(
+        stats_grid,
+        stats_mean - stats_std,
+        stats_mean + stats_std,
+        color="orange",
+        alpha=0.25,
+        label="±1σ",
+    )
     plt.xscale("linear")
     plt.yscale("log")
     plt.xlabel(r"$\omega/\kappa$")
@@ -281,12 +313,14 @@ def main() -> int:
         ctrl_res: List[Dict[str, float]] = []
         for label, prof in controls:
             f, psd, rec = _spectrum_for_profile(prof, alpha=args.alpha, B=args.B, T_sys=args.Tsys)
-            ctrl_res.append({
-                "label": label,
-                "has_horizon": bool(rec.kappa > 0),
-                "T_sig": float(rec.T_sig),
-                "t5sigma": float(rec.t5sigma),
-            })
+            ctrl_res.append(
+                {
+                    "label": label,
+                    "has_horizon": bool(rec.kappa > 0),
+                    "T_sig": float(rec.T_sig),
+                    "t5sigma": float(rec.t5sigma),
+                }
+            )
             # Quick side-by-side plot
             plt.figure(figsize=(6, 4))
             if f.size:
@@ -301,7 +335,9 @@ def main() -> int:
         with open(outdir / "controls_summary.json", "w") as fh:
             json.dump(ctrl_res, fh, indent=2)
 
-    print(f"Wrote: {outdir}/universality_summary.json ; RMS_rel={rms_rel:.3f} over [{stats_grid[0]:.2f},{stats_grid[-1]:.2f}]")
+    print(
+        f"Wrote: {outdir}/universality_summary.json ; RMS_rel={rms_rel:.3f} over [{stats_grid[0]:.2f},{stats_grid[-1]:.2f}]"
+    )
     return 0
 
 

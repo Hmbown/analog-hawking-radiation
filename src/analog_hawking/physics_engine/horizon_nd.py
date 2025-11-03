@@ -24,10 +24,10 @@ import numpy as np
 
 @dataclass
 class HorizonSurfaceND:
-    positions: np.ndarray        # (N, D) horizon points
-    kappa: np.ndarray            # (N,) κ at points
-    normals: np.ndarray          # (N, D) unit normals at points
-    c_h: np.ndarray              # (N,) sound speed at horizon
+    positions: np.ndarray  # (N, D) horizon points
+    kappa: np.ndarray  # (N,) κ at points
+    normals: np.ndarray  # (N, D) unit normals at points
+    c_h: np.ndarray  # (N,) sound speed at horizon
 
 
 def _spacing_from_grid(grid: np.ndarray) -> float:
@@ -180,4 +180,3 @@ def find_horizon_surface_nd(
         normals=np.vstack(normals),
         c_h=np.asarray(ch_list, dtype=float),
     )
-

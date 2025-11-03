@@ -35,13 +35,15 @@ class RelativisticPlasmaPhysics:
     Implements proper relativistic corrections for ELI facility conditions.
     """
 
-    def __init__(self,
-                 electron_density: float = 1e18,
-                 laser_wavelength: float = 800e-9,
-                 laser_intensity: float = 1e19,
-                 ion_mass: float = m_p,
-                 gamma_ad: float = 5.0/3.0,
-                 include_quantum_corrections: bool = False):
+    def __init__(
+        self,
+        electron_density: float = 1e18,
+        laser_wavelength: float = 800e-9,
+        laser_intensity: float = 1e19,
+        ion_mass: float = m_p,
+        gamma_ad: float = 5.0 / 3.0,
+        include_quantum_corrections: bool = False,
+    ):
         """
         Initialize relativistic plasma physics model with ELI-relevant parameters.
 
@@ -68,7 +70,7 @@ class RelativisticPlasmaPhysics:
         # Relativistic laser parameters
         E_0 = np.sqrt(2 * self.I_0 / (c * epsilon_0))
         self.a0 = e * E_0 / (m_e * self.omega_l * c)
-        self.gamma_osc = np.sqrt(1 + self.a0**2/2)  # Oscillatory gamma factor
+        self.gamma_osc = np.sqrt(1 + self.a0**2 / 2)  # Oscillatory gamma factor
 
         # Relativistic corrections
         self.mass_ratio = self.m_i / m_e
@@ -81,9 +83,12 @@ class RelativisticPlasmaPhysics:
             if self.include_QED:
                 print("Including QED corrections")
 
-    def relativistic_gamma_factor(self, momentum: Optional[np.ndarray] = None,
-                                velocity: Optional[np.ndarray] = None,
-                                use_oscillatory: bool = False) -> np.ndarray:
+    def relativistic_gamma_factor(
+        self,
+        momentum: Optional[np.ndarray] = None,
+        velocity: Optional[np.ndarray] = None,
+        use_oscillatory: bool = False,
+    ) -> np.ndarray:
         """
         Calculate relativistic γ-factor with proper handling of different regimes.
 
@@ -126,9 +131,9 @@ class RelativisticPlasmaPhysics:
         """
         return self.omega_pe / np.sqrt(gamma_factor)
 
-    def relativistic_dielectric_function(self, omega: np.ndarray,
-                                       k_vector: np.ndarray,
-                                       gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_dielectric_function(
+        self, omega: np.ndarray, k_vector: np.ndarray, gamma_factor: np.ndarray
+    ) -> np.ndarray:
         """
         Calculate relativistic dielectric function for electromagnetic waves.
 
@@ -151,11 +156,14 @@ class RelativisticPlasmaPhysics:
 
         return epsilon
 
-    def relativistic_dispersion_relation(self, omega: np.ndarray,
-                                         gamma_factor: np.ndarray,
-                                         wave_mode: str = 'electromagnetic',
-                                         temperature: Optional[np.ndarray] = None,
-                                         magnetic_field: Optional[np.ndarray] = None) -> np.ndarray:
+    def relativistic_dispersion_relation(
+        self,
+        omega: np.ndarray,
+        gamma_factor: np.ndarray,
+        wave_mode: str = "electromagnetic",
+        temperature: Optional[np.ndarray] = None,
+        magnetic_field: Optional[np.ndarray] = None,
+    ) -> np.ndarray:
         """
         Calculate relativistic dispersion relation for different wave modes.
 
@@ -173,11 +181,11 @@ class RelativisticPlasmaPhysics:
         gamma_factor = np.asarray(gamma_factor, dtype=float)
         omega_pe_sq_over_gamma = self.omega_pe**2 / gamma_factor
 
-        if wave_mode == 'electromagnetic':
+        if wave_mode == "electromagnetic":
             # EM wave: ω² = ω_pe²/γ + k²c²
             k_squared = np.maximum(omega**2 - omega_pe_sq_over_gamma, 0.0) / c**2
 
-        elif wave_mode == 'electrostatic':
+        elif wave_mode == "electrostatic":
             # Electrostatic (Langmuir) wave: ω² = ω_pe²/γ + 3k²v_th²
             if temperature is None:
                 raise ValueError("temperature must be provided for electrostatic dispersion.")
@@ -186,7 +194,7 @@ class RelativisticPlasmaPhysics:
             thermal_term = 3.0 * np.maximum(v_th**2, 1e-30)
             k_squared = np.maximum(omega**2 - omega_pe_sq_over_gamma, 0.0) / thermal_term
 
-        elif wave_mode == 'whistler':
+        elif wave_mode == "whistler":
             if magnetic_field is None:
                 raise ValueError("magnetic_field must be provided for whistler dispersion.")
             magnetic_field = np.asarray(magnetic_field, dtype=float)
@@ -201,8 +209,9 @@ class RelativisticPlasmaPhysics:
 
         return k_mag
 
-    def relativistic_sound_speed(self, temperature: np.ndarray,
-                               gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_sound_speed(
+        self, temperature: np.ndarray, gamma_factor: np.ndarray
+    ) -> np.ndarray:
         """
         Calculate relativistically corrected sound speed.
 
@@ -238,8 +247,9 @@ class RelativisticPlasmaPhysics:
         """
         return self.n_critical * gamma_factor
 
-    def relativistic_ponderomotive_potential(self, E_field: np.ndarray,
-                                           gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_ponderomotive_potential(
+        self, E_field: np.ndarray, gamma_factor: np.ndarray
+    ) -> np.ndarray:
         """
         Calculate relativistically corrected ponderomotive potential.
 
@@ -258,8 +268,9 @@ class RelativisticPlasmaPhysics:
 
         return U_p
 
-    def relativistic_radiation_pressure(self, intensity: np.ndarray,
-                                      gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_radiation_pressure(
+        self, intensity: np.ndarray, gamma_factor: np.ndarray
+    ) -> np.ndarray:
         """
         Calculate relativistic radiation pressure.
 
@@ -277,9 +288,9 @@ class RelativisticPlasmaPhysics:
 
         return P_rad
 
-    def relativistic_hole_boring_velocity(self, intensity: np.ndarray,
-                                        density: np.ndarray,
-                                        gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_hole_boring_velocity(
+        self, intensity: np.ndarray, density: np.ndarray, gamma_factor: np.ndarray
+    ) -> np.ndarray:
         """
         Calculate hole-boring velocity with relativistic corrections.
 
@@ -302,9 +313,12 @@ class RelativisticPlasmaPhysics:
 
         return v_hb
 
-    def relativistic_surface_gravity(self, velocity_gradient: np.ndarray,
-                                   sound_speed_gradient: np.ndarray,
-                                   gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_surface_gravity(
+        self,
+        velocity_gradient: np.ndarray,
+        sound_speed_gradient: np.ndarray,
+        gamma_factor: np.ndarray,
+    ) -> np.ndarray:
         """
         Calculate relativistic surface gravity for analog horizon.
 
@@ -330,8 +344,9 @@ class RelativisticPlasmaPhysics:
 
         return kappa_classical
 
-    def relativistic_hawking_temperature(self, kappa: np.ndarray,
-                                       gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_hawking_temperature(
+        self, kappa: np.ndarray, gamma_factor: np.ndarray
+    ) -> np.ndarray:
         """
         Calculate relativistically corrected Hawking temperature.
 
@@ -364,37 +379,40 @@ class RelativisticPlasmaPhysics:
             Dictionary with regime information
         """
         regimes = {
-            'relativistic_laser': self.a0 > 1,
-            'relativistic_electrons': self.gamma_osc > 1.1,
-            'radiation_pressure_dominant': self.I_0 > 1e18,
-            'pair_production_possible': self.I_0 > 1e24,
-            'quantum_corrections_important': self.a0 > 100
+            "relativistic_laser": self.a0 > 1,
+            "relativistic_electrons": self.gamma_osc > 1.1,
+            "radiation_pressure_dominant": self.I_0 > 1e18,
+            "pair_production_possible": self.I_0 > 1e24,
+            "quantum_corrections_important": self.a0 > 100,
         }
 
         # Add numerical values
-        regimes.update({
-            'a0_parameter': self.a0,
-            'gamma_oscillatory': self.gamma_osc,
-            'intensity_W_m2': self.I_0,
-            'normalized_intensity': self.I_0 / 1e18
-        })
+        regimes.update(
+            {
+                "a0_parameter": self.a0,
+                "gamma_oscillatory": self.gamma_osc,
+                "intensity_W_m2": self.I_0,
+                "normalized_intensity": self.I_0 / 1e18,
+            }
+        )
 
         # Add regime classification
         if self.a0 < 0.1:
-            regimes['regime'] = 'Non-relativistic'
+            regimes["regime"] = "Non-relativistic"
         elif self.a0 < 1:
-            regimes['regime'] = 'Weakly relativistic'
+            regimes["regime"] = "Weakly relativistic"
         elif self.a0 < 10:
-            regimes['regime'] = 'Relativistic'
+            regimes["regime"] = "Relativistic"
         elif self.a0 < 100:
-            regimes['regime'] = 'Highly relativistic'
+            regimes["regime"] = "Highly relativistic"
         else:
-            regimes['regime'] = 'Ultra-relativistic'
+            regimes["regime"] = "Ultra-relativistic"
 
         return regimes
 
-    def relativistic_wave_breaking_field(self, density: np.ndarray,
-                                       gamma_factor: np.ndarray) -> np.ndarray:
+    def relativistic_wave_breaking_field(
+        self, density: np.ndarray, gamma_factor: np.ndarray
+    ) -> np.ndarray:
         """
         Calculate relativistic wave breaking field.
 
@@ -421,10 +439,10 @@ def test_relativistic_physics():
 
     # ELI-like parameters
     params = {
-        'electron_density': 1e21,  # Solid density
-        'laser_wavelength': 800e-9,
-        'laser_intensity': 1e20,   # 10^20 W/m^2 (relativistic)
-        'include_quantum_corrections': False
+        "electron_density": 1e21,  # Solid density
+        "laser_wavelength": 800e-9,
+        "laser_intensity": 1e20,  # 10^20 W/m^2 (relativistic)
+        "include_quantum_corrections": False,
     }
 
     # Create relativistic plasma model

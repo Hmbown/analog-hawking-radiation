@@ -27,4 +27,3 @@ Glossary (Plain Language)
 
 - Pareto frontier
   - A set of configurations where you can’t improve one objective (e.g., higher temperature) without worsening another (e.g., longer detection time).
-

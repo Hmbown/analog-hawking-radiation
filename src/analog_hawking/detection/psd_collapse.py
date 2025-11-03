@@ -71,8 +71,13 @@ def collapse_stats(curves: List[np.ndarray]) -> CollapseStats:
     a reasonably tight collapse under the user's acceptance criterion.
     """
     if not curves:
-        return CollapseStats(grid=np.array([]), mean=np.array([]), std=np.array([]),
-                             rms_relative=np.nan, per_curve_rms_relative=[])
+        return CollapseStats(
+            grid=np.array([]),
+            mean=np.array([]),
+            std=np.array([]),
+            rms_relative=np.nan,
+            per_curve_rms_relative=[],
+        )
 
     Y = np.vstack([np.asarray(c, dtype=float) for c in curves])
     mu = np.mean(Y, axis=0)
@@ -84,8 +89,13 @@ def collapse_stats(curves: List[np.ndarray]) -> CollapseStats:
     overall = float(np.mean(per_curve))
 
     # grid is not known here; caller provides it separately alongside CollapseStats
-    return CollapseStats(grid=np.arange(mu.size), mean=mu, std=sigma,
-                         rms_relative=overall, per_curve_rms_relative=[float(v) for v in per_curve])
+    return CollapseStats(
+        grid=np.arange(mu.size),
+        mean=mu,
+        std=sigma,
+        rms_relative=overall,
+        per_curve_rms_relative=[float(v) for v in per_curve],
+    )
 
 
 def mle_kappa_recovery(
@@ -112,12 +122,20 @@ def mle_kappa_recovery(
     Returns:
         (estimated_kappa, negative_log_likelihood)
     """
+
     def neg_log_lik(kappa: float) -> float:
         if kappa <= 0:
             return np.inf
         # Compute model PSD for this κ
-        gb = compute_graybody(x_profile, v_profile, cs_profile, frequencies, method="acoustic_wkb", kappa=kappa)
-        qft = QuantumFieldTheory(surface_gravity=kappa, emitting_area_m2=1e-6, solid_angle_sr=5e-2, coupling_efficiency=0.1)
+        gb = compute_graybody(
+            x_profile, v_profile, cs_profile, frequencies, method="acoustic_wkb", kappa=kappa
+        )
+        qft = QuantumFieldTheory(
+            surface_gravity=kappa,
+            emitting_area_m2=1e-6,
+            solid_angle_sr=5e-2,
+            coupling_efficiency=0.1,
+        )
         model_psd = qft.hawking_spectrum(2 * np.pi * frequencies, transmission=gb.transmission)
         # Simple Gaussian likelihood (assuming Poisson-like for counts, but simplified)
         # Negative log lik = sum (observed - model)^2 / (2 * model) + const
@@ -125,17 +143,19 @@ def mle_kappa_recovery(
         nll = np.sum(diff**2 / (2 * np.maximum(model_psd, 1e-30)))
         return nll
 
-    res = minimize_scalar(neg_log_lik, bounds=bounds, method='bounded', options={'xatol': 1e8})
+    res = minimize_scalar(neg_log_lik, bounds=bounds, method="bounded", options={"xatol": 1e8})
     kappa_mle = res.x if res.success else initial_guess
     nll = res.fun
     return kappa_mle, nll
 
 
-def band_temperature_and_t5sig(frequencies: np.ndarray,
-                               power_spectrum: np.ndarray,
-                               B: float = 1e8,
-                               T_sys: float = 30.0,
-                               f_center: float | None = None) -> Tuple[float, float]:
+def band_temperature_and_t5sig(
+    frequencies: np.ndarray,
+    power_spectrum: np.ndarray,
+    B: float = 1e8,
+    T_sys: float = 30.0,
+    f_center: float | None = None,
+) -> Tuple[float, float]:
     """Compute equivalent signal temperature and 5σ integration time for a band.
 
     If f_center is not given, use the peak of the spectrum as the band center.
@@ -148,7 +168,8 @@ def band_temperature_and_t5sig(frequencies: np.ndarray,
         f_center = float(f[idx]) if psd.size else float(0.0)
     P_sig = band_power_from_spectrum(f, psd, f_center=f_center, bandwidth=B)
     T_sig = equivalent_signal_temperature(P_sig, B)
-    t_grid = sweep_time_for_5sigma(np.array([T_sys], dtype=float), np.array([B], dtype=float), T_sig)
+    t_grid = sweep_time_for_5sigma(
+        np.array([T_sys], dtype=float), np.array([B], dtype=float), T_sig
+    )
     t_5 = float(t_grid[0, 0])
     return T_sig, t_5
-

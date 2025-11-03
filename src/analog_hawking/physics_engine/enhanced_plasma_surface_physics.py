@@ -53,32 +53,32 @@ class PlasmaMirrorFormation:
     def _get_critical_density_map(self) -> Dict[float, float]:
         """Get critical density as function of wavelength"""
         wavelengths = np.logspace(-7, -5, 100)  # 10 nm to 10 μm
-        critical_densities = epsilon_0 * m_e * (2 * pi * c / wavelengths)**2 / e**2
+        critical_densities = epsilon_0 * m_e * (2 * pi * c / wavelengths) ** 2 / e**2
         return {float(w): float(n_c) for w, n_c in zip(wavelengths, critical_densities)}
 
     def _get_material_properties(self) -> Dict:
         """Get material-specific properties"""
         properties = {
-            'Al': {
-                'Z': 13,
-                'A': 27,
-                'work_function': 4.08 * e,  # Joules
-                'ionization_potentials': [5.99, 18.8, 28.4]  # First few in eV
+            "Al": {
+                "Z": 13,
+                "A": 27,
+                "work_function": 4.08 * e,  # Joules
+                "ionization_potentials": [5.99, 18.8, 28.4],  # First few in eV
             },
-            'Si': {
-                'Z': 14,
-                'A': 28,
-                'work_function': 4.85 * e,
-                'ionization_potentials': [8.15, 16.3, 33.5]
+            "Si": {
+                "Z": 14,
+                "A": 28,
+                "work_function": 4.85 * e,
+                "ionization_potentials": [8.15, 16.3, 33.5],
             },
-            'Au': {
-                'Z': 79,
-                'A': 197,
-                'work_function': 5.31 * e,
-                'ionization_potentials': [9.22, 20.5]
-            }
+            "Au": {
+                "Z": 79,
+                "A": 197,
+                "work_function": 5.31 * e,
+                "ionization_potentials": [9.22, 20.5],
+            },
         }
-        return properties.get(self.target_material, properties['Al'])
+        return properties.get(self.target_material, properties["Al"])
 
     def ionization_threshold_intensity(self, wavelength: float) -> float:
         """
@@ -97,15 +97,16 @@ class PlasmaMirrorFormation:
         # Barrier suppression ionization field
         # E_BSI = 16 * Ip^2 / (9 * e^3 * a0^2) where a0 is Bohr radius
         a0 = 5.29e-11  # Bohr radius in meters
-        Ip = self.material_properties['ionization_potentials'][0] * e  # First ionization potential
+        Ip = self.material_properties["ionization_potentials"][0] * e  # First ionization potential
 
         E_BSI = 16 * Ip**2 / (9 * e**3 * a0**2)
         I_BSI = 0.5 * epsilon_0 * c * E_BSI**2
 
         return I_BSI
 
-    def pre_plasma_scale_length(self, intensity: float, pulse_duration: float,
-                              wavelength: float) -> float:
+    def pre_plasma_scale_length(
+        self, intensity: float, pulse_duration: float, wavelength: float
+    ) -> float:
         """
         Calculate pre-plasma scale length from laser prepulse
 
@@ -122,8 +123,8 @@ class PlasmaMirrorFormation:
 
         # Characteristic sound speed (assuming 1 keV temperature)
         T_e = 1e3 * e  # 1 keV in Joules
-        m_i = self.material_properties['A'] * m_p
-        c_s = np.sqrt(self.material_properties['Z'] * k * T_e / m_i)
+        m_i = self.material_properties["A"] * m_p
+        c_s = np.sqrt(self.material_properties["Z"] * k * T_e / m_i)
 
         # Expansion time (prepulse duration estimate)
         t_expansion = 1e-12  # 1 ps typical prepulse timescale
@@ -136,8 +137,9 @@ class PlasmaMirrorFormation:
 
         return min(L_pre, wavelength)  # Don't exceed wavelength
 
-    def plasma_mirror_reflectivity(self, intensity: float, wavelength: float,
-                                 scale_length: float, incident_angle: float = 0) -> float:
+    def plasma_mirror_reflectivity(
+        self, intensity: float, wavelength: float, scale_length: float, incident_angle: float = 0
+    ) -> float:
         """
         Calculate plasma mirror reflectivity
 
@@ -173,7 +175,7 @@ class PlasmaMirrorFormation:
         a0 = self.calculate_a0(intensity, wavelength)
         if a0 > 1:
             # Relativistic effects reduce reflectivity
-            R *= (1 - 0.1 * np.log10(a0))
+            R *= 1 - 0.1 * np.log10(a0)
 
         # Angular dependence
         cos_theta = np.cos(incident_angle)
@@ -220,7 +222,7 @@ class SurfaceRoughnessEffects:
         cos_theta = np.cos(incident_angle)
 
         # Roughness parameter
-        roughness_param = (4 * pi * self.sigma * cos_theta / wavelength)**2
+        roughness_param = (4 * pi * self.sigma * cos_theta / wavelength) ** 2
 
         # Reflection loss factor
         loss_factor = np.exp(-roughness_param)
@@ -242,10 +244,10 @@ class SurfaceRoughnessEffects:
         # Simplified Gaussian scattering model
         def scattering_function(theta):
             # theta: scattering angle in radians
-            return np.exp(-(k * self.sigma * np.sin(theta))**2) / (pi * self.l_c**2)
+            return np.exp(-((k * self.sigma * np.sin(theta)) ** 2)) / (pi * self.l_c**2)
 
         # Total scattered power (simplified)
-        P_scattered = (k * self.sigma)**2
+        P_scattered = (k * self.sigma) ** 2
 
         return scattering_function, P_scattered
 
@@ -262,7 +264,7 @@ class SurfaceRoughnessEffects:
         """
         # Roughness-induced absorption
         k = 2 * pi / wavelength
-        roughness_factor = (k * self.sigma)**2
+        roughness_factor = (k * self.sigma) ** 2
 
         # Intensity-dependent enhancement
         a0 = np.sqrt(2 * intensity / (epsilon_0 * c)) * e / (m_e * (2 * pi * c / wavelength) * c)
@@ -286,8 +288,7 @@ class AbsorptionMechanisms:
         """Initialize absorption mechanisms model"""
         pass
 
-    def brunel_heating(self, intensity: float, wavelength: float,
-                      scale_length: float) -> float:
+    def brunel_heating(self, intensity: float, wavelength: float, scale_length: float) -> float:
         """
         Calculate Brunel (vacuum) heating absorption
 
@@ -314,8 +315,9 @@ class AbsorptionMechanisms:
 
         return np.clip(eta_brunel, 0, 1)
 
-    def jxb_heating(self, intensity: float, wavelength: float,
-                   electron_temperature: float) -> float:
+    def jxb_heating(
+        self, intensity: float, wavelength: float, electron_temperature: float
+    ) -> float:
         """
         Calculate J×B (ponderomotive) heating absorption
 
@@ -339,8 +341,9 @@ class AbsorptionMechanisms:
 
         return np.clip(eta_jxb, 0, 1)
 
-    def resonance_absorption(self, intensity: float, wavelength: float,
-                           scale_length: float, incident_angle: float) -> float:
+    def resonance_absorption(
+        self, intensity: float, wavelength: float, scale_length: float, incident_angle: float
+    ) -> float:
         """
         Calculate resonance absorption at critical density
 
@@ -362,7 +365,7 @@ class AbsorptionMechanisms:
 
         # Absorption coefficient
         theta_abs = abs(incident_angle - np.arcsin(sin_theta_opt))
-        eta_resonance = 0.3 * np.exp(-theta_abs**2 / (0.1)**2)
+        eta_resonance = 0.3 * np.exp(-(theta_abs**2) / (0.1) ** 2)
 
         # Scale length dependence
         eta_resonance *= np.exp(-normalized_scale_length)
@@ -394,9 +397,15 @@ class AbsorptionMechanisms:
         omega_l = 2 * pi * c / wavelength
         return e * E_0 / (m_e * omega_l * c)
 
-    def total_absorption(self, intensity: float, wavelength: float,
-                        scale_length: float, incident_angle: float,
-                        electron_temperature: float, polarization: str = 'p') -> float:
+    def total_absorption(
+        self,
+        intensity: float,
+        wavelength: float,
+        scale_length: float,
+        incident_angle: float,
+        electron_temperature: float,
+        polarization: str = "p",
+    ) -> float:
         """
         Calculate total absorption from all mechanisms
 
@@ -418,9 +427,10 @@ class AbsorptionMechanisms:
 
         # Resonance absorption only for p-polarization
         eta_resonance = 0
-        if polarization.lower() == 'p':
-            eta_resonance = self.resonance_absorption(intensity, wavelength,
-                                                     scale_length, incident_angle)
+        if polarization.lower() == "p":
+            eta_resonance = self.resonance_absorption(
+                intensity, wavelength, scale_length, incident_angle
+            )
 
         # Total absorption (approximate - mechanisms aren't strictly additive)
         eta_total = eta_brunel + eta_jxb + eta_vacuum + eta_resonance
@@ -459,7 +469,7 @@ class PlasmaDynamicsAtSurface:
         """
         # Radiation pressure driven expansion
         P_rad = 2 * intensity / c  # Perfect reflector assumption
-        mass_density = 2700 if self.target_material == 'Al' else 2330  # kg/m^3
+        mass_density = 2700 if self.target_material == "Al" else 2330  # kg/m^3
 
         # Expansion velocity from pressure balance
         v_exp = np.sqrt(2 * P_rad / mass_density)
@@ -486,7 +496,7 @@ class PlasmaDynamicsAtSurface:
         # T_h ≈ m_e*c²*(√(1 + a0²/2) - 1)
         a0 = self.plasma_mirror.calculate_a0(intensity, wavelength)
 
-        T_hot = m_e * c**2 * (np.sqrt(1 + a0**2/2) - 1)
+        T_hot = m_e * c**2 * (np.sqrt(1 + a0**2 / 2) - 1)
 
         # Limit to reasonable range
         T_hot = min(T_hot, 10e6 * e)  # Cap at 10 MeV
@@ -528,9 +538,14 @@ class PlasmaDynamicsAtSurface:
 
         return delta
 
-    def full_surface_interaction(self, intensity: float, wavelength: float,
-                               pulse_duration: float, incident_angle: float = 0,
-                               polarization: str = 'p') -> Dict[str, float]:
+    def full_surface_interaction(
+        self,
+        intensity: float,
+        wavelength: float,
+        pulse_duration: float,
+        incident_angle: float = 0,
+        polarization: str = "p",
+    ) -> Dict[str, float]:
         """
         Complete surface interaction model
 
@@ -546,18 +561,21 @@ class PlasmaDynamicsAtSurface:
         """
         # Calculate pre-plasma scale length
         scale_length = self.plasma_mirror.pre_plasma_scale_length(
-            intensity, pulse_duration, wavelength)
+            intensity, pulse_duration, wavelength
+        )
 
         # Calculate electron temperature
         T_e = self.electron_temperature_at_surface(intensity, wavelength)
 
         # Calculate absorption
         eta_abs = self.absorption.total_absorption(
-            intensity, wavelength, scale_length, incident_angle, T_e, polarization)
+            intensity, wavelength, scale_length, incident_angle, T_e, polarization
+        )
 
         # Calculate reflectivity
         eta_refl = self.plasma_mirror.plasma_mirror_reflectivity(
-            intensity, wavelength, scale_length, incident_angle)
+            intensity, wavelength, scale_length, incident_angle
+        )
 
         # Apply roughness effects
         eta_refl *= self.roughness.roughness_reflection_loss(wavelength, incident_angle)
@@ -573,14 +591,14 @@ class PlasmaDynamicsAtSurface:
         a0 = self.plasma_mirror.calculate_a0(intensity, wavelength)
 
         return {
-            'scale_length': scale_length,
-            'electron_temperature': T_e,
-            'absorption_fraction': eta_abs,
-            'reflectivity': eta_refl,
-            'expansion_velocity': v_exp,
-            'a0_parameter': a0,
-            'skin_depth': self.skin_depth_at_surface(1e28, wavelength),  # Solid density
-            'plasma_frequency': self.plasma_frequency_at_surface(1e28)  # Solid density
+            "scale_length": scale_length,
+            "electron_temperature": T_e,
+            "absorption_fraction": eta_abs,
+            "reflectivity": eta_refl,
+            "expansion_velocity": v_exp,
+            "a0_parameter": a0,
+            "skin_depth": self.skin_depth_at_surface(1e28, wavelength),  # Solid density
+            "plasma_frequency": self.plasma_frequency_at_surface(1e28),  # Solid density
         }
 
 
@@ -592,7 +610,7 @@ def test_plasma_surface_physics():
     print("=" * 60)
 
     # Create plasma surface dynamics model for Aluminum
-    surface_dynamics = PlasmaDynamicsAtSurface('Al')
+    surface_dynamics = PlasmaDynamicsAtSurface("Al")
 
     # ELI-like parameters
     intensity = 1e20  # 10^20 W/m^2
@@ -608,7 +626,8 @@ def test_plasma_surface_physics():
 
     # Test full surface interaction
     results = surface_dynamics.full_surface_interaction(
-        intensity, wavelength, pulse_duration, incident_angle, 'p')
+        intensity, wavelength, pulse_duration, incident_angle, "p"
+    )
 
     print("\nSurface Interaction Results:")
     print(f"  Pre-plasma scale length: {results['scale_length']*1e9:.2f} nm")
@@ -621,14 +640,15 @@ def test_plasma_surface_physics():
 
     # Test different absorption mechanisms
     absorption = AbsorptionMechanisms()
-    scale_length = results['scale_length']
-    T_e = results['electron_temperature']
+    scale_length = results["scale_length"]
+    T_e = results["electron_temperature"]
 
     print("\nIndividual Absorption Mechanisms:")
     eta_brunel = absorption.brunel_heating(intensity, wavelength, scale_length)
     eta_jxb = absorption.jxb_heating(intensity, wavelength, T_e)
-    eta_resonance = absorption.resonance_absorption(intensity, wavelength,
-                                                    scale_length, incident_angle)
+    eta_resonance = absorption.resonance_absorption(
+        intensity, wavelength, scale_length, incident_angle
+    )
     eta_vacuum = absorption.vacuum_heating(intensity, wavelength)
 
     print(f"  Brunel heating: {eta_brunel:.3f}")
@@ -649,8 +669,10 @@ def test_plasma_surface_physics():
     print("\nIntensity Scaling:")
     intensities = np.logspace(18, 22, 5)
     for I in intensities:
-        res = surface_dynamics.full_surface_interaction(I, wavelength, pulse_duration, 0, 'p')
-        print(f"  I = {I:.1e} W/m^2: R = {res['reflectivity']:.3f}, A = {res['absorption_fraction']:.3f}")
+        res = surface_dynamics.full_surface_interaction(I, wavelength, pulse_duration, 0, "p")
+        print(
+            f"  I = {I:.1e} W/m^2: R = {res['reflectivity']:.3f}, A = {res['absorption_fraction']:.3f}"
+        )
 
     print("\nPlasma Surface Physics Test Complete!")
 

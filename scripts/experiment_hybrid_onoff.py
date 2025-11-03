@@ -26,14 +26,18 @@ def main() -> int:
     p.add_argument("--Tsys", type=float, default=30.0)
     args = p.parse_args()
 
-    outdir = Path(args.out); figdir = outdir / "figures"
+    outdir = Path(args.out)
+    figdir = outdir / "figures"
     outdir.mkdir(parents=True, exist_ok=True)
     figdir.mkdir(parents=True, exist_ok=True)
 
     deltas = []
     for w in args.weights:
-        res = calculate_enhanced_hawking_spectrum(args.kappa_fluid, args.kappa_mirror, coupling_weight=float(w))
-        f = res["frequencies"]; psd = res["power_spectrum"]
+        res = calculate_enhanced_hawking_spectrum(
+            args.kappa_fluid, args.kappa_mirror, coupling_weight=float(w)
+        )
+        f = res["frequencies"]
+        psd = res["power_spectrum"]
         T_sig, t5 = band_temperature_and_t5sig(f, psd, B=args.B, T_sys=args.Tsys)
         deltas.append({"w": float(w), "T_sig": float(T_sig), "t5sigma": float(t5)})
 
@@ -45,13 +49,17 @@ def main() -> int:
     plt.plot(ws, Ts, "o-", label="T_sig [K]")
     plt.xlabel("Coupling weight")
     plt.ylabel("T_sig [K]")
-    plt.tight_layout(); plt.savefig(figdir / "delta_Tsig_vs_weight.png", dpi=160); plt.close()
+    plt.tight_layout()
+    plt.savefig(figdir / "delta_Tsig_vs_weight.png", dpi=160)
+    plt.close()
 
     plt.figure(figsize=(6, 4))
     plt.semilogy(ws, t5s, "o-", label="t_5σ [s]")
     plt.xlabel("Coupling weight")
     plt.ylabel("t_5σ [s]")
-    plt.tight_layout(); plt.savefig(figdir / "t5sigma_vs_weight.png", dpi=160); plt.close()
+    plt.tight_layout()
+    plt.savefig(figdir / "t5sigma_vs_weight.png", dpi=160)
+    plt.close()
 
     with open(outdir / "hybrid_onoff_summary.json", "w") as fh:
         json.dump(deltas, fh, indent=2)
@@ -62,4 +70,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

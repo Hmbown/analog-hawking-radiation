@@ -16,9 +16,8 @@ from analog_hawking.physics_engine.optimization.graybody_1d import (  # Reuse 1D
 @dataclass
 class Graybody3DResult(GraybodyResult):
     """Extended result for 3D graybody with transverse factors."""
+
     transverse_scattering: np.ndarray  # Approximate scattering correction per frequency
-
-
 
 
 def _effective_potential_3d(
@@ -59,12 +58,13 @@ def compute_graybody_3d(
 
     # Extract central slice for radial approximation (assume x is propagation direction)
     ny, nz = velocity.shape[1], velocity.shape[2]
-    v_r = velocity[:, ny//2, nz//2]  # Radial velocity approximation
-    cs_r = sound_speed[:, ny//2, nz//2]
+    v_r = velocity[:, ny // 2, nz // 2]  # Radial velocity approximation
+    cs_r = sound_speed[:, ny // 2, nz // 2]
 
     # Estimate kappa if not provided
     if kappa is None or kappa <= 0.0:
         from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+
         hr = find_horizons_with_uncertainty(x, v_r, cs_r, kappa_method="acoustic_exact")
         kappa_eff = float(np.max(hr.kappa)) if hr.kappa.size else 1.0
     else:
@@ -86,7 +86,9 @@ def compute_graybody_3d(
         transmission[i] = transmission_sum / (2 * l_max + 1)
 
         # Approximate scattering correction: simple geometric for low angular indices
-        scattering_factor = 1.0 - (l_max * (l_max + 1)) / (2 * (omega * r_horizon / kappa_eff)**2 + 1e-6)
+        scattering_factor = 1.0 - (l_max * (l_max + 1)) / (
+            2 * (omega * r_horizon / kappa_eff) ** 2 + 1e-6
+        )
         transverse_scattering[i] = np.clip(scattering_factor, 0.0, 1.0)
 
     # Uncertainty via perturbation (reuse 1D logic on slice; simplified heuristic)

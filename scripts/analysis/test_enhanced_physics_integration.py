@@ -20,28 +20,49 @@ import sys
 import os
 
 # Add src directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
-from analog_hawking.physics_engine.enhanced_relativistic_physics import RelativisticPlasmaPhysics, test_relativistic_physics
-from analog_hawking.physics_engine.enhanced_ionization_physics import IonizationDynamics, ATOMIC_DATA, test_ionization_physics
-from analog_hawking.physics_engine.enhanced_plasma_surface_physics import PlasmaDynamicsAtSurface, test_plasma_surface_physics
-from analog_hawking.physics_engine.physics_validation_framework import PhysicsModelValidator, run_comprehensive_validation
-from analog_hawking.physics_engine.enhanced_physics_integration import (
-    EnhancedPhysicsEngine, EnhancedPhysicsConfig, PhysicsModel,
-    create_enhanced_pipeline, BackwardCompatibilityWrapper,
-    test_enhanced_integration
+from analog_hawking.physics_engine.enhanced_relativistic_physics import (
+    RelativisticPlasmaPhysics,
+    test_relativistic_physics,
 )
+from analog_hawking.physics_engine.enhanced_ionization_physics import (
+    IonizationDynamics,
+    ATOMIC_DATA,
+    test_ionization_physics,
+)
+from analog_hawking.physics_engine.enhanced_plasma_surface_physics import (
+    PlasmaDynamicsAtSurface,
+    test_plasma_surface_physics,
+)
+from analog_hawking.physics_engine.physics_validation_framework import (
+    PhysicsModelValidator,
+    run_comprehensive_validation,
+)
+from analog_hawking.physics_engine.enhanced_physics_integration import (
+    EnhancedPhysicsEngine,
+    EnhancedPhysicsConfig,
+    PhysicsModel,
+    create_enhanced_pipeline,
+    BackwardCompatibilityWrapper,
+    test_enhanced_integration,
+)
+
 
 def test_backward_compatibility():
     """Test backward compatibility with existing analysis pipeline"""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TESTING BACKWARD COMPATIBILITY")
-    print("="*60)
+    print("=" * 60)
 
     # Test that we can still import legacy functions
     try:
-        from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty, sound_speed
+        from analog_hawking.physics_engine.horizon import (
+            find_horizons_with_uncertainty,
+            sound_speed,
+        )
         from analog_hawking.physics_engine.plasma_mirror import calculate_plasma_mirror_dynamics
+
         print("✅ Legacy imports successful")
     except ImportError as e:
         print(f"❌ Legacy import failed: {e}")
@@ -66,18 +87,21 @@ def test_backward_compatibility():
         wrapper = BackwardCompatibilityWrapper(enhanced_engine)
 
         legacy_result = wrapper.find_horizons_legacy(x, v, c_s)
-        print(f"✅ Backward compatibility wrapper works: found {len(legacy_result.positions)} horizons")
+        print(
+            f"✅ Backward compatibility wrapper works: found {len(legacy_result.positions)} horizons"
+        )
     except Exception as e:
         print(f"❌ Backward compatibility wrapper failed: {e}")
         return False
 
     return True
 
+
 def test_enhanced_components():
     """Test individual enhanced physics components"""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TESTING INDIVIDUAL ENHANCED COMPONENTS")
-    print("="*60)
+    print("=" * 60)
 
     success = True
 
@@ -86,9 +110,7 @@ def test_enhanced_components():
     print("-" * 40)
     try:
         plasma = RelativisticPlasmaPhysics(
-            electron_density=1e20,
-            laser_wavelength=800e-9,
-            laser_intensity=1e20
+            electron_density=1e20, laser_wavelength=800e-9, laser_intensity=1e20
         )
 
         # Check regime
@@ -98,7 +120,9 @@ def test_enhanced_components():
         # Test relativistic corrections
         gamma_values = np.array([1.0, 2.0, 5.0, 10.0])
         omega_pe_rel = plasma.relativistic_plasma_frequency(gamma_values)
-        print(f"   Relativistic plasma frequency: {omega_pe_rel[0]:.2e} → {omega_pe_rel[-1]:.2e} rad/s")
+        print(
+            f"   Relativistic plasma frequency: {omega_pe_rel[0]:.2e} → {omega_pe_rel[-1]:.2e} rad/s"
+        )
 
         # Test relativistic sound speed
         T = 1e6  # 1 MK
@@ -114,7 +138,7 @@ def test_enhanced_components():
     print("\n2. Testing Ionization Physics")
     print("-" * 40)
     try:
-        ionization = IonizationDynamics(ATOMIC_DATA['Al'], laser_wavelength=800e-9)
+        ionization = IonizationDynamics(ATOMIC_DATA["Al"], laser_wavelength=800e-9)
 
         # Test ADK rates
         E_test = 1e12  # V/m
@@ -126,7 +150,7 @@ def test_enhanced_components():
         print(f"   PPT rate at E={E_test:.1e} V/m: {rate_ppt:.2e} s⁻¹")
 
         # Test collisional ionization
-        rate_coll = ionization.collisional_model.collisional_rate(1e19, 1e6*e, 0)
+        rate_coll = ionization.collisional_model.collisional_rate(1e19, 1e6 * e, 0)
         print(f"   Collisional rate: {rate_coll:.2e} s⁻¹")
 
         print("   ✅ Ionization physics tests passed")
@@ -138,16 +162,14 @@ def test_enhanced_components():
     print("\n3. Testing Surface Physics")
     print("-" * 40)
     try:
-        surface = PlasmaDynamicsAtSurface('Al')
+        surface = PlasmaDynamicsAtSurface("Al")
 
         # Test surface interaction
         intensity = 1e20  # W/m²
         wavelength = 800e-9
         pulse_duration = 30e-15
 
-        results = surface.full_surface_interaction(
-            intensity, wavelength, pulse_duration, 0, 'p'
-        )
+        results = surface.full_surface_interaction(intensity, wavelength, pulse_duration, 0, "p")
 
         print(f"   Absorption fraction: {results['absorption_fraction']:.3f}")
         print(f"   Reflectivity: {results['reflectivity']:.3f}")
@@ -155,8 +177,8 @@ def test_enhanced_components():
 
         # Test absorption mechanisms
         absorption = surface.absorption
-        eta_brunel = absorption.brunel_heating(intensity, wavelength, results['scale_length'])
-        eta_jxb = absorption.jxb_heating(intensity, wavelength, results['electron_temperature'])
+        eta_brunel = absorption.brunel_heating(intensity, wavelength, results["scale_length"])
+        eta_jxb = absorption.jxb_heating(intensity, wavelength, results["electron_temperature"])
         print(f"   Brunel heating: {eta_brunel:.3f}, J×B heating: {eta_jxb:.3f}")
 
         print("   ✅ Surface physics tests passed")
@@ -166,11 +188,12 @@ def test_enhanced_components():
 
     return success
 
+
 def test_integration_pipeline():
     """Test the complete enhanced integration pipeline"""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TESTING COMPLETE INTEGRATION PIPELINE")
-    print("="*60)
+    print("=" * 60)
 
     try:
         # Create enhanced physics engine
@@ -180,7 +203,7 @@ def test_integration_pipeline():
             include_ionization_dynamics=True,
             include_surface_physics=True,
             target_material="Al",
-            eli_optimization=True
+            eli_optimization=True,
         )
 
         engine = EnhancedPhysicsEngine(config)
@@ -216,17 +239,15 @@ def test_integration_pipeline():
         print("\n3. Testing ELI Optimization")
         print("-" * 40)
         parameter_ranges = {
-            'intensity': (1e19, 1e21),
-            'density': (1e18, 1e20),
-            'wavelength': (400e-9, 1064e-9)
+            "intensity": (1e19, 1e21),
+            "density": (1e18, 1e20),
+            "wavelength": (400e-9, 1064e-9),
         }
 
-        optimization = engine.eli_facility_optimization(
-            parameter_ranges, "hawking_temperature"
-        )
+        optimization = engine.eli_facility_optimization(parameter_ranges, "hawking_temperature")
 
         print("   Optimization results:")
-        for param, value in optimization.get('optimal_parameters', {}).items():
+        for param, value in optimization.get("optimal_parameters", {}).items():
             print(f"     {param}: {value:.2e}")
 
         print("   ✅ Integration pipeline tests passed")
@@ -236,18 +257,19 @@ def test_integration_pipeline():
         print(f"   ❌ Integration pipeline test failed: {e}")
         return False
 
+
 def test_validation_framework():
     """Test the physics validation framework"""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TESTING PHYSICS VALIDATION FRAMEWORK")
-    print("="*60)
+    print("=" * 60)
 
     try:
         # Run comprehensive validation
         validation_results = run_comprehensive_validation()
 
         if validation_results:
-            summary = validation_results.get('summary', {})
+            summary = validation_results.get("summary", {})
             print(f"\nValidation Summary:")
             print(f"   Total tests: {summary.get('total_tests', 0)}")
             print(f"   Passed: {summary.get('passed_tests', 0)}")
@@ -256,12 +278,12 @@ def test_validation_framework():
             print(f"   Pass rate: {summary.get('pass_rate', 0):.1%}")
             print(f"   Overall status: {summary.get('overall_status', 'Unknown')}")
 
-            if summary.get('error_tests', 0) == 0:
+            if summary.get("error_tests", 0) == 0:
                 print("   ✅ All critical validation tests passed")
                 return True
             else:
                 print("   ❌ Some validation tests failed")
-                for error in summary.get('errors', []):
+                for error in summary.get("errors", []):
                     print(f"     - {error['test']}: {error['description']}")
                 return False
         else:
@@ -272,18 +294,19 @@ def test_validation_framework():
         print(f"   ❌ Validation framework test failed: {e}")
         return False
 
+
 def test_eli_specific_conditions():
     """Test enhanced models under ELI-specific conditions"""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("TESTING ELI-SPECIFIC CONDITIONS")
-    print("="*60)
+    print("=" * 60)
 
     # ELI parameter ranges
     eli_params = {
-        'intensity': 1e22,  # 10^22 W/m² (ultra-relativistic)
-        'wavelength': 800e-9,
-        'pulse_duration': 25e-15,  # 25 fs
-        'target': 'Al'
+        "intensity": 1e22,  # 10^22 W/m² (ultra-relativistic)
+        "wavelength": 800e-9,
+        "pulse_duration": 25e-15,  # 25 fs
+        "target": "Al",
     }
 
     print(f"Testing ELI conditions:")
@@ -296,8 +319,8 @@ def test_eli_specific_conditions():
         # Test relativistic regime
         plasma = RelativisticPlasmaPhysics(
             electron_density=1e21,
-            laser_wavelength=eli_params['wavelength'],
-            laser_intensity=eli_params['intensity']
+            laser_wavelength=eli_params["wavelength"],
+            laser_intensity=eli_params["intensity"],
         )
 
         regime = plasma.check_relativistic_regime()
@@ -306,18 +329,15 @@ def test_eli_specific_conditions():
         print(f"   Regime: {regime['regime']}")
         print(f"   γ_osc: {regime['gamma_oscillatory']:.2f}")
 
-        if regime['a0_parameter'] > 10:
+        if regime["a0_parameter"] > 10:
             print("   ✅ Confirmed ultra-relativistic regime (a₀ > 10)")
         else:
             print("   ⚠️  Not in ultra-relativistic regime for given parameters")
 
         # Test surface physics at ELI intensities
-        surface = PlasmaDynamicsAtSurface(eli_params['target'])
+        surface = PlasmaDynamicsAtSurface(eli_params["target"])
         surface_results = surface.full_surface_interaction(
-            eli_params['intensity'],
-            eli_params['wavelength'],
-            eli_params['pulse_duration'],
-            0, 'p'
+            eli_params["intensity"], eli_params["wavelength"], eli_params["pulse_duration"], 0, "p"
         )
 
         print(f"\nSurface physics at ELI intensity:")
@@ -327,8 +347,8 @@ def test_eli_specific_conditions():
         print(f"   Expansion velocity: {surface_results['expansion_velocity']/1e6:.1f} Mm/s")
 
         # Test ionization at ELI conditions
-        ionization = IonizationDynamics(ATOMIC_DATA[eli_params['target']], eli_params['wavelength'])
-        E_field = np.sqrt(2 * eli_params['intensity'] / (3e8 * 8.85e-12))
+        ionization = IonizationDynamics(ATOMIC_DATA[eli_params["target"]], eli_params["wavelength"])
+        E_field = np.sqrt(2 * eli_params["intensity"] / (3e8 * 8.85e-12))
         adk_rate = ionization.adk_model.adk_rate(E_field, 0)
         ppt_rate = ionization.ppt_model.ppt_rate(E_field, 0, ionization.omega_l)
 
@@ -349,11 +369,12 @@ def test_eli_specific_conditions():
         print(f"   ❌ ELI condition test failed: {e}")
         return False
 
+
 def generate_performance_comparison():
     """Generate performance comparison between legacy and enhanced models"""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("GENERATING PERFORMANCE COMPARISON")
-    print("="*60)
+    print("=" * 60)
 
     try:
         import time
@@ -362,10 +383,11 @@ def generate_performance_comparison():
         x = np.linspace(0, 100e-6, 1000)
         v = 0.1 * 3e8 * np.tanh((x - 50e-6) / 10e-6)
         T_e = 1e6 * np.ones_like(x)
-        c_s = np.sqrt(5/3 * 1.38e-23 * T_e / 1.67e-27)
+        c_s = np.sqrt(5 / 3 * 1.38e-23 * T_e / 1.67e-27)
 
         # Legacy model performance
         from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+
         start_time = time.time()
         legacy_result = find_horizons_with_uncertainty(x, v, c_s)
         legacy_time = time.time() - start_time
@@ -397,6 +419,7 @@ def generate_performance_comparison():
         print(f"   ❌ Performance comparison failed: {e}")
         return False
 
+
 def run_comprehensive_test_suite():
     """Run the complete test suite"""
     print("COMPREHENSIVE ENHANCED PHYSICS TEST SUITE")
@@ -407,26 +430,26 @@ def run_comprehensive_test_suite():
     print("=" * 80)
 
     test_results = {
-        'backward_compatibility': False,
-        'individual_components': False,
-        'integration_pipeline': False,
-        'validation_framework': False,
-        'eli_conditions': False,
-        'performance_comparison': False
+        "backward_compatibility": False,
+        "individual_components": False,
+        "integration_pipeline": False,
+        "validation_framework": False,
+        "eli_conditions": False,
+        "performance_comparison": False,
     }
 
     # Run all tests
-    test_results['backward_compatibility'] = test_backward_compatibility()
-    test_results['individual_components'] = test_enhanced_components()
-    test_results['integration_pipeline'] = test_integration_pipeline()
-    test_results['validation_framework'] = test_validation_framework()
-    test_results['eli_conditions'] = test_eli_specific_conditions()
-    test_results['performance_comparison'] = generate_performance_comparison()
+    test_results["backward_compatibility"] = test_backward_compatibility()
+    test_results["individual_components"] = test_enhanced_components()
+    test_results["integration_pipeline"] = test_integration_pipeline()
+    test_results["validation_framework"] = test_validation_framework()
+    test_results["eli_conditions"] = test_eli_specific_conditions()
+    test_results["performance_comparison"] = generate_performance_comparison()
 
     # Generate summary report
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("COMPREHENSIVE TEST SUITE SUMMARY")
-    print("="*80)
+    print("=" * 80)
 
     total_tests = len(test_results)
     passed_tests = sum(test_results.values())
@@ -456,6 +479,7 @@ def run_comprehensive_test_suite():
         print(f"   Enhanced physics models may need debugging or configuration adjustments.")
 
     return test_results
+
 
 if __name__ == "__main__":
     # Run comprehensive test suite
