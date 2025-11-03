@@ -149,6 +149,8 @@ pytest -q                                  # Verify environment (42 tests pass)
 - **Release context** – [`RELEASE_NOTES_v0.3.0.md`](RELEASE_NOTES_v0.3.0.md)
 - **Known gaps** – [`docs/Limitations.md`](docs/Limitations.md)
 
+> Notebook smoke check: `python -m nbconvert --execute notebooks/01_quickstart.ipynb --to notebook --output notebooks/01_quickstart.executed.ipynb` (repeat for other notebooks) keeps examples fresh ahead of releases.
+
 ---
 
 ## 2. Installation & First Validation (10 minutes)

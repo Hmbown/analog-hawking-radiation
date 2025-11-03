@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- Documented doc-sync workflow (`python scripts/doc_sync/render_docs.py ...`) and notebook smoke-check guidance to keep researcher handoffs reproducible.
+
+### In Progress
+- Relaxing relativistic causality tolerances to treat phase-velocity ≈ c rounding as non-blocking while preserving group-velocity enforcement.
+- Recalibrating ADK strong-field coefficients so validation monotonicity fully passes with benchmarked tunneling rates.
+
 ## [0.3.0] - 2025-10-26
 
 ### Added

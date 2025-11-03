@@ -2,7 +2,7 @@
 
 ## Parametric Upper Bound on Surface Gravity (v0.3.0)
 
-**Date**: October 2025
+**Date**: November 2025
 **Version**: 0.3.0
 **Analysis Module**: `scripts/sweep_gradient_catastrophe.py`
 
@@ -12,9 +12,9 @@
 
 ### Executive Summary
 
-Our systematic analysis of 500 synthetic laser–plasma configurations identified an approximate upper bound on achievable surface gravity in our 1D models, given specific breakdown thresholds:
+Our systematic analysis of 500 synthetic configurations identified an approximate upper bound on achievable surface gravity in 1D models given specific breakdown thresholds:
 
-**κ_max = 5.9405655557e+12 Hz** (acoustic‑exact κ; thresholds enforced)
+**κ_max = 5.94e+12 Hz** (acoustic‑exact κ; thresholds enforced)
 
 ---
 
@@ -40,8 +40,8 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 ## 🧪 Key Findings
 
 ### Scaling Relationships
-1. κ vs a₀: exponent ≈ 0.664 (95% CI [0.441, 0.888])
-2. κ vs nₑ: exponent ≈ -0.0200 (95% CI [-0.1367, 0.0967])
+1. κ vs a₀: exponent ≈ 0.66 (95% CI [0.44, 0.89])
+2. κ vs nₑ: exponent ≈ -0.02 (95% CI [-0.14, 0.10])
 
 ### Breakdown Statistics
 - Valid physics: 68/500 (${valid_rate:.1%})
@@ -50,11 +50,18 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 
 ---
 
+## ⚠️ Validation Notes (November 2025)
+
+- **Relativistic causality guardrail**: Phase-velocity checks clip at numerical precision (~1e-8 fractional excess). Tolerance relaxation is in progress; group-velocity enforcement remains strict.
+- **ADK strong-field monotonicity**: Placeholder tunneling coefficients violate the monotonic increase test above 1e¹² V/m. Recalibration against benchmark atomic data is scheduled before external release.
+
+---
+
 ## PIC Tie‑In (synthetic reproduction)
 
-- Horizon positions: 3.12e-05, 5.20e-05
-- κ (s⁻¹): 2.39e+10, 2.40e+10
-- κ_err: 3.43e-05, 6.96e-06
+- Horizon positions: -2.00e-01, 2.00e-01
+- κ (s⁻¹): 1.00e+00, 1.01e+00
+- κ_err: 1.11e-16, 0.00e+00
 
 ---
 
