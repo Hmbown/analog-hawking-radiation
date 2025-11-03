@@ -1,5 +1,8 @@
 # AnaBHEL-Oriented Comparison and Usage Notes
 
+> **Status ℹ️** Collaboration guidance mixing validated results with experimental scaffolding  
+> **Navigate:** [Docs Index](index.md) · [Limitations](Limitations.md)
+
 This repository provides exploratory modeling tools for analog Hawking systems
 in laser–plasma settings. For AnaBHEL researchers, this note explains how to
 use the nD horizon and detection workflow and how to interpret κ values and
@@ -68,3 +71,7 @@ FAQ
   κ can be higher or lower; this is expected.
 - How should I set graybody parameters? Use `acoustic_wkb` for near‑horizon
   acoustic consistency and sweep `alpha_gray` to reflect coupling uncertainty.
+
+---
+
+Back: [Limitations](Limitations.md) · Next: [References »](REFERENCES.md)

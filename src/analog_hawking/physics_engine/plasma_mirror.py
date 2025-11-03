@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 """
+Status: ⚠️ Experimental hybrid plasma mirror mapping.
+
 Plasma Mirror Dynamics for Analog Hawking Radiation
 
 This module implements plasma mirror acceleration calculations based on the

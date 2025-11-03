@@ -1,6 +1,9 @@
 Limitations
 ===========
 
+> **Status ⚠️** Mixed validated + experimental notes – review before citing  
+> **Navigate:** [Docs Index](index.md) · [Gradient Analysis](GradientCatastropheAnalysis.md)
+
 Computational Approximations
 ----------------------------
 
@@ -53,3 +56,7 @@ Addressing these limitations represents important directions for future developm
 4. **Extended Physics Models**: Incorporate additional quantum field effects and nonlinear plasma phenomena
 
 Despite these limitations, the framework provides a scientifically rigorous approach to analog Hawking radiation research that emphasizes conservative, well-validated claims over speculative results.
+
+---
+
+Back: [Gradient Analysis](GradientCatastropheAnalysis.md) · Next: [AnaBHEL Comparison »](AnaBHEL_Comparison.md)

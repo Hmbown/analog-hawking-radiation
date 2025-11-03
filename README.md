@@ -89,36 +89,26 @@ pytest -q                                  # Verify environment (42 tests pass)
 > Default pytest discovery is scoped to `tests/` to keep core runs self-contained.  
 > Install the optional extras and invoke `pytest scripts/` if you need to exercise the demo pipelines.
 
+> Documentation hub: start with the [Docs Index](docs/index.md) for validated vs experimental modules and navigation.
+
 ### Scope of Validated Physics
 
-- Horizon finding (`src/analog_hawking/physics_engine/horizon.py` and `horizon_nd.py`) and the graybody utilities (`src/analog_hawking/detection/graybody_nd.py`) are the validated core; they underpin the CLI workflows and CI-guarded tests.
-- Experimental “enhanced” modules under `src/analog_hawking/physics_engine/enhanced_*` are shipped as collaboration scaffolding. They now emit warnings and carry explicit docstrings so nobody mistakes them for benchmarked physics.
-- Plasma mirror mappings follow the AnaBHEL conventions; the κ ↔ D relation now enforces SI units (`src/analog_hawking/physics_engine/plasma_mirror.py`).
-- Please open tickets or PRs if you have vetted formulas or unit audits to promote experimental pieces into the validated core.
+| Area | Status | Links | Notes |
+| --- | --- | --- | --- |
+| Horizon finding & graybody | ✅ Validated | [`horizon.py`](src/analog_hawking/physics_engine/horizon.py), [`graybody_nd.py`](src/analog_hawking/detection/graybody_nd.py) | CI-guarded; SI units enforced |
+| CLI & reporting pipeline | ✅ Validated | [`docs/playbooks.md`](docs/playbooks.md), [`docs/GradientCatastropheAnalysis.md`](docs/GradientCatastropheAnalysis.md) | Reproducible figures and sweeps |
+| Enhanced relativistic physics | ⚠️ Experimental | [`src/analog_hawking/physics_engine/enhanced_*`](src/analog_hawking/physics_engine) | Ships with runtime warnings; collaboration scaffolding |
+| Plasma mirror mapping | ⚠️ Experimental | [`plasma_mirror.py`](src/analog_hawking/physics_engine/plasma_mirror.py) | Chen & Mourou (2017) mapping with hybrid coupling |
 
 ---
 
-## 🎯 Latest Research (v0.3.0 - October 2025)
+## 🎯 Latest Research Snapshot (v0.3.0 - October 2025)
 
-### Parametric Upper Bound (threshold‑limited)
+- Threshold-limited sweep yields κ_max ≈ **5.94×10¹² Hz** with acoustic-exact κ and enforced breakdown thresholds.  
+- Scaling: κ ∝ a₀^0.66 (95% CI [0.44, 0.89]); κ ∝ nₑ^-0.02 (95% CI [-0.14, 0.10]).  
+- Velocity < 0.5c, |dv/dx| < 4×10¹² s⁻¹, intensity < 1×10²⁴ W/m² (1D theoretical cap, exceeds current ELI facilities).
 
-**Surface Gravity Upper Bound (this run)**: κ_max ≈ **5.94×10¹² Hz** (acoustic‑exact κ; thresholds enforced)
-
-This bound comes from a sweep over synthetic 1D profiles with explicit breakdown thresholds. It is not a fundamental constant and shifts with thresholds and model assumptions.
-
-#### Key Findings
-- **Optimal Configuration**: a₀ ≈ 1.6, nₑ ≈ 1.39×10¹⁹ m⁻³
-- **Detection Times**: 10⁻⁷ to 10⁻⁶ seconds (realistic with fast diagnostics)
-- **Scaling (this run)**: κ vs a₀ exponent ≈ +0.66 (95% CI [0.44, 0.89]); κ vs nₑ exponent ≈ −0.02 (95% CI [−0.14, 0.10])
-- **Breakdown thresholds enforced**: v < 0.5c, |dv/dx| < 4×10¹² s⁻¹, intensity < 1×10²⁴ W/m² (theoretical 1D cap chosen for sweeps; exceeds current ELI-scale facilities)
-
-#### Impact
-Systematic mapping of breakdown constraints in our 1D models. This study:
-- Sets realistic expectations for laboratory analog experiments
-- Guides laser-plasma parameter optimization
-- Establishes theoretical foundation for detection prospects
-
-📄 **[Full Research Details](RESEARCH_HIGHLIGHTS.md)** | 📊 **[Gradient Catastrophe Analysis](docs/GradientCatastropheAnalysis.md)**
+📄 **[RESEARCH_HIGHLIGHTS.md](RESEARCH_HIGHLIGHTS.md)** | 📊 **[Gradient Catastrophe Analysis](docs/GradientCatastropheAnalysis.md)** | 🧭 **[Docs Index](docs/index.md)**
 
 ---
 
@@ -146,7 +136,8 @@ Systematic mapping of breakdown constraints in our 1D models. This study:
 | **Vibe coders & cosmic tinkerers** | Explore cutting-edge plasma physics with polished scripts, rich documentation, and curated plots—learn the science while hacking on the universe’s weirdest lab analogies. |
 
 ### Quick links
-- **Production playbooks** – [`docs/Experiments.md`](docs/Experiments.md)
+- **Docs hub** – [`docs/index.md`](docs/index.md)
+- **Production playbooks** – [`docs/playbooks.md`](docs/playbooks.md)
 - **Physics limits study** – [`docs/GradientCatastropheAnalysis.md`](docs/GradientCatastropheAnalysis.md)
 - **Methodology deep dive** – [`docs/Methods.md`](docs/Methods.md)
 - **Glossary** – [`docs/Glossary.md`](docs/Glossary.md)

@@ -1,5 +1,8 @@
 # References
 
+> **Status ✅** Curated reference list for validated and experimental modules  
+> **Navigate:** [Docs Index](index.md) · [AnaBHEL Comparison](AnaBHEL_Comparison.md)
+
 This repository draws on foundational literature in analog gravity, plasma physics, black hole radiation, and radiometry. Key references are listed for context and further reading.
 
 ## Foundational Analog Gravity Theory
@@ -37,6 +40,10 @@ This repository draws on foundational literature in analog gravity, plasma physi
 - Chen, F. F. (2016). Introduction to Plasma Physics and Controlled Fusion (3rd ed.). Springer. doi:10.1007/978-3-319-22309-4
 - Page, D. N. (1976). Particle emission rates from a black hole: Massless particles from an uncharged, nonrotating hole. Physical Review D, 13(2), 198–206. doi:10.1103/PhysRevD.13.198
 - Wilson, T. L., Rohlfs, K., & Hüttemeister, S. (2013). Tools of Radio Astronomy (6th ed.). Springer. doi:10.1007/978-3-642-39950-3
+
+---
+
+Back: [AnaBHEL Comparison](AnaBHEL_Comparison.md) · Top: [Docs Index](index.md)
 
 ## Key Research Institutions
 

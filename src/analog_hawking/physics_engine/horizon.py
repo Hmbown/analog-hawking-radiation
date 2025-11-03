@@ -1,4 +1,6 @@
 """
+Status: ✅ Validated core horizon finder.
+
 Horizon finding utilities for analog Hawking radiation in 1D profiles.
 
 Provides:

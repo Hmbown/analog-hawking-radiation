@@ -1,4 +1,6 @@
 """
+Status: ⚠️ Experimental attribution scaffolding.
+
 AnaBHEL Framework Attribution and Theoretical Foundation
 
 This module provides the theoretical foundation and proper attribution for the
