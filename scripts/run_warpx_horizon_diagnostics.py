@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Dict, List
 
 import numpy as np
-
 from physics_engine.plasma_models.warpx_backend import WarpXBackend
 from physics_engine.simulation import SimulationRunner
 

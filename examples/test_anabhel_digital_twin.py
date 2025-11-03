@@ -6,19 +6,18 @@ pipeline and will not run as-is. It is retained here for future exploration or
 as a template for downstream integration work.
 """
 
-import numpy as np
+
 import matplotlib.pyplot as plt
-from scipy.constants import c, h, hbar, k, e, m_e, epsilon_0
-import warnings
+import numpy as np
 
 # Import the revitalized physics modules
 from physics_engine.plasma_models.anaBHEL_parameters import AnaBHELExperiment
-from physics_engine.plasma_models.plasma_physics import PlasmaPhysicsModel, AnalogHorizonPhysics
-from physics_engine.plasma_models.quantum_field_theory import HawkingRadiationModel
-from physics_engine.plasma_models.laser_plasma_interaction import LaserPlasmaDynamics
 from physics_engine.plasma_models.bayesian_real_physics import PhysicsBasedBayesianAnalyzer
-from physics_engine.plasma_models.experimental_design import PhysicsBasedExperimentalDesign
+from physics_engine.plasma_models.laser_plasma_interaction import LaserPlasmaDynamics
+from physics_engine.plasma_models.quantum_field_theory import HawkingRadiationModel
 from physics_engine.plasma_models.test_analytical_solutions import run_comprehensive_validation
+from scipy.constants import c, hbar, k
+
 
 def run_anabhel_digital_twin_experiment():
     """

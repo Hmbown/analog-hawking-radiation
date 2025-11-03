@@ -5,30 +5,30 @@ Uses Gaussian Process optimization to efficiently explore parameter space
 and find optimal detection conditions.
 """
 
-import numpy as np
-import json
-import os
-from pathlib import Path
-import logging
-from typing import Dict, List, Any, Tuple
 import argparse
-from dataclasses import dataclass
-
-# Bayesian optimization
-from skopt import gp_minimize
-from skopt.space import Real, Integer
-from skopt.utils import use_named_args
-from skopt.plots import plot_convergence
-import matplotlib.pyplot as plt
+import json
+import logging
 
 # Add src to path
 import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Tuple
+
+import numpy as np
+
+# Bayesian optimization
+from skopt import gp_minimize
+from skopt.space import Real
+from skopt.utils import use_named_args
+
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from scripts.run_full_pipeline import run_full_pipeline
+
 
 @dataclass
 class OptimizationConfig:
@@ -401,7 +401,7 @@ def main():
     with open(report_file, 'w') as f:
         f.write(report)
     
-    print(f"\nOptimization complete. Results saved to results/optimization/")
+    print("\nOptimization complete. Results saved to results/optimization/")
 
 if __name__ == "__main__":
     main()

@@ -8,9 +8,8 @@ could theoretically enhance fluid sonic horizons.
 """
 
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle
-import numpy as np
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+
 
 def create_workflow_diagram():
     """Create a clean, professional workflow diagram showing the speculative hybrid approach."""

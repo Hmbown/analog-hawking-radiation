@@ -25,7 +25,8 @@ def test_openpmd_slice_to_profile_roundtrip(tmp_path):
 
     out_npz = os.path.join(tmp_path, "out_profile.npz")
     # Invoke script via its CLI interface
-    import subprocess, sys
+    import subprocess
+    import sys
     cmd = [sys.executable, 'scripts/openpmd_slice_to_profile.py', '--in', h5path, '--x-dataset', '/x', '--vel-dataset', '/vel', '--Te-dataset', '/Te', '--out', out_npz]
     subprocess.check_call(cmd)
 

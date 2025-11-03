@@ -4,10 +4,10 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
+import sys
 from pathlib import Path
 from string import Template
 
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from analog_hawking.analysis.gradient_sweep import generate_catastrophe_plots

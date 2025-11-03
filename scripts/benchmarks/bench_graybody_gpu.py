@@ -25,6 +25,7 @@ def _run_once(use_gpu: bool) -> dict:
 
     # Lazy import after env change
     from importlib import reload
+
     from analog_hawking.utils import array_module as am
     reload(am)
     from analog_hawking.physics_engine.optimization import graybody_1d

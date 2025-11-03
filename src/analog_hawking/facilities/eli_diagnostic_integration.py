@@ -8,12 +8,13 @@ Author: Claude Analysis Assistant
 Date: November 2025
 """
 
-from dataclasses import dataclass, field
-from typing import Dict, List, Tuple, Optional, Any, Union
-from enum import Enum
-import numpy as np
 import json
+from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
+from typing import Any, Dict, List, Tuple
+
+import numpy as np
 
 
 class ELIFacilityType(Enum):

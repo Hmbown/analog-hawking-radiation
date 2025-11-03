@@ -14,18 +14,17 @@ Features:
 """
 
 import argparse
+import json
 import os
 import sys
-import json
 import warnings
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
 from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
+
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import stats
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
@@ -36,20 +35,17 @@ sys.path.insert(0, str(project_root / "scripts"))
 from comprehensive_monte_carlo_uncertainty import (
     ComprehensiveMCConfig,
     run_comprehensive_monte_carlo,
-    SystematicUncertaintySampler,
-    NestedMonteCarlo,
-    BayesianModelUncertainty
 )
 
 # Import graphics control utilities
 try:
     from analog_hawking.utils.graphics_control import (
-        add_graphics_argument,
-        get_graphics_preference,
-        conditional_savefig,
-        skip_plotting_message,
         GraphicsController,
-        configure_matplotlib
+        add_graphics_argument,
+        conditional_savefig,
+        configure_matplotlib,
+        get_graphics_preference,
+        skip_plotting_message,
     )
 except ImportError:
     print("Warning: Could not import graphics control utilities. Graphics will always be generated.")
@@ -1016,7 +1012,7 @@ Examples:
     # Print summary
     if "summary" in results:
         summary = results["summary"]
-        print(f"\nAnalysis Summary:")
+        print("\nAnalysis Summary:")
         print(f"  Type: {summary.get('analysis_type', 'unknown')}")
         print(f"  Methods used: {', '.join(summary.get('uncertainty_methods_used', []))}")
         print(f"  Key findings: {len(summary.get('key_findings', []))}")
@@ -1027,12 +1023,12 @@ Examples:
     print(f"\nResults saved to: {config.output_dir}")
     print(f"Figures saved to: {config.output_dir}/figures")
 
-    print(f"\nEnhanced analysis successfully addresses scientific review concerns:")
-    print(f"  ✓ Comprehensive systematic uncertainty quantification")
-    print(f"  ✓ Integration of nested Monte Carlo methods")
-    print(f"  ✓ Enhanced statistical analysis with uncertainty bounds")
-    print(f"  ✓ Complete uncertainty budget integration")
-    print(f"  ✓ Advanced visualization suite")
+    print("\nEnhanced analysis successfully addresses scientific review concerns:")
+    print("  ✓ Comprehensive systematic uncertainty quantification")
+    print("  ✓ Integration of nested Monte Carlo methods")
+    print("  ✓ Enhanced statistical analysis with uncertainty bounds")
+    print("  ✓ Complete uncertainty budget integration")
+    print("  ✓ Advanced visualization suite")
 
 
 if __name__ == "__main__":

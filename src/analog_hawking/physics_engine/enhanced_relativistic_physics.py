@@ -22,12 +22,12 @@ References:
 - ELI-NP User Manual for High-Intensity Laser Physics
 """
 
-import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p, mu_0
-from scipy.special import kv, gamma as gamma_func
-from scipy.integrate import quad
 import warnings
-from typing import Optional, Dict, Tuple, Union
+from typing import Dict, Optional, Union
+
+import numpy as np
+from scipy.constants import c, e, epsilon_0, hbar, k, m_e, m_p
+
 
 class RelativisticPlasmaPhysics:
     """

@@ -1,18 +1,18 @@
 from __future__ import annotations
 
 import numpy as np
-
 from scripts.experiment_universality_collapse import (
-    make_linear_profile,
-    make_tanh_profile,
-    make_piecewise_ramp_profile,
-    make_no_horizon_profile,
     _spectrum_for_profile,
+    make_linear_profile,
+    make_no_horizon_profile,
+    make_piecewise_ramp_profile,
+    make_tanh_profile,
 )
+
 from analog_hawking.detection.psd_collapse import (
+    collapse_stats,
     omega_over_kappa_axis,
     resample_on_x,
-    collapse_stats,
 )
 
 

@@ -23,14 +23,11 @@ NOTE: Experimental scaffolding; coefficients and scaling laws require expert
 validation before quantitative use.
 """
 
+from typing import Callable, Dict, Tuple
+
 import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p, pi
-from scipy.special import erf, jv, yv
-from scipy.integrate import quad, solve_ivp
-from scipy.interpolate import interp1d
-from scipy.optimize import minimize_scalar
-import warnings
-from typing import Dict, List, Optional, Tuple, Union, Callable
+from scipy.constants import c, e, epsilon_0, k, m_e, m_p, pi
+
 
 class PlasmaMirrorFormation:
     """

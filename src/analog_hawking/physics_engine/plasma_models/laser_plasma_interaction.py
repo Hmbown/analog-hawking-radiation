@@ -6,12 +6,9 @@ using Maxwell's equations and proper relativistic fluid dynamics to model
 the formation of analog event horizons.
 """
 
+
 import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, mu_0, hbar, k, m_p
-import scipy.constants as const
-from scipy.integrate import solve_ivp
-from scipy.special import erf
-import warnings
+from scipy.constants import c, e, epsilon_0, k, m_e, m_p
 
 
 class MaxwellFluidModel:
@@ -93,7 +90,6 @@ class MaxwellFluidModel:
         grad_p = np.gradient(k * T_e * n_e, x_grid)  # Pressure gradient with correct units
         
         # Calculate momentum equation terms
-        v_dv_dx = v_e * np.gradient(v_e, x_grid)  # v·∇v term
         force_E = -e * E / m_e  # Electric force
         # For 1D, v×B ≈ 0 for longitudinal fields, so we ignore magnetic force
         force_pressure = -grad_p / (m_e * n_e)  # Pressure force
@@ -365,8 +361,6 @@ class AnalogHorizonFormation:
         else:
             v_fluid = self.fluid_velocity_profile(x_grid, t)
         
-        dv_dx = np.gradient(v_fluid, x_grid)
-        
         # Find horizon positions
         horizon_mask = self.horizon_position(x_grid, t, v_actual=v_actual)
         
@@ -429,7 +423,6 @@ class LaserPlasmaDynamics:
         t_grid = np.linspace(t_range[0], t_range[1], n_t)
         
         # Initialize results arrays
-        n_evolution = np.zeros((n_t, n_x))
         v_evolution = np.zeros((n_t, n_x))
         E_evolution = np.zeros((n_t, n_x))
         horizon_positions = []

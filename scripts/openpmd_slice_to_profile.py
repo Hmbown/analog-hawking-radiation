@@ -18,11 +18,12 @@ import numpy as np
 
 try:
     import h5py  # type: ignore
-except Exception as exc:  # pragma: no cover
+except Exception:  # pragma: no cover
     raise SystemExit("h5py is required to read openPMD/HDF5 files")
 
-from pathlib import Path
 import sys
+from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from analog_hawking.physics_engine.horizon import sound_speed
 

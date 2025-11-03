@@ -14,25 +14,25 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List
 
-import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
-from tqdm import tqdm
-from scipy.constants import c, e, m_e, epsilon_0, k
+import numpy as np
 import scipy.constants as const
+import seaborn as sns
+from scipy.constants import c, epsilon_0, k, m_e
+from tqdm import tqdm
 
 # Ensure package imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from analog_hawking.physics_engine.plasma_models.laser_plasma_interaction import MaxwellFluidModel
-from analog_hawking.physics_engine.plasma_models.validation_protocols import PhysicsValidationFramework
-from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
+from analog_hawking.config.thresholds import Thresholds, load_thresholds
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
-from analog_hawking.physics_engine.plasma_models.nonlinear_plasma import NonlinearPlasmaSolver
-from analog_hawking.config.thresholds import load_thresholds, Thresholds
+from analog_hawking.physics_engine.plasma_models.laser_plasma_interaction import MaxwellFluidModel
+from analog_hawking.physics_engine.plasma_models.validation_protocols import (
+    PhysicsValidationFramework,
+)
 
 
 class GradientCatastropheDetector:
@@ -271,7 +271,7 @@ def run_gradient_catastrophe_sweep(n_samples: int = 500,
         Dictionary with complete sweep results
     """
     
-    print(f"GRADIENT CATASTROPHE HUNT: Mapping the Edge of Valid Physics")
+    print("GRADIENT CATASTROPHE HUNT: Mapping the Edge of Valid Physics")
     print(f"Testing {n_samples} configurations to find kappa_max...")
     print("="*70)
     
@@ -352,7 +352,7 @@ def run_gradient_catastrophe_sweep(n_samples: int = 500,
     with open(output_path / "gradient_catastrophe_sweep.json", "w") as f:
         json.dump(sweep_data, f, indent=2, default=str)
     
-    print(f"\nSWEEP COMPLETE!")
+    print("\nSWEEP COMPLETE!")
     print(f"Results saved to: {output_path}")
     print(f"Configurations tested: {len(results)}")
     print(f"Valid configurations: {len([r for r in results if r['validity_score'] > 0.5])}")
@@ -601,18 +601,18 @@ def main():
     
     # Print key findings
     analysis = sweep_data['analysis']
-    print(f"\nKEY FINDINGS:")
+    print("\nKEY FINDINGS:")
     print(f"Maximum achievable kappa: {analysis['max_kappa']:.2e} Hz")
     
     if analysis['max_kappa_config']:
         config = analysis['max_kappa_config']
-        print(f"Optimal configuration:")
+        print("Optimal configuration:")
         print(f"  - a0 = {config['a0']:.2f}")  
         print(f"  - n_e = {config['n_e']:.2e} m^-3")
         print(f"  - Gradient factor = {config['gradient_factor']:.1f}")
         print(f"  - Required intensity = {config['intensity']:.2e} W/m^2")
     
-    print(f"Scaling relationships:")
+    print("Scaling relationships:")
     if not np.isnan(analysis['scaling_relationships']['kappa_vs_a0_exponent']):
         print(f"  - kappa ∝ a0^{analysis['scaling_relationships']['kappa_vs_a0_exponent']:.2f}")
     if not np.isnan(analysis['scaling_relationships']['kappa_vs_ne_exponent']):

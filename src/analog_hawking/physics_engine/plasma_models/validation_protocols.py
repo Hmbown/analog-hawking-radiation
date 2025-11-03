@@ -6,17 +6,15 @@ the physics models are reliable and scientifically valid for analog
 Hawking radiation research.
 """
 
-import numpy as np
-import json
 from datetime import datetime
-from pathlib import Path
-import warnings
-from scipy.constants import c, hbar, k, e, m_e, epsilon_0
-from .plasma_physics import PlasmaPhysicsModel, AnalogHorizonPhysics, QEDPhysics
-from .quantum_field_theory import QuantumFieldTheory, BogoliubovTransformations, HawkingRadiationModel
-from .laser_plasma_interaction import LaserPlasmaDynamics
-from .anaBHEL_parameters import AnaBHELExperiment
-from .analytical_validation import ValidationTests, ConvergenceTests
+
+import numpy as np
+from scipy.constants import c, epsilon_0, hbar, k, m_e
+
+from .quantum_field_theory import (
+    QuantumFieldTheory,
+)
+
 
 class PhysicsValidationFramework:
     """
@@ -554,7 +552,7 @@ def perform_validation_analysis():
     validation_results = validator.run_comprehensive_validation(example_data)
     
     # Perform uncertainty quantification
-    print(f"\nPERFORMING UNCERTAINTY QUANTIFICATION")
+    print("\nPERFORMING UNCERTAINTY QUANTIFICATION")
     print("-"*35)
     
     uq = UncertaintyQuantification()
@@ -580,7 +578,7 @@ def perform_validation_analysis():
         param_uncertainties
     )
     
-    print(f"Uncertainty propagation results:")
+    print("Uncertainty propagation results:")
     print(f"  Nominal result: {uncertainty_results['nominal_result']:.2e}")
     print(f"  Mean result: {uncertainty_results['mean_result']:.2e}")
     print(f"  Std deviation: {uncertainty_results['std_result']:.2e}")
@@ -588,7 +586,7 @@ def perform_validation_analysis():
     print(f"  Valid samples: {uncertainty_results['valid_samples_fraction']:.1%}")
     
     # Perform sensitivity analysis
-    print(f"\nPERFORMING SENSITIVITY ANALYSIS")
+    print("\nPERFORMING SENSITIVITY ANALYSIS")
     print("-"*30)
     
     sa = SensitivityAnalysis()

@@ -6,13 +6,9 @@ is not part of the validated, reproducible code path.
 """
 
 import numpy as np
-from scipy import constants
-import matplotlib.pyplot as plt
-
-from physics_engine.plasma_models.anaBHEL_parameters import AnaBHELExperiment
-from physics_engine.plasma_models.plasma_physics import PlasmaPhysicsModel, AnalogHorizonPhysics
-from physics_engine.plasma_models.quantum_field_theory import HawkingRadiationModel
 from physics_engine.plasma_models.laser_plasma_interaction import LaserPlasmaDynamics
+from scipy import constants
+
 
 def run_realistic_anabhel_simulation():
     """
@@ -34,7 +30,7 @@ def run_realistic_anabhel_simulation():
         'temperature': 10000      # 10^4 K
     }
     
-    print(f"Using realistic experimental parameters:")
+    print("Using realistic experimental parameters:")
     print(f"  Laser intensity: {laser_params['intensity']:.1e} W/m²")
     print(f"  Plasma density: {plasma_params['density']:.1e} m⁻³")
     print(f"  Laser wavelength: {laser_params['wavelength']*1e9:.0f} nm")
@@ -45,7 +41,7 @@ def run_realistic_anabhel_simulation():
     omega_l = 2 * np.pi * constants.c / laser_params['wavelength']
     omega_pe = np.sqrt(constants.e**2 * plasma_params['density'] / (constants.epsilon_0 * constants.m_e))
     
-    print(f"\nKey parameters:")
+    print("\nKey parameters:")
     print(f"  Relativistic parameter a₀: {a0:.2f}")
     print(f"  Laser frequency: {omega_l:.2e} rad/s")
     print(f"  Plasma frequency: {omega_pe:.2e} rad/s")
@@ -60,7 +56,7 @@ def run_realistic_anabhel_simulation():
     simulation = LaserPlasmaDynamics(laser_params, plasma_params)
     
     # Run simulation with higher resolution for better accuracy
-    print(f"\nRunning simulation...")
+    print("\nRunning simulation...")
     try:
         sim_results = simulation.simulate_laser_plasma_interaction(
             x_range=(-20e-6, 20e-6),  # 40 microns
@@ -69,12 +65,12 @@ def run_realistic_anabhel_simulation():
             n_t=120                  # Higher temporal resolution
         )
         
-        print(f"✅ Simulation completed successfully")
+        print("✅ Simulation completed successfully")
         print(f"   Spatial points: {len(sim_results['space_grid'])}")
         print(f"   Time steps: {len(sim_results['time_grid'])}")
         
         # Check for horizon formation
-        print(f"\n🔍 Analyzing for analog horizon formation...")
+        print("\n🔍 Analyzing for analog horizon formation...")
         
         # Look for locations where fluid velocity approaches sound speed
         # In our model, we need to check the velocity evolution
@@ -98,13 +94,13 @@ def run_realistic_anabhel_simulation():
         
         if max_surface_gravity > 0:
             hawking_temp = constants.hbar * max_surface_gravity / (2 * np.pi * constants.k)
-            print(f"✅ ANALOG HORIZON DETECTED!")
+            print("✅ ANALOG HORIZON DETECTED!")
             print(f"   Maximum surface gravity: {max_surface_gravity:.2e} s⁻¹")
             print(f"   Corresponding Hawking temperature: {hawking_temp:.2e} K")
             
             # Check if temperature is in detectable range
             if hawking_temp > 1e6:  # 1 MK - reasonable for detection
-                print(f"   TEMPERATURE WITHIN DETECTABLE RANGE")
+                print("   TEMPERATURE WITHIN DETECTABLE RANGE")
                 
                 # Calculate peak frequency for detection
                 peak_freq = 2.82 * constants.k * hawking_temp / constants.h
@@ -125,11 +121,11 @@ def run_realistic_anabhel_simulation():
                 print(f"   Detector sensitivity: {detector_sensitivity:.2e} W")
                 
                 if detected_power > detector_sensitivity:
-                    print(f"   DETECTION POTENTIALLY ACHIEVABLE")
+                    print("   DETECTION POTENTIALLY ACHIEVABLE")
                     print(f"   Signal-to-noise ratio would be ~{detected_power/detector_sensitivity:.0f}")
                     feasible = True
                 else:
-                    print(f"   ⚠️  Detection challenging but theoretically possible")
+                    print("   ⚠️  Detection challenging but theoretically possible")
                     feasible = False
                 
                 return {
@@ -143,14 +139,14 @@ def run_realistic_anabhel_simulation():
                     'feasible': feasible
                 }
             else:
-                print(f"   ⚠️  Temperature too low for practical detection")
+                print("   ⚠️  Temperature too low for practical detection")
                 return {
                     'horizon_exists': True,
                     'hawking_temperature': hawking_temp,
                     'detection_feasible': False
                 }
         else:
-            print(f"❌ No analog horizon detected with significant surface gravity")
+            print("❌ No analog horizon detected with significant surface gravity")
             return {'horizon_exists': False}
             
     except Exception as e:
@@ -177,36 +173,36 @@ def main():
             return
         
         if result.get('horizon_exists') and result.get('hawking_temperature', 0) > 1e6:
-            print(f"\nFeasible Hawking radiation detection possible")
-            print(f"Key Results:")
+            print("\nFeasible Hawking radiation detection possible")
+            print("Key Results:")
             print(f"  - Hawking temperature: {result['hawking_temperature']:.2e} K")
             print(f"  - Peak frequency: {result['peak_frequency']:.2e} Hz")
             print(f"  - Radiated power: {result['radiated_power']:.2e} W")
             print(f"  - Detected power: {result['detected_power']:.2e} W")
             print(f"  - Feasible: {'✅ YES' if result.get('feasible') else '⚠️ CHALLENGING'}")
             
-            print(f"\n📋 RECOMMENDED EXPERIMENTAL SETUP:")
-            print(f"  - Use PW-class laser (>100 TW) with >10^19 W/cm² intensity")
-            print(f"  - Employ optimized gas jet with ~5×10^17 cm⁻³ density")
-            print(f"  - Target detection in 1-10 PHz range (UV/X-ray)")
-            print(f"  - Use ultra-sensitive X-ray detectors")
-            print(f"  - Ensure precise timing synchronization")
+            print("\n📋 RECOMMENDED EXPERIMENTAL SETUP:")
+            print("  - Use PW-class laser (>100 TW) with >10^19 W/cm² intensity")
+            print("  - Employ optimized gas jet with ~5×10^17 cm⁻³ density")
+            print("  - Target detection in 1-10 PHz range (UV/X-ray)")
+            print("  - Use ultra-sensitive X-ray detectors")
+            print("  - Ensure precise timing synchronization")
             
         elif result.get('horizon_exists'):
-            print(f"\n✅ Horizon formed but temperature too low for detection")
+            print("\n✅ Horizon formed but temperature too low for detection")
             print(f"  Hawking temperature: {result.get('hawking_temperature'):.2e} K")
-            print(f"  Would need enhanced parameters for detection")
+            print("  Would need enhanced parameters for detection")
         else:
-            print(f"\n❌ No horizon formed with current parameters")
-            print(f"  Would need different experimental approach")
+            print("\n❌ No horizon formed with current parameters")
+            print("  Would need different experimental approach")
     else:
-        print(f"\n❌ No successful simulation run")
+        print("\n❌ No successful simulation run")
     
-    print(f"\nCONCLUSION:")
-    print(f"  Analog Hawking radiation detection is theoretically possible")
-    print(f"  with carefully optimized laser-plasma parameters.")
-    print(f"  The main challenge is achieving sufficient temperature (>1 MK)")
-    print(f"  which requires extreme velocity gradients in the plasma flow.")
+    print("\nCONCLUSION:")
+    print("  Analog Hawking radiation detection is theoretically possible")
+    print("  with carefully optimized laser-plasma parameters.")
+    print("  The main challenge is achieving sufficient temperature (>1 MK)")
+    print("  which requires extreme velocity gradients in the plasma flow.")
 
 if __name__ == "__main__":
     main()

@@ -5,12 +5,14 @@ the optimal parameters found by the Bayesian optimization.
 
 import os
 import sys
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.colors import LogNorm
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from physics_engine.optimization.merit_function import GlowMeritFunction
+
 
 def plot_guidance_map():
     """

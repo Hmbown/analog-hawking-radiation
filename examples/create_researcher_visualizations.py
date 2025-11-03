@@ -6,12 +6,10 @@ generated from the validated pipeline in this repository and contain placeholder
 numbers and qualitative narratives. Do not treat them as results.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from scipy.constants import c, h, hbar, k, e, m_e, epsilon_0
-import matplotlib.patches as patches
-from matplotlib.patches import FancyBboxPatch
-import matplotlib.patches as mpatches
+import numpy as np
+from scipy.constants import c, e, epsilon_0, h, hbar, k, m_e
+
 
 def create_hawking_radiation_discovery_visualization():
     """

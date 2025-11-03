@@ -7,7 +7,6 @@ from typing import Callable, Dict, Mapping, Optional
 import numpy as np
 from scipy.integrate import solve_ivp
 
-from .backend import PlasmaState
 from ..horizon import find_horizons_with_uncertainty
 
 

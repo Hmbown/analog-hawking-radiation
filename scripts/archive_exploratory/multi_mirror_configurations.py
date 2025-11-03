@@ -9,9 +9,9 @@ Note: All enhancement factors here are illustrative/conceptual and require valid
 with field-superposition modeling under energy and timing constraints.
 """
 
-import numpy as np
-from scipy.constants import c, hbar, k, e, m_e, epsilon_0
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.constants import c, e, epsilon_0, hbar, k, m_e
 
 
 def design_multi_mirror_configurations():

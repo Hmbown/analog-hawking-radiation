@@ -6,16 +6,11 @@ physics of analog Hawking radiation in laser-plasma systems, replacing
 arbitrary design choices with physics-motivated parameters.
 """
 
+
 import numpy as np
-from scipy.constants import c, h, hbar, k, e, m_e, epsilon_0
-from scipy.optimize import minimize_scalar, minimize
-from scipy.interpolate import interp1d
-import warnings
-from .plasma_physics import PlasmaPhysicsModel
-from .quantum_field_theory import QuantumFieldTheory, HawkingRadiationModel
-from .laser_plasma_interaction import LaserPlasmaDynamics
-from .anaBHEL_parameters import AnaBHELExperiment
-from .bayesian_real_physics import PhysicsBasedBayesianAnalyzer
+from scipy.constants import c, e, epsilon_0, h, hbar, k, m_e
+from scipy.optimize import minimize, minimize_scalar
+
 
 class PhysicsBasedExperimentalDesign:
     """
@@ -99,7 +94,7 @@ class PhysicsBasedExperimentalDesign:
         # Find intensity that gives temperature in the target range
         # This is a simplified optimization - in practice would use more detailed physics
         test_intensities = np.logspace(16, 20, 100)  # From 10^16 to 10^20 W/m²
-        temperatures = [intensity_to_temperature(I) for I in test_intensities]
+        temperatures = [intensity_to_temperature(intensity_val) for intensity_val in test_intensities]
         
         # Find intensity that gives temperature closest to target range center
         target_center = np.sqrt(T_min * T_max)  # Geometric mean
@@ -467,7 +462,7 @@ def design_complete_experiment(experiment_type='anaBHEL'):
         'feasibility_assessment': assess_feasibility(laser_params, detector_params)
     }
     
-    print(f"\nPHYSICS-BASED EXPERIMENTAL DESIGN COMPLETE")
+    print("\nPHYSICS-BASED EXPERIMENTAL DESIGN COMPLETE")
     print(f"Feasibility: {complete_design['feasibility_assessment']['overall_feasible']}")
     print(f"Physics validation: {complete_design['physics_validation']['valid']}")
     
@@ -603,7 +598,7 @@ if __name__ == "__main__":
     # Generate experimental protocol
     protocol = generate_experimental_protocol(experiment_design)
     
-    print(f"\nEXPERIMENTAL PROTOCOL SUMMARY:")
+    print("\nEXPERIMENTAL PROTOCOL SUMMARY:")
     print(f"- Laser intensity: {experiment_design['laser_system']['intensity']:.2e} W/m²")
     print(f"- Plasma density: {experiment_design['laser_system']['plasma_density']:.2e} m⁻³")
     print(f"- Expected T_H: {experiment_design['optimization']['estimated_temperature']:.2e} K")

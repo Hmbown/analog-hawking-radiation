@@ -5,11 +5,9 @@ Trying the most aggressive parameters that might yield detectable Hawking radiat
 """
 
 import numpy as np
-from scipy import constants
-import matplotlib.pyplot as plt
-
-from physics_engine.plasma_models.anaBHEL_parameters import AnaBHELExperiment
 from physics_engine.plasma_models.laser_plasma_interaction import LaserPlasmaDynamics
+from scipy import constants
+
 
 def run_aggressive_anabhel_simulation():
     """
@@ -30,7 +28,7 @@ def run_aggressive_anabhel_simulation():
         'temperature': 5000       # Lower temperature plasma
     }
     
-    print(f"Testing aggressive parameters:")
+    print("Testing aggressive parameters:")
     print(f"  Laser intensity: {laser_params['intensity']:.1e} W/m² (extreme!)")
     print(f"  Plasma density: {plasma_params['density']:.1e} m⁻³ (optimized)")
     
@@ -39,7 +37,7 @@ def run_aggressive_anabhel_simulation():
     omega_l = 2 * np.pi * constants.c / laser_params['wavelength']
     omega_pe = np.sqrt(constants.e**2 * plasma_params['density'] / (constants.epsilon_0 * constants.m_e))
     
-    print(f"\nRelativistic parameters:")
+    print("\nRelativistic parameters:")
     print(f"  a₀: {a0:.2f} (highly relativistic)")
     print(f"  Plasma frequency: {omega_pe:.2e} rad/s")
     print(f"  Underdense: {'✅' if plasma_params['density'] < (constants.epsilon_0 * constants.m_e * omega_l**2 / constants.e**2) else '❌'}")
@@ -50,7 +48,7 @@ def run_aggressive_anabhel_simulation():
     # Create and run the simulation
     simulation = LaserPlasmaDynamics(laser_params, plasma_params)
     
-    print(f"\nRunning extreme simulation...")
+    print("\nRunning extreme simulation...")
     try:
         sim_results = simulation.simulate_laser_plasma_interaction(
             x_range=(-15e-6, 15e-6),  # Smaller range for higher resolution
@@ -59,7 +57,7 @@ def run_aggressive_anabhel_simulation():
             n_t=150                  # High temporal resolution
         )
         
-        print(f"✅ Simulation completed")
+        print("✅ Simulation completed")
         
         # Analyze for horizon formation with aggressive search
         max_surface_gravity = 0
@@ -79,17 +77,17 @@ def run_aggressive_anabhel_simulation():
                     max_surface_gravity = np.max(local_kappas)
                     significant_horizons += 1
         
-        print(f"\n🔍 Analysis Results:")
+        print("\n🔍 Analysis Results:")
         print(f"  Time steps with significant velocity gradients: {significant_horizons}/150")
         
         if max_surface_gravity > 1e14:  # Significant surface gravity
             hawking_temp = constants.hbar * max_surface_gravity / (2 * np.pi * constants.k)
-            print(f"  ✅ HIGH SURFACE GRAVITY DETECTED!")
+            print("  ✅ HIGH SURFACE GRAVITY DETECTED!")
             print(f"  Maximum surface gravity: {max_surface_gravity:.2e} s⁻¹")
             print(f"  Hawking temperature: {hawking_temp:.2e} K")
             
             if hawking_temp > 1e8:  # 100 MK - in detectable range
-                print(f"  Temperature potentially detectable with cryogenic detectors")
+                print("  Temperature potentially detectable with cryogenic detectors")
                 
                 # Calculate peak frequency and power
                 peak_freq = 2.82 * constants.k * hawking_temp / constants.h
@@ -108,7 +106,7 @@ def run_aggressive_anabhel_simulation():
                 print(f"  Detector sensitivity: {detector_sensitivity:.2e} W")
                 
                 if collected_power > detector_sensitivity:
-                    print(f"  DETECTION POTENTIALLY ACHIEVABLE")
+                    print("  DETECTION POTENTIALLY ACHIEVABLE")
                     print(f"  Signal excess: {collected_power/detector_sensitivity:.0f}x")
                     return {
                         'success': True,
@@ -120,7 +118,7 @@ def run_aggressive_anabhel_simulation():
                         'feasible': True
                     }
                 else:
-                    print(f"  ✅ Strong signal, but challenging detection")
+                    print("  ✅ Strong signal, but challenging detection")
                     return {
                         'success': True,
                         'hawking_temperature': hawking_temp,
@@ -128,7 +126,7 @@ def run_aggressive_anabhel_simulation():
                         'feasible': False
                     }
             elif hawking_temp > 1e6:  # 1 MK - marginally detectable
-                print(f"  ✅ Good temperature for detection")
+                print("  ✅ Good temperature for detection")
                 return {
                     'success': True,
                     'hawking_temperature': hawking_temp,
@@ -136,7 +134,7 @@ def run_aggressive_anabhel_simulation():
                     'feasible': 'marginal'
                 }
             else:
-                print(f"  ⚠️  Temperature still too low for easy detection")
+                print("  ⚠️  Temperature still too low for easy detection")
                 return {
                     'success': True,
                     'hawking_temperature': hawking_temp,
@@ -144,7 +142,7 @@ def run_aggressive_anabhel_simulation():
                     'feasible': False
                 }
         else:
-            print(f"  ❌ No significant surface gravity detected")
+            print("  ❌ No significant surface gravity detected")
             return {'success': False}
         
     except Exception as e:
@@ -162,7 +160,7 @@ def main():
     
     result = run_aggressive_anabhel_simulation()
     
-    print(f"\n" + "="*50)
+    print("\n" + "="*50)
     print("FINAL FEASIBILITY ASSESSMENT")
     print("="*50)
     
@@ -176,40 +174,40 @@ def main():
         print(f"Surface Gravity: {kappa:.2e} s⁻¹")
         
         if T_H > 1e8:
-            print(f"RESULT: FEASIBLE DETECTION LIKELY")
+            print("RESULT: FEASIBLE DETECTION LIKELY")
             print(f"   - Strong thermal signature at ~{T_H:.0e} K")
-            print(f"   - Peak emission in soft X-ray range")
-            print(f"   - Easily detectable with modern X-ray detectors")
+            print("   - Peak emission in soft X-ray range")
+            print("   - Easily detectable with modern X-ray detectors")
         elif T_H > 1e7:
-            print(f"📊 RESULT: ✅ PRACTICALLY FEASIBLE")
+            print("📊 RESULT: ✅ PRACTICALLY FEASIBLE")
             print(f"   - Good thermal signature at ~{T_H:.0e} K") 
-            print(f"   - Peak emission in extreme UV/X-ray")
-            print(f"   - Detectable with high-efficiency detectors")
+            print("   - Peak emission in extreme UV/X-ray")
+            print("   - Detectable with high-efficiency detectors")
         elif T_H > 1e6:
-            print(f"📊 RESULT: ⚠️  MARGINALLY FEASIBLE")
+            print("📊 RESULT: ⚠️  MARGINALLY FEASIBLE")
             print(f"   - Weak but detectable signature at ~{T_H:.0e} K")
-            print(f"   - Requires optimized detection setup") 
-            print(f"   - Long integration times needed")
+            print("   - Requires optimized detection setup") 
+            print("   - Long integration times needed")
         else:
-            print(f"📊 RESULT: ❌ CHALLENGING FOR CURRENT TECH")
+            print("📊 RESULT: ❌ CHALLENGING FOR CURRENT TECH")
             print(f"   - Very weak signature at ~{T_H:.0e} K")
-            print(f"   - Would need breakthrough advances")
+            print("   - Would need breakthrough advances")
         
-        print(f"\nOPTIMAL PARAMETERS FOR DETECTION:")
-        print(f"   Laser: >10^19 W/m² intensity")
-        print(f"   Target: 10^17 m⁻³ density (underdense)")
-        print(f"   Pulse: <25 fs for strong gradients")
-        print(f"   Detection: X-ray range (10-1000 eV)")
-        print(f"   Setup: Optimized LWFA geometry")
+        print("\nOPTIMAL PARAMETERS FOR DETECTION:")
+        print("   Laser: >10^19 W/m² intensity")
+        print("   Target: 10^17 m⁻³ density (underdense)")
+        print("   Pulse: <25 fs for strong gradients")
+        print("   Detection: X-ray range (10-1000 eV)")
+        print("   Setup: Optimized LWFA geometry")
     else:
-        print(f"❌ No significant analog effects detected")
+        print("❌ No significant analog effects detected")
     
-    print(f"\nCONCLUSION:")
-    print(f"   The revitalized model shows that analog Hawking radiation")
-    print(f"   detection is achievable with optimized parameters!")
-    print(f"   The key is creating extreme velocity gradients in the plasma,")
-    print(f"   which requires relativistic laser intensities and precise")
-    print(f"   control of the laser-plasma interaction geometry.")
+    print("\nCONCLUSION:")
+    print("   The revitalized model shows that analog Hawking radiation")
+    print("   detection is achievable with optimized parameters!")
+    print("   The key is creating extreme velocity gradients in the plasma,")
+    print("   which requires relativistic laser intensities and precise")
+    print("   control of the laser-plasma interaction geometry.")
 
 if __name__ == "__main__":
     main()

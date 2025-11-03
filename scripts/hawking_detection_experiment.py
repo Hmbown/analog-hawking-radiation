@@ -92,7 +92,7 @@ def calculate_hawking_spectrum(kappa: float,
 
 if __name__ == "__main__":
     # Simple smoke test
-    from scipy.constants import k, hbar, pi
+    from scipy.constants import hbar, k, pi
     target_T = 0.01  # K (radio regime)
     kappa = 2 * pi * k * target_T / hbar
     out = calculate_hawking_spectrum(kappa)

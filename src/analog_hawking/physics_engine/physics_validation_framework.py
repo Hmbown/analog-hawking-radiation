@@ -23,20 +23,20 @@ NOTE: This framework exercises placeholder physics modules; treat outcomes as
 diagnostic hints, not validation badges, until benchmarked.
 """
 
-import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p, pi
-from scipy.integrate import quad, solve_ivp
-from scipy.optimize import minimize, root_scalar
-from scipy.stats import chi2, norm
 import warnings
-from typing import Dict, List, Optional, Tuple, Union, Callable, Any
 from dataclasses import dataclass
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.constants import c, e, epsilon_0, m_e
+
+from .enhanced_ionization_physics import ATOMIC_DATA, IonizationDynamics
+from .enhanced_plasma_surface_physics import PlasmaDynamicsAtSurface
 
 # Import enhanced physics models
 from .enhanced_relativistic_physics import RelativisticPlasmaPhysics
-from .enhanced_ionization_physics import IonizationDynamics, ATOMIC_DATA
-from .enhanced_plasma_surface_physics import PlasmaDynamicsAtSurface
+
 
 @dataclass
 class ValidationResult:
@@ -307,19 +307,22 @@ class LimitingBehaviorValidator:
         wavelength = 800e-9
         pulse_duration = 30e-15
 
-        for I in intensities:
+        for intensity_value in intensities:
             # Test that absorption + reflectivity ≤ 1
             interaction = surface_model.full_surface_interaction(
-                I, wavelength, pulse_duration, 0, 'p')
+                intensity_value, wavelength, pulse_duration, 0, 'p')
 
             total_interaction = interaction['absorption_fraction'] + interaction['reflectivity']
             excess = max(total_interaction - 1.0, 0)
 
             passed = excess < tolerance
-            description = f"Intensity limiting test at I = {I:.1e} W/m^2: total = {total_interaction:.3f}"
+            description = (
+                f"Intensity limiting test at I = {intensity_value:.1e} W/m^2: "
+                f"total = {total_interaction:.3f}"
+            )
 
             result = ValidationResult(
-                test_name=f"intensity_limiting_{I:.1e}",
+                test_name=f"intensity_limiting_{intensity_value:.1e}",
                 passed=passed,
                 value=excess,
                 expected_value=0.0,
@@ -682,8 +685,10 @@ class PhysicsModelValidator:
         wavelength = 800e-9
         pulse_duration = 30e-15
 
-        for I in intensities:
-            interaction = surface_model.full_surface_interaction(I, wavelength, pulse_duration, 0, 'p')
+        for intensity_value in intensities:
+            interaction = surface_model.full_surface_interaction(
+                intensity_value, wavelength, pulse_duration, 0, 'p'
+            )
 
             # Energy conservation (simplified)
             absorbed = interaction['absorption_fraction']
@@ -825,26 +830,26 @@ def run_comprehensive_validation():
         laser_wavelength=800e-9,
         laser_intensity=1e20
     )
-    relativistic_results = validator.validate_relativistic_physics(plasma_model)
+    validator.validate_relativistic_physics(plasma_model)
 
     # Test ionization physics
     print("\n2. Validating Ionization Physics")
     print("-" * 30)
     ionization_model = IonizationDynamics(ATOMIC_DATA['Al'], laser_wavelength=800e-9)
-    ionization_results = validator.validate_ionization_physics(ionization_model)
+    validator.validate_ionization_physics(ionization_model)
 
     # Test surface physics
     print("\n3. Validating Surface Physics")
     print("-" * 30)
     surface_model = PlasmaDynamicsAtSurface('Al')
-    surface_results = validator.validate_surface_physics(surface_model)
+    validator.validate_surface_physics(surface_model)
 
     # Generate report
     print("\n4. Generating Validation Report")
     print("-" * 30)
     report = validator.generate_validation_report()
 
-    print(f"\nValidation Summary:")
+    print("\nValidation Summary:")
     print(f"  Total tests: {report['total_tests']}")
     print(f"  Passed: {report['passed_tests']}")
     print(f"  Errors: {report['error_tests']}")
@@ -853,12 +858,12 @@ def run_comprehensive_validation():
     print(f"  Overall status: {report['overall_status']}")
 
     if report['errors']:
-        print(f"\nCritical Errors:")
+        print("\nCritical Errors:")
         for error in report['errors']:
             print(f"  - {error['test']}: {error['description']}")
 
     if report['warnings']:
-        print(f"\nWarnings:")
+        print("\nWarnings:")
         for warning in report['warnings']:
             print(f"  - {warning['test']}: {warning['description']}")
 

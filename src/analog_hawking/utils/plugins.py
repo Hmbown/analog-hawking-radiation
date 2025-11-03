@@ -8,7 +8,7 @@ Defines two groups by convention:
 from __future__ import annotations
 
 from importlib.metadata import entry_points
-from typing import Dict, Iterable
+from typing import Dict
 
 
 def discover(group: str) -> Dict[str, object]:

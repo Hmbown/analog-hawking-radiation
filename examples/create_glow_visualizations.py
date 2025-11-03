@@ -6,12 +6,10 @@ not generated from the validated code paths and may include placeholder values.
 Use for concept discussion only, not as scientific results.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from scipy.constants import c, h, hbar, k, e, m_e, epsilon_0
-import matplotlib.patches as patches
-from matplotlib.patches import FancyBboxPatch
-import matplotlib.patches as mpatches
+import numpy as np
+from scipy.constants import c, e, epsilon_0, h, hbar, k, m_e
+
 
 def create_hawking_radiation_glow_visualization():
     """

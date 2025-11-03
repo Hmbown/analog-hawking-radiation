@@ -19,20 +19,21 @@ NOTE: Experimental tooling for prototyping; verify outputs against the validated
 
 from __future__ import annotations
 
-import numpy as np
-from dataclasses import dataclass
-from typing import List, Dict, Optional, Tuple, Callable, Any
-from scipy.constants import k, m_p
-from scipy.optimize import brentq, newton
 import warnings
+from dataclasses import dataclass
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+import numpy as np
+from scipy.optimize import brentq
 
 from .enhanced_numerical_methods import (
-    FourthOrderFiniteDifferences,
-    EnhancedInterpolation,
     AdaptiveThresholding,
+    EnhancedInterpolation,
+    FourthOrderFiniteDifferences,
+    NumericalAccuracyReport,
     RichardsonExtrapolation,
-    NumericalAccuracyReport
 )
+
 
 @dataclass
 class EnhancedHorizonResult:

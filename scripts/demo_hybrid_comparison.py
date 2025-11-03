@@ -7,8 +7,10 @@ from __future__ import annotations
 
 import os
 import sys
-import numpy as np
+
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -18,6 +20,7 @@ sys.path.insert(0, os.path.join(ROOT, "src"))
 
 from scipy.constants import k
 from scripts.hawking_detection_experiment import calculate_hawking_spectrum
+
 from analog_hawking.detection.hybrid_spectrum import calculate_enhanced_hawking_spectrum
 from analog_hawking.detection.radio_snr import sweep_time_for_5sigma
 

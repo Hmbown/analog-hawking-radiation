@@ -13,20 +13,25 @@ Usage:
 import argparse
 import json
 import os
-import subprocess
+import sys
 from pathlib import Path
 
 import numpy as np
 
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
+import matplotlib
+from scipy.constants import hbar, k, pi
+
+from analog_hawking.detection.radio_snr import (
+    band_power_from_spectrum,
+    equivalent_signal_temperature,
+    sweep_time_for_5sigma,
+)
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
-from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
-from scipy.constants import hbar, k, pi
 from hawking_detection_experiment import calculate_hawking_spectrum
-import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -166,7 +171,8 @@ def main() -> int:
 
         # Attach run metadata
         try:
-            import subprocess, datetime
+            import datetime
+            import subprocess
             commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
         except Exception:
             commit = "unknown"

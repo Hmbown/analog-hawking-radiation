@@ -12,11 +12,11 @@ Date: November 2025
 
 import argparse
 import json
-import os
 import sys
-from pathlib import Path
-from typing import Dict, List, Tuple, Any, Optional
 import warnings
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
 warnings.filterwarnings('ignore')
 
 import numpy as np
@@ -24,14 +24,13 @@ import pandas as pd
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from analog_hawking.facilities.eli_capabilities import (
-    ELICapabilities, ELIFacility, get_eli_capabilities, validate_intensity_range
-)
-from analog_hawking.facilities.experimental_feasibility import (
-    assess_experimental_feasibility, FeasibilityAssessment
-)
 from analog_hawking.analysis.gradient_sweep import run_single_configuration
-from analog_hawking.config.thresholds import Thresholds
+from analog_hawking.facilities.eli_capabilities import (
+    ELIFacility,
+    get_eli_capabilities,
+    validate_intensity_range,
+)
+from analog_hawking.facilities.experimental_feasibility import assess_experimental_feasibility
 
 
 class ELICompliantAnalysisPipeline:
@@ -69,7 +68,7 @@ class ELICompliantAnalysisPipeline:
             DataFrame with sweep results including ELI compatibility scores
         """
 
-        print(f"🚀 STARTING ELI-COMPLIANT PARAMETER SWEEP")
+        print("🚀 STARTING ELI-COMPLIANT PARAMETER SWEEP")
         print(f"   Target facility: {self.target_facility.value if self.target_facility else 'All facilities'}")
         print(f"   Sample size: {n_samples}")
 
@@ -151,7 +150,7 @@ class ELICompliantAnalysisPipeline:
         # Create results DataFrame
         df = pd.DataFrame(results)
 
-        print(f"✅ Analysis completed:")
+        print("✅ Analysis completed:")
         print(f"   Total samples: {len(samples)}")
         print(f"   ELI-compatible: {feasible_count}")
         print(f"   Successfully analyzed: {len(results)}")
@@ -170,7 +169,7 @@ class ELICompliantAnalysisPipeline:
             DataFrame with facility comparison results
         """
 
-        print(f"🏢 RUNNING FACILITY COMPARISON ANALYSIS")
+        print("🏢 RUNNING FACILITY COMPARISON ANALYSIS")
         print(f"   Configurations: {len(parameters)}")
         print(f"   Facilities: {len(self.eli.laser_systems)}")
 
@@ -222,7 +221,7 @@ class ELICompliantAnalysisPipeline:
             Optimization report with recommendations
         """
 
-        print(f"📈 GENERATING OPTIMIZATION REPORT")
+        print("📈 GENERATING OPTIMIZATION REPORT")
 
         if df.empty:
             return {
@@ -418,7 +417,7 @@ class ELICompliantAnalysisPipeline:
             low_prob_count = len(df[df["detection_probability"] < 0.3])
             if low_prob_count > len(df) * 0.5:
                 risks["physics_risks"].append(
-                    f"More than 50% of configurations have low detection probability (<30%)"
+                    "More than 50% of configurations have low detection probability (<30%)"
                 )
 
         # Check for long experiment times
@@ -585,7 +584,7 @@ def main():
         print(f"📊 Detailed data saved to: {args.csv_output}")
 
     # Print summary
-    print(f"\n📋 ANALYSIS SUMMARY:")
+    print("\n📋 ANALYSIS SUMMARY:")
     print(f"   Mode: {args.mode}")
     print(f"   Configurations analyzed: {len(df)}")
     print(f"   Best score: {report['summary']['best_score']:.3f}")

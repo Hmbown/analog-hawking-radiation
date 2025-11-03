@@ -5,33 +5,34 @@ Implements Gaussian Process and Neural Network surrogates for fast parameter
 exploration and sensitivity analysis.
 """
 
-import numpy as np
-import json
-import os
-from pathlib import Path
-import logging
-from typing import Dict, List, Tuple, Any, Optional
 import argparse
-from dataclasses import dataclass
+import json
+import logging
 
-# Machine learning libraries
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C, Matern, WhiteKernel
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.neural_network import MLPRegressor
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import mean_squared_error, r2_score
+# Add src to path
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Tuple
+
 import joblib
+import numpy as np
 
 # Neural networks
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
+from sklearn.ensemble import RandomForestRegressor
 
-# Add src to path
-import sys
+# Machine learning libraries
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import RBF, Matern, WhiteKernel
+from sklearn.gaussian_process.kernels import ConstantKernel as C
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.preprocessing import StandardScaler
+from torch.utils.data import DataLoader, Dataset
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 @dataclass

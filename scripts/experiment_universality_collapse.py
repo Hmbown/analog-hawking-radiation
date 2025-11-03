@@ -18,24 +18,22 @@ Usage examples:
 
 import argparse
 import json
-import os
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Dict, List, Tuple, Iterable
+from typing import Dict, Iterable, List, Tuple
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
+from analog_hawking.detection.psd_collapse import (
+    band_temperature_and_t5sig,
+    collapse_stats,
+    omega_over_kappa_axis,
+    resample_on_x,
+)
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 from analog_hawking.physics_engine.optimization.graybody_1d import compute_graybody
 from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
-from analog_hawking.detection.psd_collapse import (
-    omega_over_kappa_axis,
-    resample_on_x,
-    collapse_stats,
-    band_temperature_and_t5sig,
-)
-
 
 # ------------------------------
 # Analytic flow families

@@ -8,8 +8,10 @@ import json
 from pathlib import Path
 
 import numpy as np
-
-from physics_engine.plasma_models.fluctuation_injector import FluctuationConfig, QuantumFluctuationInjector
+from physics_engine.plasma_models.fluctuation_injector import (
+    FluctuationConfig,
+    QuantumFluctuationInjector,
+)
 
 
 def _parse_args() -> argparse.Namespace:

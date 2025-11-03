@@ -91,6 +91,16 @@ target-version = ["py39", "py310", "py311"]
 [tool.ruff]
 line-length = 100
 target-version = "py39"
+src = ["src", "scripts", "tests"]
+exclude = [
+    "examples",
+    "scripts",
+    "outreach",
+    "protocols",
+    "src/analog_hawking/physics_engine/enhanced_*",
+]
+
+[tool.ruff.lint]
 select = [
     "E",  # pycodestyle errors
     "F",  # pyflakes
@@ -101,5 +111,3 @@ ignore = [
     "E266",  # too many leading '#' for block comment
     "E501",  # line too long (handled by black)
 ]
-fix = false
-src = ["src", "scripts", "tests"]

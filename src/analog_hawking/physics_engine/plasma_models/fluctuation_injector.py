@@ -11,7 +11,7 @@ Backwards-compatibility notes:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterable, Optional, Tuple, Union, Mapping, Any
+from typing import Any, Iterable, Mapping, Tuple, Union
 
 import numpy as np
 import yaml

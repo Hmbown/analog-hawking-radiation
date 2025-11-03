@@ -1,7 +1,6 @@
 import numpy as np
 
 from analog_hawking.physics_engine.optimization.graybody_1d import compute_graybody
-from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 
 
 def test_graybody_acoustic_wkb_monotonic_and_limits():

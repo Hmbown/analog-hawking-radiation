@@ -6,13 +6,12 @@ from the literature to ensure physical accuracy.
 """
 
 import numpy as np
-from scipy.constants import c, hbar, k, e, m_e, epsilon_0
-import matplotlib.pyplot as plt
 
 # Import our physics modules
 from physics_engine.plasma_models.plasma_physics import PlasmaPhysicsModel
-from physics_engine.plasma_models.laser_plasma_interaction import LaserPlasmaDynamics
 from physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
+from scipy.constants import c, e, epsilon_0, hbar, k, m_e
+
 
 def benchmark_wakefield_scaling():
     """

@@ -6,7 +6,8 @@ for a radio telescope observing a thermal source, such as analog Hawking radiati
 """
 
 import numpy as np
-from scipy.constants import k, hbar
+from scipy.constants import hbar, k
+
 
 class RadioSNRModel:
     """

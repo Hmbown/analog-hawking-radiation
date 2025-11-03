@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import os
-import json
 import argparse
-from pathlib import Path
-
-import numpy as np
-import emcee
-import matplotlib.pyplot as plt
+import json
+import os
 
 # Ensure package imports work if editable install is not active
 import sys
+from pathlib import Path
+
+import emcee
+import matplotlib.pyplot as plt
+import numpy as np
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 

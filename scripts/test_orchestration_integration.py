@@ -15,7 +15,6 @@ Tests the complete orchestration system integration with existing pipeline compo
 from __future__ import annotations
 
 import json
-import os
 import shutil
 import sys
 import tempfile
@@ -28,12 +27,12 @@ sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 # Import orchestration components
-from scripts.orchestration_engine import OrchestrationEngine, ExperimentPhase
-from scripts.result_aggregator import ResultAggregator
 from scripts.convergence_detector import AdvancedConvergenceDetector
-from scripts.performance_monitor import PerformanceMonitor
 from scripts.experiment_tracker import ExperimentTracker
-from scripts.run_full_pipeline import run_full_pipeline, FullPipelineSummary
+from scripts.orchestration_engine import OrchestrationEngine
+from scripts.performance_monitor import PerformanceMonitor
+from scripts.result_aggregator import ResultAggregator
+from scripts.run_full_pipeline import FullPipelineSummary
 
 
 class TestOrchestrationIntegration(unittest.TestCase):

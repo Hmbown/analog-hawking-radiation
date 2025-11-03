@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import importlib
 import os
-from typing import Any, Iterable, Optional
+from typing import Any, Optional
 
 import numpy as _np
 

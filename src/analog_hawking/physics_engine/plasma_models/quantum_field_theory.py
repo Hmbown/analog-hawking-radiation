@@ -5,11 +5,11 @@ This module implements the fundamental quantum field theory calculations
 needed to properly model Hawking radiation in analog systems.
 """
 
+
 import numpy as np
-from scipy.constants import c, h, hbar, k, G
-from scipy.special import gamma as gamma_func
+from scipy.constants import c, h, hbar, k
 from scipy.integrate import quad
-import warnings
+
 
 class QuantumFieldTheory:
     """
@@ -255,7 +255,6 @@ class BogoliubovTransformations:
         # The rate of particle creation is given by |β_ω|²
         # For Hawking radiation: |β_ω|² = 1 / (exp(ħω/kT) - 1)
         
-        h_omega = hbar * omega
         # Using T = ħκ/(2πk), exponent argument x = ħω/(kT) = 2π ω / κ
         x = (2.0 * np.pi * omega) / float(surface_gravity)
         with np.errstate(over='ignore', under='ignore', invalid='ignore'):

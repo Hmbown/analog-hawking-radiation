@@ -17,22 +17,18 @@ Date: November 2025
 
 from __future__ import annotations
 
-import numpy as np
-from dataclasses import dataclass, field
-from typing import Dict, List, Tuple, Optional, Callable, Any
 import time
-import warnings
-from scipy.constants import k, m_p
-import matplotlib.pyplot as plt
+from dataclasses import dataclass, field
+from typing import Callable, Dict, List, Optional, Tuple
 
-from .enhanced_numerical_methods import (
-    FourthOrderFiniteDifferences,
-    EnhancedInterpolation,
-    AdaptiveThresholding,
-    RichardsonExtrapolation,
-    EnhancedNumericalMethods
-)
+import numpy as np
+
 from .enhanced_horizon_detection import EnhancedHorizonDetector, HorizonDetectionConfig
+from .enhanced_numerical_methods import (
+    EnhancedInterpolation,
+    FourthOrderFiniteDifferences,
+)
+
 
 @dataclass
 class ValidationTestCase:
@@ -447,12 +443,6 @@ class NumericalValidator:
             errors.append(error)
             execution_times.append(execution_time)
 
-        # For interpolation, we expect exponential convergence for smooth functions
-        if test_case.difficulty == 'easy':
-            expected_order = 4.0
-        else:
-            expected_order = 2.0
-
         # Compute convergence orders
         grid_ratios = [grid_sizes[i+1]/grid_sizes[i] for i in range(len(grid_sizes)-1)]
         convergence_orders = ConvergenceAnalysis.compute_convergence_order(errors, grid_ratios)
@@ -484,7 +474,6 @@ class NumericalValidator:
             test_cases = [AnalyticalTestCases.horizon_analytical_test_case()]
 
         results = {}
-        detector = EnhancedHorizonDetector()
 
         for test_case in test_cases:
             print(f"\nValidating horizon detection for {test_case.name}")

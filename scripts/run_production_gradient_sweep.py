@@ -6,10 +6,10 @@ This script runs the gradient catastrophe analysis with publication-quality
 parameters (500+ configurations) to generate robust statistical results.
 """
 
-import sys
-from pathlib import Path
 import subprocess
+import sys
 import time
+
 
 def main():
     """Run production gradient catastrophe sweep"""
@@ -45,10 +45,10 @@ def main():
     end_time = time.time()
     duration = end_time - start_time
     
-    print(f"\n✅ PRODUCTION SWEEP COMPLETE!")
+    print("\n✅ PRODUCTION SWEEP COMPLETE!")
     print(f"Duration: {duration:.1f} seconds")
-    print(f"Results: results/gradient_limits_production/")
-    print(f"Analysis: results/gradient_limits_production/gradient_catastrophe_findings.md")
+    print("Results: results/gradient_limits_production/")
+    print("Analysis: results/gradient_limits_production/gradient_catastrophe_findings.md")
     
     # Quick summary of findings
     try:
@@ -57,7 +57,7 @@ def main():
             data = json.load(f)
         
         analysis = data['analysis']
-        print(f"\n🎯 PRODUCTION RESULTS SUMMARY:")
+        print("\n🎯 PRODUCTION RESULTS SUMMARY:")
         print(f"  Maximum κ: {analysis['max_kappa']:.2e} Hz")
         print(f"  Valid configurations: {analysis['valid_configurations']}")
         print(f"  Breakdown rate: {analysis['breakdown_statistics']['total_breakdown_rate']:.1%}")

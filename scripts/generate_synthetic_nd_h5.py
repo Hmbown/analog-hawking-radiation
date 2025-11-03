@@ -9,12 +9,12 @@ Usage:
 
 import argparse
 import os
-from pathlib import Path
+
 import numpy as np
 
 try:
     import h5py  # type: ignore
-except Exception as exc:
+except Exception:
     raise SystemExit("h5py is required to create synthetic HDF5 files")
 
 

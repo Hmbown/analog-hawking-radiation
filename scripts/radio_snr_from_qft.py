@@ -8,14 +8,22 @@ Usage:
 
 Saves radio_snr_from_qft.png
 """
-import numpy as np
+import os
+import sys
+
 import matplotlib.pyplot as plt
-import os, sys
+import numpy as np
+
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "src"))
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from hawking_detection_experiment import calculate_hawking_spectrum
-from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
 from scipy.constants import hbar, k, pi
+
+from analog_hawking.detection.radio_snr import (
+    band_power_from_spectrum,
+    equivalent_signal_temperature,
+    sweep_time_for_5sigma,
+)
+from hawking_detection_experiment import calculate_hawking_spectrum
 
 
 def default_kappa_for_radio(T_H=0.01):

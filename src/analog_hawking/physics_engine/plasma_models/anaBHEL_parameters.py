@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from typing import Dict, Tuple
 
 import numpy as np
-from scipy.constants import c, hbar, k, e, epsilon_0, m_e
+from scipy.constants import c, e, epsilon_0, hbar, k, m_e
 
 
 @dataclass

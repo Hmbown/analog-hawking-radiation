@@ -7,21 +7,18 @@ synthesis analysis, publication formatting, and integration with orchestration c
 """
 
 import json
-import tempfile
-from pathlib import Path
-from unittest.mock import Mock, patch
 import sys
-import os
+from pathlib import Path
 
 # Add project paths to Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-from scripts.reporting.report_generator import ReportGenerator, ScientificReport
-from scripts.reporting.visualization_pipeline import VisualizationPipeline
-from scripts.reporting.synthesis_engine import SynthesisEngine
-from scripts.reporting.publication_formatter import PublicationFormatter
 from scripts.reporting.integration import ReportingIntegration
+from scripts.reporting.publication_formatter import PublicationFormatter
+from scripts.reporting.report_generator import ReportGenerator, ScientificReport
+from scripts.reporting.synthesis_engine import SynthesisEngine
+from scripts.reporting.visualization_pipeline import VisualizationPipeline
 
 
 class TestReportingWorkflow:

@@ -6,9 +6,9 @@ formation with the signal-to-noise ratio of the resulting Hawking radiation
 to produce a single score for a given set of experimental parameters.
 """
 
-import numpy as np
 from .probabilistic_horizon import ProbabilisticHorizonModel
 from .snr_model import RadioSNRModel
+
 
 class GlowMeritFunction:
     """

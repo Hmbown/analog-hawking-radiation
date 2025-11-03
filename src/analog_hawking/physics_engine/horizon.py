@@ -18,9 +18,11 @@ not a propagation of physical uncertainties in the underlying model parameters.
 """
 
 from __future__ import annotations
-import numpy as np
+
 from dataclasses import dataclass
-from typing import List, Dict, Optional
+from typing import List, Optional
+
+import numpy as np
 from scipy.constants import k, m_p, mu_0
 
 
@@ -65,14 +67,14 @@ class HorizonResult:
 def _refine_root(xl, xr, fl, fr, f, max_iter=20):
     """Bisect-refine a root of f between xl and xr where fl and fr have opposite signs."""
     a, b = xl, xr
-    fa, fb = fl, fr
+    fa = fl
     for _ in range(max_iter):
         c = 0.5 * (a + b)
         fc = f(c)
         if np.sign(fa) == np.sign(fc):
             a, fa = c, fc
         else:
-            b, fb = c, fc
+            b = c
     return 0.5 * (a + b)
 
 
@@ -143,9 +145,6 @@ def find_horizons_with_uncertainty(x: np.ndarray,
     dcsdx_list = []
     for r in roots:
         idx = int(np.clip(np.searchsorted(x, r), 1, len(x)-2))
-        local_sigma = None
-        if sigma_cells is not None and sigma_cells.size == len(x):
-            local_sigma = float(sigma_cells[idx])
         # multi-stencil estimates
         grads = []
         for st in (1, 2, 3):

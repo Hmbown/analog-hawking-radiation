@@ -2,6 +2,7 @@ import numpy as np
 
 from analog_hawking.physics_engine.optimization.graybody_1d import compute_graybody
 
+
 def test_compute_graybody_monotonic_transmission():
     x = np.linspace(-1, 1, 200)
     velocity = np.tanh(x) * 0.5

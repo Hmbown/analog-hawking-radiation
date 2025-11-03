@@ -1,8 +1,9 @@
 import json
 import os
-import numpy as np
 import subprocess
 import sys
+
+import numpy as np
 
 
 def test_run_pic_pipeline_with_synthetic_profile(tmp_path):

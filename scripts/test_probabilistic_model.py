@@ -8,11 +8,12 @@ the horizon formation probability, and prints the results.
 
 import os
 import sys
+
 import numpy as np
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from physics_engine.optimization.probabilistic_horizon import ProbabilisticHorizonModel
-from scipy.constants import c
+
 
 def test_probabilistic_model():
     """

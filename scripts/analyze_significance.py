@@ -5,20 +5,20 @@ Evaluates signal-to-noise ratios, detection thresholds, and statistical
 significance across parameter space.
 """
 
-import numpy as np
-import json
-import os
-from pathlib import Path
-import logging
-from typing import Dict, List, Tuple, Any, Optional
 import argparse
-from dataclasses import dataclass
-import matplotlib.pyplot as plt
-from scipy import stats
-from scipy.optimize import curve_fit
+import json
+import logging
 
 # Add src to path
 import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List
+
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import stats
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 @dataclass

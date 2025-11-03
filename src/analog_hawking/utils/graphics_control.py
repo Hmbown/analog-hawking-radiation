@@ -9,10 +9,10 @@ graphics output.
 
 from __future__ import annotations
 
-import os
 import argparse
-from typing import Optional, Any
+import os
 from contextlib import contextmanager
+from typing import Optional
 
 
 def should_generate_plots() -> bool:

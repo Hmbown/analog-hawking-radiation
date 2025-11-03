@@ -1,8 +1,8 @@
 import numpy as np
-
 from scipy.constants import hbar, k, pi
-from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
+
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
 
 
 def test_hawking_temperature_units_scale():

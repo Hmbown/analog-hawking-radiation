@@ -17,12 +17,13 @@ being relied upon for production studies.
 
 from __future__ import annotations
 
-import numpy as np
-from dataclasses import dataclass
-from typing import Optional, Tuple, Callable, Dict, Any, List
-from scipy.interpolate import CubicSpline, PchipInterpolator
-from scipy.constants import k, m_p
 import warnings
+from dataclasses import dataclass
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+import numpy as np
+from scipy.interpolate import CubicSpline, PchipInterpolator
+
 
 @dataclass
 class NumericalAccuracyReport:

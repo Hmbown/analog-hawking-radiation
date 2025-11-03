@@ -9,7 +9,9 @@ calculates a formation probability based on the results.
 
 import numpy as np
 from scipy.constants import c
-from ..plasma_models.laser_plasma_interaction import MaxwellFluidModel, AnalogHorizonFormation
+
+from ..plasma_models.laser_plasma_interaction import AnalogHorizonFormation, MaxwellFluidModel
+
 
 class ProbabilisticHorizonModel:
     """

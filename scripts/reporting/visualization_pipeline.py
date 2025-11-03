@@ -10,27 +10,25 @@ from __future__ import annotations
 
 import json
 import logging
-import math
-from dataclasses import asdict, dataclass, field
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from matplotlib import gridspec
-from matplotlib.patches import Ellipse
-from scipy import stats
 
 # Add project paths to Python path
 import sys
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from matplotlib import gridspec
+from scipy import stats
+
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from scripts.result_aggregator import ResultAggregator, ExperimentAggregate
+from scripts.result_aggregator import ExperimentAggregate, ResultAggregator
 from scripts.validation.validation_framework import ValidationFramework
 
 

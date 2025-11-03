@@ -11,28 +11,25 @@ from __future__ import annotations
 
 import json
 import logging
-import math
-from dataclasses import asdict, dataclass, field
+
+# Add project paths to Python path
+import sys
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
-import pandas as pd
-from scipy import stats, optimize
+from scipy import stats
 from scipy.cluster import hierarchy
-from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
 from sklearn.preprocessing import StandardScaler
 
-# Add project paths to Python path
-import sys
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from scripts.result_aggregator import ResultAggregator, ExperimentAggregate
+from scripts.result_aggregator import ExperimentAggregate, ResultAggregator
 from scripts.validation.validation_framework import ValidationFramework
 
 
@@ -1196,7 +1193,6 @@ class SynthesisEngine:
     
     def _get_current_timestamp(self) -> str:
         """Get current timestamp string"""
-        from datetime import datetime
         return datetime.now().isoformat()
     
     def _save_synthesis_report(self, report: SynthesisReport) -> None:

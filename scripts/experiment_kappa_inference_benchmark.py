@@ -17,20 +17,18 @@ import json
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 from analog_hawking.physics_engine.optimization.graybody_1d import compute_graybody
 from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
-
 from experiment_universality_collapse import (
-    make_linear_profile,
-    make_tanh_profile,
-    make_piecewise_ramp_profile,
     make_exponential_profile,
+    make_linear_profile,
+    make_piecewise_ramp_profile,
+    make_tanh_profile,
 )
-
 
 FAMILIES = {
     "linear": make_linear_profile,

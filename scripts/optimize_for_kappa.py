@@ -2,8 +2,9 @@
 
 import os
 import sys
-import numpy as np
+
 import emcee
+import numpy as np
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from physics_engine.optimization.probabilistic_horizon import ProbabilisticHorizonModel

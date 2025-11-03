@@ -8,20 +8,18 @@ and provides real-time tracking with automated performance reporting.
 
 from __future__ import annotations
 
+import json
 import logging
 import os
-import platform
-import psutil
 import time
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from threading import Event, Thread
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
-import json
-from datetime import datetime
+import psutil
 
 
 @dataclass

@@ -11,16 +11,12 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-import os
 import time
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 import psutil
 
 # Optional rich TUI dependencies; keep module import-friendly when not installed
@@ -30,7 +26,7 @@ try:
     from rich.layout import Layout
     from rich.live import Live
     from rich.panel import Panel
-    from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
+    from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
     from rich.table import Table
     from rich.text import Text
 except Exception:
@@ -39,6 +35,7 @@ except Exception:
 
 # Add project paths to Python path
 import sys
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 

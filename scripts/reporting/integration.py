@@ -10,22 +10,23 @@ result aggregator, and validation framework.
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional
 
 # Add project paths to Python path
 import sys
+from dataclasses import dataclass, field
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict
+
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from scripts.reporting.report_generator import ReportGenerator
-from scripts.reporting.visualization_pipeline import VisualizationPipeline
-from scripts.reporting.synthesis_engine import SynthesisEngine
 from scripts.reporting.publication_formatter import PublicationFormatter
+from scripts.reporting.report_generator import ReportGenerator
+from scripts.reporting.synthesis_engine import SynthesisEngine
+from scripts.reporting.visualization_pipeline import VisualizationPipeline
 
 
 @dataclass
@@ -84,7 +85,6 @@ class ReportingIntegration:
             self.logger.info("Integrating with orchestration engine")
             
             # Load orchestration engine
-            from scripts.orchestration_engine import OrchestrationEngine
             
             # Create integration hooks
             integration_hooks = {
@@ -129,7 +129,6 @@ class ReportingIntegration:
             self.logger.info("Integrating with monitoring dashboard")
             
             # Load monitoring dashboard
-            from scripts.monitoring.dashboard import MonitoringDashboard
             
             # Create dashboard integration
             dashboard_integration = {
@@ -181,7 +180,6 @@ class ReportingIntegration:
             self.logger.info("Integrating with result aggregator")
             
             # Load result aggregator
-            from scripts.result_aggregator import ResultAggregator
             
             # Create result aggregator integration
             aggregator_integration = {
@@ -229,7 +227,6 @@ class ReportingIntegration:
             self.logger.info("Integrating with validation framework")
             
             # Load validation framework
-            from scripts.validation.validation_framework import ValidationFramework
             
             # Create validation integration
             validation_integration = {

@@ -14,19 +14,20 @@ Notes
 - Units follow the rest of the codebase (densities consistent with FluidBackend usage).
 """
 
+import argparse
 import json
 import os
 from dataclasses import asdict, dataclass
 from typing import Optional, Tuple
-import argparse
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 
 
 @dataclass

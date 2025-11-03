@@ -13,16 +13,13 @@ import json
 import logging
 import os
 import subprocess
+import sys
 import time
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
-import sys
-import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-
-import yaml
 
 
 @dataclass
@@ -371,7 +368,7 @@ class ExperimentTracker:
         """Generate a human-readable provenance report"""
         provenance = self.manifest.provenance
         
-        report = f"Experiment Provenance Report\n"
+        report = "Experiment Provenance Report\n"
         report += "=" * 40 + "\n\n"
         report += f"Experiment ID: {self.manifest.experiment_id}\n"
         report += f"Name: {self.manifest.name}\n"

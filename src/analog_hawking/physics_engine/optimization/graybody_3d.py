@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable, Iterable, Tuple, Optional
+from typing import Iterable, Optional
 
 import numpy as np
-from scipy.integrate import quad
 
-from analog_hawking.physics_engine.optimization.graybody_1d import GraybodyResult, _wkb_transmission  # Reuse 1D utilities
-from ...horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.optimization.graybody_1d import (  # Reuse 1D utilities
+    GraybodyResult,
+    _wkb_transmission,
+)
 
 
 @dataclass
@@ -20,10 +21,15 @@ class Graybody3DResult(GraybodyResult):
 
 
 
-def _effective_potential_3d(r: np.ndarray, v_r: np.ndarray, c_s: np.ndarray, l: int = 0) -> np.ndarray:
+def _effective_potential_3d(
+    r: np.ndarray,
+    v_r: np.ndarray,
+    c_s: np.ndarray,
+    angular_mode: int = 0,
+) -> np.ndarray:
     """Effective potential in 3D radial coordinate, including centrifugal term."""
     acoustic_pot = (np.abs(v_r) - c_s) ** 2
-    centrifugal = l * (l + 1) / r**2 if l > 0 else 0.0
+    centrifugal = angular_mode * (angular_mode + 1) / r**2 if angular_mode > 0 else 0.0
     return acoustic_pot + centrifugal
 
 
@@ -53,8 +59,6 @@ def compute_graybody_3d(
 
     # Extract central slice for radial approximation (assume x is propagation direction)
     ny, nz = velocity.shape[1], velocity.shape[2]
-    y_c, z_c = y[ny//2], z[nz//2]
-    r = np.sqrt(y_c**2 + z_c**2)  # Radial distance in transverse plane
     v_r = velocity[:, ny//2, nz//2]  # Radial velocity approximation
     cs_r = sound_speed[:, ny//2, nz//2]
 
@@ -69,21 +73,23 @@ def compute_graybody_3d(
     transmission = np.zeros_like(omega_values)
     transverse_scattering = np.zeros_like(omega_values)
     for i, omega in enumerate(omega_values):
-        T_l_sum = 0.0
-        for l in range(l_max + 1):
-            pot_func = lambda xi: _effective_potential_3d(r_horizon + xi, v_r, cs_r, l)
-            T_l = _wkb_transmission(omega, pot_func, (-r_horizon, len(x) * np.mean(np.gradient(x))))
-            T_l_sum += (2 * l + 1) * T_l
-        transmission[i] = T_l_sum / (2 * l_max + 1)
+        transmission_sum = 0.0
+        for angular_mode in range(l_max + 1):
 
-        # Approximate scattering correction: simple geometric for low l
+            def pot_func(xi: float, *, mode: int = angular_mode) -> float:
+                return float(_effective_potential_3d(r_horizon + xi, v_r, cs_r, mode))
+
+            transmission_mode = _wkb_transmission(
+                omega, pot_func, (-r_horizon, len(x) * np.mean(np.gradient(x)))
+            )
+            transmission_sum += (2 * angular_mode + 1) * transmission_mode
+        transmission[i] = transmission_sum / (2 * l_max + 1)
+
+        # Approximate scattering correction: simple geometric for low angular indices
         scattering_factor = 1.0 - (l_max * (l_max + 1)) / (2 * (omega * r_horizon / kappa_eff)**2 + 1e-6)
         transverse_scattering[i] = np.clip(scattering_factor, 0.0, 1.0)
 
-    # Uncertainty via perturbation (reuse 1D logic on slice)
-    v_pert = v_r * (1.0 + perturbation)
-    cs_pert = cs_r * (1.0 - perturbation)
-    # Recompute for upper/lower bounds (simplified)
+    # Uncertainty via perturbation (reuse 1D logic on slice; simplified heuristic)
     uncertainties = perturbation * transmission  # Heuristic
 
     return Graybody3DResult(

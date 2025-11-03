@@ -12,12 +12,11 @@ Author: Claude Analysis Assistant
 Date: November 2025
 """
 
-import numpy as np
-import pandas as pd
-import json
-import matplotlib.pyplot as plt
-from pathlib import Path
 import sys
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
@@ -25,13 +24,10 @@ sys.path.append(str(Path(__file__).parent.parent))
 from src.analog_hawking.detection.detection_feasibility import (
     DetectionFeasibilityAnalyzer,
     SignalCharacteristics,
-    assess_detection_feasibility_simple
 )
 from src.analog_hawking.facilities.eli_diagnostic_integration import (
     ELIDiagnosticIntegrator,
-    ELIFacilityType,
     assess_eli_compatibility,
-    generate_eli_integration_plan
 )
 
 
@@ -403,13 +399,13 @@ def generate_summary_report(detection_results: pd.DataFrame,
     for _, scenario in detection_results.iterrows():
         report_lines.append(f"### {scenario['scenario_name']}")
         report_lines.append("")
-        report_lines.append(f"**Signal Parameters:**")
+        report_lines.append("**Signal Parameters:**")
         report_lines.append(f"- Hawking Temperature: {scenario['hawking_temperature_K']:.4f} K")
         report_lines.append(f"- Surface Gravity: {scenario['surface_gravity_s']:.2e} s⁻¹")
         report_lines.append(f"- Peak Frequency: {scenario['peak_frequency_Hz']:.2e} Hz")
         report_lines.append("")
 
-        report_lines.append(f"**Detection Assessment:**")
+        report_lines.append("**Detection Assessment:**")
         report_lines.append(f"- Best Method: {scenario['best_method']}")
         report_lines.append(f"- Best Detector: {scenario['best_detector']}")
         report_lines.append(f"- SNR: {scenario['best_snr']:.2f}")
@@ -418,7 +414,7 @@ def generate_summary_report(detection_results: pd.DataFrame,
         report_lines.append("")
 
         if scenario['integration_time_s'] != float('inf'):
-            report_lines.append(f"**Experimental Requirements:**")
+            report_lines.append("**Experimental Requirements:**")
             report_lines.append(f"- Integration Time: {scenario['integration_time_s']:.2e} s")
             report_lines.append(f"- Required Shots: {int(scenario['required_shots'])}")
             report_lines.append(f"- Experiment Time: {scenario['experiment_time_hours']:.1f} hours")
@@ -630,7 +626,7 @@ def main():
             print("❌ DETECTION IS NOT CURRENTLY FEASIBLE with predicted signal levels")
 
         print(f"\n🎯 TOP DETECTION METHOD: {detection_results.loc[detection_results['best_snr'].idxmax(), 'best_method']}")
-        print(f"🏢 BEST ELI FACILITY: Based on compatibility scores in report")
+        print("🏢 BEST ELI FACILITY: Based on compatibility scores in report")
 
     print(f"\n📁 Results saved to: {output_dir}")
     print("📊 Plots: detection_feasibility_comprehensive.png")

@@ -12,17 +12,16 @@ Author: Claude Analysis Assistant
 Date: November 2025
 """
 
-from dataclasses import dataclass, field
-from typing import Dict, List, Tuple, Optional, Any, Union, Callable
-import numpy as np
+from dataclasses import dataclass
 from enum import Enum
-import json
 from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+import numpy as np
 
 # Physical constants
-from scipy.constants import k, h, c, e, m_e, epsilon_0, mu_0, hbar
+from scipy.constants import e, h, hbar, k
 from scipy.stats import norm
-from scipy.integrate import quad
 
 
 class DetectionMethod(Enum):
@@ -330,12 +329,12 @@ class NoiseModelingFramework:
             # kT W/Hz (single-sided)
             return k * T
 
-        def shot_noise(f: float, I: float = 1e-6) -> float:
+        def shot_noise(f: float, photocurrent: float = 1e-6) -> float:
             """Shot noise spectral density from photocurrent"""
-            if I <= 0:
+            if photocurrent <= 0:
                 return 0.0
             # 2eI W/Hz
-            return 2 * e * I
+            return 2 * e * photocurrent
 
         def readout_noise(f: float, S_readout: float = 1e-19) -> float:
             """Frequency-independent readout noise"""
@@ -461,7 +460,7 @@ class NoiseModelingFramework:
                 return 0.0
             try:
                 return signal.power_density * (x**3) / (np.exp(x) - 1) if x > 0.01 else signal.power_density * x**2
-            except:
+            except (FloatingPointError, OverflowError, ZeroDivisionError):
                 return 0.0
 
         signal_psd = np.array([signal_spectrum(f) for f in frequencies])
@@ -789,7 +788,8 @@ class DetectionFeasibilityAnalyzer:
             "detector_cooling": detector.cooling_required,
             "vacuum_level": "1e-7 mbar or better" if detector.cost_tier >= 4 else "1e-5 mbar",
             "magnetic_shielding": detector.cost_tier >= 3,
-            "vibration_isolation": method in [DetectionMethod.INTERFEROMETRY, DetectionMethod.IMAGING],
+            "vibration_isolation": detector.detection_method
+            in {DetectionMethod.INTERFEROMETRY, DetectionMethod.IMAGING},
             "data_acquisition_rate": 1/optimal_params["integration_time"],
             "storage_requirements": f"{required_shots * 100} MB"  # Rough estimate
         }
@@ -811,7 +811,6 @@ class DetectionFeasibilityAnalyzer:
         """Analyze contribution of different noise sources"""
 
         f_center = signal.peak_frequency
-        frequencies = np.array([f_center])
 
         # Calculate individual noise contributions
         noise_sources = {}

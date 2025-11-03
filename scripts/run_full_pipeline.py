@@ -3,38 +3,32 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from dataclasses import asdict, dataclass
+from pathlib import Path
 from typing import Optional
+from uuid import uuid4
 
 import numpy as np
 
-import sys
-from pathlib import Path
-from uuid import uuid4
 # Add scripts directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
-from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
-from hawking_detection_experiment import calculate_hawking_spectrum
+from scipy.constants import e, epsilon_0, hbar, k, m_e, pi
+
+from analog_hawking.detection.hybrid_spectrum import (
+    calculate_enhanced_hawking_spectrum,
+)
 from analog_hawking.detection.radio_snr import (
     band_power_from_spectrum,
     equivalent_signal_temperature,
     sweep_time_for_5sigma,
 )
-from scipy.constants import hbar, k, pi, e, m_e, epsilon_0
-from analog_hawking.physics_engine.plasma_mirror import (
-    PlasmaMirrorParams,
-    calculate_plasma_mirror_dynamics,
-)
-from analog_hawking.physics_engine.horizon_hybrid import (
-    HybridHorizonParams,
-    find_hybrid_horizons,
-)
-from analog_hawking.detection.hybrid_spectrum import (
-    calculate_enhanced_hawking_spectrum,
-)
+from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
+from hawking_detection_experiment import calculate_hawking_spectrum
+
 try:
     from analog_hawking.inference.kappa_mle import infer_kappa as infer_kappa_from_psd
     from analog_hawking.inference.kappa_mle import make_graybody_model
@@ -42,9 +36,11 @@ except Exception:
     infer_kappa_from_psd = None  # type: ignore[assignment]
     make_graybody_model = None  # type: ignore[assignment]
 import matplotlib
+
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import argparse
+
+import matplotlib.pyplot as plt
 
 _TRAPEZOID = getattr(np, "trapezoid", np.trapz)
 
@@ -461,8 +457,14 @@ def run_full_pipeline(
             try:
                 n_p0 = 1.0e24
                 omega_p0 = float(np.sqrt(e**2 * n_p0 / (epsilon_0 * m_e)))
-                from analog_hawking.physics_engine.plasma_mirror import PlasmaMirrorParams, calculate_plasma_mirror_dynamics
-                from analog_hawking.physics_engine.horizon_hybrid import HybridHorizonParams, find_hybrid_horizons
+                from analog_hawking.physics_engine.horizon_hybrid import (
+                    HybridHorizonParams,
+                    find_hybrid_horizons,
+                )
+                from analog_hawking.physics_engine.plasma_mirror import (
+                    PlasmaMirrorParams,
+                    calculate_plasma_mirror_dynamics,
+                )
                 p = PlasmaMirrorParams(n_p0=n_p0, omega_p0=omega_p0, a=0.5, b=0.5, D=float(mirror_D), eta_a=float(mirror_eta), model=str(hybrid_model))
                 t_m = np.linspace(0.0, 100e-15, 401)
                 mirror = calculate_plasma_mirror_dynamics(state.grid, float(laser_intensity), p, t_m)

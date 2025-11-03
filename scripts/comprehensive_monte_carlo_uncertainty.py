@@ -22,33 +22,32 @@ import json
 import os
 import sys
 from dataclasses import asdict, dataclass, field
-from typing import Dict, List, Optional, Tuple, Union
 from enum import Enum
+from typing import Dict, List, Optional, Tuple
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from scipy import stats
-from scipy.stats import multivariate_normal, norm, uniform
-from scipy.optimize import minimize
-import emcee  # For Bayesian inference
-import corner  # For posterior visualization
 import warnings
+
+import corner  # For posterior visualization
+import emcee  # For Bayesian inference
+import matplotlib.pyplot as plt
+from scipy.stats import multivariate_normal
+
 warnings.filterwarnings('ignore')
 
 # Add src to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 from analog_hawking.utils.graphics_control import (
+    GraphicsController,
     add_graphics_argument,
     get_graphics_preference,
-    conditional_savefig,
     skip_plotting_message,
-    GraphicsController
 )
 
 
@@ -1172,7 +1171,7 @@ def _create_enhanced_horizon_plot(results: Dict, graphics_controller: Optional[G
     ax3 = plt.subplot(gs[1, 1])  # Hawking temperature
 
     # Main summary
-    ax1.text(0.5, 0.7, f'Horizon Formation Probability',
+    ax1.text(0.5, 0.7, 'Horizon Formation Probability',
              transform=ax1.transAxes, ha='center', fontsize=14, fontweight='bold')
     ax1.text(0.5, 0.5, f'P = {horizon_prob:.3f} ± {np.sqrt(horizon_prob*(1-horizon_prob)/len(results["kappa_samples"])):.3f}',
              transform=ax1.transAxes, ha='center', fontsize=12)
@@ -1228,7 +1227,7 @@ def _print_comprehensive_summary(results: Dict):
 
     if "standard_monte_carlo" in results:
         std_mc = results["standard_monte_carlo"]
-        print(f"\nStandard Monte Carlo Results:")
+        print("\nStandard Monte Carlo Results:")
         print(f"  Horizon Probability: {std_mc['horizon_probability']:.3f}")
         print(f"  Surface Gravity: κ = {std_mc['kappa_mean']:.2e} ± {std_mc['kappa_std']:.2e} s⁻¹")
         print(f"  Hawking Temperature: T_H = {std_mc['hawking_temperature_mean']:.2e} ± {std_mc['hawking_temperature_std']:.2e} K")
@@ -1236,7 +1235,7 @@ def _print_comprehensive_summary(results: Dict):
 
     if "nested_monte_carlo" in results:
         nested = results["nested_monte_carlo"]
-        print(f"\nNested Monte Carlo Results:")
+        print("\nNested Monte Carlo Results:")
         print(f"  Systematic Uncertainty: ±{nested['systematic_uncertainty']:.2e} ({nested['systematic_percentage']:.1f}%)")
         print(f"  Statistical Uncertainty: ±{nested['statistical_uncertainty']:.2e} ({nested['statistical_percentage']:.1f}%)")
         print(f"  Total Uncertainty: ±{nested['total_uncertainty']:.2e}")
@@ -1246,7 +1245,7 @@ def _print_comprehensive_summary(results: Dict):
     if "bayesian_inference" in results:
         if "error" not in results["bayesian_inference"]:
             bayesian = results["bayesian_inference"]
-            print(f"\nBayesian Inference Results:")
+            print("\nBayesian Inference Results:")
             print(f"  Converged: {bayesian['converged']}")
             print(f"  Acceptance Fraction: {bayesian['mcmc_diagnostics']['acceptance_fraction']:.3f}")
             weights = bayesian["model_weights"]["mean"]
@@ -1257,7 +1256,7 @@ def _print_comprehensive_summary(results: Dict):
     if "comprehensive_budget" in results:
         budget = results["comprehensive_budget"]
         if budget.get("recommendations"):
-            print(f"\nRecommendations:")
+            print("\nRecommendations:")
             for rec in budget["recommendations"]:
                 print(f"  • {rec}")
 
@@ -1467,29 +1466,29 @@ Examples:
     print("="*80)
 
     if 'comprehensive_budget' in results and results['comprehensive_budget'].get('recommendations'):
-        print(f"\nKey Recommendations for Uncertainty Reduction:")
+        print("\nKey Recommendations for Uncertainty Reduction:")
         for rec in results['comprehensive_budget']['recommendations']:
             print(f"  • {rec}")
 
-    print(f"\nFiles Generated:")
-    print(f"  - results/comprehensive_uncertainty_analysis.json")
+    print("\nFiles Generated:")
+    print("  - results/comprehensive_uncertainty_analysis.json")
     if graphics_pref:
-        print(f"  - figures/comprehensive_uncertainty_budget.png")
-        print(f"  - figures/horizon_probability_with_systematics.png")
-        print(f"  - figures/nested_monte_carlo_analysis.png")
+        print("  - figures/comprehensive_uncertainty_budget.png")
+        print("  - figures/horizon_probability_with_systematics.png")
+        print("  - figures/nested_monte_carlo_analysis.png")
         if config.use_bayesian_inference and 'bayesian_inference' in results:
             if 'error' not in results['bayesian_inference']:
-                print(f"  - figures/bayesian_posterior_distributions.png")
+                print("  - figures/bayesian_posterior_distributions.png")
     else:
-        print(f"  - Graphics generation disabled (use --generate-plots to enable)")
+        print("  - Graphics generation disabled (use --generate-plots to enable)")
 
-    print(f"\nAnalysis successfully addresses scientific review concerns:")
-    print(f"  ✓ Systematic uncertainties quantified")
-    print(f"  ✓ Laser parameter variations included")
-    print(f"  ✓ Diagnostic uncertainties incorporated")
-    print(f"  ✓ Model uncertainties quantified via Bayesian inference")
-    print(f"  ✓ Nested Monte Carlo separates systematic vs statistical")
-    print(f"  ✓ Comprehensive uncertainty budget established")
+    print("\nAnalysis successfully addresses scientific review concerns:")
+    print("  ✓ Systematic uncertainties quantified")
+    print("  ✓ Laser parameter variations included")
+    print("  ✓ Diagnostic uncertainties incorporated")
+    print("  ✓ Model uncertainties quantified via Bayesian inference")
+    print("  ✓ Nested Monte Carlo separates systematic vs statistical")
+    print("  ✓ Comprehensive uncertainty budget established")
 
 
 if __name__ == "__main__":

@@ -2,8 +2,11 @@
 """
 Quick check that calculate_hawking_spectrum() chooses radio band when T_H <= 10 K.
 """
+import os
+import sys
+
 import numpy as np
-import os, sys
+
 ROOT = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(ROOT)
 sys.path.append(os.path.join(ROOT, "src"))

@@ -1,30 +1,34 @@
 """
 Integration tests for the Analog Hawking Radiation Simulation Framework.
 
-This test suite validates the complete data flow from plasma models through 
+This test suite validates the complete data flow from plasma models through
 horizon detection, quantum field theory calculations, and detection modeling.
 """
 
-import numpy as np
-import numpy.testing as npt
 import json
-import os
-import sys
 from pathlib import Path
 
-# Add project root to path
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / "src"))
-
-from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
-from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
-from analog_hawking.physics_engine.plasma_models.adaptive_sigma import estimate_sigma_map
-from analog_hawking.physics_engine.plasma_models.fluctuation_injector import QuantumFluctuationInjector, FluctuationConfig
-from analog_hawking.physics_engine.simulation import SimulationRunner
-from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
-from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
+import numpy as np
+import numpy.testing as npt
 from scripts.hawking_detection_experiment import calculate_hawking_spectrum
+
+from analog_hawking.detection.radio_snr import (
+    band_power_from_spectrum,
+    equivalent_signal_temperature,
+    sweep_time_for_5sigma,
+)
+from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.adaptive_sigma import estimate_sigma_map
+from analog_hawking.physics_engine.plasma_models.fluctuation_injector import (
+    FluctuationConfig,
+    QuantumFluctuationInjector,
+)
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
+from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
+from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
+from analog_hawking.physics_engine.simulation import SimulationRunner
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 def test_plasma_models_to_horizon_detection():
@@ -56,7 +60,6 @@ def test_plasma_models_to_horizon_detection():
     print("✓ FluidBackend produces valid plasma state")
     
     # Test horizon detection with this state
-    from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
     horizons = find_horizons_with_uncertainty(state.grid, state.velocity, state.sound_speed)
     
     assert horizons is not None, "Horizon detection should return results"
@@ -222,9 +225,9 @@ def test_error_handling():
 def test_memory_usage():
     """Verify memory usage and performance."""
     print("\nTesting memory usage and performance...")
-    
+
     import tracemalloc
-    
+
     # Start tracing memory allocations
     tracemalloc.start()
     
@@ -256,7 +259,7 @@ def test_warpx_backend_mock():
     print("\nTesting WarpX backend mock implementation...")
     
     # Load mock configuration
-    mock_config_path = project_root / "configs" / "warpx_mock.json"
+    mock_config_path = PROJECT_ROOT / "configs" / "warpx_mock.json"
     with open(mock_config_path, 'r') as f:
         mock_config = json.load(f)
     
@@ -387,35 +390,3 @@ def test_module_interfaces():
         assert spec_result['success'], "QFT should work with calculated kappa"
     
     print("✓ All module interfaces work together seamlessly")
-
-
-def main():
-    """Run all integration tests."""
-    print("Running Integration Tests for Analog Hawking Radiation Simulation Framework")
-    print("=" * 80)
-    
-    try:
-        test_plasma_models_to_horizon_detection()
-        test_horizon_to_qft_to_detection()
-        test_parameter_passing()
-        test_error_handling()
-        test_memory_usage()
-        test_warpx_backend_mock()
-        test_fluid_backend()
-        test_adaptive_sigma()
-        test_fluctuation_injector()
-        test_module_interfaces()
-        
-        print("\n" + "=" * 80)
-        print("All integration tests passed successfully!")
-        return True
-    except Exception as e:
-        print(f"\n✗ Integration test failed: {e}")
-        import traceback
-        traceback.print_exc()
-        return False
-
-
-if __name__ == "__main__":
-    success = main()
-    sys.exit(0 if success else 1)

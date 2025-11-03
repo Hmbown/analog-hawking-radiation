@@ -3,8 +3,8 @@ from __future__ import annotations
 import numpy as np
 from scipy.constants import hbar, k, pi
 
-from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
 from analog_hawking.physics_engine.optimization.graybody_1d import compute_graybody
+from analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
 
 
 def _temperature_from_kappa(kappa: float) -> float:

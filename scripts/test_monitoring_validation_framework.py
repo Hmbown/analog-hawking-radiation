@@ -10,23 +10,24 @@ from __future__ import annotations
 
 import json
 import logging
+
+# Add project paths to Python path
+import sys
 import time
 from pathlib import Path
 from typing import Any, Dict, List
 
-# Add project paths to Python path
-import sys
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from scripts.orchestration_engine import OrchestrationEngine
 from scripts.monitoring.dashboard import ExperimentDashboard
+from scripts.orchestration_engine import OrchestrationEngine
 from scripts.performance_monitor import PerformanceMonitor, ResourceManager
-from scripts.validation.validation_framework import ValidationFramework
-from scripts.validation.quality_assurance import QualityAssuranceSystem
 from scripts.validation.benchmark_validator import BenchmarkValidator
 from scripts.validation.cross_phase_validator import CrossPhaseValidator
 from scripts.validation.physics_model_validator import PhysicsModelValidator
+from scripts.validation.quality_assurance import QualityAssuranceSystem
+from scripts.validation.validation_framework import ValidationFramework
 
 
 class MonitoringValidationTestSuite:

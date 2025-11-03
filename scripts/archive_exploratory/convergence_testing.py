@@ -6,13 +6,12 @@ the numerical methods are working correctly.
 """
 
 import numpy as np
-from scipy.constants import c, hbar, k
-import matplotlib.pyplot as plt
+from physics_engine.plasma_models.laser_plasma_interaction import LaserPlasmaDynamics
 
 # Import our physics modules
-from physics_engine.plasma_models.plasma_physics import PlasmaPhysicsModel
-from physics_engine.plasma_models.laser_plasma_interaction import LaserPlasmaDynamics
 from physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
+from scipy.constants import hbar, k
+
 
 def test_spatial_convergence():
     """
@@ -272,7 +271,7 @@ def run_convergence_suite():
         sensitivity_result = test_parameter_sensitivity()
         results.append(sensitivity_result)
         
-        print(f"\nCONVERGENCE TESTING SUMMARY:")
+        print("\nCONVERGENCE TESTING SUMMARY:")
         print(f"  Spatial convergence: {'✅ PASSED' if spatial_result else '❌ FAILED'}")
         print(f"  Temporal convergence: {'✅ PASSED' if temporal_result else '❌ FAILED'}")
         print(f"  Spectrum convergence: {'✅ PASSED' if spectrum_result else '❌ FAILED'}")

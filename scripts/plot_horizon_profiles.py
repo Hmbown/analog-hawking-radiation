@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import os
 import json
+import os
+import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 
 
 def plot_profiles_for_case(case: dict, idx: int) -> str:

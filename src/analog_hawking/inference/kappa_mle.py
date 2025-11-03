@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
@@ -175,11 +174,6 @@ def infer_kappa(
     f_right = _objective([right])
     denom = (right - left) ** 2 / 4.0
     curvature = (f_left - 2.0 * f_opt + f_right) / max(denom, 1e-24)
-    if curvature > 0:
-        sigma = math.sqrt(1.0 / curvature)
-    else:
-        sigma = float("inf")
-
     grid = np.geomspace(bounds[0], bounds[1], posterior_points)
     obj_vals = np.asarray([_objective([float(val)]) for val in grid], dtype=float)
     obj_vals -= float(np.min(obj_vals))

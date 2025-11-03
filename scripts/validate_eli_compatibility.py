@@ -12,21 +12,20 @@ Date: November 2025
 
 import argparse
 import json
-import os
 import sys
-from pathlib import Path
-from typing import Dict, List, Tuple, Any, Optional
 import warnings
+from pathlib import Path
+from typing import Any, Dict, Optional
+
 warnings.filterwarnings('ignore')
 
-import numpy as np
-import pandas as pd
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from analog_hawking.facilities.eli_capabilities import (
-    ELICapabilities, ELIFacility, validate_intensity_range,
-    quick_facility_check, get_eli_capabilities
+    ELIFacility,
+    get_eli_capabilities,
+    validate_intensity_range,
 )
 
 
@@ -199,7 +198,7 @@ class ELICompatibilityValidator:
         critical_issues_count = len(self.critical_issues)
         compatible_count = sum(1 for r in self.validation_results if r.get("valid", False))
 
-        print(f"\n📈 STATISTICS:")
+        print("\n📈 STATISTICS:")
         print(f"   Total parameter sets validated: {total_parameters}")
         print(f"   Parameters with critical issues: {critical_issues_count}")
         print(f"   ELI-compatible parameters: {compatible_count}")
@@ -215,7 +214,7 @@ class ELICompatibilityValidator:
             "Extreme (>1e24 W/m²)": sum(1 for i in intensities if i >= 1e24)
         }
 
-        print(f"\n📊 INTENSITY DISTRIBUTION:")
+        print("\n📊 INTENSITY DISTRIBUTION:")
         for range_name, count in intensity_ranges.items():
             print(f"   {range_name}: {count} parameter sets")
 
@@ -226,7 +225,7 @@ class ELICompatibilityValidator:
                 for facility in result.get("compatible_facilities", []):
                     facility_compatibility[facility] = facility_compatibility.get(facility, 0) + 1
 
-        print(f"\n🏢 FACILITY COMPATIBILITY:")
+        print("\n🏢 FACILITY COMPATIBILITY:")
         for facility, count in facility_compatibility.items():
             print(f"   {facility}: {count} compatible parameter sets")
 
@@ -258,36 +257,36 @@ class ELICompatibilityValidator:
     def _generate_recommendations(self) -> None:
         """Generate specific recommendations for fixing issues"""
 
-        print(f"\n💡 RECOMMENDATIONS:")
+        print("\n💡 RECOMMENDATIONS:")
 
         # Unit consistency recommendations
         unit_issues = [r for r in self.validation_results if not r.get("valid", False)]
         if unit_issues:
-            print(f"\n🔧 UNIT CONSISTENCY FIXES:")
-            print(f"   1. STANDARDIZE all intensity values to W/m² throughout the codebase")
-            print(f"   2. ADD unit conversion functions to prevent W/cm² vs W/m² confusion")
-            print(f"   3. IMPLEMENT input validation for all parameter generation scripts")
+            print("\n🔧 UNIT CONSISTENCY FIXES:")
+            print("   1. STANDARDIZE all intensity values to W/m² throughout the codebase")
+            print("   2. ADD unit conversion functions to prevent W/cm² vs W/m² confusion")
+            print("   3. IMPLEMENT input validation for all parameter generation scripts")
 
         # Parameter range recommendations
         extreme_parameters = [r for r in self.validation_results if r["intensity_W_m2"] > 1e24]
         if extreme_parameters:
-            print(f"\n🎯 PARAMETER RANGE CORRECTIONS:")
-            print(f"   1. REDUCE maximum intensity to 1e23 W/m² for ELI-Beamlines/NP")
-            print(f"   2. REDUCE maximum intensity to 1e21 W/m² for ELI-ALPS")
-            print(f"   3. UPDATE config/thresholds.py with realistic maximum values")
+            print("\n🎯 PARAMETER RANGE CORRECTIONS:")
+            print("   1. REDUCE maximum intensity to 1e23 W/m² for ELI-Beamlines/NP")
+            print("   2. REDUCE maximum intensity to 1e21 W/m² for ELI-ALPS")
+            print("   3. UPDATE config/thresholds.py with realistic maximum values")
 
         # Facility-specific recommendations
-        print(f"\n🏢 FACILITY OPTIMIZATION:")
-        print(f"   1. ELI-Beamlines: Best for high-intensity (>1e22 W/m²) experiments")
-        print(f"   2. ELI-NP: Ideal for nuclear physics applications with dual-beam capability")
-        print(f"   3. ELI-ALPS: Optimal for high-repetition rate (>10 Hz) experiments")
+        print("\n🏢 FACILITY OPTIMIZATION:")
+        print("   1. ELI-Beamlines: Best for high-intensity (>1e22 W/m²) experiments")
+        print("   2. ELI-NP: Ideal for nuclear physics applications with dual-beam capability")
+        print("   3. ELI-ALPS: Optimal for high-repetition rate (>10 Hz) experiments")
 
         # Experimental design recommendations
-        print(f"\n🧪 EXPERIMENTAL DESIGN IMPROVEMENTS:")
-        print(f"   1. FOCUS on 1e19-1e22 W/m² range for optimal plasma mirror operation")
-        print(f"   2. USE 800 nm wavelength for Ti:Sapphire compatibility")
-        print(f"   3. TARGET 150 fs pulse duration for 10 PW systems")
-        print(f"   4. CONSIDER repetition rate requirements in experimental planning")
+        print("\n🧪 EXPERIMENTAL DESIGN IMPROVEMENTS:")
+        print("   1. FOCUS on 1e19-1e22 W/m² range for optimal plasma mirror operation")
+        print("   2. USE 800 nm wavelength for Ti:Sapphire compatibility")
+        print("   3. TARGET 150 fs pulse duration for 10 PW systems")
+        print("   4. CONSIDER repetition rate requirements in experimental planning")
 
         # Add to recommendations list
         self.recommendations = [
@@ -305,7 +304,7 @@ class ELICompatibilityValidator:
                                       facility: Optional[str] = None) -> Dict[str, Any]:
         """Validate a specific experimental configuration"""
 
-        print(f"\n🔬 VALIDATING SPECIFIC CONFIGURATION:")
+        print("\n🔬 VALIDATING SPECIFIC CONFIGURATION:")
         print(f"   Intensity: {intensity_W_m2:.2e} W/m²")
         print(f"   Wavelength: {wavelength_nm:.0f} nm")
         print(f"   Pulse Duration: {pulse_duration_fs:.0f} fs")
@@ -331,7 +330,7 @@ class ELICompatibilityValidator:
 
         # Format and display results
         if feasibility["feasible"]:
-            print(f"   ✅ CONFIGURATION FEASIBLE")
+            print("   ✅ CONFIGURATION FEASIBLE")
             print(f"   📊 Feasibility Score: {feasibility['score']:.2f}/1.00")
             print(f"   🏢 Best System: {feasibility['best_system']}")
             print(f"   📍 Facility: {feasibility['facility']}")
@@ -340,15 +339,15 @@ class ELICompatibilityValidator:
             print(f"   📈 Intensity Margin: {feasibility['intensity_margin']:.1f}x")
 
             if feasibility["recommendations"]:
-                print(f"   💡 Recommendations:")
+                print("   💡 Recommendations:")
                 for rec in feasibility["recommendations"]:
                     print(f"      • {rec}")
         else:
-            print(f"   ❌ CONFIGURATION INFEASIBLE")
-            print(f"   🚫 Primary Issues:")
+            print("   ❌ CONFIGURATION INFEASIBLE")
+            print("   🚫 Primary Issues:")
             for issue in feasibility["primary_issues"]:
                 print(f"      • {issue}")
-            print(f"   💡 Recommendations:")
+            print("   💡 Recommendations:")
             for rec in feasibility["recommendations"]:
                 print(f"      • {rec}")
 
@@ -357,7 +356,7 @@ class ELICompatibilityValidator:
     def generate_eli_compliant_parameter_ranges(self) -> Dict[str, Any]:
         """Generate ELI-compliant parameter ranges for the analysis"""
 
-        print(f"\n🎯 GENERATING ELI-COMPLIANT PARAMETER RANGES:")
+        print("\n🎯 GENERATING ELI-COMPLIANT PARAMETER RANGES:")
 
         # Define facility-specific ranges
         facility_ranges = {
@@ -401,7 +400,7 @@ class ELICompatibilityValidator:
             ]
         }
 
-        print(f"\n📋 FACILITY-SPECIFIC RANGES:")
+        print("\n📋 FACILITY-SPECIFIC RANGES:")
         for facility, ranges in facility_ranges.items():
             print(f"\n   {facility}:")
             print(f"      Intensity: {ranges['intensity_W_m2'][0]:.1e} - {ranges['intensity_W_m2'][1]:.1e} W/m²")
@@ -410,7 +409,7 @@ class ELICompatibilityValidator:
             print(f"      Repetition Rate: {ranges['repetition_rate_Hz'][0]:.3f} - {ranges['repetition_rate_Hz'][1]:.1f} Hz")
             print(f"      Best Use Cases: {', '.join(ranges['best_use_cases'])}")
 
-        print(f"\n🎯 OPTIMAL RANGES FOR ANALOG HAWKING EXPERIMENTS:")
+        print("\n🎯 OPTIMAL RANGES FOR ANALOG HAWKING EXPERIMENTS:")
         print(f"      Intensity: {hawking_optimal_ranges['intensity_W_m2'][0]:.1e} - {hawking_optimal_ranges['intensity_W_m2'][1]:.1e} W/m²")
         print(f"      Wavelength: {hawking_optimal_ranges['wavelength_nm'][0]:.0f} - {hawking_optimal_ranges['wavelength_nm'][1]:.0f} nm")
         print(f"      Pulse Duration: {hawking_optimal_ranges['pulse_duration_fs'][0]:.0f} - {hawking_optimal_ranges['pulse_duration_fs'][1]:.0f} fs")

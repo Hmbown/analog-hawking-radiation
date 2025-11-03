@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import math
 import shutil
 import zipfile
 from dataclasses import dataclass
@@ -10,10 +9,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import List
 
+import matplotlib
 import numpy as np
 import pandas as pd
 from scipy import stats
-import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 

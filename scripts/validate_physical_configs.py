@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import os
 import json
+import os
 from pathlib import Path
 
 import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, k, m_p
+from scipy.constants import c, e, epsilon_0, k, m_e, m_p
 
 
 def a0_from_intensity_and_wavelength(I_Wm2: float, lambda_m: float) -> float:

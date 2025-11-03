@@ -5,18 +5,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
-from typing import List, Optional, Sequence, Tuple
+from typing import List
 
 import numpy as np
-
-import sys
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from analog_hawking.pipelines import from_openpmd, OpenPMDAdapterResult
+from analog_hawking.pipelines import OpenPMDAdapterResult, from_openpmd
 
 try:
     import matplotlib

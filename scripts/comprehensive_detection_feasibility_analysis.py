@@ -13,14 +13,15 @@ Author: Claude Analysis Assistant
 Date: November 2025
 """
 
-import numpy as np
-import pandas as pd
-import json
 import argparse
+import json
 import sys
 from pathlib import Path
-from typing import Dict, List, Any, Tuple
+from typing import Any, Dict
+
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import seaborn as sns
 
 # Add project root to path
@@ -29,10 +30,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 from src.analog_hawking.detection.detection_feasibility import (
     DetectionFeasibilityAnalyzer,
     SignalCharacteristics,
-    assess_detection_feasibility_simple
 )
 from src.analog_hawking.physics_engine.plasma_models.quantum_field_theory import QuantumFieldTheory
-from scripts.hawking_detection_experiment import calculate_hawking_spectrum
 
 
 def load_existing_dataset() -> pd.DataFrame:
@@ -729,7 +728,7 @@ def main():
             print(f"Mean detection probability: {results_df['detection_probability'].mean():.1%}")
 
             best_config = results_df.loc[results_df['best_snr'].idxmax()]
-            print(f"\n🎯 BEST CONFIGURATION:")
+            print("\n🎯 BEST CONFIGURATION:")
             print(f"  Config ID: {best_config['config_id']}")
             print(f"  Method: {best_config['best_method']}")
             print(f"  SNR: {best_config['best_snr']:.2f}")

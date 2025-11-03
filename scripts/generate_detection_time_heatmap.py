@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import os
 import json
+import os
+import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from scripts.hawking_detection_experiment import calculate_hawking_spectrum
-from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
+
+from analog_hawking.detection.radio_snr import (
+    equivalent_signal_temperature,
+    sweep_time_for_5sigma,
+)
 
 
 def main() -> int:

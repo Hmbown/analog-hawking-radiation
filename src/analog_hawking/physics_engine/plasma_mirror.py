@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 """
 Status: ⚠️ Experimental hybrid plasma mirror mapping.
 
@@ -22,11 +20,12 @@ experimental scaffolding and subject any quantitative usage to an explicit
 units-checked derivation against the cited references.
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass
-from typing import Optional
 
 import numpy as np
-from scipy.constants import c, hbar, k
+from scipy.constants import c
 
 
 @dataclass

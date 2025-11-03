@@ -7,11 +7,11 @@ Measures horizon finder runtime vs grid size and prints JSON results.
 from __future__ import annotations
 
 import json
-import time
-import numpy as np
-from pathlib import Path
-
 import sys
+import time
+
+import numpy as np
+
 if __name__ == "__main__" and "src" not in sys.path:
     # Allow running from repo root without install
     sys.path.insert(0, "src")

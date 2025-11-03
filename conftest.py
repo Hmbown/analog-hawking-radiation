@@ -4,8 +4,8 @@ Ensures the ``src`` directory is importable so that compatibility shims
 (such as ``physics_engine``) resolve in example and script tests as well.
 """
 
-from pathlib import Path
 import sys
+from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.resolve()
 SRC_ROOT = str(PROJECT_ROOT / "src")

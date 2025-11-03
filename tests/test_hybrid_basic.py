@@ -1,25 +1,17 @@
 from __future__ import annotations
 
-import os
-import sys
 import numpy as np
 
-ROOT = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, ROOT)
-sys.path.insert(0, os.path.join(ROOT, "src"))
-
-from analog_hawking.physics_engine.plasma_mirror import (
-    PlasmaMirrorParams,
-    calculate_plasma_mirror_dynamics,
-)
+from analog_hawking.detection.hybrid_spectrum import calculate_enhanced_hawking_spectrum
+from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 from analog_hawking.physics_engine.horizon_hybrid import (
     HybridHorizonParams,
     find_hybrid_horizons,
 )
-from analog_hawking.detection.hybrid_spectrum import (
-    calculate_enhanced_hawking_spectrum,
+from analog_hawking.physics_engine.plasma_mirror import (
+    PlasmaMirrorParams,
+    calculate_plasma_mirror_dynamics,
 )
-from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 
 
 def _synthetic_profile():

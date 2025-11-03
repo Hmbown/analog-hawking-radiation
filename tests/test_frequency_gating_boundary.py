@@ -1,10 +1,4 @@
-import os
-import sys
-
-# Ensure we can import the helper from scripts/
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'scripts'))
-
-from hawking_detection_experiment import _choose_frequency_band  # type: ignore
+from scripts.hawking_detection_experiment import _choose_frequency_band  # type: ignore
 
 
 def test_frequency_gating_boundary_at_10K():

@@ -7,9 +7,13 @@ Outputs:
   - results/enhancement_stats.json
   - figures/enhancement_bar.png
 """
-import os, sys, json
-import numpy as np
+import json
+import os
+import sys
+
 import matplotlib.pyplot as plt
+import numpy as np
+
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "src"))
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from analog_hawking.physics_engine.multi_beam_superposition import simulate_gradient_enhancement

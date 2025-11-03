@@ -15,16 +15,16 @@ Examples:
 
 import argparse
 import json
-import os
+import sys
 from pathlib import Path
 
 import numpy as np
 
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+import matplotlib
+
 from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
 
-import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 

@@ -8,10 +8,12 @@ parallel processing, and convergence detection.
 
 from __future__ import annotations
 
-import asyncio
 import json
 import logging
 import os
+
+# Add project paths to Python path
+import sys
 import time
 import uuid
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -22,14 +24,11 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 import yaml
 
-# Add project paths to Python path
-import sys
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from scripts.run_full_pipeline import run_full_pipeline, FullPipelineSummary
 
 # Import monitoring and validation components
 # Heavy dependencies are imported lazily in their initialization methods to
@@ -193,11 +192,11 @@ class OrchestrationEngine:
     
     def _initialize_validation_components(self) -> None:
         """Initialize validation framework components"""
-        from scripts.validation.validation_framework import ValidationFramework
-        from scripts.validation.quality_assurance import QualityAssuranceSystem
         from scripts.validation.benchmark_validator import BenchmarkValidator
         from scripts.validation.cross_phase_validator import CrossPhaseValidator
         from scripts.validation.physics_model_validator import PhysicsModelValidator
+        from scripts.validation.quality_assurance import QualityAssuranceSystem
+        from scripts.validation.validation_framework import ValidationFramework
         # Core validation framework
         self.validation_framework = ValidationFramework(self.experiment_id)
         
@@ -218,11 +217,11 @@ class OrchestrationEngine:
     def _initialize_reporting_components(self) -> None:
         """Initialize reporting system components"""
         try:
-            from scripts.reporting.report_generator import ReportGenerator
-            from scripts.reporting.visualization_pipeline import VisualizationPipeline
-            from scripts.reporting.synthesis_engine import SynthesisEngine
-            from scripts.reporting.publication_formatter import PublicationFormatter
             from scripts.reporting.integration import ReportingIntegration
+            from scripts.reporting.publication_formatter import PublicationFormatter
+            from scripts.reporting.report_generator import ReportGenerator
+            from scripts.reporting.synthesis_engine import SynthesisEngine
+            from scripts.reporting.visualization_pipeline import VisualizationPipeline
             # Core reporting components
             self.report_generator = ReportGenerator(self.experiment_id)
             self.visualization_pipeline = VisualizationPipeline(self.experiment_id)
@@ -508,7 +507,7 @@ class OrchestrationEngine:
             # Lazy import to avoid requiring scikit-optimize when not needed
             try:
                 from scripts.bayesian_optimization import HawkingOptimization, OptimizationConfig
-            except Exception as import_err:
+            except Exception:
                 self.logger.warning(
                     "Bayesian optimization dependencies not available; "
                     "falling back to randomized search for this phase."
@@ -949,7 +948,7 @@ class OrchestrationEngine:
         report_file = report_dir / "final_report.txt"
         
         with open(report_file, 'w') as f:
-            f.write(f"Analog Hawking Radiation Detection Experiment Report\n")
+            f.write("Analog Hawking Radiation Detection Experiment Report\n")
             f.write("=" * 60 + "\n\n")
             f.write(f"Experiment ID: {self.experiment_id}\n")
             f.write(f"Name: {self.manifest.name}\n")

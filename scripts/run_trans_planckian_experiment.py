@@ -24,10 +24,15 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 os.sys.path.insert(0, str(REPO_ROOT))
 os.sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend  # type: ignore  # noqa: E402
-from analog_hawking.physics_engine.simulation import SimulationRunner  # type: ignore  # noqa: E402
+from scripts.hawking_detection_experiment import (
+    calculate_hawking_spectrum,  # type: ignore  # noqa: E402
+)
+
 from analog_hawking.physics_engine.horizon import HorizonResult  # type: ignore  # noqa: E402
-from scripts.hawking_detection_experiment import calculate_hawking_spectrum  # type: ignore  # noqa: E402
+from analog_hawking.physics_engine.plasma_models.warpx_backend import (
+    WarpXBackend,  # type: ignore  # noqa: E402
+)
+from analog_hawking.physics_engine.simulation import SimulationRunner  # type: ignore  # noqa: E402
 
 try:
     import yaml  # type: ignore

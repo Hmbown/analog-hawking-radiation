@@ -39,7 +39,6 @@ class SimulationRunner:
             config_path = run_config["3d_grid_config"]
             with open(config_path, 'r') as f:
                 grid_config = yaml.safe_load(f)
-            grid_type = grid_config.get("grid_type", "cartesian")
             dimensions = grid_config.get("dimensions", [100, 50, 50])
             dx = grid_config.get("dx", 0.1e-6)
             dy = grid_config.get("dy", dx)

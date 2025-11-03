@@ -14,8 +14,9 @@ import json
 import os
 from typing import List
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 

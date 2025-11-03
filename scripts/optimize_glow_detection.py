@@ -7,8 +7,9 @@ that maximize the probability of forming a detectable analog event horizon.
 
 import os
 import sys
-import numpy as np
+
 import emcee
+import numpy as np
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from physics_engine.optimization.merit_function import GlowMeritFunction
@@ -92,7 +93,7 @@ def run_optimization():
 
 
     print("\n--- Optimization Complete ---")
-    print(f"Optimal Parameters Found:")
+    print("Optimal Parameters Found:")
     for i, key in enumerate(param_space.keys()):
         print(f"  - {key}: {best_params[i]:.3e}")
 

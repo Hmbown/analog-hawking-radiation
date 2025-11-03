@@ -11,12 +11,17 @@ Outputs:
 """
 import os
 import sys
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from physics_engine.plasma_models.laser_plasma_interaction import MaxwellFluidModel, AnalogHorizonFormation
+from physics_engine.plasma_models.laser_plasma_interaction import (
+    AnalogHorizonFormation,
+    MaxwellFluidModel,
+)
 from scipy.constants import c
+
 
 def ensure_dirs():
     """Create output directories if they don't exist."""

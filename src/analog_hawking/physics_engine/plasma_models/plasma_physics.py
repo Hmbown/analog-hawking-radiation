@@ -5,10 +5,11 @@ This module implements the fundamental physics of laser-plasma interactions
 relevant to creating analog black holes and detecting Hawking radiation.
 """
 
-import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p, mu_0
-from scipy.special import gamma
 import warnings
+
+import numpy as np
+from scipy.constants import c, e, epsilon_0, hbar, k, m_e, m_p, mu_0
+
 
 class PlasmaPhysicsModel:
     """
@@ -179,8 +180,6 @@ class PlasmaPhysicsModel:
         """
         # This is a simplified simulation - in reality, you'd need PIC codes
         n_e = np.full_like(x, self.n_e)  # Initialize density
-        v_e = np.zeros_like(x)  # Initialize velocity
-        
         # Calculate laser field at each point
         E_laser = np.array([E_laser_func(x_i, t[0]) for x_i in x])  # Simplified for first time step
         
@@ -293,7 +292,7 @@ class QEDPhysics:
         # Fundamental constants for QED calculations
         self.alpha = 7.2973525693e-3  # Fine structure constant
         self.m_e_c2 = m_e * c**2  # Electron rest energy
-        self.E_S = m_e_c2**2 / (e * hbar)  # Schwinger field
+        self.E_S = self.m_e_c2**2 / (e * hbar)  # Schwinger field
         self.lambda_C = hbar / (m_e * c)  # Compton wavelength
     
     def pair_production_rate(self, E_field):

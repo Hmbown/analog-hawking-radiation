@@ -4,11 +4,11 @@ Configuration management for the analog Hawking radiation experimental protocol.
 Manages parameter sweeps, optimization settings, and experimental configurations.
 """
 
-import yaml
-import json
-from pathlib import Path
-from typing import Dict, Any, List
 import argparse
+from pathlib import Path
+
+import yaml
+
 
 class ConfigManager:
     """Manages configuration files for the experimental protocol"""

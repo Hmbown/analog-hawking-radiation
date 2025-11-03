@@ -1,8 +1,7 @@
-import os
 import numpy as np
 
-from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
 
 
 def test_openpmd_getter_reads_series(tmp_path):

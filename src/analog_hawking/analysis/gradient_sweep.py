@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,9 +13,6 @@ from analog_hawking.config.thresholds import Thresholds, load_thresholds
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
 from analog_hawking.physics_engine.plasma_models.laser_plasma_interaction import (
     MaxwellFluidModel,
-)
-from analog_hawking.physics_engine.plasma_models.nonlinear_plasma import (
-    NonlinearPlasmaSolver,
 )
 from analog_hawking.physics_engine.plasma_models.validation_protocols import (
     PhysicsValidationFramework,
@@ -32,7 +28,6 @@ class GradientCatastropheDetector:
     def compute_gradient_metrics(
         self, x_grid: np.ndarray, velocity: np.ndarray, sound_speed: np.ndarray
     ) -> Dict[str, float]:
-        dx = np.diff(x_grid)
         dv_dx = np.gradient(velocity, x_grid)
         dc_dx = np.gradient(sound_speed, x_grid)
 
@@ -90,9 +85,9 @@ class GradientCatastropheDetector:
             if np.any(np.abs(dv_dx) > 1e20):
                 breakdown_modes["validity_score"] *= 0.3
 
-        I = simulation_data.get("intensity", None)
+        intensity = simulation_data.get("intensity", None)
         try:
-            if I is not None and float(I) > self.thresholds.intensity_max_W_m2:
+            if intensity is not None and float(intensity) > self.thresholds.intensity_max_W_m2:
                 breakdown_modes["intensity_breakdown"] = True
                 breakdown_modes["validity_score"] *= 0.3
         except Exception:
@@ -131,7 +126,6 @@ def run_single_configuration(
     x_transition = 0.0
     sigma = L / (20 * gradient_factor)
 
-    omega_pe = np.sqrt(e**2 * n_e / (epsilon_0 * m_e))
     cs_thermal = np.sqrt(k * 10000 / m_e)
     cs_base = cs_thermal * (1 + 0.2 * np.exp(-((x / sigma) ** 2)))
     sound_speed = cs_base

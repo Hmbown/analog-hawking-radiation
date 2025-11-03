@@ -10,9 +10,10 @@ Date: November 2025
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Tuple, Optional, Any, Union
-import numpy as np
 from enum import Enum
+from typing import Any, Dict, List, Optional, Tuple
+
+import numpy as np
 
 # Import ELI capabilities
 from .eli_capabilities import ELICapabilities, ELIFacility

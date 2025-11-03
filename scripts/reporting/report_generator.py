@@ -11,24 +11,23 @@ from __future__ import annotations
 
 import json
 import logging
-import statistics
-from dataclasses import asdict, dataclass, field
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-
-import numpy as np
-import pandas as pd
-from scipy import stats
 
 # Add project paths to Python path
 import sys
+from dataclasses import asdict, dataclass
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+import numpy as np
+from scipy import stats
+
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from scripts.result_aggregator import ResultAggregator, ExperimentAggregate
+from scripts.result_aggregator import ExperimentAggregate, ResultAggregator
 from scripts.validation.validation_framework import ValidationFramework
 
 
@@ -543,7 +542,7 @@ class ReportGenerator:
             f"Surface gravity measurements confirm physical plausibility (κ = {self.aggregate.best_kappa:.2e} s⁻¹)",
             f"Multi-phase optimization improved detection efficiency by {self._calculate_improvement():.1%}",
             f"Cross-phase validation shows {len(self.aggregate.cross_phase_correlation.significant_correlations)} significant correlations",
-            f"Parameter sensitivity analysis identifies key optimization levers"
+            "Parameter sensitivity analysis identifies key optimization levers"
         ]
         
         # Add statistical significance findings

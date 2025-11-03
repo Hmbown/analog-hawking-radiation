@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable, Iterable, Tuple, Optional
+from typing import Callable, Iterable, Optional, Tuple
 
 import numpy as np
 from scipy.integrate import quad
@@ -96,16 +96,26 @@ def compute_graybody(
     if method_l == "wkb":
         # Experimental WKB path (legacy)
         potential = _effective_potential(x, velocity, sound_speed)
-        potential_interp = lambda xi: float(np.interp(xi, x, potential))
+
+        def potential_interp(xi: float) -> float:
+            return float(np.interp(xi, x, potential))
 
         transmission = np.array([
             _wkb_transmission(omega, potential_interp, (x[0], x[-1])) for omega in omega_values
         ])
 
-        upper = _effective_potential(x, velocity * (1.0 + perturbation), sound_speed * (1.0 - perturbation))
-        lower = _effective_potential(x, velocity * (1.0 - perturbation), sound_speed * (1.0 + perturbation))
-        upper_interp = lambda xi: float(np.interp(xi, x, upper))
-        lower_interp = lambda xi: float(np.interp(xi, x, lower))
+        upper = _effective_potential(
+            x, velocity * (1.0 + perturbation), sound_speed * (1.0 - perturbation)
+        )
+        lower = _effective_potential(
+            x, velocity * (1.0 - perturbation), sound_speed * (1.0 + perturbation)
+        )
+
+        def upper_interp(xi: float) -> float:
+            return float(np.interp(xi, x, upper))
+
+        def lower_interp(xi: float) -> float:
+            return float(np.interp(xi, x, lower))
 
         transmission_upper = np.array([
             _wkb_transmission(omega, upper_interp, (x[0], x[-1])) for omega in omega_values
@@ -133,8 +143,6 @@ def compute_graybody(
 
     # Identify near-horizon index as minimal |c - |v||
     gap = xp_abs(xp_abs(v_arr) - cs_arr)
-    gap_np = to_numpy(gap)
-    idx = int(np.argmin(gap_np)) if gap_np.size else 0
 
     # Estimate kappa if not provided
     if kappa is None or kappa <= 0.0:

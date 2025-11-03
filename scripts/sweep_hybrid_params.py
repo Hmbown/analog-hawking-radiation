@@ -7,11 +7,13 @@ Parameter sweep for hybrid coupling (apples-to-apples):
 """
 from __future__ import annotations
 
+import csv
 import os
 import sys
-import csv
-import numpy as np
+
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -19,14 +21,22 @@ ROOT = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "src"))
 
-from scipy.constants import k, e, m_e, epsilon_0
-from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
-from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from scipy.constants import e, epsilon_0, m_e
 from scripts.hawking_detection_experiment import calculate_hawking_spectrum
-from analog_hawking.detection.radio_snr import band_power_from_spectrum, equivalent_signal_temperature, sweep_time_for_5sigma
-from analog_hawking.physics_engine.plasma_mirror import PlasmaMirrorParams, calculate_plasma_mirror_dynamics
-from analog_hawking.physics_engine.horizon_hybrid import HybridHorizonParams, find_hybrid_horizons
+
 from analog_hawking.detection.hybrid_spectrum import calculate_enhanced_hawking_spectrum
+from analog_hawking.detection.radio_snr import (
+    band_power_from_spectrum,
+    equivalent_signal_temperature,
+    sweep_time_for_5sigma,
+)
+from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.horizon_hybrid import HybridHorizonParams, find_hybrid_horizons
+from analog_hawking.physics_engine.plasma_mirror import (
+    PlasmaMirrorParams,
+    calculate_plasma_mirror_dynamics,
+)
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 
 
 def compute_baseline(plasma_density=5e17, laser_wavelength=800e-9, laser_intensity=5e17, temperature_constant=1e4):

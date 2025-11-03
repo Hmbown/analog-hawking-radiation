@@ -11,25 +11,21 @@ Date: November 2025
 
 import argparse
 import json
-import os
 import sys
-from pathlib import Path
-from typing import Dict, List, Tuple, Any, Optional
 import warnings
+from pathlib import Path
+from typing import Any, Dict, Optional
+
 warnings.filterwarnings('ignore')
 
 import numpy as np
 import pandas as pd
-from scipy.stats import qmc, uniform, loguniform, norm
 from scipy.constants import c, e, epsilon_0, k, m_e, m_p
+from scipy.stats import qmc
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from analog_hawking.facilities.eli_capabilities import (
-    ELICapabilities, ELIFacility, get_eli_capabilities
-)
-from analog_hawking.analysis.gradient_sweep import run_single_configuration
-from analog_hawking.config.thresholds import Thresholds
+from analog_hawking.facilities.eli_capabilities import ELIFacility, get_eli_capabilities
 
 
 class ELICompliantParameterGenerator:
@@ -309,7 +305,7 @@ class ELICompliantParameterGenerator:
         # Sort by experimental feasibility
         ranked_df = df.sort_values("experimental_feasibility_score", ascending=False).copy()
 
-        print(f"📊 Top 10 configurations by experimental feasibility:")
+        print("📊 Top 10 configurations by experimental feasibility:")
         for i, (idx, row) in enumerate(ranked_df.head(10).iterrows(), 1):
             print(f"   {i:2d}. Score: {row['experimental_feasibility_score']:.3f} | "
                   f"Facility: {row['best_eli_facility']} | "
@@ -439,7 +435,7 @@ def main():
         print(f"📊 Detailed parameters saved to: {args.csv_output}")
 
     # Print summary
-    print(f"\n📋 GENERATION SUMMARY:")
+    print("\n📋 GENERATION SUMMARY:")
     print(f"   Target facility: {results['facility_target']}")
     print(f"   Configurations generated: {results['total_configurations']}")
     print(f"   Average ELI feasibility: {results['summary_statistics']['avg_feasibility_score']:.3f}")
@@ -447,7 +443,7 @@ def main():
     print(f"   Intensity range: {results['summary_statistics']['intensity_range'][0]:.1e} - "
           f"{results['summary_statistics']['intensity_range'][1]:.1e} W/m²")
 
-    print(f"\n🏢 FACILITY DISTRIBUTION:")
+    print("\n🏢 FACILITY DISTRIBUTION:")
     for facility, count in results['summary_statistics']['facility_distribution'].items():
         print(f"   {facility}: {count} configurations")
 

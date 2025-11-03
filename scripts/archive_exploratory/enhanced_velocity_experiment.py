@@ -5,12 +5,11 @@ This module runs the complete enhanced experiment incorporating all
 velocity-dependent improvements and optimizations.
 """
 
-import numpy as np
-from scipy.constants import c, h, hbar, k, e, m_e, epsilon_0
-import matplotlib.pyplot as plt
 import pickle
-import os
 from datetime import datetime
+
+import numpy as np
+from scipy.constants import c
 
 
 def run_enhanced_velocity_experiment():
@@ -26,12 +25,12 @@ def run_enhanced_velocity_experiment():
     
     # Import all the enhanced modules
     try:
-        from velocity_analysis import main as velocity_analysis_main
         from gradient_optimized_flying_mirror import run_gradient_optimized_experiment
-        from velocity_parametric_study import main_parametric_study
-        from velocity_dependent_detection import main_detection_optimization
-        from velocity_visualization import comprehensive_velocity_visualization
         from multi_mirror_configurations import main_multi_mirror_analysis
+        from velocity_analysis import main as velocity_analysis_main
+        from velocity_dependent_detection import main_detection_optimization
+        from velocity_parametric_study import main_parametric_study
+        from velocity_visualization import comprehensive_velocity_visualization
         
         print("✅ All enhanced modules imported successfully")
     except ImportError as e:
@@ -117,8 +116,8 @@ def run_enhanced_velocity_experiment():
     print(f"  Multi-mirror enhancement (conceptual): Up to {max_m_mirror_enhancement:.1f}x")
     print(f"  Best multi-mirror config (illustrative): {best_config[0]}")
     
-    print(f"  Detection optimization completed")
-    print(f"  Comprehensive visualizations created")
+    print("  Detection optimization completed")
+    print("  Comprehensive visualizations created")
     
     return comprehensive_results
 
@@ -361,16 +360,16 @@ def main_enhanced_experiment():
     # 5. Final summary
     print("COMPREHENSIVE ENHANCED EXPERIMENT COMPLETED")
     print("=" * 47)
-    print(f"Files created:")
-    print(f"  - VELOCITY_ENHANCED_EXPERIMENT_SYNTHESIS.md")
-    print(f"  - *.pkl files with detailed results")
-    print(f"  - velocity_analysis_*.png (visualizations)")
-    print(f"  - final_velocity_analysis_*.png/gif (visualizations)")
+    print("Files created:")
+    print("  - VELOCITY_ENHANCED_EXPERIMENT_SYNTHESIS.md")
+    print("  - *.pkl files with detailed results")
+    print("  - velocity_analysis_*.png (visualizations)")
+    print("  - final_velocity_analysis_*.png/gif (visualizations)")
     print()
-    print(f"Key Results:")
-    print(f"  - Integrated all velocity-dependent enhancements")
+    print("Key Results:")
+    print("  - Integrated all velocity-dependent enhancements")
     print(f"  - Quantified improvement effectiveness: {effectiveness_analysis['assessment']}")
-    print(f"  - Provided comprehensive analysis of velocity effects on Hawking radiation")
+    print("  - Provided comprehensive analysis of velocity effects on Hawking radiation")
     
     return comprehensive_results
 

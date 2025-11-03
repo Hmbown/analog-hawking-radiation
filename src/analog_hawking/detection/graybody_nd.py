@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 """Patch-wise graybody aggregation for nD horizon surfaces.
 
 This utility samples 1D profiles along a chosen axis (or later, local normals)
@@ -8,9 +6,11 @@ provide a pragmatic, reproducible nD graybody estimate without solving a full
 multidimensional scattering problem.
 """
 
-from dataclasses import dataclass
-from typing import Dict, List, Sequence, Tuple, Iterable, Union
+from __future__ import annotations
+
 import warnings
+from dataclasses import dataclass
+from typing import Dict, Iterable, List, Sequence, Tuple, Union
 
 import numpy as np
 from scipy.constants import c, h, k  # type: ignore
@@ -82,8 +82,8 @@ def aggregate_patchwise_graybody(
     # Build spectra per patch by extracting 1D lines along scan_axis
     specs: List[Dict[str, np.ndarray]] = []
     x_axis = grids[scan_axis]
-    for k in patch_indices:
-        pos = surf.positions[k]
+    for patch_idx in patch_indices:
+        pos = surf.positions[patch_idx]
         if sample_mode.lower() != "normal":
             # Fix non-scan axes to nearest index to pos; slice along scan axis
             slicer = [slice(None)] * dims
@@ -123,7 +123,7 @@ def aggregate_patchwise_graybody(
                     cs_line = np.reshape(cs_line, (-1,))
                 profile = {"x": x_axis, "v": v_line, "c_s": cs_line}
             else:
-                n = surf.normals[k]
+                normal = surf.normals[patch_idx]
                 # Build param s around the point within a fraction of domain
                 extents = [g[-1] - g[0] for g in grids]
                 s_span = 0.125 * float(min(extents))
@@ -134,12 +134,12 @@ def aggregate_patchwise_graybody(
                 for ax in range(dims):
                     dx = float(np.mean(np.diff(grids[ax]))) if len(grids[ax]) > 1 else 1.0
                     origin = float(grids[ax][0])
-                    idx_coords.append((pos[ax] + s_line * n[ax] - origin) / dx)
+                    idx_coords.append((pos[ax] + s_line * normal[ax] - origin) / dx)
                 coords = np.vstack(idx_coords)
                 # Interpolate each velocity component and c_s
                 v_comps = []
-                for c in range(dims):
-                    field = v_field[..., c]
+                for component in range(dims):
+                    field = v_field[..., component]
                     v_comps.append(map_coordinates(field, coords, order=1, mode="nearest"))
                 v_line = np.sqrt(np.sum(np.vstack(v_comps) ** 2, axis=0))
                 cs_line = map_coordinates(c_s, coords, order=1, mode="nearest")

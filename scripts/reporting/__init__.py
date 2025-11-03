@@ -5,10 +5,16 @@ Provides comprehensive reporting, visualization, synthesis, and publication
 capabilities for multi-phase experimental orchestration.
 """
 
-from .report_generator import ReportGenerator, ScientificReport, ExecutiveSummary, TechnicalReport
-from .visualization_pipeline import VisualizationPipeline, FigureSpecification, VisualizationBundle
-from .synthesis_engine import SynthesisEngine, TrendAnalysis, PatternRecognition, MetaAnalysis
-from .publication_formatter import PublicationFormatter, LaTeXDocument, MarkdownDocument, PresentationSlides, DataTables
+from .publication_formatter import (
+    DataTables,
+    LaTeXDocument,
+    MarkdownDocument,
+    PresentationSlides,
+    PublicationFormatter,
+)
+from .report_generator import ExecutiveSummary, ReportGenerator, ScientificReport, TechnicalReport
+from .synthesis_engine import MetaAnalysis, PatternRecognition, SynthesisEngine, TrendAnalysis
+from .visualization_pipeline import FigureSpecification, VisualizationBundle, VisualizationPipeline
 
 __all__ = [
     # Main classes

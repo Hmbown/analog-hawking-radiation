@@ -7,7 +7,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -35,7 +34,6 @@ def _sweep_values() -> dict:
 def _extract_highlights_numbers(text: str) -> dict:
     # κ_max in sci notion e.g., 5.94e12 or 5.94×10¹²
     kmax = None
-    m = re.search(r"k_max\s*[=≈]\s*([0-9.]+)\s*[×x]?\s*10\^?([−-]?\d+)|k_max\s*[=≈]\s*([0-9.]+)e([−-]?\d+)", text)
     # Fallback to the explicit sci block we render
     m2 = re.search(r"κ_max\s*=\s*([0-9.+-eE]+)\s*Hz", text)
     if m2:

@@ -12,22 +12,25 @@ Date: November 2025
 import argparse
 import json
 import os
-from dataclasses import dataclass, asdict
-from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Any
 import warnings
-warnings.filterwarnings('ignore')
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
-import numpy as np
-import pandas as pd
-from scipy.stats import qmc, uniform, loguniform, norm
-from scipy.constants import c, e, epsilon_0, k, m_e, m_p
+warnings.filterwarnings('ignore')
 
 # Import existing analysis modules
 import sys
+
+import numpy as np
+import pandas as pd
+from scipy.constants import c, e, epsilon_0, k, m_e, m_p
+from scipy.stats import qmc
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from analog_hawking.analysis.gradient_sweep import run_single_configuration
 from analog_hawking.config.thresholds import Thresholds
+
 
 @dataclass
 class PhysicalParameterRanges:
@@ -433,7 +436,7 @@ def generate_expanded_dataset(
 
     # Regime distribution (if stratified sampling was used)
     if 'regime' in df.columns:
-        print(f"\nRegime distribution:")
+        print("\nRegime distribution:")
         regime_counts = df['regime'].value_counts()
         for regime, count in regime_counts.items():
             print(f"  {regime}: {count} configurations")

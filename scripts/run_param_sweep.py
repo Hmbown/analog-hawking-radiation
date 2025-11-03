@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 import os
-from dataclasses import asdict, dataclass
-from typing import Optional, Sequence
-
-import numpy as np
-import argparse
-import matplotlib.pyplot as plt
-
 import sys
+from dataclasses import asdict, dataclass
 from pathlib import Path
+from typing import Sequence
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 # Add scripts directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 
-from run_full_pipeline import run_full_pipeline, FullPipelineSummary
+from run_full_pipeline import run_full_pipeline
 
 
 @dataclass

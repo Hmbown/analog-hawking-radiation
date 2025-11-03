@@ -11,8 +11,10 @@ from __future__ import annotations
 
 import json
 import logging
-import math
-from dataclasses import asdict, dataclass, field
+
+# Add project paths to Python path
+import sys
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -20,14 +22,11 @@ import numpy as np
 from scipy import stats
 from scipy.spatial.distance import jensenshannon
 
-# Add project paths to Python path
-import sys
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from scripts.convergence_detector import AdvancedConvergenceDetector
 from scripts.analyze_significance import StatisticalAnalyzer
 
 

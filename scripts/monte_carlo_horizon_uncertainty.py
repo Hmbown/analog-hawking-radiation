@@ -15,13 +15,14 @@ import os
 from dataclasses import asdict, dataclass
 from typing import Optional
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.fluid_backend import FluidBackend
 
 
 @dataclass

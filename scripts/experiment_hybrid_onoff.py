@@ -7,9 +7,9 @@ Reports ΔT_sig and Δt5σ vs coupling weight using the enhanced spectrum helper
 """
 
 import argparse
-from pathlib import Path
 import json
-import numpy as np
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 
 from analog_hawking.detection.hybrid_spectrum import calculate_enhanced_hawking_spectrum

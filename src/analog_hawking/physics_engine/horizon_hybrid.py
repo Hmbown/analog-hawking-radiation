@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 import numpy as np
 
@@ -9,6 +8,7 @@ from analog_hawking.physics_engine.horizon import (
     HorizonResult,
     find_horizons_with_uncertainty,
 )
+
 from .plasma_mirror import MirrorDynamics
 
 

@@ -8,10 +8,10 @@ from typing import Dict
 
 import numpy as np
 
-from ..physics_engine.horizon import find_horizons_with_uncertainty, sound_speed
-from ..config.schemas import QuickstartConfig
-from ..utils.provenance import build_manifest, write_manifest
 from .. import __version__
+from ..config.schemas import QuickstartConfig
+from ..physics_engine.horizon import find_horizons_with_uncertainty, sound_speed
+from ..utils.provenance import build_manifest, write_manifest
 
 
 def _should_plot() -> bool:

@@ -5,20 +5,21 @@ from __future__ import annotations
 
 import itertools
 import json
+
+# Ensure package imports
+import sys
 from pathlib import Path
 
 import numpy as np
 from tqdm import tqdm
 
-# Ensure package imports
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
-from analog_hawking.physics_engine.plasma_models.nonlinear_plasma import NonlinearPlasmaSolver
 # compute_universality_r2 handled in nonlinear_plasma.py
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.plasma_models.nonlinear_plasma import NonlinearPlasmaSolver
+from analog_hawking.physics_engine.plasma_models.warpx_backend import WarpXBackend
 
 
 def run_sweep(param_ranges: dict[str, list[float]], n_steps: int = 10, mock: bool = True) -> dict:

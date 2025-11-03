@@ -10,18 +10,20 @@ Also copies to docs/img/ if available.
 """
 
 import os
-from pathlib import Path
 import sys
-import numpy as np
+from pathlib import Path
+
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from analog_hawking.physics_engine.optimization.graybody_1d import compute_graybody
 from analog_hawking.physics_engine.horizon import find_horizons_with_uncertainty
+from analog_hawking.physics_engine.optimization.graybody_1d import compute_graybody
 
 
 def ensure_dirs():

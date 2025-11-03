@@ -23,13 +23,14 @@ NOTE: Placeholder formulas; use for exploratory prototyping only until constants
 and scaling factors are benchmarked against trusted references.
 """
 
-import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p, alpha, pi
-from scipy.special import gamma as gamma_func, kv, lpmv
-from scipy.integrate import quad, odeint
-from scipy.interpolate import interp1d
 import warnings
-from typing import Dict, List, Optional, Tuple, Union, Callable
+from typing import Callable, Dict, List
+
+import numpy as np
+from scipy.constants import c, e, epsilon_0, hbar, k, m_e, pi
+from scipy.integrate import odeint
+from scipy.special import gamma as gamma_func
+
 
 class AtomicSpecies:
     """Atomic data for different ionization states"""

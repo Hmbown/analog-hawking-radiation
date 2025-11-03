@@ -10,22 +10,23 @@ from __future__ import annotations
 
 import json
 import logging
-import os
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
 try:
     import seaborn as sns  # type: ignore
 except Exception:
     sns = None  # seaborn is optional; visualizations disabled if missing
-from scipy import stats
-
 # Add project paths to Python path
 import sys
+
+from scipy import stats
+
 # Ensure repository root and src/ are importable so `from scripts.*` works
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -670,7 +671,7 @@ class ResultAggregator:
             stats = aggregate.statistical_significance
             if 'detection_probability_1h' in stats:
                 prob_1h = stats['detection_probability_1h']
-                f.write(f"1-hour observation:\n")
+                f.write("1-hour observation:\n")
                 f.write(f"  3σ detection probability: {prob_1h['detection_probability_3sigma']:.1%}\n")
                 f.write(f"  5σ detection probability: {prob_1h['detection_probability_5sigma']:.1%}\n")
                 f.write(f"  6σ detection probability: {prob_1h['detection_probability_6sigma']:.1%}\n")

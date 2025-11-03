@@ -5,22 +5,24 @@ Systematically explores laser intensity, plasma density, magnetic field,
 and geometry parameters to identify optimal detection conditions.
 """
 
-import json
-import os
-import numpy as np
-from pathlib import Path
-import concurrent.futures
-from typing import Dict, List, Tuple, Any
 import argparse
+import concurrent.futures
+import json
 import logging
-from dataclasses import dataclass, asdict
 
 # Add src and scripts to path
 import sys
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Tuple
+
+import numpy as np
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from run_full_pipeline import run_full_pipeline, FullPipelineSummary
+from run_full_pipeline import run_full_pipeline
+
 
 @dataclass
 class SweepConfig:

@@ -12,13 +12,10 @@ Outputs directory: data/demo_bundle/
 """
 
 import hashlib
-import json
 import os
-from pathlib import Path
 import subprocess
 import sys
-import numpy as np
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTDIR = ROOT / 'data' / 'demo_bundle'

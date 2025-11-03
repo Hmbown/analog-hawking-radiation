@@ -10,13 +10,12 @@ and runs a reduced gradient sweep to estimate how κ_max changes.
 import argparse
 import json
 import os
-from dataclasses import asdict, dataclass
+import sys
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Iterable, Tuple
 
 import numpy as np
 
-import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from analog_hawking.analysis.gradient_sweep import run_sweep  # type: ignore
 

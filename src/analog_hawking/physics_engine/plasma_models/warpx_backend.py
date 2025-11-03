@@ -6,7 +6,7 @@ from typing import Any, Callable, Dict, Iterable, Mapping, Optional, Tuple
 
 import numpy as np
 
-from .adaptive_sigma import SigmaDiagnostics, apply_sigma_smoothing, estimate_sigma_map
+from .adaptive_sigma import SigmaDiagnostics, estimate_sigma_map
 from .backend import DiagnosticsSink, NullDiagnosticsSink, PlasmaBackend, PlasmaState, SpeciesConfig
 
 try:
@@ -72,22 +72,23 @@ def _create_getter(cfg: Mapping[str, Any], is_mock: bool = False, mock_size: int
                     data = np.array(dset)
                 return data
             return _read_direct
-        iteration = cfg.get("iteration", None)
+        iteration_value = cfg.get("iteration", None)
         mesh_name = cfg.get("mesh", "electrons")
         record_name = cfg.get("record", None)
         component = cfg.get("component", None)
         if not record_name:
             raise ValueError("openpmd getter requires 'record' or 'dataset'")
         def _read():
+            iteration_id = iteration_value
             if openpmd is not None:
                 series = openpmd.Series(series_path, openpmd.Access.Read_Only)
-                if iteration is None:
-                    iteration = max(series.iterations.keys())
-                if iteration not in series.iterations:
-                    raise ValueError(f"Iteration {iteration} not found")
-                iter_obj = series.iterations[iteration]
+                if iteration_id is None:
+                    iteration_id = max(series.iterations.keys())
+                if iteration_id not in series.iterations:
+                    raise ValueError(f"Iteration {iteration_id} not found")
+                iter_obj = series.iterations[iteration_id]
                 if mesh_name not in iter_obj.meshes:
-                    raise ValueError(f"Mesh {mesh_name} not found in iteration {iteration}")
+                    raise ValueError(f"Mesh {mesh_name} not found in iteration {iteration_id}")
                 mesh = iter_obj.meshes[mesh_name]
                 if record_name not in mesh:
                     raise ValueError(f"Record {record_name} not found in mesh {mesh_name}")
@@ -180,7 +181,6 @@ class WarpXBackend(PlasmaBackend):
         }
         self._electron_species = run_config.get("electron_species")  # type: ignore[assignment]
         self._ion_species = run_config.get("ion_species")  # type: ignore[assignment]
-        sigma_cells = run_config.get("sigma_cells")
         self._default_sigma = run_config.get("default_sigma")
         self._sigma_map = np.asarray(run_config.get("sigma_map")) if run_config.get("sigma_map") is not None else None
         self._fluctuation_injector = run_config.get("fluctuation_injector")
@@ -484,7 +484,6 @@ class WarpXBackend(PlasmaBackend):
     # Phase 3 new methods
     def _setup_mhd_coupling(self, run_config: Mapping[str, object]) -> None:
         """Initialize MHD coupling parameters."""
-        mhd_cfg = run_config.get("mhd_config", {})
         grid_size = len(self._grid) if self._grid is not None else 100
         self._em_fields = {
             "E": np.zeros(grid_size),
@@ -524,7 +523,6 @@ class WarpXBackend(PlasmaBackend):
             self._em_fields["E"] += np.random.normal(0, 1e3, len(self._em_fields["E"]))
             self._em_fields["B"] += np.random.normal(0, 1e-2, len(self._em_fields["B"]))
         # Simple 1D MHD-like update (avoid np.cross for 1D arrays)
-        rho = self._mhd_state["density_mhd"]
         v = self._mhd_state["velocity_mhd"]
         B = self._mhd_state["B_field"]
         dt = 1e-15
@@ -540,7 +538,7 @@ class WarpXBackend(PlasmaBackend):
         if self._nonlinear_solver is not None:
             # Avoid recursion: use current raw observables
             observables = self._raw_observables.copy() if self._raw_observables else {}
-            updated_fields = self._nonlinear_solver.solve(observables)
+            self._nonlinear_solver.solve(observables)
             # Feedback to WarpX (placeholder)
             pass
 

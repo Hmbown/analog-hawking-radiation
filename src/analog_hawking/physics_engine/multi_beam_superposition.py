@@ -17,11 +17,13 @@ to naive multiplicative “n×” heuristics.
 """
 
 from __future__ import annotations
-import numpy as np
+
 from dataclasses import dataclass
-from typing import Dict, List, Tuple, Optional
-from scipy.constants import c, epsilon_0, pi
+from typing import Dict, List, Optional, Tuple
+
+import numpy as np
 from scipy import ndimage as ndi
+from scipy.constants import c, epsilon_0, pi
 
 
 @dataclass

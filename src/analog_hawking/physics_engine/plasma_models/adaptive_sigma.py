@@ -6,7 +6,8 @@ from dataclasses import dataclass
 from typing import Optional, Sequence, Tuple
 
 import numpy as np
-from scipy.constants import c, epsilon_0 as EPSILON_0, m_e
+from scipy.constants import c, m_e
+from scipy.constants import epsilon_0 as EPSILON_0
 
 from ..horizon import find_horizons_with_uncertainty
 

@@ -19,24 +19,26 @@ NOTE: Integration glue for experimental modules. Keep behind feature flags and
 validate each component before use in collaborative studies.
 """
 
-import numpy as np
-from scipy.constants import c, e, m_e, epsilon_0, hbar, k, m_p, pi
-from scipy.interpolate import interp1d
-from typing import Dict, List, Optional, Tuple, Union, Callable, Any
-from dataclasses import dataclass, field
-from enum import Enum
 import warnings
+from dataclasses import dataclass
+from enum import Enum
+from typing import Any, Dict, Optional, Tuple
 
-# Import existing physics modules
-from .horizon import find_horizons_with_uncertainty, sound_speed
-from .plasma_mirror import calculate_plasma_mirror_dynamics
+import numpy as np
+from scipy.constants import c, hbar, k, m_p, pi
+
 from analog_hawking.detection.graybody_nd import GraybodySpectrumND
+
+from .enhanced_ionization_physics import ATOMIC_DATA, IonizationDynamics
+from .enhanced_plasma_surface_physics import PlasmaDynamicsAtSurface
 
 # Import enhanced physics models
 from .enhanced_relativistic_physics import RelativisticPlasmaPhysics
-from .enhanced_ionization_physics import IonizationDynamics, ATOMIC_DATA
-from .enhanced_plasma_surface_physics import PlasmaDynamicsAtSurface
+
+# Import existing physics modules
+from .horizon import find_horizons_with_uncertainty, sound_speed
 from .physics_validation_framework import PhysicsModelValidator
+
 
 class PhysicsModel(Enum):
     """Enumeration for different physics model options"""
@@ -604,7 +606,7 @@ def test_enhanced_integration():
     validation_results = engine.run_validation_suite()
     if validation_results:
         summary = validation_results.get('summary', {})
-        print(f"Validation summary:")
+        print("Validation summary:")
         print(f"  Total tests: {summary.get('total_tests', 0)}")
         print(f"  Passed: {summary.get('passed_tests', 0)}")
         print(f"  Status: {summary.get('overall_status', 'Unknown')}")
