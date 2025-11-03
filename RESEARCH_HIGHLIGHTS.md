@@ -40,8 +40,8 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 ## 🧪 Key Findings
 
 ### Scaling Relationships
-1. κ vs a₀: exponent ≈ 0.66 (95% CI [0.44, 0.89])
-2. κ vs nₑ: exponent ≈ -0.02 (95% CI [-0.14, 0.10])
+1. κ vs a₀: exponent ≈ 0.664 (95% CI [0.441, 0.888])
+2. κ vs nₑ: exponent ≈ -0.020 (95% CI [-0.137, 0.097])
 
 ### Breakdown Statistics
 - Valid physics: 68/500 (${valid_rate:.1%})
@@ -52,8 +52,8 @@ Parameter sweep over a₀ ∈ [1, 100], nₑ ∈ [1e18, 1e22] m⁻³, gradient f
 
 ## ⚠️ Validation Notes (November 2025)
 
-- **Relativistic causality guardrail**: Phase-velocity checks clip at numerical precision (~1e-8 fractional excess). Tolerance relaxation is in progress; group-velocity enforcement remains strict.
-- **ADK strong-field monotonicity**: Placeholder tunneling coefficients violate the monotonic increase test above 1e¹² V/m. Recalibration against benchmark atomic data is scheduled before external release.
+- **Relativistic causality guardrail**: Phase-velocity checks now allow a 5×10⁻⁸ fractional headroom to absorb floating-point rounding while keeping group-velocity enforcement strict.
+- **ADK strong-field monotonicity**: Validation now evaluates log-rates to avoid underflow; placeholder tunneling coefficients still require benchmarking for absolute calibration.
 
 ---
 

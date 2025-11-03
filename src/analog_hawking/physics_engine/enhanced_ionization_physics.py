@@ -27,9 +27,12 @@ import warnings
 from typing import Callable, Dict, List
 
 import numpy as np
-from scipy.constants import c, e, epsilon_0, hbar, k, m_e, pi
+from scipy.constants import c, e, hbar, k, m_e, pi
 from scipy.integrate import odeint
-from scipy.special import gamma as gamma_func
+from scipy.special import gammaln
+
+LOG_MIN_RATE = np.log(np.finfo(float).tiny)
+LOG_MAX_RATE = np.log(np.finfo(float).max)
 
 
 class AtomicSpecies:
@@ -112,45 +115,49 @@ class ADKIonizationModel:
             stacklevel=2,
         )
 
-    def adk_rate(self, E_field: float, charge_state: int) -> float:
+    def log_adk_rate(self, E_field: float, charge_state: int) -> float:
         """
-        Calculate ADK ionization rate
+        Calculate natural logarithm of the ADK ionization rate.
 
-        Args:
-            E_field: Electric field strength in V/m
-            charge_state: Current charge state
-
-        Returns:
-            Ionization rate in s^-1
+        Working in log-space avoids catastrophic underflow for strong-field regimes,
+        while preserving monotonic scaling information.
         """
-        if charge_state >= self.atom.n_states:
-            return 0.0
+        if charge_state >= self.atom.n_states or E_field <= 0:
+            return float("-inf")
 
         Ip = self.atom.get_ionization_potential(charge_state)
-        n_eff = self.atom.Z * np.sqrt(Ip / (13.6 * e))  # Effective principal quantum number
-        l_eff = n_eff - 1  # Effective orbital quantum number
-
-        # ADK parameters
+        n_eff = self.atom.Z * np.sqrt(Ip / (13.6 * e))
+        l_eff = n_eff - 1
         kappa = np.sqrt(2 * m_e * Ip) / hbar
-        E_over_Ea = E_field / self.E_a[charge_state]
+        E_a_state = self.E_a[charge_state]
 
-        if E_over_Ea <= 0:
+        log_prefactor = np.log(E_a_state) - np.log(2 * E_field)
+        log_kappa_term = np.log(2 * kappa**3 / (pi * E_field))
+        log_power = (2 * n_eff - 1) * np.log(2 * E_field / E_a_state)
+        exponent_term = -2 * kappa**3 / (3 * E_field)
+
+        log_W_ADK = log_prefactor + log_kappa_term + log_power + exponent_term
+        log_C_n2 = (
+            2 * n_eff * np.log(2)
+            - np.log(n_eff)
+            - gammaln(n_eff + l_eff + 1)
+            - gammaln(n_eff - l_eff)
+        )
+
+        return float(log_W_ADK + log_C_n2)
+
+    def adk_rate(self, E_field: float, charge_state: int) -> float:
+        """
+        Calculate ADK ionization rate. For diagnostics requiring absolute rates,
+        values are exponentiated from log-space and clipped to double precision
+        bounds to avoid underflow/overflow.
+        """
+        log_rate = self.log_adk_rate(E_field, charge_state)
+        if not np.isfinite(log_rate):
             return 0.0
 
-        # ADK ionization rate
-        W_ADK = (
-            (self.E_a[charge_state] / (2 * E_field))
-            * (2 * kappa**3 / (pi * E_field))
-            * (2 * E_over_Ea) ** (2 * n_eff - 1)
-            * np.exp(-2 * kappa**3 / (3 * E_field))
-        )
-
-        # Statistical factor
-        C_n2 = 2 ** (2 * n_eff) / (
-            n_eff * gamma_func(n_eff + l_eff + 1) * gamma_func(n_eff - l_eff)
-        )
-
-        return W_ADK * C_n2
+        clipped_log = np.clip(log_rate, LOG_MIN_RATE, LOG_MAX_RATE)
+        return float(np.exp(clipped_log))
 
     def adk_rates_vectorized(self, E_field: np.ndarray, charge_state: int) -> np.ndarray:
         """Vectorized ADK rate calculation"""
@@ -196,8 +203,6 @@ class PPTIonizationModel:
 
         Ip = self.atom.get_ionization_potential(charge_state)
         kappa = np.sqrt(2 * m_e * Ip) / hbar
-        n_eff = self.atom.Z * np.sqrt(Ip / (13.6 * e))
-        l_eff = n_eff - 1
 
         # PPT parameters
         F0 = E_field
@@ -341,8 +346,6 @@ class RecombinationModel:
         """
         if charge_state <= 0:
             return 0.0
-
-        Ip = self.atom.get_ionization_potential(charge_state - 1)
 
         # Simplified radiative recombination rate
         # α_rr ∝ Z^2 / T^0.5
@@ -589,9 +592,6 @@ class IonizationDynamics:
         # Simplified ionization front model
         # Front moves with group velocity modified by ionization
         v_group = c * np.sqrt(1 - self.omega_pe**2 / self.omega_l**2)
-
-        # Front position accounting for ionization threshold
-        E_threshold = np.sqrt(2 * intensity / (c * epsilon_0)) * 0.1  # 10% threshold
 
         front_position = np.zeros_like(time_array)
         for i, t in enumerate(time_array):

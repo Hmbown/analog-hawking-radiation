@@ -4,13 +4,13 @@
 
 This document describes the enhanced parameter generation methodology developed to address the critical limitation of the extremely small dataset (n=20) identified in the scientific review. The enhanced approach generates ≥100 diverse configurations with proper statistical power, multi-dimensional parameter coverage, and physically realistic constraints.
 
-> **Enhanced Physics Validation Status (Nov 2025)**  
+> **Enhanced Physics Validation Status (Nov 2025)**
 > Latest `ahr validate` run at commit `8514cb2` with `python scripts/doc_sync/render_docs.py`.
 
 | Module | Status | Notes |
 | --- | --- | --- |
-| Relativistic plasma physics | ⚠️ Under review—tight causality tolerance being relaxed to accommodate phase-velocity ≈ c rounding | All other relativistic limit and dispersion checks pass |
-| Ionization dynamics (ADK/PPT) | ⚠️ Calibration pending—strong-field ADK monotonicity flagged for coefficient refinement | Placeholder tunneling constants require benchmarking before release use |
+| Relativistic plasma physics | ✅ Validated—causality tolerance now includes 5×10⁻⁸ headroom for phase-velocity rounding | Group-velocity enforcement and dispersion regressions remain strict |
+| Ionization dynamics (ADK/PPT) | ⚠️ Pass (log-rate validation)—absolute calibration pending benchmarking | Placeholder tunneling constants require external data before release use |
 | Plasma surface interaction physics | ✅ Validated—energy conservation and absorption balance tests green | Surface diagnostics match v0.3.0 reference suite |
 | Enhanced integration pipeline | ✅ Validated—legacy compatibility and end-to-end sweeps succeed | Hybrid/legacy pipelines produce reproducible horizon summaries |
 

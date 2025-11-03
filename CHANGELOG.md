@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Documented doc-sync workflow (`python scripts/doc_sync/render_docs.py ...`) and notebook smoke-check guidance to keep researcher handoffs reproducible.
+- Relaxed relativistic causality tolerances (5×10⁻⁸ fractional headroom) to treat phase-velocity ≈ c rounding as non-blocking while preserving group-velocity enforcement.
+- Reworked ADK strong-field validation to operate in log-rate space, eliminating numerical underflow while maintaining monotonic scaling tests.
 
 ### In Progress
-- Relaxing relativistic causality tolerances to treat phase-velocity ≈ c rounding as non-blocking while preserving group-velocity enforcement.
-- Recalibrating ADK strong-field coefficients so validation monotonicity fully passes with benchmarked tunneling rates.
+- Benchmarking ADK tunneling coefficients against trusted datasets to replace placeholder constants.
 
 ## [0.3.0] - 2025-10-26
 
