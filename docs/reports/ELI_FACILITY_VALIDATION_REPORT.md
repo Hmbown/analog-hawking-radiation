@@ -148,7 +148,7 @@ calculate_feasibility_score(intensity, wavelength, pulse_duration, facility)
 ```bash
 python scripts/enhanced_eli_parameter_generator.py \
     --facility beamlines --n-configs 20 \
-    --output eli_beamlines_configs.json
+    --output configs/eli_beamlines_configs.json
 ```
 
 ### 4. ELI-Compliant Analysis Pipeline (`scripts/run_eli_compliant_analysis.py`)
@@ -201,7 +201,7 @@ python scripts/validate_eli_compatibility.py --mode specific \
 ### Facility-Specific Parameter Generation
 ```bash
 python scripts/enhanced_eli_parameter_generator.py --facility beamlines \
-    --n-configs 10 --output eli_beamlines_configs.json
+    --n-configs 10 --output configs/eli_beamlines_configs.json
 ```
 
 **Results:**
