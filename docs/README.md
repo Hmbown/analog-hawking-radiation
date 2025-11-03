@@ -39,6 +39,7 @@ This directory contains comprehensive documentation for the Analog Hawking Radia
 ### Latest Research (v0.3.0) - **Start here for current findings**
 - **[GradientCatastropheAnalysis.md](GradientCatastropheAnalysis.md)** - Complete analysis of κ_max ≈ 5.94×10¹² Hz
 - **[Results.md](Results.md)** - Representative outputs and interpretation
+- **[reports/](reports/)** - Detailed analysis reports, validation studies, and methodological summaries
 
 ### **Critical Context for Interpreting Results**
 - **[DatasetNotes.md](DatasetNotes.md)** - ⚠️ **Must read**: How to avoid misinterpreting correlations and scaling
@@ -103,7 +104,15 @@ docs/
 │   ├── GradientCatastropheAnalysis.md  # κ_max discovery
 │   ├── Results.md                      # Output interpretation
 │   ├── Validation.md                   # Validation framework
-│   └── Highlights_v0.2.0.md            # Previous release
+│   ├── Highlights_v0.2.0.md            # Previous release
+│   └── reports/                        # Detailed analysis reports
+│       ├── README.md                   # Reports index
+│       ├── ENHANCED_PHYSICS_IMPLEMENTATION_SUMMARY.md
+│       ├── ELI_FACILITY_VALIDATION_REPORT.md
+│       ├── STATISTICAL_VALIDATION_REPORT.md
+│       ├── COMPREHENSIVE_UNCERTAINTY_BUDGET.md
+│       ├── DETECTION_FEASIBILITY_ASSESSMENT.md
+│       └── ... (see reports/README.md for full list)
 │
 ├── 🧪 Experiments & Workflows
 │   ├── Experiments.md              # Step-by-step guides
@@ -124,10 +133,11 @@ docs/
 │   ├── DatasetNotes.md             # Dataset structure & caveats
 │   └── IMAGES.md                   # Figure documentation
 │
-└── 📦 Upgrades
-    └── upgrade_plan/               # Technical requirements
-        ├── requirements.md         # Phase 3-5 requirements
-        └── workflow_diagram.md     # Workflow visualization
+└── 📦 Upgrades & Archive
+    ├── upgrade_plan/               # Technical requirements
+    │   ├── requirements.md         # Phase 3-5 requirements
+    │   └── workflow_diagram.md     # Workflow visualization
+    └── archive/                    # Superseded documentation
 ```
 
 ---
@@ -183,6 +193,7 @@ pytest -m gpu        # GPU tests (requires CUDA)
 | Overview.md | Physics background, concepts | New users, students |
 | Methods.md | Algorithms, equations, theory | Scientific users, developers |
 | GradientCatastropheAnalysis.md | Latest research (κ_max) | All users |
+| reports/ | Detailed analysis reports | Researchers, reviewers |
 | Experiments.md | How-to guides | Practitioners |
 | AdvancedScenarios.md | Complex workflows | Advanced users |
 | pc_cuda_workflow.md | GPU setup | Developers |

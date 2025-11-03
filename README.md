@@ -6,6 +6,18 @@
 
 A practitioner-focused toolkit for designing and validating analog Hawking radiation experiments in realistic laser–plasma settings. The simulator links fluid models, particle-in-cell (PIC) pipelines, quantum field theory post-processing, and radio detection forecasts into one reproducible environment.
 
+## Table of Contents
+
+- [Quick Start](#quick-start--15-seconds)
+- [Latest Research (v0.3.0)](#-latest-research-v030---october-2025)
+- [Installation](#2-installation--first-validation-10-minutes)
+- [Workflows](#3-choose-your-workflow)
+- [Experiment Playbooks](#4-experiment-playbooks)
+- [Scientific Findings](#5-scientific-findings--insights)
+- [Documentation](#9-learning-paths--further-reading)
+- [Citation](#how-to-cite)
+- [Contributing](#contributing)
+
 ---
 
 ## Quick Start — 15 Seconds
@@ -389,15 +401,23 @@ tests/                    # Unit and integration suites
 ---
 
 ## 9. Learning Paths & Further Reading
-- `docs/Overview.md` – Conceptual overview and physics motivation
-- `docs/Methods.md` – Algorithms for horizon finding, graybody solvers, detection modeling
-- `docs/Experiments.md` – Universality experiments and PIC integration guide
-- `docs/AdvancedScenarios.md` – Command recipes for PIC, universality, and hybrid workflows
-- `docs/GradientCatastropheAnalysis.md` – Physics breakdown boundary mapping and threshold‑limited upper bounds (new in v0.3)
-- `docs/Results.md` – Representative outputs and interpretation guidance
-- `docs/Limitations.md` – Scope, assumptions, and open questions
-- `docs/phase_timeline.md` – Development roadmap and release cadence
-- `docs/REFERENCES.md` – Bibliography and suggested reading
+
+### Core Documentation
+- [`docs/Overview.md`](docs/Overview.md) – Conceptual overview and physics motivation
+- [`docs/Methods.md`](docs/Methods.md) – Algorithms for horizon finding, graybody solvers, detection modeling
+- [`docs/Experiments.md`](docs/Experiments.md) – Universality experiments and PIC integration guide
+- [`docs/AdvancedScenarios.md`](docs/AdvancedScenarios.md) – Command recipes for PIC, universality, and hybrid workflows
+
+### Analysis & Validation
+- [`docs/GradientCatastropheAnalysis.md`](docs/GradientCatastropheAnalysis.md) – Physics breakdown boundary mapping and threshold‑limited upper bounds (new in v0.3)
+- [`docs/Results.md`](docs/Results.md) – Representative outputs and interpretation guidance
+- [`docs/reports/`](docs/reports/) – Detailed analysis reports and validation studies
+
+### Project Information
+- [`docs/Limitations.md`](docs/Limitations.md) – Scope, assumptions, and open questions
+- [`docs/phase_timeline.md`](docs/phase_timeline.md) – Development roadmap and release cadence
+- [`docs/REFERENCES.md`](docs/REFERENCES.md) – Bibliography and suggested reading
+- [`SECURITY.md`](SECURITY.md) – Security policy and vulnerability reporting
 
 ---
 
@@ -472,3 +492,60 @@ python scripts/openpmd_to_grid_nd.py --in sample.h5 \
 ```bash
 python scripts/run_nd_from_npz.py results/grid_nd_profile.npz --scan-axis 0
 ```
+
+---
+
+## Contributing
+
+We welcome contributions from the community! Here's how you can help:
+
+### Ways to Contribute
+
+- **Report bugs**: Use our [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml)
+- **Request features**: Submit ideas via our [feature request template](.github/ISSUE_TEMPLATE/feature_request.yml)
+- **Improve documentation**: Fix typos, clarify explanations, add examples
+- **Add tests**: Increase coverage for edge cases and physics validation
+- **Contribute code**: Submit pull requests for bug fixes or new features
+
+### Getting Started
+
+1. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for detailed guidelines
+2. Check [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) for community standards
+3. Browse open issues labeled `good-first-issue` or `help-wanted`
+4. Join discussions in GitHub Discussions
+
+### Development Setup
+
+```bash
+git clone https://github.com/hmbown/analog-hawking-radiation.git
+cd analog-hawking-radiation
+pip install -e .[dev]
+pre-commit install
+pytest -q
+```
+
+### Pull Request Process
+
+1. Create a feature branch from `main`
+2. Make your changes with clear commit messages
+3. Add tests for new functionality
+4. Ensure all tests pass locally
+5. Submit PR using our [PR template](.github/pull_request_template.md)
+6. Respond to review feedback
+
+For more details, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+---
+
+## Community & Support
+
+- **Documentation**: Browse [`docs/`](docs/) for guides and references
+- **Discussions**: Ask questions and share ideas in [GitHub Discussions](https://github.com/Hmbown/analog-hawking-radiation/discussions)
+- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/Hmbown/analog-hawking-radiation/issues)
+- **Security**: Report vulnerabilities privately per [`SECURITY.md`](SECURITY.md)
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [`LICENSE`](LICENSE) file for details.
