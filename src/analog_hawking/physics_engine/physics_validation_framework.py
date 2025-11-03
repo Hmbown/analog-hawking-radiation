@@ -18,6 +18,9 @@ References:
 - Jackson, Classical Electrodynamics
 - Landau & Lifshitz, Physical Kinetics
 - ELI Facility Physics Validation Protocols
+
+NOTE: This framework exercises placeholder physics modules; treat outcomes as
+diagnostic hints, not validation badges, until benchmarked.
 """
 
 import numpy as np

@@ -46,6 +46,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import argparse
 
+_TRAPEZOID = getattr(np, "trapezoid", np.trapz)
+
 # Reference path for parametric upper bound (rendered from production sweep)
 _PRODUCTION_SWEEP = Path("results/gradient_limits_production/gradient_catastrophe_sweep.json")
 
@@ -224,7 +226,7 @@ def run_full_pipeline(
                 fb = np.linspace(f_lo, f_hi, 2001)
                 fb = np.clip(fb, float(freqs[0]), float(freqs[-1]))
                 psd_band = np.interp(fb, freqs, P)
-                inband_power = float(np.trapezoid(psd_band, x=fb))
+                inband_power = float(_TRAPEZOID(psd_band, x=fb))
             T_sig = equivalent_signal_temperature(inband_power, B_ref)
             if not np.isfinite(T_sig) or T_sig <= 0.0:
                 T_sig = float(spec.get("temperature", 0.0))
@@ -278,7 +280,7 @@ def run_full_pipeline(
                                 f_band = np.linspace(max(f_lo, float(fb[0])), min(f_hi, float(fb[-1])), 2001)
                                 if f_band[-1] > f_band[0]:
                                     psd_band = np.interp(f_band, fb, Pb)
-                                    inband_b = float(np.trapezoid(psd_band, x=f_band))
+                                    inband_b = float(_TRAPEZOID(psd_band, x=f_band))
                             T_sig_b = equivalent_signal_temperature(inband_b, B_ref)
                             # Combine with transmission envelope if available, conservatively
                             if 'T_sig_b_lo' in locals() and 'T_sig_b_hi' in locals():
@@ -492,7 +494,7 @@ def run_full_pipeline(
                                 f_band = np.linspace(max(f_lo, float(freqs_h[0])), min(f_hi, float(freqs_h[-1])), 2001)
                                 if f_band[-1] > f_band[0]:
                                     psd_band = np.interp(f_band, freqs_h, P_h)
-                                    inband_power_h = float(np.trapezoid(psd_band, x=f_band))
+                                    inband_power_h = float(_TRAPEZOID(psd_band, x=f_band))
                             T_sig_h = equivalent_signal_temperature(inband_power_h, B_ref)
                             if T_sig_h > 0:
                                 t_grid_h = sweep_time_for_5sigma(np.array([T_sys]), np.array([B_ref]), T_sig_h)

@@ -18,6 +18,9 @@ References:
 - R. Fedosejevs et al., Plasma Mirror Physics
 - M. Tabak et al., Ignition and High Gain with Ultra Powerful Lasers
 - ELI Beamlines Plasma Mirror Documentation
+
+NOTE: Experimental scaffolding; coefficients and scaling laws require expert
+validation before quantitative use.
 """
 
 import numpy as np

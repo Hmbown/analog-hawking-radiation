@@ -18,6 +18,9 @@ References:
 - PPT: Perelomov, Popov, Terent'ev (1966) Sov. Phys. JETP 23, 924
 - Yudin & Ivanov (2001) Phys. Rep. 357, 119
 - ELI Beamlines Ionization Physics Documentation
+
+NOTE: Placeholder formulas; use for exploratory prototyping only until constants
+and scaling factors are benchmarked against trusted references.
 """
 
 import numpy as np
@@ -78,6 +81,12 @@ class ADKIonizationModel:
         """
         self.atom = atomic_species
         self.E_a = (2 * self.atom.Ip)**1.5 / (e * hbar)  # Atomic field strength
+        warnings.warn(
+            "ADK ionization model constants are placeholders; calibrate against benchmarks "
+            "before relying on absolute rates.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
 
     def adk_rate(self, E_field: float, charge_state: int) -> float:
         """
@@ -135,6 +144,11 @@ class PPTIonizationModel:
             atomic_species: AtomicSpecies object containing ionization potentials
         """
         self.atom = atomic_species
+        warnings.warn(
+            "PPT ionization rates here are simplified; validate scaling factors before use.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
 
     def ppt_rate(self, E_field: float, charge_state: int, omega: float) -> float:
         """

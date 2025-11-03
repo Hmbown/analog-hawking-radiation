@@ -14,6 +14,9 @@ Key Features:
 
 Author: Enhanced Physics Implementation
 Date: November 2025
+
+NOTE: Integration glue for experimental modules. Keep behind feature flags and
+validate each component before use in collaborative studies.
 """
 
 import numpy as np

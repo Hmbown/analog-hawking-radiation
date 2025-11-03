@@ -1,7 +1,7 @@
 """
 Enhanced Relativistic Physics for Analog Hawking Radiation Analysis
 
-This module implements comprehensive relativistic corrections for high-intensity
+This module implements candidate relativistic corrections for high-intensity
 laser-plasma interactions at ELI facility conditions. It addresses the critical
 missing physics identified in the scientific review:
 
@@ -9,6 +9,10 @@ missing physics identified in the scientific review:
 2. Relativistic modifications to dispersion relations
 3. Relativistic wave propagation effects
 4. Relativistic effects on horizon formation and surface gravity
+
+NOTE: The routines below are experimental scaffolding rather than validated
+physics. They should be cross-checked against trusted derivations before use
+in research results.
 
 Author: Enhanced Physics Implementation
 Date: November 2025
@@ -140,14 +144,18 @@ class RelativisticPlasmaPhysics:
         k_mag = np.linalg.norm(k_vector, axis=-1) if k_vector.ndim > 1 else np.abs(k_vector)
 
         # Relativistic correction to dispersion relation
-        # ε = 1 - ω_pe²/(γ(ω² - k²c²))
-        epsilon = 1 - omega_pe_rel**2 / (gamma_factor * (omega**2 - k_mag**2 * c**2))
+        # ε = 1 - ω_pe²/[γ(ω² - k²c²)]
+        denom = omega**2 - k_mag**2 * c**2
+        denom = np.where(np.abs(denom) < 1e-30, 1e-30, denom)
+        epsilon = 1 - (self.omega_pe**2 / gamma_factor) / denom
 
         return epsilon
 
     def relativistic_dispersion_relation(self, omega: np.ndarray,
-                                       gamma_factor: np.ndarray,
-                                       wave_mode: str = 'electromagnetic') -> np.ndarray:
+                                         gamma_factor: np.ndarray,
+                                         wave_mode: str = 'electromagnetic',
+                                         temperature: Optional[np.ndarray] = None,
+                                         magnetic_field: Optional[np.ndarray] = None) -> np.ndarray:
         """
         Calculate relativistic dispersion relation for different wave modes.
 
@@ -155,36 +163,43 @@ class RelativisticPlasmaPhysics:
             omega: Angular frequency in rad/s
             gamma_factor: Relativistic γ-factor
             wave_mode: Type of wave ('electromagnetic', 'electrostatic', 'whistler')
+            temperature: Temperature in Kelvin (required for electrostatic mode)
+            magnetic_field: Magnetic field in Tesla (required for whistler mode)
 
         Returns:
             Wave vector magnitude in m^-1
         """
-        omega_pe_rel = self.relativistic_plasma_frequency(gamma_factor)
+        omega = np.asarray(omega, dtype=float)
+        gamma_factor = np.asarray(gamma_factor, dtype=float)
+        omega_pe_sq_over_gamma = self.omega_pe**2 / gamma_factor
 
         if wave_mode == 'electromagnetic':
             # EM wave: ω² = ω_pe²/γ + k²c²
-            k_squared = (omega**2 - omega_pe_rel**2/gamma_factor) / c**2
-            k_squared = np.maximum(k_squared, 0)  # Ensure non-negative
+            k_squared = np.maximum(omega**2 - omega_pe_sq_over_gamma, 0.0) / c**2
 
         elif wave_mode == 'electrostatic':
             # Electrostatic (Langmuir) wave: ω² = ω_pe²/γ + 3k²v_th²
-            v_th = np.sqrt(k * 1e6 / (m_e * gamma_factor))  # Thermal velocity
-            k_squared = (omega**2 - omega_pe_rel**2/gamma_factor) / (3 * v_th**2)
-            k_squared = np.maximum(k_squared, 0)
+            if temperature is None:
+                raise ValueError("temperature must be provided for electrostatic dispersion.")
+            temperature = np.asarray(temperature, dtype=float)
+            v_th = np.sqrt(self.gamma_ad * k * temperature / (self.m_i * gamma_factor))
+            thermal_term = 3.0 * np.maximum(v_th**2, 1e-30)
+            k_squared = np.maximum(omega**2 - omega_pe_sq_over_gamma, 0.0) / thermal_term
 
         elif wave_mode == 'whistler':
-            # Whistler wave: ω = ω_pe²/γ * k·B/(k² * ω_ce)
-            # Simplified for parallel propagation
-            omega_ce = e * 1.0 / m_e  # Cyclotron frequency (B=1T default)
-            k = omega * gamma_factor * omega_ce / omega_pe_rel**2
+            if magnetic_field is None:
+                raise ValueError("magnetic_field must be provided for whistler dispersion.")
+            magnetic_field = np.asarray(magnetic_field, dtype=float)
+            omega_ce = e * magnetic_field / (m_e * gamma_factor)
+            denom = np.maximum(omega_ce - omega, 1e-30)
+            k_squared = np.maximum(omega * omega_pe_sq_over_gamma, 0.0) / (c**2 * denom)
 
         else:
             raise ValueError(f"Unknown wave mode: {wave_mode}")
 
-        if wave_mode != 'whistler':
-            k = np.sqrt(k_squared)
+        k_mag = np.sqrt(np.maximum(k_squared, 0.0))
 
-        return k
+        return k_mag
 
     def relativistic_sound_speed(self, temperature: np.ndarray,
                                gamma_factor: np.ndarray) -> np.ndarray:
@@ -304,9 +319,16 @@ class RelativisticPlasmaPhysics:
         # Classical: κ = |∂(c_s - |v|)/∂x|
         # Relativistic correction includes time dilation
         kappa_classical = np.abs(sound_speed_gradient - velocity_gradient)
-        kappa_rel = kappa_classical / gamma_factor
+        gamma_factor = np.asarray(gamma_factor, dtype=float)
+        if np.any(np.abs(gamma_factor - 1.0) > 1e-12):
+            warnings.warn(
+                "Relativistic surface gravity currently returns the classical value. "
+                "Provide a frame-consistent derivation before applying gamma-scaling.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
 
-        return kappa_rel
+        return kappa_classical
 
     def relativistic_hawking_temperature(self, kappa: np.ndarray,
                                        gamma_factor: np.ndarray) -> np.ndarray:
@@ -323,9 +345,16 @@ class RelativisticPlasmaPhysics:
         # T_H = ħκ/(2πk_B) with relativistic corrections
         # Time dilation reduces observed temperature
         T_classical = hbar * kappa / (2 * np.pi * k)
-        T_rel = T_classical / gamma_factor
+        gamma_factor = np.asarray(gamma_factor, dtype=float)
+        if np.any(np.abs(gamma_factor - 1.0) > 1e-12):
+            warnings.warn(
+                "Relativistic Hawking temperature returns the classical value; "
+                "time-dilation corrections require a dedicated derivation.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
 
-        return T_rel
+        return T_classical
 
     def check_relativistic_regime(self) -> Dict[str, Union[bool, float, str]]:
         """

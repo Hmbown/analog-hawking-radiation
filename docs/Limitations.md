@@ -27,6 +27,8 @@ Several physical effects are simplified or not fully captured in the current mod
 
 * **Exact Acoustic κ Evaluation**: The κ = |∂x(c_s² − v²)|/(2 c_H) form evaluates c_H via interpolation at the root; numerical grid effects can introduce small biases. Multi-stencil estimates are used to report an uncertainty band, but these are numerical rather than physical uncertainties.
 
+* **Experimental Enhanced Modules**: The `src/analog_hawking/physics_engine/enhanced_*` modules are experimental collaboration scaffolding. They include runtime warnings and docstring callouts until coefficients and scalings are benchmarked.
+
 Experimental Validation Gap
 ---------------------------
 

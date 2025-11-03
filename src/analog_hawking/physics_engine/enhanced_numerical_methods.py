@@ -10,6 +10,9 @@ Provides A+ grade computational accuracy with:
 
 Author: Claude Scientific Computing Expert
 Date: November 2025
+
+NOTE: Experimental scaffolding only. These routines require verification before
+being relied upon for production studies.
 """
 
 from __future__ import annotations
@@ -97,7 +100,7 @@ class FourthOrderFiniteDifferences:
         for i in range(n):
             # Use 5-point stencil when possible
             if i >= 2 and i < n-2:
-                x stencil = x[i-2:i+3]
+                x_stencil = x[i-2:i+3]
                 y_stencil = y[i-2:i+3]
                 # Compute derivative using 5-point Lagrange polynomial
                 dydx[i] = FourthOrderFiniteDifferences._lagrange_derivative(

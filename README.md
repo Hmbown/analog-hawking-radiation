@@ -86,6 +86,16 @@ pip install -r requirements-verified.txt  # Pinned deps
 pytest -q                                  # Verify environment (42 tests pass)
 ```
 
+> Default pytest discovery is scoped to `tests/` to keep core runs self-contained.  
+> Install the optional extras and invoke `pytest scripts/` if you need to exercise the demo pipelines.
+
+### Scope of Validated Physics
+
+- Horizon finding (`src/analog_hawking/physics_engine/horizon.py` and `horizon_nd.py`) and the graybody utilities (`src/analog_hawking/detection/graybody_nd.py`) are the validated core; they underpin the CLI workflows and CI-guarded tests.
+- Experimental “enhanced” modules under `src/analog_hawking/physics_engine/enhanced_*` are shipped as collaboration scaffolding. They now emit warnings and carry explicit docstrings so nobody mistakes them for benchmarked physics.
+- Plasma mirror mappings follow the AnaBHEL conventions; the κ ↔ D relation now enforces SI units (`src/analog_hawking/physics_engine/plasma_mirror.py`).
+- Please open tickets or PRs if you have vetted formulas or unit audits to promote experimental pieces into the validated core.
+
 ---
 
 ## 🎯 Latest Research (v0.3.0 - October 2025)

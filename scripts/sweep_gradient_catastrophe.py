@@ -618,7 +618,13 @@ def main():
     if not np.isnan(analysis['scaling_relationships']['kappa_vs_ne_exponent']):
         print(f"  - kappa ∝ n_e^{analysis['scaling_relationships']['kappa_vs_ne_exponent']:.2f}")
     
-    print(f"\nMost common breakdown: {max(analysis['breakdown_statistics'].items(), key=lambda x: x[1]['rate'])[0]}")
+    breakdown_stats = {
+        name: stats for name, stats in analysis['breakdown_statistics'].items()
+        if isinstance(stats, dict) and 'rate' in stats
+    }
+    if breakdown_stats:
+        most_common = max(breakdown_stats.items(), key=lambda x: x[1]['rate'])[0]
+        print(f"\nMost common breakdown: {most_common}")
     
     return 0
 

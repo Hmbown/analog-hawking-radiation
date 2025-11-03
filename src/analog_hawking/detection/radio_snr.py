@@ -38,8 +38,12 @@ def band_power_from_spectrum(frequencies: np.ndarray,
     mask = (frequencies >= f_lo) & (frequencies <= f_hi)
     if not np.any(mask):
         return 0.0
-    # Use trapezoidal integration (numpy.trapezoid)
-    return float(np.trapezoid(power_spectrum[mask], x=frequencies[mask]))
+    # Use trapezoidal integration; prefer numpy.trapezoid if available, else fall back to trapz
+    try:
+        trap = np.trapezoid  # type: ignore[attr-defined]
+    except AttributeError:
+        trap = np.trapz  # Older NumPy
+    return float(trap(power_spectrum[mask], x=frequencies[mask]))
 
 
 def volume_integrated_psd(
@@ -67,7 +71,11 @@ def volume_integrated_psd(
     mask = (frequencies >= f_lo) & (frequencies <= f_hi)
     if not np.any(mask):
         return 0.0
-    psd_band = np.trapezoid(psd_3d.take(mask, axis=axis), x=frequencies[mask], axis=axis)
+    try:
+        trap = np.trapezoid  # type: ignore[attr-defined]
+    except AttributeError:
+        trap = np.trapz
+    psd_band = trap(psd_3d.take(mask, axis=axis), x=frequencies[mask], axis=axis)
     # Integrate over volume
     total_power = np.sum(psd_band * volume_elements)
     return float(total_power)

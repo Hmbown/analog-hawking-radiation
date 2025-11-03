@@ -6,7 +6,7 @@ Plasma Mirror Dynamics for Analog Hawking Radiation
 This module implements plasma mirror acceleration calculations based on the
 AnaBHEL (Analog Black Hole Evaporation via Lasers) framework developed by:
 
-- Prof. Pisin Chen (National Taiwan University, LeCosPA) 
+- Prof. Pisin Chen (National Taiwan University, LeCosPA)
 - Prof. Gerard Mourou (École Polytechnique, IZEST) - Nobel Laureate
 - AnaBHEL Collaboration
 
@@ -15,7 +15,9 @@ Key References:
 - Chen et al. (2022). Photonics 9(12), 1003
 
 IMPORTANT: This implementation explores speculative hybrid coupling with fluid
-systems that extends beyond established AnaBHEL theory.
+systems that extends beyond established AnaBHEL theory. Treat it as
+experimental scaffolding and subject any quantitative usage to an explicit
+units-checked derivation against the cited references.
 """
 
 from dataclasses import dataclass
@@ -63,9 +65,9 @@ def calculate_plasma_mirror_dynamics(x: np.ndarray,
     - Down-ramp density enhances mirror acceleration.
     - Acceleration is localized in time (bell-shaped) and bounded.
 
-    Mapping to κ_mirror options:
-    - model='unruh':    κ_mirror = max(aM)/c
-    - model='anabhel':  k_B T_H = (ħ/D) * η_a  => κ_mirror = 2π k_B T_H / ħ = 2π η_a / D
+    Mapping to κ_mirror options (SI units throughout):
+    - model='unruh':    κ_mirror = max(aM) / c
+    - model='anabhel':  k_B T_H = (ħ/D) * η_a  => κ_mirror = (2π c η_a) / D
     """
     x = np.asarray(x, dtype=float)
     t = np.asarray(t, dtype=float)
@@ -98,11 +100,16 @@ def calculate_plasma_mirror_dynamics(x: np.ndarray,
         xM[i] = xM[i - 1] + 0.5 * dt * (vM[i] + vM[i - 1])
 
     a_peak = float(np.max(np.abs(aM)))
+    if not np.isfinite(a_peak) or a_peak < 0:
+        raise ValueError("Computed mirror acceleration must be finite and non-negative.")
+
     if params.model.lower() == "unruh":
         kappa_mirror = a_peak / c
     elif params.model.lower() == "anabhel":
-        # From user-provided mapping: k_B T_H = (ħ/D) * η_a  => κ = 2π η_a / D
-        kappa_mirror = 2.0 * np.pi * params.eta_a / max(params.D, 1e-30)
+        if params.D <= 0:
+            raise ValueError("Scale length D must be positive when using the AnaBHEL mapping.")
+        # Chen & Mourou mapping with explicit c factor to ensure κ has units of s^-1
+        kappa_mirror = (2.0 * np.pi * c * params.eta_a) / params.D
     else:
         kappa_mirror = a_peak / c
 

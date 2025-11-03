@@ -1,9 +1,17 @@
 import os
+
 import numpy as np
+import pytest
+
+try:
+    import h5py  # type: ignore
+except ModuleNotFoundError:  # pragma: no cover - optional dependency
+    h5py = None
 
 
 def test_openpmd_slice_to_profile_roundtrip(tmp_path):
-    import h5py  # type: ignore
+    if h5py is None:
+        pytest.skip("h5py is not installed; skipping openPMD roundtrip test.")
     # Create synthetic HDF5 with velocity and temperature datasets
     N = 64
     x = np.linspace(0.0, 1.0, N)

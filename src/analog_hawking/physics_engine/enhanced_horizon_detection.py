@@ -12,6 +12,9 @@ in analog Hawking radiation analysis, implementing:
 
 Author: Claude Scientific Computing Expert
 Date: November 2025
+
+NOTE: Experimental tooling for prototyping; verify outputs against the validated
+1D/ND horizon pipeline before drawing conclusions.
 """
 
 from __future__ import annotations

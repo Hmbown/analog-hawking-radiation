@@ -77,11 +77,15 @@ def xp_trapezoid(y: Any, x: Optional[Any] = None) -> Any:
     """Backend-aware trapezoidal integration (numpy.trapezoid / cupy.trapezoid)."""
     module = get_array_module(y, x)
     if module is numpy:
-        return numpy.trapezoid(ensure_numpy(y), x=ensure_numpy(x) if x is not None else None)
+        trap_fn = getattr(numpy, "trapezoid", numpy.trapz)
+        return trap_fn(ensure_numpy(y), x=ensure_numpy(x) if x is not None else None)
     y_arr = module.asarray(y)
+    trap_fn = getattr(module, "trapezoid", None)
+    if trap_fn is None:
+        trap_fn = getattr(module, "trapz")
     if x is None:
-        return module.trapezoid(y_arr)
-    return module.trapezoid(y_arr, x=module.asarray(x))
+        return trap_fn(y_arr)
+    return trap_fn(y_arr, x=module.asarray(x))
 
 
 def xp_gradient(y: Any, x: Optional[Any] = None) -> Any:
