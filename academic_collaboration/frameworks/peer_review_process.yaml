@@ -1,0 +1,52 @@
+external_review:
+  conference_presentations:
+    aps_dpp:
+      computational_innovation: Novel computational approaches
+      plasma_focus: Application to plasma physics problems
+    eps_conference:
+      european_collaboration: European research network integration
+      multidisciplinary: Analog gravity across multiple systems
+  journal_submissions:
+    nature_physics:
+      future_work: Clear direction for future research
+      impact: Major advance with broad scientific implications
+      interdisciplinary: Connection across multiple physics domains
+    prl_guidelines:
+      clarity: Accessible to broad physics community
+      novelty: Significant advance in analog gravity or plasma physics
+      significance: Clear impact on field or experimental capabilities
+internal_review:
+  monthly_cycles:
+    response_deadline: 1 week after review completion
+    review_period: 2 weeks
+    schedule: First Monday of each month
+    submissions_deadline: 7 days before review cycle
+  review_criteria:
+    presentation_clarity:
+    - Clear explanation of methods
+    - Appropriate figure quality
+    - Complete reference list
+    - Reproducibility instructions
+    scientific_rigor:
+    - Mathematical correctness
+    - Physical validity
+    - Appropriate use of computational methods
+    - Statistical significance
+    software_quality:
+    - Code documentation quality
+    - Testing coverage
+    - Performance optimization
+    - Reproducibility
+  reviewer_selection:
+    expertise_matching: Physics + Computational expertise required
+    independence: No conflicts of interest with authors
+    rotating_panel: Rotating panel of 5-7 reviewers
+quality_assurance:
+  reproducibility_checks:
+    code_verification: Independent code review
+    environment_replication: Computational environment reproducibility
+    result_replication: Independent reproduction of key results
+  statistical_validation:
+    error_analysis: Comprehensive uncertainty propagation
+    sample_sizes: Adequate for statistical significance
+    significance_testing: Appropriate statistical tests

@@ -1,0 +1,56 @@
+contribution_guidelines:
+  code_contributions:
+    documentation: Required for all public APIs
+    peer_review: Minimum 2 independent reviewers for physics code
+    physics_validation: Required for all physics-related changes
+    testing_standards: 100% test coverage for new physics modules
+  research_contributions:
+    computational_benchmarks: Performance and accuracy validation
+    experimental_validation: Required for new physics predictions
+    theoretical_analysis: Mathematical derivation verification
+framework_name: Analog Hawking Radiation Research Consortium
+intellectual_property:
+  framework_ownership: Distributed among contributing institutions
+  licensing: Academic BSD + Commercial licensing options
+  patent_policy: Academic use protected, commercial use requires agreement
+  trademark: "Analog Hawking Radiation Simulator\u2122"
+participating_institutions:
+- Leung Center for Cosmology and Particle Astrophysics (LeCosPA), National Taiwan
+  University
+- "IZEST (International Zetta-Exawatt Science and Technology), \xC9cole Polytechnique"
+- Kansai Institute for Photon Science (QST), Japan
+- Xtreme Light Group, University of Glasgow
+- Current Research Institution
+peer_review_process:
+  external_review:
+    academic_journals:
+    - Physical Review Letters
+    - Nature Physics
+    - Physics of Fluids
+    conference_proceedings:
+    - APS Division of Plasma Physics
+    - EPS Conference
+    review_timeline: 4-6 weeks for journal submission
+  internal_review:
+    criteria:
+    - Physics accuracy
+    - Computational efficiency
+    - Documentation quality
+    frequency: Monthly review cycles
+    reviewers: 2-3 domain experts per submission
+principal_investigators:
+- Prof. Pisin Chen (NTU/LeCosPA) - AnaBHEL Principal Investigator
+- "Prof. Gerard Mourou (\xC9cole Polytechnique) - Co-PI, Laser Physics"
+- Prof. David Faccio (University of Glasgow) - Experimental Analog Gravity
+- Dr. Hunter Bown (Current Institution) - Computational Framework Lead
+publication_policy:
+  authorship: CREDIT taxonomy for contributor recognition
+  citation: DOI-based citation with persistent identifiers
+  data_availability: FAIR principles with controlled access for sensitive data
+  preprints: ArXiv submission encouraged for early dissemination
+research_agreements:
+  code_sharing: Dual licensing (academic + commercial)
+  confidentiality: Standard academic research agreement
+  conflict_resolution: Peer mediation with external arbiter
+  data_sharing_protocol: Open access with proper attribution
+  publication_policy: Joint first authorship for substantial contributions

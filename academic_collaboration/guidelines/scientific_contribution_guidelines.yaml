@@ -1,0 +1,45 @@
+code_contributions:
+  computational_standards:
+    memory_usage: Memory profiling for large-scale computations
+    numerical_stability: Convergence testing and error analysis
+    parallel_scaling: Performance testing on multi-core/GPU systems
+    performance: Benchmarking against existing implementations
+  physics_validation:
+    documentation: Required mathematical proofs and validation results
+    process:
+    - Mathematical derivation review by domain expert
+    - Numerical verification against analytical solutions
+    - Cross-validation with established literature results
+    - Uncertainty quantification assessment
+    requirement: All physics-related code changes require validation
+  testing_requirements:
+    integration_tests: End-to-end validation for pipelines
+    performance_tests: Benchmarking and profiling
+    regression_tests: Backward compatibility verification
+    unit_tests: 100% coverage for new functions
+publication_standards:
+  authorship:
+    criteria: Substantial contribution to conception, design, or analysis
+    ordering: Significant contribution to the work determines order
+    recognition: CREDIT taxonomy for contributor roles
+  data_management:
+    long_term_preservation: Persistent identifiers and archival strategies
+    open_science: FAIR principles for data sharing
+    reproducibility: Complete computational environment specification
+  peer_review:
+    external_review: Minimum 2 independent expert reviewers
+    internal_review: Mandatory peer review before submission
+    response_to_review: Thorough addressing of reviewer comments
+research_contributions:
+  computational_research:
+    algorithm_analysis: Complexity analysis and optimization potential
+    scientific_computing: Best practices for scientific software
+    software_engineering: Professional code quality standards
+  experimental_validation:
+    parameter_ranges: Validation across physically relevant parameter space
+    reproducibility: All results must be reproducible from provided data
+    uncertainty_quantification: Comprehensive error analysis required
+  theoretical_development:
+    connection_to_literature: Clear positioning relative to existing work
+    limitation_analysis: Explicit statement of assumptions and limitations
+    mathematical_rigor: All derivations must be peer-reviewed
