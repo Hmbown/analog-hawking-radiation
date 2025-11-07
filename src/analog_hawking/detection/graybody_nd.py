@@ -30,7 +30,7 @@ def aggregate_patchwise_graybody(
     grids: Sequence[np.ndarray],
     v_field: np.ndarray,  # (..., D)
     c_s: np.ndarray,  # (...,)
-    kappa_eff: float,
+    kappa_eff: float | np.ndarray,  # Single value or per-patch values
     *,
     graybody_method: str = "dimensionless",
     alpha_gray: float = 1.0,
@@ -45,7 +45,9 @@ def aggregate_patchwise_graybody(
         grids: coordinate arrays [x0, x1, (x2)]
         v_field: vector velocity field with components last
         c_s: scalar sound speed field
-        kappa_eff: effective κ to use for spectral calculations
+        kappa_eff: effective κ to use for spectral calculations. Can be:
+                  - Single float: same κ for all patches (backward compatible)
+                  - Array: different κ for each patch (enables hybrid coupling)
         graybody_method: one of {dimensionless, wkb, acoustic_wkb}
         alpha_gray: graybody scaling parameter
         scan_axis: axis to sample along (0..D-1)
@@ -55,8 +57,16 @@ def aggregate_patchwise_graybody(
     Returns:
         AggregatedSpectrum with mean power spectrum and standard deviation.
     """
-    if kappa_eff <= 0.0:
-        return AggregatedSpectrum(success=False)
+    # Handle both single kappa (backward compatible) and array of kappas (new)
+    if isinstance(kappa_eff, (int, float)):
+        if kappa_eff <= 0.0:
+            return AggregatedSpectrum(success=False)
+        kappa_per_patch = None  # Will use same kappa for all patches
+    else:
+        kappa_array = np.asarray(kappa_eff)
+        if np.any(kappa_array <= 0):
+            return AggregatedSpectrum(success=False)
+        kappa_per_patch = kappa_array
 
     dims = len(grids)
     if v_field.shape[-1] != dims:
@@ -83,8 +93,13 @@ def aggregate_patchwise_graybody(
     # Build spectra per patch by extracting 1D lines along scan_axis
     specs: List[Dict[str, np.ndarray]] = []
     x_axis = grids[scan_axis]
-    for patch_idx in patch_indices:
+    for i, patch_idx in enumerate(patch_indices):
         pos = surf.positions[patch_idx]
+        # Use per-patch kappa if available, otherwise use single kappa_eff
+        if kappa_per_patch is not None and i < len(kappa_per_patch):
+            kappa_for_this_patch = float(kappa_per_patch[i])
+        else:
+            kappa_for_this_patch = float(kappa_eff) if isinstance(kappa_eff, (int, float)) else float(kappa_eff[0])
         if sample_mode.lower() != "normal":
             # Fix non-scan axes to nearest index to pos; slice along scan axis
             slicer = [slice(None)] * dims
@@ -148,7 +163,7 @@ def aggregate_patchwise_graybody(
                 profile = {"x": s_line, "v": v_line, "c_s": cs_line}
 
         sp = calculate_hawking_spectrum(
-            kappa_eff,
+            kappa_for_this_patch,
             graybody_profile=profile,
             graybody_method=str(graybody_method),
             alpha_gray=float(alpha_gray),

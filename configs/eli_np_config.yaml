@@ -1,0 +1,149 @@
+# ELI-NP Facility Configuration for Analog Hawking Radiation Experiments
+# Optimized for HPLS 10PW system with dual-beam capability
+
+facility:
+  name: "ELI-NP"
+  location: "Măgurele, Romania"
+  experimental_hall: "E1"  # 10PW-A
+  status: "operational"
+
+laser_system:
+  name: "HPLS 10PW - Arm A"
+  peak_power_TW: 10000  # 10 PW
+  pulse_energy_J: 1500   # 1.5 kJ
+  pulse_duration_fs: 150
+  wavelength_nm: 810     # Ti:Sapphire
+  repetition_rate_Hz: 0.003  # 1 shot per 5 minutes
+  max_intensity_W_cm2: 1e24
+  beam_quality_M2: 1.3
+  contrast_ratio: 1e-11
+  polarization: "linear/circular"
+
+# Dual-beam configuration (ELI-NP unique capability)
+dual_beam_configuration:
+  enabled: true
+  second_beam_power_TW: 1000    # 1 PW secondary beam
+  timing_precision_fs: 30       # Beam synchronization
+  angle_between_beams_deg: 10   # Interaction geometry
+  second_beam_purpose: "plasma_diagnostic"
+
+# Analog Hawking radiation optimized parameters
+experimental_parameters:
+  # Laser parameters (optimized for nuclear physics environment)
+  target_intensity_W_m2: 7e23    # Conservative for 5min cycle time
+  focal_spot_um: 3.5            # Slightly larger for robustness
+  pulse_duration_fs: 150        # Nominal duration
+  wavelength_nm: 810            # Ti:Sapphire
+  temporal_contrast: 1e-11      # Excellent contrast
+
+  # Enhanced plasma configuration (leveraging nuclear physics expertise)
+  target_type: "solid_heavy"    # Heavy element target for enhanced effects
+  pre_plasma_scale_fs: 30       # Better pre-pulse control
+  peak_density_m3: 8e25         # Higher density for stronger gradients
+  density_gradient_scale_um: 0.3 # Sharper gradient for higher κ
+
+  # Magnetic field enhancement (ELI-NP specialty)
+  external_magnetic_field_T: 20 # Moderate external field
+  field_configuration: "solenoidal" # For plasma confinement
+
+# Physical constraints for nuclear physics environment
+constraints:
+  max_velocity_c: 0.5           # From thresholds.yaml
+  max_intensity_W_m2: 1e24      # Facility maximum
+  max_gradient_s: 4e12          # From thresholds.yaml
+  vacuum_level_mbar: 1e-8       # Better vacuum for nuclear experiments
+  radiation_shielding: "Class-B" # Enhanced for nuclear products
+
+# Nuclear physics specific diagnostics
+diagnostics:
+  primary:
+    - "Gamma ray detection (20 MeV)"
+    - "Nuclear activation analysis"
+    - "High-energy particle spectrometry"
+    - "Positron production detection"
+    - "Nuclear reaction monitoring"
+  plasma_physics:
+    - "X-ray spectrometry (1-100 keV)"
+    - "Electron spectrometry (MeV range)"
+    - "Optical probing (fs resolution)"
+  hawking_specific:
+    - "Radio detection system (20K system temp - better cooling)"
+    - "High-bandwidth oscilloscopes (>20 GHz)"
+    - "Ultra-low-noise RF amplifiers"
+    - "Spectrum analyzers with high dynamic range"
+    - "Correlation analysis equipment"
+
+# Extended experimental timeline (accounting for nuclear environment)
+timeline:
+  setup_days: 10                # Extended for nuclear safety protocols
+  alignment_hours: 32           # Dual-beam alignment
+  target_positioning_hours: 12  # Heavy target handling
+  plasma_mirror_optimization_hours: 16  # Extended optimization
+  dual_beam_synchronization_hours: 8    # Beam timing setup
+  data_collection_shots: 12     # Fewer shots due to cycle time
+  total_campaign_days: 14
+
+# Enhanced performance targets
+performance_targets:
+  surface_gravity_Hz: 7e12      # Higher κ due to enhanced density gradients
+  hawking_temperature_K: 1.5e-7 # Higher temperature from stronger fields
+  detection_confidence: 5       # 5σ detection target
+  signal_to_noise_ratio: 6.0    # Better SNR from improved cooling
+  nuclear_correlation_strength: 0.8 # Correlation with nuclear products
+
+# Nuclear physics risk assessment
+risk_factors:
+  high:
+    - "Radiation safety protocols"
+    - "Dual-beam synchronization"
+    - "Heavy target handling"
+    - "Nuclear product contamination"
+  medium:
+    - "Extended shot cycle impact on data collection"
+    - "Complex diagnostic integration"
+    - "Magnetic field interference"
+  low:
+    - "Facility infrastructure"
+    - "Basic laser operations"
+
+# Nuclear-informed optimization strategy
+optimization:
+  primary_parameters:
+    - "Density gradient optimization (using heavy elements)"
+    - "Magnetic field configuration"
+    - "Dual-beam timing and geometry"
+  secondary_parameters:
+    - "Target composition (Z-optimization)"
+    - "Pulse contrast enhancement"
+    - "Diagnostic shielding from nuclear products"
+  unique_opportunities:
+    - "Correlation with nuclear reaction products"
+    - "Magnetic field effects on horizon dynamics"
+    - "Heavy ion effects on plasma formation"
+
+# Enhanced success criteria
+success_metrics:
+  minimum_requirements:
+    - "Successful plasma mirror formation (reflectivity > 60%)"
+    - "Sonic horizon detection with magnetic field effects"
+    - "Data acquisition on > 90% of shots (lower shot count, higher quality)"
+    - "Nuclear safety compliance"
+  target_achievements:
+    - "κ measurement with < 15% uncertainty (better precision)"
+    - "Hawking-like spectrum detection with nuclear correlations"
+    - "Magnetic field effect characterization"
+    - "Dual-beam configuration validation"
+  stretch_goals:
+    - "Multi-horizon configuration using dual beams"
+    - "Nuclear product correlation with Hawking signal"
+    - "Magnetic field optimization demonstration"
+    - "Comparison with theoretical predictions including nuclear effects"
+
+# ELI-NP specific advantages
+facility_advantages:
+  - "Dual-beam capability for enhanced diagnostics"
+  - "Superior temporal contrast (1e-11)"
+  - "Enhanced magnetic field capabilities"
+  - "Nuclear physics diagnostic expertise"
+  - "Better cooling and low-noise environment"
+  - "Heavy element target handling expertise"

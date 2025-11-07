@@ -1,0 +1,168 @@
+# ELI-ALPS Facility Configuration for Analog Hawking Radiation Experiments
+# Optimized for SYLOS 2PW high-repetition-rate system
+
+facility:
+  name: "ELI-ALPS"
+  location: "Szeged, Hungary"
+  experimental_hall: "SYLOS"
+  status: "operational"
+
+laser_system:
+  name: "SYLOS 2PW"
+  peak_power_TW: 2000     # 2 PW
+  pulse_energy_J: 34       # 34 J
+  pulse_duration_fs: 17    # Ultra-short pulses
+  wavelength_nm: 800       # Ti:Sapphire
+  repetition_rate_Hz: 10   # High repetition rate
+  max_intensity_W_cm2: 1e22
+  beam_quality_M2: 1.2
+  contrast_ratio: 1e-9
+  polarization: "linear"
+
+# High-repetition-rate configuration (ELI-ALPS unique capability)
+high_rep_rate_configuration:
+  enabled: true
+  target_rep_rate_Hz: 5     # Conservative for plasma mirror experiments
+  shot_burst_capability: true
+  burst_duration_s: 60      # 1 minute bursts
+  cooling_time_s: 300       # System recovery
+
+# Analog Hawking radiation optimized parameters for high-rep-rate
+experimental_parameters:
+  # Laser parameters (optimized for statistical data collection)
+  target_intensity_W_m2: 5e21    # Conservative for high rep rate
+  focal_spot_um: 2.5            # Tight focus for high intensity
+  pulse_duration_fs: 17         # Ultra-short for peak power
+  wavelength_nm: 800            # Ti:Sapphire
+  temporal_contrast: 1e-9        # Good contrast
+
+  # Fast-target configuration for high rep rate
+  target_type: "translating_solid"  # Moving target system
+  target_translation_speed_mm_s: 10  # Fresh target surface
+  target_size_mm: 50x50x10     # Large target for many shots
+  pre_plasma_scale_fs: 20       # Fast pre-pulse control
+
+  # Plasma parameters optimized for short pulses
+  peak_density_m3: 2e25         # Moderate density
+  density_gradient_scale_um: 0.7 # Optimized for 17fs pulses
+  rapid_plasma_formation: true  # Fast formation needed
+
+  # High-speed plasma mirror configuration
+  mirror_formation_timing_fs: 15   # Fast formation for short pulses
+  main_pulse_delay_fs: 50          # Quick timing
+  expected_reflectivity: 0.65      # Slightly lower for rapid formation
+  expansion_velocity_ms: 1.5e6     # Expected expansion
+
+# Physical constraints for high-rep-rate operation
+constraints:
+  max_velocity_c: 0.5           # From thresholds.yaml
+  max_intensity_W_m2: 1e22      # Facility limit (lower than others)
+  max_gradient_s: 4e12          # From thresholds.yaml
+  vacuum_level_mbar: 1e-6       # Standard vacuum
+  target_degradation_limit: 1000 # Maximum shots per target area
+  thermal_management: "active"   # Required for high rep rate
+
+# High-speed diagnostics
+diagnostics:
+  primary:
+    - "Attosecond streaking"
+    - "Frequency-resolved optical gating (FROG)"
+    - "Spatially-resolved spectroscopy"
+    - "Photoelectron spectroscopy"
+    - "Time-of-flight mass spectrometry"
+  high_rep_rate_specific:
+    - "Fast camera systems (>1 kHz)"
+    - "Automated data acquisition"
+    - "Real-time data processing"
+    - "Shot-to-shot analysis"
+  hawking_specific:
+    - "Radio detection system (50K system temp - higher temp due to high rep rate)"
+    - "High-bandwidth oscilloscopes (>15 GHz)"
+    - "Low-noise RF amplifiers with fast recovery"
+    - "Real-time spectrum analysis"
+    - "Statistical analysis software"
+
+# High-throughput experimental timeline
+timeline:
+  setup_days: 5                 # Faster setup due to facility design
+  alignment_hours: 16           # Quick alignment
+  target_positioning_hours: 6   # Automated positioning
+  plasma_mirror_optimization_hours: 8  # Rapid optimization
+  high_rep_rate_testing_hours: 12     # Rep rate optimization
+  data_collection_shots: 1000   # High number of shots
+  data_collection_time_hours: 3.3  # At 5 Hz for statistical analysis
+  total_campaign_days: 7
+
+# Statistical performance targets
+performance_targets:
+  surface_gravity_Hz: 2e12      # Lower κ due to intensity constraints
+  hawking_temperature_K: 5e-8   # Lower temperature
+  detection_confidence: 5       # 5σ detection (through statistics)
+  signal_to_noise_ratio: 3.0    # Lower per-shot, improved through averaging
+  statistical_uncertainty: 0.1  # 10% through shot averaging
+  reproducibility_metric: 0.9   # High reproducibility target
+
+# High-rep-rate risk assessment
+risk_factors:
+  high:
+    - "Target degradation at high rep rate"
+    - "Plasma mirror consistency"
+    - "Data storage and processing capacity"
+    - "Thermal management of optics"
+  medium:
+    - "Shot-to-shot laser stability"
+    - "Fast diagnostic synchronization"
+    - "Automated system reliability"
+  low:
+    - "Basic facility operations"
+    - "Safety systems"
+
+# Statistical optimization strategy
+optimization:
+  primary_parameters:
+    - "Target translation speed optimization"
+    - "Shot-to-shot consistency improvement"
+    - "Rapid plasma mirror formation"
+  secondary_parameters:
+    - "Pulse duration tuning"
+    - "Focus optimization for stability"
+    - "Timing jitter reduction"
+  statistical_advantages:
+    - "Large dataset for improved statistics"
+    - "Real-time optimization capability"
+    - "Parameter space mapping"
+
+# Statistical success criteria
+success_metrics:
+  minimum_requirements:
+    - "Consistent plasma mirror formation (> 50% shots)"
+    - "Sonic horizon detection on > 30% of shots"
+    - "Data acquisition on > 95% of shots"
+    - "Target system reliability > 90%"
+  target_achievements:
+    - "κ measurement with < 25% uncertainty (statistical)"
+    - "Hawking-like spectrum detection through averaging"
+    - "Reproducibility measurement across 1000 shots"
+    - "Shot-to-shot variation characterization"
+  stretch_goals:
+    - "Real-time parameter optimization"
+    - "Automated experiment control"
+    - "Machine learning integration for shot selection"
+    - "Complete parameter space mapping"
+
+# ELI-ALPS specific advantages
+facility_advantages:
+  - "High repetition rate for statistical significance"
+  - "Ultra-short pulses for peak power"
+  - "Fast diagnostic capabilities"
+  - "Attosecond-level timing precision"
+  - "Automated experimental control"
+  - "Excellent for proof-of-concept and parameter optimization"
+
+# Unique experimental opportunities
+unique_opportunities:
+  - "Statistical validation of analog Hawking radiation"
+  - "Real-time parameter optimization"
+  - "Systematic parameter space exploration"
+  - "Machine learning integration"
+  - "Rapid prototyping of configurations"

@@ -1,0 +1,121 @@
+# ELI-Beamlines Facility Configuration for Analog Hawking Radiation Experiments
+# Optimized for L4 ATON 10 PW system
+
+facility:
+  name: "ELI-Beamlines"
+  location: "Dolní Břežany, Czech Republic"
+  experimental_hall: "E4"
+  status: "commissioning"
+
+laser_system:
+  name: "L4 ATON"
+  peak_power_TW: 10000  # 10 PW
+  pulse_energy_J: 1500   # 1.5 kJ
+  pulse_duration_fs: 150
+  wavelength_nm: 810     # Ti:Sapphire
+  repetition_rate_Hz: 0.017  # 1 shot per minute
+  max_intensity_W_cm2: 1e24
+  beam_quality_M2: 1.2
+  contrast_ratio: 1e-10
+  polarization: "linear"
+
+# Analog Hawking radiation optimized parameters
+experimental_parameters:
+  # Laser parameters (optimized for plasma mirror formation)
+  target_intensity_W_m2: 8e23    # 80% of maximum for safety margin
+  focal_spot_um: 3.0              # Achievable focal spot
+  pulse_duration_fs: 150          # Nominal duration
+  wavelength_nm: 810              # Ti:Sapphire
+  temporal_contrast: 1e-10        # Required for clean plasma mirror
+
+  # Plasma parameters (optimal for sonic horizon formation)
+  target_type: "solid"            # Optical quality polished surface
+  pre_plasma_scale_fs: 50         # Pre-pulse controlled
+  peak_density_m3: 5e25           # Near critical density
+  density_gradient_scale_um: 0.5   # Sharp density gradient
+
+  # Plasma mirror configuration
+  mirror_formation_timing_fs: 30  # Optimal for 8e23 W/m²
+  main_pulse_delay_fs: 180        # Formation time + buffer
+  expected_reflectivity: 0.75     # 75% reflectivity
+  expansion_velocity_ms: 2e6      # Expected expansion
+
+# Physical constraints and safety
+constraints:
+  max_velocity_c: 0.5             # From thresholds.yaml
+  max_intensity_W_m2: 1e24        # Facility maximum
+  max_gradient_s: 4e12            # From thresholds.yaml
+  vacuum_level_mbar: 1e-7         # Required vacuum
+  radiation_shielding: "Class-A"  # Required for >10^22 W/m²
+
+# Diagnostic requirements
+diagnostics:
+  primary:
+    - "X-ray spectrometry (1-100 keV)"
+    - "Electron spectrometry (MeV range)"
+    - "Optical probing (fs resolution)"
+    - "Thomson scattering"
+  optional:
+    - "Interferometry"
+    - "Shadowgraphy"
+    - "Plasma interferometry"
+  hawking_specific:
+    - "Radio detection system (30K system temp)"
+    - "High-bandwidth oscilloscopes (>10 GHz)"
+    - "Low-noise RF amplifiers"
+    - "Spectrum analyzers"
+
+# Experimental timeline
+timeline:
+  setup_days: 7                   # Facility access
+  alignment_hours: 24             # Laser alignment
+  target_positioning_hours: 8     # Target setup
+  plasma_mirror_optimization_hours: 12  # Mirror timing
+  data_collection_shots: 20       # Planned shots
+  total_campaign_days: 10
+
+# Expected performance metrics
+performance_targets:
+  surface_gravity_Hz: 5e12        # Target κ for analog Hawking
+  hawking_temperature_K: 1e-7     # Expected temperature
+  detection_confidence: 5         # 5σ detection target
+  signal_to_noise_ratio: 5.0      # Target SNR
+
+# Risk assessment
+risk_factors:
+  high:
+    - "Plasma mirror timing precision"
+    - "Shot-to-shot laser stability"
+    - "Target surface quality"
+  medium:
+    - "Diagnostic integration"
+    - "Data acquisition synchronization"
+  low:
+    - "Facility infrastructure"
+    - "Safety systems"
+
+# Optimization strategy
+optimization:
+  primary_parameters:
+    - "Intensity (via focal spot adjustment)"
+    - "Plasma mirror timing"
+    - "Target density profile"
+  secondary_parameters:
+    - "Pulse duration compression"
+    - "Beam pointing optimization"
+    - "Contrast enhancement"
+
+# Success criteria
+success_metrics:
+  minimum_requirements:
+    - "Successful plasma mirror formation (reflectivity > 50%)"
+    - "Sonic horizon detection"
+    - "Data acquisition on > 80% of shots"
+  target_achievements:
+    - "κ measurement with < 20% uncertainty"
+    - "Hawking-like spectrum detection"
+    - "Reproducible results across shots"
+  stretch_goals:
+    - "Multiple horizon configurations"
+    - "Parameter optimization completion"
+    - "Comparison with theoretical predictions"

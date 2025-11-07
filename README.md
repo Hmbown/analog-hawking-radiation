@@ -4,7 +4,10 @@
 
 [![κ_max](https://img.shields.io/badge/κ_max-5.94×10¹²%20Hz-red.svg)](RESEARCH_HIGHLIGHTS.md) [![GPU Speedup](https://img.shields.io/badge/GPU-10--100×-green.svg)](docs/pc_cuda_workflow.md) [![Validation](https://img.shields.io/badge/validations-42%20tests-brightgreen.svg)](tests/)
 
-A practitioner-focused toolkit for designing and validating analog Hawking radiation experiments in realistic laser–plasma settings. The simulator links fluid models, particle-in-cell (PIC) pipelines, quantum field theory post-processing, and radio detection forecasts into one reproducible environment.
+> **Laboratory Black Hole Detection, Quantified**  
+> A practitioner-focused toolkit for designing and validating analog Hawking radiation experiments in realistic laser–plasma settings. We transform plasma flow analysis into actionable experimental guidance through rigorous physics validation and uncertainty quantification.
+
+The simulator links fluid models, particle-in-cell (PIC) pipelines, quantum field theory post-processing, and radio detection forecasts into one reproducible environment where every assumption is documented and every uncertainty propagated.
 
 ## Table of Contents
 
@@ -77,7 +80,7 @@ make comprehensive && make results-pack
 
 **Validation**: Analytical checks (κ→T_H, plasma frequency), numerical convergence, frequency-gating sanity checks
 
-**Reproducibility**: Python 3.9–3.11; `make comprehensive` → all figures; `make results-pack` → complete results package
+**Reproducibility**: Python 3.9–3.11; `make comprehensive` → all figures; `make results-pack` → complete results package. See `docs/enhanced_validation.md` for the physics‑backed Enhanced Validation framework and CLI.
 
 **Quick setup**:
 ```bash

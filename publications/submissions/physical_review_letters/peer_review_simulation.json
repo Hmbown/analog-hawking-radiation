@@ -1,0 +1,67 @@
+{
+  "overall_score": 0.8093954052120893,
+  "scientific_rigor_score": 0.8249677927799212,
+  "novelty_score": 0.727798685894853,
+  "clarity_score": 0.9095032510496508,
+  "reviewer_comments": [
+    {
+      "reviewer": "Reviewer 1",
+      "overall_assessment": "This work presents a significant advance in computational frameworks for analog gravity experiments.",
+      "major_points": [
+        "The comprehensive uncertainty quantification is particularly valuable",
+        "ELI facility validation adds significant practical relevance",
+        "Methodological rigor is impressive"
+      ],
+      "concerns": [
+        "Could benefit from more discussion of multi-dimensional effects",
+        "Comparison with existing experimental results would strengthen claims"
+      ]
+    },
+    {
+      "reviewer": "Reviewer 2",
+      "overall_assessment": "A well-executed computational study that fills an important gap in the literature.",
+      "major_points": [
+        "Systematic parameter space exploration is thorough",
+        "Statistical validation is appropriate",
+        "Figures are clear and informative"
+      ],
+      "concerns": [
+        "Some assumptions in the plasma model need clearer justification",
+        "Limitations of 1D approximation should be discussed more thoroughly"
+      ]
+    },
+    {
+      "reviewer": "Reviewer 3",
+      "overall_assessment": "This work makes a valuable contribution to the field of analog gravity research.",
+      "major_points": [
+        "Integration with ELI facilities is novel and important",
+        "Uncertainty analysis sets a good standard for the field",
+        "Computational framework appears robust"
+      ],
+      "concerns": [
+        "Experimental feasibility section could be more detailed",
+        "Timeline for experimental validation seems optimistic"
+      ]
+    }
+  ],
+  "recommendation": "Accept",
+  "major_revisions": [],
+  "minor_revisions": [
+    "Clarify assumptions in plasma modeling section",
+    "Add more detailed discussion of multi-dimensional effects",
+    "Include comparison with existing experimental constraints",
+    "Expand discussion of experimental timeline"
+  ],
+  "strengths": [
+    "Comprehensive computational framework",
+    "Systematic parameter space exploration",
+    "Detailed uncertainty quantification",
+    "Integration with experimental facilities",
+    "Clear methodology and reproducibility"
+  ],
+  "weaknesses": [
+    "Limited to 1D approximations",
+    "Experimental validation still pending",
+    "Some simplifying assumptions in plasma model"
+  ]
+}
