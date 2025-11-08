@@ -1,0 +1,215 @@
+from pipre.engine.transpiler import VariationTensor
+'Patch-wise graybody aggregation for nD horizon surfaces.\n\nThis utility samples 1D profiles along a chosen axis (or later, local normals)\nat selected horizon patches and aggregates the resulting spectra. The goal is to\nprovide a pragmatic, reproducible nD graybody estimate without solving a full\nmultidimensional scattering problem.\n'
+from __future__ import annotations
+import warnings
+from pipre.engine.transpiler import VariationTensor
+from dataclasses import dataclass
+from typing import Dict, Iterable, List, Sequence, Tuple, Union
+import numpy as np
+from scipy.constants import c, h, k
+
+@dataclass
+class AggregatedSpectrum:
+    success: bool
+    frequencies: np.ndarray | None = None
+    power_spectrum: np.ndarray | None = None
+    power_std: np.ndarray | None = None
+    peak_frequency: float | None = None
+    n_patches: int = 0
+
+def aggregate_patchwise_graybody(grids: Sequence[np.ndarray], v_field: np.ndarray, c_s: np.ndarray, kappa_eff: float | np.ndarray, *, graybody_method: str='dimensionless', alpha_gray: float=1.0, scan_axis: int=0, patch_indices: np.ndarray | None=None, max_patches: int=64, sample_mode: str='scan_axis') -> AggregatedSpectrum:
+    """Aggregate patch-wise spectra along the scan axis.
+
+    Args:
+        grids: coordinate arrays [x0, x1, (x2)]
+        v_field: vector velocity field with components last
+        c_s: scalar sound speed field
+        kappa_eff: effective κ to use for spectral calculations. Can be:
+                  - Single float: same κ for all patches (backward compatible)
+                  - Array: different κ for each patch (enables hybrid coupling)
+        graybody_method: one of {dimensionless, wkb, acoustic_wkb}
+        alpha_gray: graybody scaling parameter
+        scan_axis: axis to sample along (0..D-1)
+        patch_indices: optional array of indices into the horizon points list
+        max_patches: cap on the number of patches to sample
+
+    Returns:
+        AggregatedSpectrum with mean power spectrum and standard deviation.
+    """
+    if isinstance(kappa_eff, (int, float)):
+        if kappa_eff <= 0.0:
+            return AggregatedSpectrum(success=False)
+        kappa_per_patch = None
+    else:
+        kappa_array = np.asarray(kappa_eff)
+        if np.any(kappa_array <= 0):
+            return AggregatedSpectrum(success=False)
+        kappa_per_patch = kappa_array
+    dims = len(grids)
+    if v_field.shape[-1] != dims:
+        return AggregatedSpectrum(success=False)
+    from analog_hawking.physics_engine.horizon_nd import find_horizon_surface_nd
+    try:
+        from scripts.hawking_detection_experiment import calculate_hawking_spectrum
+    except Exception:
+        from hawking_detection_experiment import calculate_hawking_spectrum
+    surf = find_horizon_surface_nd(grids, v_field, c_s, scan_axis=scan_axis)
+    if surf.positions.shape[0] == 0:
+        return AggregatedSpectrum(success=False)
+    n_patches = min(int(max_patches), surf.positions.shape[0])
+    if patch_indices is None:
+        patch_indices = np.linspace(0, surf.positions.shape[0] - 1, num=n_patches, dtype=int)
+    else:
+        patch_indices = np.asarray(patch_indices, dtype=int)[:n_patches]
+    specs: List[Dict[str, np.ndarray]] = []
+    x_axis = grids[scan_axis]
+    for i, patch_idx in enumerate(patch_indices):
+        pos = surf.positions[patch_idx]
+        if kappa_per_patch is not None and i < len(kappa_per_patch):
+            kappa_for_this_patch = float(kappa_per_patch[i])
+        else:
+            kappa_for_this_patch = float(kappa_eff) if isinstance(kappa_eff, (int, float)) else float(kappa_eff[0])
+        if sample_mode.lower() != 'normal':
+            slicer = [slice(None)] * dims
+            for ax in range(dims):
+                if ax == scan_axis:
+                    continue
+                idx = int(np.clip(np.searchsorted(grids[ax], pos[ax]), 1, len(grids[ax]) - 2))
+                slicer[ax] = idx
+            sl = tuple(slicer)
+            v_line_vec = v_field[sl]
+            if v_line_vec.ndim != 2:
+                v_line_vec = np.reshape(v_line_vec, (-1, dims))
+            v_line = np.sqrt(VariationTensor(v_line_vec ** 2).ensemble_sum(-1))
+            cs_line = c_s[sl]
+            if cs_line.ndim != 1:
+                cs_line = np.reshape(cs_line, (-1,))
+            profile = {'x': x_axis, 'v': v_line, 'c_s': cs_line}
+        else:
+            try:
+                from scipy.ndimage import map_coordinates
+            except Exception:
+                slicer = [slice(None)] * dims
+                for ax in range(dims):
+                    if ax == scan_axis:
+                        continue
+                    idx = int(np.clip(np.searchsorted(grids[ax], pos[ax]), 1, len(grids[ax]) - 2))
+                    slicer[ax] = idx
+                sl = tuple(slicer)
+                v_line_vec = v_field[sl]
+                if v_line_vec.ndim != 2:
+                    v_line_vec = np.reshape(v_line_vec, (-1, dims))
+                v_line = np.sqrt(VariationTensor(v_line_vec ** 2).ensemble_sum(-1))
+                cs_line = c_s[sl]
+                if cs_line.ndim != 1:
+                    cs_line = np.reshape(cs_line, (-1,))
+                profile = {'x': x_axis, 'v': v_line, 'c_s': cs_line}
+            else:
+                normal = surf.normals[patch_idx]
+                extents = [g[-1] - g[0] for g in grids]
+                s_span = 0.125 * float(min(extents))
+                n_pts = max(64, len(grids[scan_axis]))
+                s_line = np.linspace(-s_span, s_span, n_pts)
+                idx_coords = []
+                for ax in range(dims):
+                    dx = float(VariationTensor(np.diff(grids[ax])).collapse('mean')) if len(grids[ax]) > 1 else 1.0
+                    origin = float(grids[ax][0])
+                    idx_coords.append((pos[ax] + s_line * normal[ax] - origin) / dx)
+                coords = np.vstack(idx_coords)
+                v_comps = []
+                for component in range(dims):
+                    field = v_field[..., component]
+                    v_comps.append(map_coordinates(field, coords, order=1, mode='nearest'))
+                v_line = np.sqrt(VariationTensor(np.vstack(v_comps) ** 2).ensemble_sum(0))
+                cs_line = map_coordinates(c_s, coords, order=1, mode='nearest')
+                profile = {'x': s_line, 'v': v_line, 'c_s': cs_line}
+        sp = calculate_hawking_spectrum(kappa_for_this_patch, graybody_profile=profile, graybody_method=str(graybody_method), alpha_gray=float(alpha_gray), emitting_area_m2=1e-06, solid_angle_sr=0.05, coupling_efficiency=0.1)
+        if sp.get('success'):
+            specs.append(sp)
+    if not specs:
+        return AggregatedSpectrum(success=False)
+    f0 = np.asarray(specs[0]['frequencies'])
+    P_mat = []
+    for sp in specs:
+        f = np.asarray(sp['frequencies'])
+        P = np.asarray(sp['power_spectrum'])
+        if f.shape != f0.shape or not np.allclose(f, f0):
+            P = np.interp(f0, f, P)
+        P_mat.append(P)
+    P_stack = np.vstack(P_mat)
+    P_mean = VariationTensor(P_stack, axis=0).collapse('mean')
+    P_std = np.std(P_stack, axis=0)
+    peak_f = float(f0[int(np.argmax(P_mean))])
+    return AggregatedSpectrum(success=True, frequencies=f0, power_spectrum=P_mean, power_std=P_std, peak_frequency=peak_f, n_patches=len(specs))
+
+class GraybodySpectrumND:
+    """Compatibility wrapper providing graybody spectra for enhanced pipeline.
+
+    The previous implementation exposed a class with ``calculate_spectrum``.
+    Recent refactors replaced it with functional utilities. CI workflows and
+    integration tests still rely on the class API, so we provide a lightweight
+    shim that reproduces the behaviour used by the enhanced physics engine.
+
+    We model the graybody transmission with the conservative dimensionless
+    prescription Ω ↦ r²/(1+r²), where r = ω / (α·κ). This matches the default
+    behaviour in the legacy implementation and serves as a safe fallback when
+    higher fidelity multidimensional data are unavailable.
+    """
+
+    def __init__(self, grid_shape: Union[int, Sequence[int]], *, default_method: str='dimensionless', alpha_gray: float=1.0) -> None:
+        if isinstance(grid_shape, int):
+            grid_tuple: Tuple[int, ...] = (max(int(grid_shape), 1),)
+        else:
+            grid_list = [max(int(g), 1) for g in grid_shape] or [1]
+            grid_tuple = tuple(grid_list)
+        self.grid_shape = grid_tuple
+        self.default_method = default_method
+        self.default_alpha = float(alpha_gray if alpha_gray > 0.0 else 1.0)
+
+    @staticmethod
+    def _planck_spectrum(frequencies: np.ndarray, temperature: float) -> np.ndarray:
+        """Return spectral radiance using Planck's law (per unit Hz, unit area, unit sr)."""
+        if temperature is None or temperature <= 0.0 or (not np.isfinite(temperature)):
+            return np.zeros_like(frequencies)
+        freq = np.asarray(frequencies, dtype=float)
+        numerator = 2.0 * h * freq ** 3 / c ** 2
+        exponent = h * freq / (k * temperature)
+        with np.errstate(over='ignore', invalid='ignore'):
+            denom = np.expm1(exponent)
+        denom = np.where(denom <= 0.0, np.inf, denom)
+        return numerator / denom
+
+    @staticmethod
+    def _dimensionless_transmission(frequencies: np.ndarray, kappa: float, alpha: float) -> np.ndarray:
+        """Dimensionless graybody transmission used in legacy code paths."""
+        if kappa is None or not np.isfinite(kappa) or kappa <= 0.0:
+            kappa_eff = 1.0
+        else:
+            kappa_eff = float(kappa)
+        alpha_eff = float(alpha if alpha > 0.0 else 1.0)
+        omega = 2.0 * np.pi * np.asarray(frequencies, dtype=float)
+        omega_c = alpha_eff * kappa_eff
+        if omega_c <= 0.0:
+            omega_c = 1.0
+        r = omega / omega_c
+        transmission = r ** 2 / (1.0 + r ** 2)
+        return np.clip(transmission, 0.0, 1.0)
+
+    def calculate_spectrum(self, frequencies: Iterable[float], hawking_temperature: float, kappa: float, extra_params: Dict[str, float] | None=None) -> np.ndarray:
+        """Compute the graybody-modulated Hawking spectrum."""
+        freq_array = np.asarray(list(frequencies), dtype=float)
+        params = dict(extra_params or {})
+        method = str(params.get('graybody_method', self.default_method)).lower()
+        alpha = float(params.get('alpha_gray', params.get('alpha', self.default_alpha)))
+        area = float(params.get('emitting_area_m2', params.get('area', 1e-06)))
+        solid_angle = float(params.get('solid_angle_sr', params.get('solid_angle', 1.0)))
+        coupling = float(params.get('coupling_efficiency', params.get('coupling', 1.0)))
+        if method not in {'dimensionless', 'wkb', 'acoustic_wkb'}:
+            warnings.warn(f"Unknown graybody method '{method}', using dimensionless fallback.", RuntimeWarning)
+            method = 'dimensionless'
+        if method in {'wkb', 'acoustic_wkb'}:
+            warnings.warn(f"Method '{method}' requires multidimensional profiles; using dimensionless fallback.", RuntimeWarning)
+        transmission = self._dimensionless_transmission(freq_array, kappa, alpha)
+        planck = self._planck_spectrum(freq_array, hawking_temperature)
+        spectrum = planck * transmission * area * solid_angle * coupling
+        return np.nan_to_num(spectrum, nan=0.0, posinf=0.0, neginf=0.0)

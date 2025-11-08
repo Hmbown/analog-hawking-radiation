@@ -129,7 +129,7 @@ class ExperimentDashboard:
                 "running": self._is_running,
                 "current_phase": self._current_phase,
                 "phase_progress": self._phase_progress,
-                "metrics": self._metrics,
+                "metrics": self._sanitize_metrics(self._metrics),
                 "update_count": self._update_count,
                 "timestamp": time.time(),
             }
@@ -138,6 +138,33 @@ class ExperimentDashboard:
         except Exception as e:
             # Non-fatal; keep dashboard tolerant if filesystem is unavailable
             self._logger.debug(f"Failed persisting dashboard status: {e}")
+
+    def _sanitize_metrics(self, metrics: Dict[str, Any]) -> Dict[str, Any]:
+        """Sanitize metrics to ensure JSON serializable objects only"""
+        def _make_serializable(obj):
+            """Recursively convert objects to JSON-serializable types"""
+            if obj is None or isinstance(obj, (str, int, float, bool)):
+                return obj
+            elif isinstance(obj, dict):
+                return {k: _make_serializable(v) for k, v in obj.items()}
+            elif isinstance(obj, (list, tuple)):
+                return [_make_serializable(item) for item in obj]
+            elif hasattr(obj, '__call__'):
+                # Handle callable objects (methods, functions)
+                return f"<callable: {getattr(obj, '__name__', 'unknown')}>"
+            elif hasattr(obj, '__dict__'):
+                # Handle custom objects by converting to string representation
+                return f"<object: {obj.__class__.__name__}>"
+            else:
+                # Handle any other types by string conversion
+                return str(obj)
+
+        try:
+            return _make_serializable(metrics)
+        except Exception as e:
+            self._logger.warning(f"Error sanitizing metrics: {e}")
+            # Return safe fallback metrics
+            return {"sanitization_error": str(e), "original_keys": list(metrics.keys()) if isinstance(metrics, dict) else []}
 
 
 @dataclass

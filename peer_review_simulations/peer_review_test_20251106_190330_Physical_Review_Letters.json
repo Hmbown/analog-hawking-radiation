@@ -1,0 +1,378 @@
+{
+  "manuscript_id": "test_20251106_190330",
+  "journal": "Physical Review Letters",
+  "review_date": "2025-11-07T01:03:30.714792+00:00",
+  "selected_reviewers": [
+    {
+      "reviewer_id": "T001",
+      "name": "Dr. Elena Rodriguez",
+      "institution": "Institute for Advanced Study",
+      "expertise_areas": [
+        "quantum_field_theory",
+        "curved_spacetime",
+        "hawking_radiation"
+      ]
+    },
+    {
+      "reviewer_id": "C001",
+      "name": "Dr. Sarah Johnson",
+      "institution": "University of Cambridge",
+      "expertise_areas": [
+        "computational_physics",
+        "numerical_methods",
+        "uncertainty_quantification"
+      ]
+    },
+    {
+      "reviewer_id": "E002",
+      "name": "Prof. Thomas Weber",
+      "institution": "Max Planck Institute",
+      "expertise_areas": [
+        "plasma_diagnostics",
+        "radio_detection",
+        "instrumentation"
+      ]
+    }
+  ],
+  "individual_reviews": [
+    {
+      "reviewer_id": "T001",
+      "manuscript_id": "test_20251106_190330",
+      "journal": "Physical Review Letters",
+      "overall_recommendation": "Major Revisions",
+      "confidence_level": "Medium",
+      "review_criteria": {
+        "scientific_rigor": 0.7973481784479983,
+        "novelty_significance": 0.7473481784479984,
+        "methodological_quality": 0.6473481784479983,
+        "clarity_presentation": 0.6973481784479983,
+        "reproducibility": 0.5973481784479984,
+        "literature_context": 0.6973481784479983,
+        "appropriateness_for_journal": 0.6973481784479983
+      },
+      "summary_comments": "This manuscript has serious flaws that must be addressed before it can be considered for publication. The theoretical framework, methodology, and presentation all require substantial revision.",
+      "major_comments": [],
+      "minor_comments": [
+        {
+          "category": "Minor",
+          "severity": "Important",
+          "text": "Data processing steps are not fully described.",
+          "location_reference": "Methods",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        }
+      ],
+      "technical_comments": [
+        {
+          "category": "Technical",
+          "severity": "Minor",
+          "text": "The derivation of equation X could be more clearly explained.",
+          "location_reference": "Discussion",
+          "actionable": true,
+          "estimated_effort": "Low"
+        },
+        {
+          "category": "Technical",
+          "severity": "Minor",
+          "text": "The physical interpretation of parameter Y needs clarification.",
+          "location_reference": "Introduction",
+          "actionable": true,
+          "estimated_effort": "Low"
+        }
+      ],
+      "suggestions": [
+        {
+          "category": "Major",
+          "severity": "Important",
+          "text": "Clarify the physical meaning of key approximations used.",
+          "location_reference": "Section 2",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Minor",
+          "severity": "Important",
+          "text": "Better highlight the novel aspects of this work in the introduction.",
+          "location_reference": "Introduction",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Major",
+          "severity": "Important",
+          "text": "Discuss potential limitations of the chosen methodology.",
+          "location_reference": "Section 3",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Minor",
+          "severity": "Important",
+          "text": "Consider adding a conceptual diagram for clarity.",
+          "location_reference": "Throughout manuscript",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Minor",
+          "severity": "Important",
+          "text": "Add step-by-step reproduction instructions.",
+          "location_reference": "Supplementary Material",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        }
+      ],
+      "strengths": [
+        "The analysis demonstrates deep understanding of the underlying physics.",
+        "This work opens up new avenues for experimental investigation."
+      ],
+      "weaknesses": [
+        "Data processing steps are not fully described."
+      ],
+      "review_date": "2025-11-07 01:03:30.714120+00:00",
+      "estimated_revision_time": 63
+    },
+    {
+      "reviewer_id": "C001",
+      "manuscript_id": "test_20251106_190330",
+      "journal": "Physical Review Letters",
+      "overall_recommendation": "Major Revisions",
+      "confidence_level": "High",
+      "review_criteria": {
+        "scientific_rigor": 0.7067736638007047,
+        "novelty_significance": 0.7567736638007048,
+        "methodological_quality": 0.7067736638007047,
+        "clarity_presentation": 0.7067736638007047,
+        "reproducibility": 0.7067736638007047,
+        "literature_context": 0.6567736638007047,
+        "appropriateness_for_journal": 0.7067736638007047
+      },
+      "summary_comments": "This manuscript has potential but requires substantial revision before it can be considered for publication. The core ideas are interesting, but the execution and presentation need significant improvement.",
+      "major_comments": [],
+      "minor_comments": [],
+      "technical_comments": [
+        {
+          "category": "Technical",
+          "severity": "Minor",
+          "text": "Consider providing benchmark calculations against known solutions.",
+          "location_reference": "Methods",
+          "actionable": true,
+          "estimated_effort": "Low"
+        }
+      ],
+      "suggestions": [
+        {
+          "category": "Major",
+          "severity": "Minor",
+          "text": "Provide more detailed mathematical derivations in the supplementary material.",
+          "location_reference": "Section 2",
+          "actionable": true,
+          "estimated_effort": "Low"
+        },
+        {
+          "category": "Minor",
+          "severity": "Minor",
+          "text": "Expand discussion of the broader implications of the findings.",
+          "location_reference": "Discussion",
+          "actionable": true,
+          "estimated_effort": "Low"
+        },
+        {
+          "category": "Major",
+          "severity": "Minor",
+          "text": "Provide more detailed description of computational methods.",
+          "location_reference": "Methods",
+          "actionable": true,
+          "estimated_effort": "Low"
+        },
+        {
+          "category": "Minor",
+          "severity": "Minor",
+          "text": "Use more subheadings to improve readability.",
+          "location_reference": "Tables",
+          "actionable": true,
+          "estimated_effort": "Low"
+        },
+        {
+          "category": "Minor",
+          "severity": "Minor",
+          "text": "Make raw data available alongside processed results.",
+          "location_reference": "Supplementary Material",
+          "actionable": true,
+          "estimated_effort": "Low"
+        }
+      ],
+      "strengths": [
+        "The physical assumptions are clearly stated and validated.",
+        "The contribution represents a significant step forward in the field.",
+        "The methodology is comprehensive and addresses key challenges.",
+        "The manuscript is well-written and easy to follow.",
+        "Uncertainty quantification is comprehensive."
+      ],
+      "weaknesses": [],
+      "review_date": "2025-11-07 01:03:30.714331+00:00",
+      "estimated_revision_time": 58
+    },
+    {
+      "reviewer_id": "E002",
+      "manuscript_id": "test_20251106_190330",
+      "journal": "Physical Review Letters",
+      "overall_recommendation": "Major Revisions",
+      "confidence_level": "Medium",
+      "review_criteria": {
+        "scientific_rigor": 0.7132758644171515,
+        "novelty_significance": 0.7632758644171516,
+        "methodological_quality": 0.7632758644171515,
+        "clarity_presentation": 0.7132758644171515,
+        "reproducibility": 0.6632758644171516,
+        "literature_context": 0.6632758644171515,
+        "appropriateness_for_journal": 0.7132758644171515
+      },
+      "summary_comments": "This manuscript has serious flaws that must be addressed before it can be considered for publication. The theoretical framework, methodology, and presentation all require substantial revision.",
+      "major_comments": [],
+      "minor_comments": [],
+      "technical_comments": [
+        {
+          "category": "Technical",
+          "severity": "Minor",
+          "text": "The experimental parameters should be justified in more detail.",
+          "location_reference": "Discussion",
+          "actionable": true,
+          "estimated_effort": "Low"
+        },
+        {
+          "category": "Technical",
+          "severity": "Minor",
+          "text": "The diagnostic setup could benefit from more detailed description.",
+          "location_reference": "Introduction",
+          "actionable": true,
+          "estimated_effort": "Low"
+        },
+        {
+          "category": "Technical",
+          "severity": "Minor",
+          "text": "Consider discussing potential systematic uncertainties in the measurements.",
+          "location_reference": "Discussion",
+          "actionable": true,
+          "estimated_effort": "Low"
+        }
+      ],
+      "suggestions": [
+        {
+          "category": "Major",
+          "severity": "Important",
+          "text": "Include discussion of alternative theoretical approaches.",
+          "location_reference": "Section 2",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Minor",
+          "severity": "Important",
+          "text": "Emphasize how this work enables new types of studies.",
+          "location_reference": "Conclusions",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Major",
+          "severity": "Important",
+          "text": "Discuss potential limitations of the chosen methodology.",
+          "location_reference": "Methods",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Minor",
+          "severity": "Important",
+          "text": "Use more subheadings to improve readability.",
+          "location_reference": "Throughout manuscript",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        },
+        {
+          "category": "Minor",
+          "severity": "Important",
+          "text": "Add step-by-step reproduction instructions.",
+          "location_reference": "Supplementary Material",
+          "actionable": true,
+          "estimated_effort": "Medium"
+        }
+      ],
+      "strengths": [
+        "The physical assumptions are clearly stated and validated.",
+        "This work addresses a significant gap in the current literature.",
+        "The methodology is comprehensive and addresses key challenges.",
+        "The figures are clear and effectively communicate key results."
+      ],
+      "weaknesses": [],
+      "review_date": "2025-11-07 01:03:30.714374+00:00",
+      "estimated_revision_time": 62
+    }
+  ],
+  "editorial_decision": {
+    "decision": "Major Revisions",
+    "reasoning": "Significant revisions required before reconsideration",
+    "recommendation_counts": {
+      "Major Revisions": 3,
+      "Accept": 0,
+      "Minor Revisions": 0
+    },
+    "confidence": "High"
+  },
+  "review_statistics": {
+    "num_reviewers": 3,
+    "criteria_scores": {
+      "scientific_rigor": {
+        "mean": 0.7391325688886182,
+        "std": 0.041250151922886086,
+        "min": 0.7067736638007047,
+        "max": 0.7973481784479983
+      },
+      "novelty_significance": {
+        "mean": 0.7557992355552848,
+        "std": 0.006538854532056499,
+        "min": 0.7473481784479984,
+        "max": 0.7632758644171516
+      },
+      "methodological_quality": {
+        "mean": 0.7057992355552848,
+        "std": 0.04733229500981862,
+        "min": 0.6473481784479983,
+        "max": 0.7632758644171515
+      },
+      "clarity_presentation": {
+        "mean": 0.7057992355552849,
+        "std": 0.006538854532056499,
+        "min": 0.6973481784479983,
+        "max": 0.7132758644171515
+      },
+      "reproducibility": {
+        "mean": 0.655799235555285,
+        "std": 0.04498450989338746,
+        "min": 0.5973481784479984,
+        "max": 0.7067736638007047
+      },
+      "literature_context": {
+        "mean": 0.6724659022219516,
+        "std": 0.017793545755996325,
+        "min": 0.6567736638007047,
+        "max": 0.6973481784479983
+      },
+      "appropriateness_for_journal": {
+        "mean": 0.7057992355552849,
+        "std": 0.006538854532056499,
+        "min": 0.6973481784479983,
+        "max": 0.7132758644171515
+      }
+    },
+    "total_comments": 22,
+    "average_revision_time_days": 61.0,
+    "recommendation_distribution": {
+      "Accept": 0,
+      "Minor Revisions": 0,
+      "Major Revisions": 3,
+      "Reject": 0
+    }
+  }
+}

@@ -81,3 +81,17 @@ jobs:
         run: |
           mkdocs --version
           mkdocs build --strict
+
+      - name: Enhanced validation (25 configs)
+        if: matrix.python-version == '3.11'
+        env:
+          ANALOG_HAWKING_NO_PLOTS: 1
+        run: |
+          python enhanced_validation_framework.py --n-configs 25 --seed 42
+
+      - name: Upload enhanced validation artifacts
+        if: matrix.python-version == '3.11'
+        uses: actions/upload-artifact@v4
+        with:
+          name: enhanced-validation
+          path: results/enhanced_validation/*

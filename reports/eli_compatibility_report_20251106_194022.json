@@ -1,0 +1,1216 @@
+{
+  "metadata": {
+    "generation_date": "2025-11-06T19:40:22.259147",
+    "analog_hawking_version": "0.3.0",
+    "report_type": "comprehensive_eli_compatibility",
+    "base_parameters": {
+      "intensity_W_m2": 1e+22,
+      "wavelength_nm": 800,
+      "pulse_duration_fs": 150,
+      "plasma_density_m3": 1e+25
+    }
+  },
+  "facility_assessments": {
+    "ELI-Beamlines": {
+      "facility_name": "ELI-Beamlines",
+      "validation_result": {
+        "input_parameters": {
+          "intensity_W_m2": 1e+22,
+          "wavelength_nm": 800,
+          "pulse_duration_fs": 150,
+          "plasma_density_m3": 1e+25,
+          "target_type": "solid",
+          "facility_preference": "eli-beamlines"
+        },
+        "facility_validation": {
+          "feasible": true,
+          "score": 0.8201220158820457,
+          "best_system": "L4 ATON",
+          "facility": "ELI-Beamlines",
+          "intensity_margin": 1000000.0,
+          "wavelength_match": 0.9,
+          "duration_match": 1.0,
+          "operational_status": "commissioning",
+          "repetition_rate_Hz": 0.017,
+          "experimental_hall": "E4",
+          "all_compatible_systems": [
+            "L4 ATON"
+          ],
+          "recommendations": [
+            "System is in commissioning - operational schedule may be limited"
+          ]
+        },
+        "physics_validation": {
+          "threshold_checks": {
+            "a0": 0.68,
+            "critical_power_GW": 3031.0098545725573,
+            "laser_power_GW": 70.68583470577036,
+            "density_ratio": 0.005740660979293913,
+            "critical_density_m3": 1.7419596865359529e+27
+          },
+          "critical_issues": [],
+          "warnings": [
+            "Density ratio 0.01 may affect plasma mirror formation"
+          ],
+          "passed_all_checks": true
+        },
+        "hawking_analysis": {
+          "surface_gravity_estimate_Hz": 100000000000.0,
+          "hawking_temperature_K": 0.12156624712070312,
+          "detection_feasible": true,
+          "estimated_detection_time_s": 0.004229158849603061,
+          "signal_to_noise_ratio": 76.88524550006161,
+          "limitations": [],
+          "optimization_suggestions": []
+        },
+        "plasma_mirror_analysis": {
+          "mirror_formation_feasible": true,
+          "formation_time_fs": 0.1,
+          "reflectivity_estimate": 0.7,
+          "expansion_velocity_ms": 10000000.0,
+          "optimal_timing_fs": 15.1,
+          "recommendations": [
+            "Use polished optical quality surface",
+            "Consider pre-pulse cleaning with plasma mirror"
+          ]
+        },
+        "overall_assessment": {
+          "overall_feasibility": "HIGH",
+          "confidence_level": 0.7400406719606819,
+          "key_strengths": [
+            "Compatible with ELI facilities",
+            "Within physics breakdown thresholds"
+          ],
+          "key_challenges": [],
+          "facility_recommendation": "ELI-Beamlines",
+          "readiness_level": "TRL 4-6"
+        },
+        "recommendations": [
+          "Facility: System is in commissioning - operational schedule may be limited",
+          "Physics: Density ratio 0.01 may affect plasma mirror formation",
+          "Plasma Mirror: Use polished optical quality surface",
+          "Plasma Mirror: Consider pre-pulse cleaning with plasma mirror",
+          "\u2705 Proceed with detailed experimental proposal development",
+          "\u2705 Contact facility for beam time application"
+        ]
+      },
+      "physics_validation": {
+        "facility": "ELI-Beamlines",
+        "input_parameters": {
+          "intensity_W_m2": 1e+22,
+          "wavelength_nm": 800,
+          "pulse_duration_fs": 150,
+          "plasma_density_m3": 1e+25,
+          "gradient_scale_m": 1e-06,
+          "flow_velocity_ms": 2000000.0
+        },
+        "threshold_validations": [
+          "PhysicsThresholdResult(parameter_name='Intensity', value=1e+22, threshold_value=1e+24, unit='W/m\u00b2', passed=True, margin=100.0, severity='info', message='Intensity 1.00e+22 W/m\u00b2 within universal limit', recommendation='Intensity is acceptable')",
+          "PhysicsThresholdResult(parameter_name='Flow Velocity', value=2000000.0, threshold_value=149896229.0, unit='m/s', passed=True, margin=74.9481145, severity='info', message='Flow velocity 2.00e+06 m/s (0.01c) within limit', recommendation='Velocity is acceptable')",
+          "PhysicsThresholdResult(parameter_name='Density Gradient', value=299792458000000.0, threshold_value=4000000000000.0, unit='s\u207b\u00b9', passed=False, margin=0.013342563807926082, severity='critical', message='Density gradient 3.00e+14 s\u207b\u00b9 exceeds limit', recommendation='Increase gradient scale to \u22657.49e-05 m')",
+          "PhysicsThresholdResult(parameter_name='Facility Intensity (ELI-Beamlines)', value=1e+22, threshold_value=1e+24, unit='W/m\u00b2', passed=True, margin=100.0, severity='warning', message='Intensity within ELI-Beamlines capability', recommendation='Compatible with ELI-Beamlines')",
+          "PhysicsThresholdResult(parameter_name='Ionization Threshold', value=1e+18, threshold_value=10000000000000.0, unit='W/cm\u00b2', passed=True, margin=100000.0, severity='info', message='Intensity sufficient for ionization', recommendation='Ionization achievable')",
+          "PhysicsThresholdResult(parameter_name='Plasma Mirror Formation', value=1e+18, threshold_value=100000000000000.0, unit='W/cm\u00b2', passed=True, margin=10000.0, severity='info', message='Intensity sufficient for plasma mirror formation', recommendation='Plasma mirror formation possible')",
+          "PhysicsThresholdResult(parameter_name='Relativistic Parameter (a\u2080)', value=np.float64(0.68), threshold_value=1.0, unit='dimensionless', passed=np.False_, margin=np.float64(0.68), severity='info', message='Relativistic parameter a\u2080 = 0.68 (non-relativistic regime)', recommendation='Non-relativistic regime valid')",
+          "PhysicsThresholdResult(parameter_name='Surface Gravity (\u03ba)', value=np.float64(1600441218820.1494), threshold_value=(1000000000.0, 100000000000000.0), unit='Hz', passed=True, margin=np.float64(62.482769641312), severity='info', message='\u03ba = 1.60e+12 Hz (within valid range [1.0e+09, 1.0e+14] Hz)', recommendation='\u03ba is in valid range')",
+          "PhysicsThresholdResult(parameter_name='Hawking Temperature', value=np.float64(1.9455963270924959), threshold_value=1e-10, unit='K', passed=np.True_, margin=np.float64(19455963270.924957), severity='info', message='T_H = 1.95e+00 K (detectable)', recommendation='Temperature potentially detectable')",
+          "PhysicsThresholdResult(parameter_name='Density Gradient Scale', value=1e-06, threshold_value=(1e-07, 1e-05), unit='m', passed=True, margin=10.0, severity='info', message='Gradient scale 1.00e-06 m (within optimal range)', recommendation='Gradient scale is optimal')",
+          "PhysicsThresholdResult(parameter_name='Relativistic Regime', value=np.float64(0.68), threshold_value=1.0, unit='dimensionless', passed=np.True_, margin=np.float64(1.4705882352941175), severity='info', message='a\u2080 = 0.68 (weakly relativistic regime)', recommendation='Classical treatment valid')",
+          "PhysicsThresholdResult(parameter_name='Flow Velocity Regime', value=0.006671281903963041, threshold_value=0.5, unit='fraction of c', passed=True, margin=74.9481145, severity='info', message='v/c = 0.007 (non-relativistic flow)', recommendation='Non-relativistic flow valid')",
+          "PhysicsThresholdResult(parameter_name='Plasma Density Regime', value=0.0033684210526315796, threshold_value=1.0, unit='fraction of critical', passed=True, margin=296.87499999999994, severity='info', message='n/n_c = 0.003 (underdense plasma)', recommendation='Laser propagation in plasma valid')"
+        ],
+        "derived_parameters": {
+          "relativistic_parameter_a0": 0.68,
+          "critical_density_m3": 1.7419596865359529e+27,
+          "plasma_frequency_Hz": 28393025069198.258,
+          "sound_speed_ms": 399558.78117985063,
+          "surface_gravity_Hz": 1600441218820.1494,
+          "hawking_temperature_K": 1.9455963270924959,
+          "laser_power_W": 70685834705.77036,
+          "critical_power_W": 3031009854572.558,
+          "density_ratio": 0.005740660979293913,
+          "mach_number": 5.005521325533711
+        },
+        "critical_issues": [
+          "Density gradient 3.00e+14 s\u207b\u00b9 exceeds limit"
+        ],
+        "warnings": [],
+        "recommendations": [
+          "CRITICAL: Increase gradient scale to \u22657.49e-05 m",
+          "Consider L4 ATON system for maximum intensity",
+          "Allow 1 minute between shots for thermal recovery",
+          "Use E4 experimental hall for optimal conditions",
+          "\u2705 Configuration is highly feasible"
+        ],
+        "overall_passed": false,
+        "confidence_score": 0.8461538461538461
+      },
+      "facility_metrics": {
+        "facility_advantages": [
+          "Highest available intensity (10 PW)",
+          "Good focal spot quality",
+          "Established plasma physics program"
+        ],
+        "facility_limitations": [
+          "Low repetition rate (1 shot/minute)",
+          "Long experimental campaigns",
+          "Limited shot statistics"
+        ],
+        "performance_indicators": {
+          "intensity_utilization": 1e-06,
+          "detection_feasibility_score": true,
+          "physics_compliance_rate": 0.8461538461538461,
+          "shot_efficiency": 2.0,
+          "data_quality_potential": 0.6666666666666666
+        },
+        "experimental_efficiency": {
+          "setup_time_days": 7,
+          "shots_per_day": 86400,
+          "total_campaign_days": 10,
+          "data_collection_efficiency": 0.6
+        }
+      },
+      "facility_config": {
+        "facility": {
+          "name": "ELI-Beamlines",
+          "location": "Doln\u00ed B\u0159e\u017eany, Czech Republic",
+          "experimental_hall": "E4",
+          "status": "commissioning"
+        },
+        "laser_system": {
+          "name": "L4 ATON",
+          "peak_power_TW": 10000,
+          "pulse_energy_J": 1500,
+          "pulse_duration_fs": 150,
+          "wavelength_nm": 810,
+          "repetition_rate_Hz": 0.017,
+          "max_intensity_W_cm2": "1e24",
+          "beam_quality_M2": 1.2,
+          "contrast_ratio": "1e-10",
+          "polarization": "linear"
+        },
+        "experimental_parameters": {
+          "target_intensity_W_m2": "8e23",
+          "focal_spot_um": 3.0,
+          "pulse_duration_fs": 150,
+          "wavelength_nm": 810,
+          "temporal_contrast": "1e-10",
+          "target_type": "solid",
+          "pre_plasma_scale_fs": 50,
+          "peak_density_m3": "5e25",
+          "density_gradient_scale_um": 0.5,
+          "mirror_formation_timing_fs": 30,
+          "main_pulse_delay_fs": 180,
+          "expected_reflectivity": 0.75,
+          "expansion_velocity_ms": "2e6"
+        },
+        "constraints": {
+          "max_velocity_c": 0.5,
+          "max_intensity_W_m2": "1e24",
+          "max_gradient_s": "4e12",
+          "vacuum_level_mbar": "1e-7",
+          "radiation_shielding": "Class-A"
+        },
+        "diagnostics": {
+          "primary": [
+            "X-ray spectrometry (1-100 keV)",
+            "Electron spectrometry (MeV range)",
+            "Optical probing (fs resolution)",
+            "Thomson scattering"
+          ],
+          "optional": [
+            "Interferometry",
+            "Shadowgraphy",
+            "Plasma interferometry"
+          ],
+          "hawking_specific": [
+            "Radio detection system (30K system temp)",
+            "High-bandwidth oscilloscopes (>10 GHz)",
+            "Low-noise RF amplifiers",
+            "Spectrum analyzers"
+          ]
+        },
+        "timeline": {
+          "setup_days": 7,
+          "alignment_hours": 24,
+          "target_positioning_hours": 8,
+          "plasma_mirror_optimization_hours": 12,
+          "data_collection_shots": 20,
+          "total_campaign_days": 10
+        },
+        "performance_targets": {
+          "surface_gravity_Hz": "5e12",
+          "hawking_temperature_K": "1e-7",
+          "detection_confidence": 5,
+          "signal_to_noise_ratio": 5.0
+        },
+        "risk_factors": {
+          "high": [
+            "Plasma mirror timing precision",
+            "Shot-to-shot laser stability",
+            "Target surface quality"
+          ],
+          "medium": [
+            "Diagnostic integration",
+            "Data acquisition synchronization"
+          ],
+          "low": [
+            "Facility infrastructure",
+            "Safety systems"
+          ]
+        },
+        "optimization": {
+          "primary_parameters": [
+            "Intensity (via focal spot adjustment)",
+            "Plasma mirror timing",
+            "Target density profile"
+          ],
+          "secondary_parameters": [
+            "Pulse duration compression",
+            "Beam pointing optimization",
+            "Contrast enhancement"
+          ]
+        },
+        "success_metrics": {
+          "minimum_requirements": [
+            "Successful plasma mirror formation (reflectivity > 50%)",
+            "Sonic horizon detection",
+            "Data acquisition on > 80% of shots"
+          ],
+          "target_achievements": [
+            "\u03ba measurement with < 20% uncertainty",
+            "Hawking-like spectrum detection",
+            "Reproducible results across shots"
+          ],
+          "stretch_goals": [
+            "Multiple horizon configurations",
+            "Parameter optimization completion",
+            "Comparison with theoretical predictions"
+          ]
+        }
+      },
+      "recommendations": [
+        "Facility: System is in commissioning - operational schedule may be limited",
+        "Physics: Density ratio 0.01 may affect plasma mirror formation",
+        "Plasma Mirror: Use polished optical quality surface",
+        "Plasma Mirror: Consider pre-pulse cleaning with plasma mirror",
+        "\u2705 Proceed with detailed experimental proposal development",
+        "\u2705 Contact facility for beam time application",
+        "CRITICAL: Address physics threshold violations for ELI-Beamlines",
+        "Focus on high-intensity single-shot experiments",
+        "Implement advanced plasma mirror timing control",
+        "Plan for long data collection periods",
+        "\u2705 Proceed with detailed experimental proposal"
+      ],
+      "summary": {
+        "overall_feasibility": "HIGH",
+        "confidence_level": 0.7400406719606819,
+        "key_strengths": [
+          "Compatible with ELI facilities",
+          "Within physics breakdown thresholds"
+        ],
+        "key_challenges": []
+      }
+    },
+    "ELI-NP": {
+      "facility_name": "ELI-NP",
+      "validation_result": {
+        "input_parameters": {
+          "intensity_W_m2": 1e+22,
+          "wavelength_nm": 800,
+          "pulse_duration_fs": 150,
+          "plasma_density_m3": 1e+25,
+          "target_type": "solid_heavy",
+          "facility_preference": "eli-np"
+        },
+        "facility_validation": {
+          "feasible": true,
+          "score": 0.8800216822170068,
+          "best_system": "HPLS 10PW - Arm A",
+          "facility": "ELI-NP",
+          "intensity_margin": 1000000.0,
+          "wavelength_match": 0.9,
+          "duration_match": 1.0,
+          "operational_status": "operational",
+          "repetition_rate_Hz": 0.003,
+          "experimental_hall": "E1",
+          "all_compatible_systems": [
+            "HPLS 10PW - Arm A",
+            "HPLS 10PW - Arm B"
+          ],
+          "recommendations": [
+            "Parameters are well within system capabilities"
+          ]
+        },
+        "physics_validation": {
+          "threshold_checks": {
+            "a0": 0.68,
+            "critical_power_GW": 3031.0098545725573,
+            "laser_power_GW": 70.68583470577036,
+            "density_ratio": 0.005740660979293913,
+            "critical_density_m3": 1.7419596865359529e+27
+          },
+          "critical_issues": [],
+          "warnings": [
+            "Density ratio 0.01 may affect plasma mirror formation"
+          ],
+          "passed_all_checks": true
+        },
+        "hawking_analysis": {
+          "surface_gravity_estimate_Hz": 100000000000.0,
+          "hawking_temperature_K": 0.12156624712070312,
+          "detection_feasible": true,
+          "estimated_detection_time_s": 0.004229158849603061,
+          "signal_to_noise_ratio": 76.88524550006161,
+          "limitations": [],
+          "optimization_suggestions": []
+        },
+        "plasma_mirror_analysis": {
+          "mirror_formation_feasible": true,
+          "formation_time_fs": 0.1,
+          "reflectivity_estimate": 0.7,
+          "expansion_velocity_ms": 10000000.0,
+          "optimal_timing_fs": 15.1,
+          "recommendations": []
+        },
+        "overall_assessment": {
+          "overall_feasibility": "HIGH",
+          "confidence_level": 0.760007227405669,
+          "key_strengths": [
+            "Compatible with ELI facilities",
+            "Within physics breakdown thresholds"
+          ],
+          "key_challenges": [],
+          "facility_recommendation": "ELI-NP",
+          "readiness_level": "TRL 4-6"
+        },
+        "recommendations": [
+          "Facility: Parameters are well within system capabilities",
+          "Physics: Density ratio 0.01 may affect plasma mirror formation",
+          "\u2705 Proceed with detailed experimental proposal development",
+          "\u2705 Contact facility for beam time application"
+        ]
+      },
+      "physics_validation": {
+        "facility": "ELI-NP",
+        "input_parameters": {
+          "intensity_W_m2": 1e+22,
+          "wavelength_nm": 800,
+          "pulse_duration_fs": 150,
+          "plasma_density_m3": 1e+25,
+          "gradient_scale_m": 1e-06,
+          "flow_velocity_ms": 2000000.0
+        },
+        "threshold_validations": [
+          "PhysicsThresholdResult(parameter_name='Intensity', value=1e+22, threshold_value=1e+24, unit='W/m\u00b2', passed=True, margin=100.0, severity='info', message='Intensity 1.00e+22 W/m\u00b2 within universal limit', recommendation='Intensity is acceptable')",
+          "PhysicsThresholdResult(parameter_name='Flow Velocity', value=2000000.0, threshold_value=149896229.0, unit='m/s', passed=True, margin=74.9481145, severity='info', message='Flow velocity 2.00e+06 m/s (0.01c) within limit', recommendation='Velocity is acceptable')",
+          "PhysicsThresholdResult(parameter_name='Density Gradient', value=299792458000000.0, threshold_value=4000000000000.0, unit='s\u207b\u00b9', passed=False, margin=0.013342563807926082, severity='critical', message='Density gradient 3.00e+14 s\u207b\u00b9 exceeds limit', recommendation='Increase gradient scale to \u22657.49e-05 m')",
+          "PhysicsThresholdResult(parameter_name='Facility Intensity (ELI-NP)', value=1e+22, threshold_value=1e+24, unit='W/m\u00b2', passed=True, margin=100.0, severity='warning', message='Intensity within ELI-NP capability', recommendation='Compatible with ELI-NP')",
+          "PhysicsThresholdResult(parameter_name='Ionization Threshold', value=1e+18, threshold_value=10000000000000.0, unit='W/cm\u00b2', passed=True, margin=100000.0, severity='info', message='Intensity sufficient for ionization', recommendation='Ionization achievable')",
+          "PhysicsThresholdResult(parameter_name='Plasma Mirror Formation', value=1e+18, threshold_value=100000000000000.0, unit='W/cm\u00b2', passed=True, margin=10000.0, severity='info', message='Intensity sufficient for plasma mirror formation', recommendation='Plasma mirror formation possible')",
+          "PhysicsThresholdResult(parameter_name='Relativistic Parameter (a\u2080)', value=np.float64(0.68), threshold_value=1.0, unit='dimensionless', passed=np.False_, margin=np.float64(0.68), severity='info', message='Relativistic parameter a\u2080 = 0.68 (non-relativistic regime)', recommendation='Non-relativistic regime valid')",
+          "PhysicsThresholdResult(parameter_name='Surface Gravity (\u03ba)', value=np.float64(1600441218820.1494), threshold_value=(1000000000.0, 100000000000000.0), unit='Hz', passed=True, margin=np.float64(62.482769641312), severity='info', message='\u03ba = 1.60e+12 Hz (within valid range [1.0e+09, 1.0e+14] Hz)', recommendation='\u03ba is in valid range')",
+          "PhysicsThresholdResult(parameter_name='Hawking Temperature', value=np.float64(1.9455963270924959), threshold_value=1e-10, unit='K', passed=np.True_, margin=np.float64(19455963270.924957), severity='info', message='T_H = 1.95e+00 K (detectable)', recommendation='Temperature potentially detectable')",
+          "PhysicsThresholdResult(parameter_name='Density Gradient Scale', value=1e-06, threshold_value=(1e-07, 1e-05), unit='m', passed=True, margin=10.0, severity='info', message='Gradient scale 1.00e-06 m (within optimal range)', recommendation='Gradient scale is optimal')",
+          "PhysicsThresholdResult(parameter_name='Relativistic Regime', value=np.float64(0.68), threshold_value=1.0, unit='dimensionless', passed=np.True_, margin=np.float64(1.4705882352941175), severity='info', message='a\u2080 = 0.68 (weakly relativistic regime)', recommendation='Classical treatment valid')",
+          "PhysicsThresholdResult(parameter_name='Flow Velocity Regime', value=0.006671281903963041, threshold_value=0.5, unit='fraction of c', passed=True, margin=74.9481145, severity='info', message='v/c = 0.007 (non-relativistic flow)', recommendation='Non-relativistic flow valid')",
+          "PhysicsThresholdResult(parameter_name='Plasma Density Regime', value=0.0033684210526315796, threshold_value=1.0, unit='fraction of critical', passed=True, margin=296.87499999999994, severity='info', message='n/n_c = 0.003 (underdense plasma)', recommendation='Laser propagation in plasma valid')"
+        ],
+        "derived_parameters": {
+          "relativistic_parameter_a0": 0.68,
+          "critical_density_m3": 1.7419596865359529e+27,
+          "plasma_frequency_Hz": 28393025069198.258,
+          "sound_speed_ms": 399558.78117985063,
+          "surface_gravity_Hz": 1600441218820.1494,
+          "hawking_temperature_K": 1.9455963270924959,
+          "laser_power_W": 70685834705.77036,
+          "critical_power_W": 3031009854572.558,
+          "density_ratio": 0.005740660979293913,
+          "mach_number": 5.005521325533711
+        },
+        "critical_issues": [
+          "Density gradient 3.00e+14 s\u207b\u00b9 exceeds limit"
+        ],
+        "warnings": [],
+        "recommendations": [
+          "CRITICAL: Increase gradient scale to \u22657.49e-05 m",
+          "Leverage dual-beam capability for enhanced diagnostics",
+          "Consider magnetic field effects on plasma dynamics",
+          "Allow 5 minutes between shots for nuclear safety",
+          "\u2705 Configuration is highly feasible"
+        ],
+        "overall_passed": false,
+        "confidence_score": 0.8461538461538461
+      },
+      "facility_metrics": {
+        "facility_advantages": [
+          "Dual-beam capability",
+          "Excellent temporal contrast",
+          "Magnetic field expertise",
+          "Nuclear physics diagnostics"
+        ],
+        "facility_limitations": [
+          "Very low repetition rate (1 shot/5 min)",
+          "Complex safety procedures",
+          "Limited shot availability"
+        ],
+        "performance_indicators": {
+          "intensity_utilization": 1e-06,
+          "detection_feasibility_score": true,
+          "physics_compliance_rate": 0.8461538461538461,
+          "shot_efficiency": 0.8571428571428571,
+          "data_quality_potential": 0.6666666666666666
+        },
+        "experimental_efficiency": {
+          "setup_time_days": 10,
+          "shots_per_day": 86400,
+          "total_campaign_days": 14,
+          "data_collection_efficiency": 0.3
+        }
+      },
+      "facility_config": {
+        "facility": {
+          "name": "ELI-NP",
+          "location": "M\u0103gurele, Romania",
+          "experimental_hall": "E1",
+          "status": "operational"
+        },
+        "laser_system": {
+          "name": "HPLS 10PW - Arm A",
+          "peak_power_TW": 10000,
+          "pulse_energy_J": 1500,
+          "pulse_duration_fs": 150,
+          "wavelength_nm": 810,
+          "repetition_rate_Hz": 0.003,
+          "max_intensity_W_cm2": "1e24",
+          "beam_quality_M2": 1.3,
+          "contrast_ratio": "1e-11",
+          "polarization": "linear/circular"
+        },
+        "dual_beam_configuration": {
+          "enabled": true,
+          "second_beam_power_TW": 1000,
+          "timing_precision_fs": 30,
+          "angle_between_beams_deg": 10,
+          "second_beam_purpose": "plasma_diagnostic"
+        },
+        "experimental_parameters": {
+          "target_intensity_W_m2": "7e23",
+          "focal_spot_um": 3.5,
+          "pulse_duration_fs": 150,
+          "wavelength_nm": 810,
+          "temporal_contrast": "1e-11",
+          "target_type": "solid_heavy",
+          "pre_plasma_scale_fs": 30,
+          "peak_density_m3": "8e25",
+          "density_gradient_scale_um": 0.3,
+          "external_magnetic_field_T": 20,
+          "field_configuration": "solenoidal"
+        },
+        "constraints": {
+          "max_velocity_c": 0.5,
+          "max_intensity_W_m2": "1e24",
+          "max_gradient_s": "4e12",
+          "vacuum_level_mbar": "1e-8",
+          "radiation_shielding": "Class-B"
+        },
+        "diagnostics": {
+          "primary": [
+            "Gamma ray detection (20 MeV)",
+            "Nuclear activation analysis",
+            "High-energy particle spectrometry",
+            "Positron production detection",
+            "Nuclear reaction monitoring"
+          ],
+          "plasma_physics": [
+            "X-ray spectrometry (1-100 keV)",
+            "Electron spectrometry (MeV range)",
+            "Optical probing (fs resolution)"
+          ],
+          "hawking_specific": [
+            "Radio detection system (20K system temp - better cooling)",
+            "High-bandwidth oscilloscopes (>20 GHz)",
+            "Ultra-low-noise RF amplifiers",
+            "Spectrum analyzers with high dynamic range",
+            "Correlation analysis equipment"
+          ]
+        },
+        "timeline": {
+          "setup_days": 10,
+          "alignment_hours": 32,
+          "target_positioning_hours": 12,
+          "plasma_mirror_optimization_hours": 16,
+          "dual_beam_synchronization_hours": 8,
+          "data_collection_shots": 12,
+          "total_campaign_days": 14
+        },
+        "performance_targets": {
+          "surface_gravity_Hz": "7e12",
+          "hawking_temperature_K": 1.5e-07,
+          "detection_confidence": 5,
+          "signal_to_noise_ratio": 6.0,
+          "nuclear_correlation_strength": 0.8
+        },
+        "risk_factors": {
+          "high": [
+            "Radiation safety protocols",
+            "Dual-beam synchronization",
+            "Heavy target handling",
+            "Nuclear product contamination"
+          ],
+          "medium": [
+            "Extended shot cycle impact on data collection",
+            "Complex diagnostic integration",
+            "Magnetic field interference"
+          ],
+          "low": [
+            "Facility infrastructure",
+            "Basic laser operations"
+          ]
+        },
+        "optimization": {
+          "primary_parameters": [
+            "Density gradient optimization (using heavy elements)",
+            "Magnetic field configuration",
+            "Dual-beam timing and geometry"
+          ],
+          "secondary_parameters": [
+            "Target composition (Z-optimization)",
+            "Pulse contrast enhancement",
+            "Diagnostic shielding from nuclear products"
+          ],
+          "unique_opportunities": [
+            "Correlation with nuclear reaction products",
+            "Magnetic field effects on horizon dynamics",
+            "Heavy ion effects on plasma formation"
+          ]
+        },
+        "success_metrics": {
+          "minimum_requirements": [
+            "Successful plasma mirror formation (reflectivity > 60%)",
+            "Sonic horizon detection with magnetic field effects",
+            "Data acquisition on > 90% of shots (lower shot count, higher quality)",
+            "Nuclear safety compliance"
+          ],
+          "target_achievements": [
+            "\u03ba measurement with < 15% uncertainty (better precision)",
+            "Hawking-like spectrum detection with nuclear correlations",
+            "Magnetic field effect characterization",
+            "Dual-beam configuration validation"
+          ],
+          "stretch_goals": [
+            "Multi-horizon configuration using dual beams",
+            "Nuclear product correlation with Hawking signal",
+            "Magnetic field optimization demonstration",
+            "Comparison with theoretical predictions including nuclear effects"
+          ]
+        },
+        "facility_advantages": [
+          "Dual-beam capability for enhanced diagnostics",
+          "Superior temporal contrast (1e-11)",
+          "Enhanced magnetic field capabilities",
+          "Nuclear physics diagnostic expertise",
+          "Better cooling and low-noise environment",
+          "Heavy element target handling expertise"
+        ]
+      },
+      "recommendations": [
+        "Facility: Parameters are well within system capabilities",
+        "Physics: Density ratio 0.01 may affect plasma mirror formation",
+        "\u2705 Proceed with detailed experimental proposal development",
+        "\u2705 Contact facility for beam time application",
+        "CRITICAL: Address physics threshold violations for ELI-NP",
+        "Leverage dual-beam capability for enhanced diagnostics",
+        "Utilize magnetic field expertise for plasma control",
+        "Plan extended campaign due to low repetition rate",
+        "Implement nuclear safety protocols early",
+        "\u2705 Proceed with detailed experimental proposal"
+      ],
+      "summary": {
+        "overall_feasibility": "HIGH",
+        "confidence_level": 0.760007227405669,
+        "key_strengths": [
+          "Compatible with ELI facilities",
+          "Within physics breakdown thresholds"
+        ],
+        "key_challenges": []
+      }
+    },
+    "ELI-ALPS": {
+      "facility_name": "ELI-ALPS",
+      "validation_result": {
+        "input_parameters": {
+          "intensity_W_m2": 1e+22,
+          "wavelength_nm": 800,
+          "pulse_duration_fs": 150,
+          "plasma_density_m3": 1e+25,
+          "target_type": "translating_solid",
+          "facility_preference": "eli-alps"
+        },
+        "facility_validation": {
+          "feasible": false,
+          "score": 0.0,
+          "primary_issues": [
+            "Intensity 1.0e+18 W/cm\u00b2 exceeds all facility capabilities",
+            "Wavelength 800 nm incompatible with available systems",
+            "Pulse duration 150 fs outside operational range"
+          ],
+          "recommendations": [
+            "Reduce intensity to \u226410^23 W/cm\u00b2 for broader compatibility",
+            "Use 800 nm or 1030 nm wavelength for Ti:Sapphire/Yb:YAG systems",
+            "Adjust pulse duration to 30-200 fs range"
+          ]
+        },
+        "physics_validation": {
+          "threshold_checks": {
+            "a0": 0.68,
+            "critical_power_GW": 3031.0098545725573,
+            "laser_power_GW": 70.68583470577036,
+            "density_ratio": 0.005740660979293913,
+            "critical_density_m3": 1.7419596865359529e+27
+          },
+          "critical_issues": [],
+          "warnings": [
+            "Density ratio 0.01 may affect plasma mirror formation"
+          ],
+          "passed_all_checks": true
+        },
+        "hawking_analysis": {
+          "surface_gravity_estimate_Hz": 100000000000.0,
+          "hawking_temperature_K": 0.12156624712070312,
+          "detection_feasible": true,
+          "estimated_detection_time_s": 0.004229158849603061,
+          "signal_to_noise_ratio": 76.88524550006161,
+          "limitations": [],
+          "optimization_suggestions": []
+        },
+        "plasma_mirror_analysis": {
+          "mirror_formation_feasible": true,
+          "formation_time_fs": 0.1,
+          "reflectivity_estimate": 0.7,
+          "expansion_velocity_ms": 10000000.0,
+          "optimal_timing_fs": 15.1,
+          "recommendations": []
+        },
+        "overall_assessment": {
+          "overall_feasibility": "LOW",
+          "confidence_level": 0.7,
+          "key_strengths": [
+            "Within physics breakdown thresholds"
+          ],
+          "key_challenges": [
+            "Facility compatibility issues"
+          ],
+          "facility_recommendation": null,
+          "readiness_level": "TRL 1-3"
+        },
+        "recommendations": [
+          "Reduce laser intensity to meet facility constraints",
+          "Consider alternative ELI facility with higher capability",
+          "Physics: Density ratio 0.01 may affect plasma mirror formation",
+          "\u274c Significant modifications required for feasibility",
+          "\u274c Reconsider experimental approach or parameter ranges"
+        ]
+      },
+      "physics_validation": {
+        "facility": "ELI-ALPS",
+        "input_parameters": {
+          "intensity_W_m2": 1e+22,
+          "wavelength_nm": 800,
+          "pulse_duration_fs": 150,
+          "plasma_density_m3": 1e+25,
+          "gradient_scale_m": 1e-06,
+          "flow_velocity_ms": 2000000.0
+        },
+        "threshold_validations": [
+          "PhysicsThresholdResult(parameter_name='Intensity', value=1e+22, threshold_value=1e+24, unit='W/m\u00b2', passed=True, margin=100.0, severity='info', message='Intensity 1.00e+22 W/m\u00b2 within universal limit', recommendation='Intensity is acceptable')",
+          "PhysicsThresholdResult(parameter_name='Flow Velocity', value=2000000.0, threshold_value=149896229.0, unit='m/s', passed=True, margin=74.9481145, severity='info', message='Flow velocity 2.00e+06 m/s (0.01c) within limit', recommendation='Velocity is acceptable')",
+          "PhysicsThresholdResult(parameter_name='Density Gradient', value=299792458000000.0, threshold_value=4000000000000.0, unit='s\u207b\u00b9', passed=False, margin=0.013342563807926082, severity='critical', message='Density gradient 3.00e+14 s\u207b\u00b9 exceeds limit', recommendation='Increase gradient scale to \u22657.49e-05 m')",
+          "PhysicsThresholdResult(parameter_name='Facility Intensity (ELI-ALPS)', value=1e+22, threshold_value=1e+22, unit='W/m\u00b2', passed=True, margin=1.0, severity='warning', message='Intensity within ELI-ALPS capability', recommendation='Compatible with ELI-ALPS')",
+          "PhysicsThresholdResult(parameter_name='Ionization Threshold', value=1e+18, threshold_value=10000000000000.0, unit='W/cm\u00b2', passed=True, margin=100000.0, severity='info', message='Intensity sufficient for ionization', recommendation='Ionization achievable')",
+          "PhysicsThresholdResult(parameter_name='Plasma Mirror Formation', value=1e+18, threshold_value=100000000000000.0, unit='W/cm\u00b2', passed=True, margin=10000.0, severity='info', message='Intensity sufficient for plasma mirror formation', recommendation='Plasma mirror formation possible')",
+          "PhysicsThresholdResult(parameter_name='Relativistic Parameter (a\u2080)', value=np.float64(0.68), threshold_value=1.0, unit='dimensionless', passed=np.False_, margin=np.float64(0.68), severity='info', message='Relativistic parameter a\u2080 = 0.68 (non-relativistic regime)', recommendation='Non-relativistic regime valid')",
+          "PhysicsThresholdResult(parameter_name='Surface Gravity (\u03ba)', value=np.float64(1600441218820.1494), threshold_value=(1000000000.0, 100000000000000.0), unit='Hz', passed=True, margin=np.float64(62.482769641312), severity='info', message='\u03ba = 1.60e+12 Hz (within valid range [1.0e+09, 1.0e+14] Hz)', recommendation='\u03ba is in valid range')",
+          "PhysicsThresholdResult(parameter_name='Hawking Temperature', value=np.float64(1.9455963270924959), threshold_value=1e-10, unit='K', passed=np.True_, margin=np.float64(19455963270.924957), severity='info', message='T_H = 1.95e+00 K (detectable)', recommendation='Temperature potentially detectable')",
+          "PhysicsThresholdResult(parameter_name='Density Gradient Scale', value=1e-06, threshold_value=(1e-07, 1e-05), unit='m', passed=True, margin=10.0, severity='info', message='Gradient scale 1.00e-06 m (within optimal range)', recommendation='Gradient scale is optimal')",
+          "PhysicsThresholdResult(parameter_name='Relativistic Regime', value=np.float64(0.68), threshold_value=1.0, unit='dimensionless', passed=np.True_, margin=np.float64(1.4705882352941175), severity='info', message='a\u2080 = 0.68 (weakly relativistic regime)', recommendation='Classical treatment valid')",
+          "PhysicsThresholdResult(parameter_name='Flow Velocity Regime', value=0.006671281903963041, threshold_value=0.5, unit='fraction of c', passed=True, margin=74.9481145, severity='info', message='v/c = 0.007 (non-relativistic flow)', recommendation='Non-relativistic flow valid')",
+          "PhysicsThresholdResult(parameter_name='Plasma Density Regime', value=0.0033684210526315796, threshold_value=1.0, unit='fraction of critical', passed=True, margin=296.87499999999994, severity='info', message='n/n_c = 0.003 (underdense plasma)', recommendation='Laser propagation in plasma valid')"
+        ],
+        "derived_parameters": {
+          "relativistic_parameter_a0": 0.68,
+          "critical_density_m3": 1.7419596865359529e+27,
+          "plasma_frequency_Hz": 28393025069198.258,
+          "sound_speed_ms": 399558.78117985063,
+          "surface_gravity_Hz": 1600441218820.1494,
+          "hawking_temperature_K": 1.9455963270924959,
+          "laser_power_W": 70685834705.77036,
+          "critical_power_W": 3031009854572.558,
+          "density_ratio": 0.005740660979293913,
+          "mach_number": 5.005521325533711
+        },
+        "critical_issues": [
+          "Density gradient 3.00e+14 s\u207b\u00b9 exceeds limit"
+        ],
+        "warnings": [],
+        "recommendations": [
+          "CRITICAL: Increase gradient scale to \u22657.49e-05 m",
+          "Optimize for high repetition rate statistics",
+          "Use fast target translation system",
+          "Focus on parameter space mapping with many shots",
+          "\u2705 Configuration is highly feasible"
+        ],
+        "overall_passed": false,
+        "confidence_score": 0.8461538461538461
+      },
+      "facility_metrics": {
+        "facility_advantages": [
+          "High repetition rate",
+          "Excellent for statistics",
+          "Fast diagnostic capabilities",
+          "Automated experimental control"
+        ],
+        "facility_limitations": [
+          "Lower maximum intensity",
+          "Shorter pulse duration challenges",
+          "Plasma mirror timing precision"
+        ],
+        "performance_indicators": {
+          "intensity_utilization": 0.0001,
+          "detection_feasibility_score": true,
+          "physics_compliance_rate": 0.8461538461538461,
+          "shot_efficiency": 142.85714285714286,
+          "data_quality_potential": 0.7666666666666667
+        },
+        "experimental_efficiency": {
+          "setup_time_days": 5,
+          "shots_per_day": 86400,
+          "total_campaign_days": 7,
+          "data_collection_efficiency": 0.9
+        }
+      },
+      "facility_config": {
+        "facility": {
+          "name": "ELI-ALPS",
+          "location": "Szeged, Hungary",
+          "experimental_hall": "SYLOS",
+          "status": "operational"
+        },
+        "laser_system": {
+          "name": "SYLOS 2PW",
+          "peak_power_TW": 2000,
+          "pulse_energy_J": 34,
+          "pulse_duration_fs": 17,
+          "wavelength_nm": 800,
+          "repetition_rate_Hz": 10,
+          "max_intensity_W_cm2": "1e22",
+          "beam_quality_M2": 1.2,
+          "contrast_ratio": "1e-9",
+          "polarization": "linear"
+        },
+        "high_rep_rate_configuration": {
+          "enabled": true,
+          "target_rep_rate_Hz": 5,
+          "shot_burst_capability": true,
+          "burst_duration_s": 60,
+          "cooling_time_s": 300
+        },
+        "experimental_parameters": {
+          "target_intensity_W_m2": "5e21",
+          "focal_spot_um": 2.5,
+          "pulse_duration_fs": 17,
+          "wavelength_nm": 800,
+          "temporal_contrast": "1e-9",
+          "target_type": "translating_solid",
+          "target_translation_speed_mm_s": 10,
+          "target_size_mm": "50x50x10",
+          "pre_plasma_scale_fs": 20,
+          "peak_density_m3": "2e25",
+          "density_gradient_scale_um": 0.7,
+          "rapid_plasma_formation": true,
+          "mirror_formation_timing_fs": 15,
+          "main_pulse_delay_fs": 50,
+          "expected_reflectivity": 0.65,
+          "expansion_velocity_ms": "1.5e6"
+        },
+        "constraints": {
+          "max_velocity_c": 0.5,
+          "max_intensity_W_m2": "1e22",
+          "max_gradient_s": "4e12",
+          "vacuum_level_mbar": "1e-6",
+          "target_degradation_limit": 1000,
+          "thermal_management": "active"
+        },
+        "diagnostics": {
+          "primary": [
+            "Attosecond streaking",
+            "Frequency-resolved optical gating (FROG)",
+            "Spatially-resolved spectroscopy",
+            "Photoelectron spectroscopy",
+            "Time-of-flight mass spectrometry"
+          ],
+          "high_rep_rate_specific": [
+            "Fast camera systems (>1 kHz)",
+            "Automated data acquisition",
+            "Real-time data processing",
+            "Shot-to-shot analysis"
+          ],
+          "hawking_specific": [
+            "Radio detection system (50K system temp - higher temp due to high rep rate)",
+            "High-bandwidth oscilloscopes (>15 GHz)",
+            "Low-noise RF amplifiers with fast recovery",
+            "Real-time spectrum analysis",
+            "Statistical analysis software"
+          ]
+        },
+        "timeline": {
+          "setup_days": 5,
+          "alignment_hours": 16,
+          "target_positioning_hours": 6,
+          "plasma_mirror_optimization_hours": 8,
+          "high_rep_rate_testing_hours": 12,
+          "data_collection_shots": 1000,
+          "data_collection_time_hours": 3.3,
+          "total_campaign_days": 7
+        },
+        "performance_targets": {
+          "surface_gravity_Hz": "2e12",
+          "hawking_temperature_K": "5e-8",
+          "detection_confidence": 5,
+          "signal_to_noise_ratio": 3.0,
+          "statistical_uncertainty": 0.1,
+          "reproducibility_metric": 0.9
+        },
+        "risk_factors": {
+          "high": [
+            "Target degradation at high rep rate",
+            "Plasma mirror consistency",
+            "Data storage and processing capacity",
+            "Thermal management of optics"
+          ],
+          "medium": [
+            "Shot-to-shot laser stability",
+            "Fast diagnostic synchronization",
+            "Automated system reliability"
+          ],
+          "low": [
+            "Basic facility operations",
+            "Safety systems"
+          ]
+        },
+        "optimization": {
+          "primary_parameters": [
+            "Target translation speed optimization",
+            "Shot-to-shot consistency improvement",
+            "Rapid plasma mirror formation"
+          ],
+          "secondary_parameters": [
+            "Pulse duration tuning",
+            "Focus optimization for stability",
+            "Timing jitter reduction"
+          ],
+          "statistical_advantages": [
+            "Large dataset for improved statistics",
+            "Real-time optimization capability",
+            "Parameter space mapping"
+          ]
+        },
+        "success_metrics": {
+          "minimum_requirements": [
+            "Consistent plasma mirror formation (> 50% shots)",
+            "Sonic horizon detection on > 30% of shots",
+            "Data acquisition on > 95% of shots",
+            "Target system reliability > 90%"
+          ],
+          "target_achievements": [
+            "\u03ba measurement with < 25% uncertainty (statistical)",
+            "Hawking-like spectrum detection through averaging",
+            "Reproducibility measurement across 1000 shots",
+            "Shot-to-shot variation characterization"
+          ],
+          "stretch_goals": [
+            "Real-time parameter optimization",
+            "Automated experiment control",
+            "Machine learning integration for shot selection",
+            "Complete parameter space mapping"
+          ]
+        },
+        "facility_advantages": [
+          "High repetition rate for statistical significance",
+          "Ultra-short pulses for peak power",
+          "Fast diagnostic capabilities",
+          "Attosecond-level timing precision",
+          "Automated experimental control",
+          "Excellent for proof-of-concept and parameter optimization"
+        ],
+        "unique_opportunities": [
+          "Statistical validation of analog Hawking radiation",
+          "Real-time parameter optimization",
+          "Systematic parameter space exploration",
+          "Machine learning integration",
+          "Rapid prototyping of configurations"
+        ]
+      },
+      "recommendations": [
+        "Reduce laser intensity to meet facility constraints",
+        "Consider alternative ELI facility with higher capability",
+        "Physics: Density ratio 0.01 may affect plasma mirror formation",
+        "\u274c Significant modifications required for feasibility",
+        "\u274c Reconsider experimental approach or parameter ranges",
+        "CRITICAL: Address physics threshold violations for ELI-ALPS",
+        "Optimize for high-statistics data collection",
+        "Implement fast target translation system",
+        "Focus on parameter space mapping",
+        "Utilize automated experimental control",
+        "\u274c Significant modifications required"
+      ],
+      "summary": {
+        "overall_feasibility": "LOW",
+        "confidence_level": 0.7,
+        "key_strengths": [
+          "Within physics breakdown thresholds"
+        ],
+        "key_challenges": [
+          "Facility compatibility issues"
+        ]
+      }
+    }
+  },
+  "comparative_analysis": {
+    "facility_ranking": [
+      [
+        "ELI-NP",
+        0.760007227405669
+      ],
+      [
+        "ELI-Beamlines",
+        0.7400406719606819
+      ],
+      [
+        "ELI-ALPS",
+        0.7
+      ]
+    ],
+    "capability_comparison": {
+      "max_intensity_W_m2": {
+        "ELI-Beamlines": 1e-06,
+        "ELI-NP": 1e-06,
+        "ELI-ALPS": 0.0001
+      },
+      "repetition_rate_Hz": {
+        "ELI-Beamlines": 86400,
+        "ELI-NP": 86400,
+        "ELI-ALPS": 86400
+      },
+      "data_quality_potential": {
+        "ELI-Beamlines": 0.6666666666666666,
+        "ELI-NP": 0.6666666666666666,
+        "ELI-ALPS": 0.7666666666666667
+      },
+      "shot_efficiency": {
+        "ELI-Beamlines": 0.6,
+        "ELI-NP": 0.3,
+        "ELI-ALPS": 0.9
+      }
+    },
+    "parameter_optimization": {
+      "intensity_optimization": "ELI-Beamlines and ELI-NP offer highest intensity capabilities",
+      "statistics_optimization": "ELI-ALPS provides best statistical data collection",
+      "diagnostics_optimization": "ELI-NP offers most comprehensive diagnostic suite",
+      "efficiency_optimization": "ELI-ALPS provides most efficient data collection"
+    },
+    "best_use_cases": {
+      "ELI-Beamlines": "High-intensity single-shot experiments and proof-of-concept demonstrations",
+      "ELI-NP": "Advanced experiments with dual-beam configuration and enhanced diagnostics",
+      "ELI-ALPS": "High-statistics parameter space mapping and optimization studies"
+    }
+  },
+  "experimental_recommendations": {
+    "primary_facility": {
+      "name": "ELI-NP",
+      "confidence": 0.760007227405669,
+      "rationale": "Highest overall feasibility score and best match for experimental requirements"
+    },
+    "experimental_phases": [
+      {
+        "phase": "Phase 1 - Proof of Concept",
+        "facility": "ELI-ALPS",
+        "rationale": "High repetition rate for rapid parameter optimization",
+        "duration_weeks": 2,
+        "goals": [
+          "Plasma mirror optimization",
+          "Basic horizon detection",
+          "Diagnostic validation"
+        ]
+      },
+      {
+        "phase": "Phase 2 - High-Performance Measurements",
+        "facility": "ELI-Beamlines",
+        "rationale": "Maximum intensity for optimal signal strength",
+        "duration_weeks": 4,
+        "goals": [
+          "High-\u03ba measurements",
+          "Detailed spectrum analysis",
+          "Reproducibility verification"
+        ]
+      },
+      {
+        "phase": "Phase 3 - Advanced Characterization",
+        "facility": "ELI-NP",
+        "rationale": "Enhanced diagnostics and dual-beam capabilities",
+        "duration_weeks": 3,
+        "goals": [
+          "Correlation studies",
+          "Magnetic field effects",
+          "Comprehensive validation"
+        ]
+      }
+    ],
+    "parameter_optimizations": [
+      "Focus on intensity range 1e22-1e24 W/m\u00b2 for optimal \u03ba",
+      "Target plasma density 1e25-1e26 m\u207b\u00b3 for horizon formation",
+      "Optimize density gradient scale 0.3-1.0 \u03bcm for strong gradients",
+      "Maintain flow velocity 0.2-0.4c for good horizon dynamics"
+    ],
+    "risk_mitigation_strategies": [
+      "Start with conservative parameters and gradually increase",
+      "Implement redundant diagnostic systems",
+      "Develop detailed plasma mirror timing protocols",
+      "Create comprehensive data analysis pipelines",
+      "Establish clear success criteria for each phase"
+    ],
+    "success_metrics": [
+      "\u03ba measurement with < 20% uncertainty",
+      "Hawking-like spectrum detection with 5\u03c3 confidence",
+      "Reproducible results across multiple shots",
+      "Theoretical-experimental agreement within 50%",
+      "Publication-ready data quality"
+    ]
+  },
+  "risk_assessment": {
+    "technical_risks": {
+      "ELI-Beamlines": [
+        "Detection feasibility concerns"
+      ],
+      "ELI-NP": [
+        "Detection feasibility concerns"
+      ],
+      "ELI-ALPS": [
+        "Detection feasibility concerns"
+      ]
+    },
+    "facility_risks": {
+      "ELI-Beamlines": [
+        "Low repetition rate limits statistics",
+        "Long experimental campaigns"
+      ],
+      "ELI-NP": [
+        "Very low repetition rate",
+        "Complex safety procedures",
+        "Limited beam time"
+      ],
+      "ELI-ALPS": [
+        "Lower maximum intensity",
+        "Plasma mirror timing precision requirements"
+      ]
+    },
+    "physics_risks": [
+      "Breakdown of fluid model assumptions at high intensity",
+      "Unforeseen relativistic effects",
+      "Plasma mirror instabilities",
+      "Detection system limitations",
+      "Background noise contamination"
+    ],
+    "mitigation_strategies": [
+      "Start with conservative parameter ranges",
+      "Implement comprehensive diagnostic suite",
+      "Develop real-time data analysis capabilities",
+      "Create backup experimental configurations",
+      "Establish collaboration with facility experts",
+      "Perform detailed simulations before experiments"
+    ],
+    "overall_risk_level": "MEDIUM"
+  },
+  "feasibility_matrix": {
+    "goals": {
+      "proof_of_concept": {
+        "requirement": "Basic horizon detection",
+        "difficulty": "LOW"
+      },
+      "parameter_optimization": {
+        "requirement": "Systematic parameter studies",
+        "difficulty": "MEDIUM"
+      },
+      "high_precision_measurement": {
+        "requirement": "Detailed spectrum analysis",
+        "difficulty": "HIGH"
+      },
+      "reproducibility_study": {
+        "requirement": "Multiple consistent results",
+        "difficulty": "HIGH"
+      }
+    },
+    "facility_scores": {
+      "ELI-Beamlines": {
+        "proof_of_concept": 0.7400406719606819,
+        "parameter_optimization": 0.5180284703724773,
+        "high_precision_measurement": 0.8880488063528182,
+        "reproducibility_study": 0.4440244031764091
+      },
+      "ELI-NP": {
+        "proof_of_concept": 0.684006504665102,
+        "parameter_optimization": 0.3800036137028345,
+        "high_precision_measurement": 1.0640101183679365,
+        "reproducibility_study": 0.3040028909622676
+      },
+      "ELI-ALPS": {
+        "proof_of_concept": 0.84,
+        "parameter_optimization": 1.0499999999999998,
+        "high_precision_measurement": 0.5599999999999999,
+        "reproducibility_study": 0.9099999999999999
+      }
+    }
+  },
+  "next_steps": [
+    {
+      "timeline": "Immediate (1-2 months)",
+      "actions": [
+        "Contact recommended facilities for beam time inquiries",
+        "Develop detailed experimental proposal",
+        "Secure funding for campaign",
+        "Form collaboration with facility experts"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "timeline": "Short-term (2-6 months)",
+      "actions": [
+        "Complete detailed simulations with PIC codes",
+        "Finalize diagnostic specifications",
+        "Develop data analysis pipeline",
+        "Prepare safety documentation"
+      ],
+      "priority": "HIGH"
+    },
+    {
+      "timeline": "Medium-term (6-12 months)",
+      "actions": [
+        "Schedule beam time at primary facility",
+        "Fabricate and test target systems",
+        "Install and validate diagnostic equipment",
+        "Perform initial commissioning experiments"
+      ],
+      "priority": "MEDIUM"
+    },
+    {
+      "timeline": "Long-term (12+ months)",
+      "actions": [
+        "Execute full experimental campaign",
+        "Analyze and publish results",
+        "Plan follow-up experiments",
+        "Explore facility upgrades or alternatives"
+      ],
+      "priority": "MEDIUM"
+    }
+  ]
+}

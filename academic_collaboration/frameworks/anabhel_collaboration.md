@@ -1,6 +1,6 @@
 # Analog Hawking Radiation Research Consortium
 
-**Created:** 2025-11-05 23:19:06
+**Created:** 2025-11-06 18:34:05
 
 ## Participating Institutions
 

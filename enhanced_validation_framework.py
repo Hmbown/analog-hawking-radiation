@@ -573,25 +573,50 @@ class EnhancedValidationFramework:
     def _save_sweep_results(self, sweep_result: EnhancedParameterSweep):
         """Save comprehensive sweep results."""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        # Save main results (sanitize object columns for HDF5)
+
+        # Save main results with enhanced HDF5 compatibility
         results_file = self.results_dir / f"enhanced_sweep_{timestamp}.h5"
         results_for_io = sweep_result.results.copy()
-        if 'horizon_positions' in results_for_io.columns:
-            # Store as JSON strings to avoid object dtype issues in HDF5
-            results_for_io['horizon_positions'] = results_for_io['horizon_positions'].apply(
-                lambda v: json.dumps(v) if isinstance(v, (list, tuple)) else json.dumps([])
-            )
+
+        # Enhanced data sanitization for HDF5 compatibility
+        results_for_io = self._sanitize_dataframe_for_hdf5(results_for_io)
+
         try:
-            results_for_io.to_hdf(results_file, key='results')
+            # Try HDF5 with modern numpy compatibility
+            results_for_io.to_hdf(
+                results_file,
+                key='results',
+                mode='w',
+                complevel=1,  # Light compression
+                complib='zlib',
+                format='table'  # Table format for better compatibility
+            )
             wrote = str(results_file)
-        except Exception as e:
-            # Fallback to CSV if PyTables is unavailable
+            logger.info(f"Results saved to HDF5: {results_file}")
+        except (TypeError, ValueError, ImportError) as e:
+            # Fallback to CSV if HDF5/PyTables issues
             logger.warning(f"HDF5 write failed ({e}); falling back to CSV")
             results_file = self.results_dir / f"enhanced_sweep_{timestamp}.csv"
             results_for_io.to_csv(results_file, index=False)
             wrote = str(results_file)
-        
+            logger.info(f"Results saved to CSV: {results_file}")
+        except Exception as e:
+            # Last resort - save as JSON
+            logger.error(f"HDF5 and CSV both failed ({e}); falling back to JSON")
+            results_file = self.results_dir / f"enhanced_sweep_{timestamp}.json"
+            results_data = {
+                'results': results_for_io.to_dict('records'),
+                'metadata': {
+                    'total_configurations': len(results_for_io),
+                    'successful_configs': len(results_for_io[results_for_io.get('simulation_success', False)]),
+                    'timestamp': timestamp
+                }
+            }
+            with open(results_file, 'w') as f:
+                json.dump(results_data, f, indent=2, default=str)
+            wrote = str(results_file)
+            logger.info(f"Results saved to JSON: {results_file}")
+
         # Save detailed analysis
         analysis_file = self.results_dir / f"enhanced_analysis_{timestamp}.json"
         analysis_data = {
@@ -606,13 +631,13 @@ class EnhancedValidationFramework:
                 'framework_version': '1.0.0_professional'
             }
         }
-        
+
         with open(analysis_file, 'w') as f:
             json.dump(analysis_data, f, indent=2, default=str)
-        
+
         # Generate summary report
         self._generate_validation_report(sweep_result, timestamp)
-        
+
         # Optional plots
         try:
             import os
@@ -622,6 +647,49 @@ class EnhancedValidationFramework:
             logger.warning(f"Plot generation skipped: {e}")
 
         logger.info(f"Results saved to {wrote} and {analysis_file}")
+
+    def _sanitize_dataframe_for_hdf5(self, df):
+        """Sanitize DataFrame for HDF5 compatibility with modern numpy versions."""
+        sanitized = df.copy()
+
+        # Handle object columns
+        for col in sanitized.select_dtypes(include=['object']).columns:
+            if col == 'horizon_positions':
+                # Convert horizon positions to JSON strings
+                sanitized[col] = sanitized[col].apply(
+                    lambda v: json.dumps(v) if isinstance(v, (list, tuple, np.ndarray)) else json.dumps([])
+                )
+            elif sanitized[col].dtype == 'object':
+                # Try to convert other object columns
+                try:
+                    # Check if all values are numeric or can be converted to numeric
+                    numeric_series = pd.to_numeric(sanitized[col], errors='coerce')
+                    if not numeric_series.isna().all():
+                        sanitized[col] = numeric_series
+                    else:
+                        # Convert to strings if not numeric
+                        sanitized[col] = sanitized[col].astype(str)
+                except Exception:
+                    # Fallback to string conversion
+                    sanitized[col] = sanitized[col].astype(str)
+
+        # Handle numpy dtypes that might cause issues
+        for col in sanitized.columns:
+            if sanitized[col].dtype.kind in ['U', 'S']:  # Unicode or byte strings
+                try:
+                    # Convert to python strings
+                    sanitized[col] = sanitized[col].astype(str)
+                except Exception:
+                    # Keep as is if conversion fails
+                    pass
+            elif sanitized[col].dtype == np.float64 and len(sanitized) > 0:
+                # Check for NaN/inf values that might cause issues
+                if sanitized[col].isna().any() or np.isinf(sanitized[col]).any():
+                    # Replace problematic values
+                    sanitized[col] = sanitized[col].fillna(0.0)
+                    sanitized[col] = sanitized[col].replace([np.inf, -np.inf], 0.0)
+
+        return sanitized
     
     def _generate_validation_report(self, sweep_result: EnhancedParameterSweep, timestamp: str):
         """Generate comprehensive validation report."""

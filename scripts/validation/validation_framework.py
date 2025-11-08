@@ -87,6 +87,27 @@ class ValidationFramework:
         # Load experiment data
         self.load_experiment_data()
 
+    def initialize_validation(self) -> None:
+        """Initialize validation system for orchestration engine integration"""
+        self.logger.info(f"Initializing validation system for experiment {self.experiment_id}")
+
+        # Validate that experiment data is loaded
+        if not self.results and not self.experiment_dir.exists():
+            self.logger.warning(f"No experiment data found for {self.experiment_id}")
+            # Create experiment directory if it doesn't exist
+            self.experiment_dir.mkdir(parents=True, exist_ok=True)
+
+        # Initialize validation metrics tracking
+        self.validation_metrics = {
+            "total_checks_run": 0,
+            "checks_passed": 0,
+            "checks_failed": 0,
+            "last_validation_time": None,
+            "validation_history": []
+        }
+
+        self.logger.info("Validation system initialized successfully")
+
     def _setup_logging(self) -> None:
         """Setup validation logging"""
         log_dir = self.experiment_dir / "logs"

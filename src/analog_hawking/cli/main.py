@@ -3,8 +3,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
+import webbrowser
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 import numpy as np
 
@@ -86,6 +88,25 @@ def cmd_quickstart(args: argparse.Namespace) -> int:
     write_manifest(manifest, results_dir / "manifest.json")
 
     print(f"Quickstart complete. Results in: {results_dir}")
+    
+    # Add "What just happened?" explanation
+    if not args.quiet:
+        print("\n" + "="*60)
+        print("What just happened?")
+        print("="*60)
+        print(f"1. 🌊 Created a synthetic plasma flow profile")
+        print(f"2. 🎯 Found {outputs['n_horizons']} sonic horizon(s) where |v| = c_s")
+        if outputs['n_horizons'] > 0:
+            print(f"3. ⚡ Computed surface gravity: κ ≈ {outputs['kappa_s_inv'][0]:.2e} s⁻¹")
+            print(f"4. 🌡️  Equivalent Hawking temperature: T_H ≈ {1.22e-23 * outputs['kappa_s_inv'][0] / (2 * np.pi * 1.38e-23):.2e} K")
+        print(f"5. 📊 Saved results to: {results_dir}/")
+        print(f"6. 🖼️  Visualization: {results_dir}/quickstart_profile.png")
+        print("\nNext steps:")
+        print("  ahr pipeline --demo       # Run full detection pipeline")
+        print("  ahr tutorial 1            # Learn about sonic horizons")
+        print("  ahr docs                  # Open documentation")
+        print("="*60)
+    
     return 0
 
 
@@ -99,6 +120,23 @@ def cmd_validate(args: argparse.Namespace) -> int:
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(summary, indent=2))
         print(f"Wrote validation summary to {out}")
+    
+    # Add dashboard output if requested
+    if getattr(args, "dashboard", False) and isinstance(summary, dict):
+        print("\n" + "="*60)
+        print("Validation Dashboard")
+        print("="*60)
+        print(f"Overall Status: {'✅ PASS' if summary.get('overall_status') == 'PASS' else '❌ FAIL'}")
+        print()
+        
+        if "test_categories" in summary:
+            for category, results in summary["test_categories"].items():
+                status = "✅" if results.get("status") == "PASS" else "⚠️" if results.get("status") == "WARN" else "❌"
+                print(f"{status} {category}: {results.get('passed', 0)}/{results.get('total', 0)} tests")
+                if "message" in results:
+                    print(f"   {results['message']}")
+        print("="*60)
+    
     return 0 if isinstance(summary, dict) and summary.get("overall_status") == "PASS" else 1
 
 
@@ -120,6 +158,320 @@ def cmd_bench(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_pipeline(args: argparse.Namespace) -> int:
+    """Unified pipeline execution command"""
+    import subprocess
+    
+    if args.demo:
+        script = "scripts/run_full_pipeline.py"
+        cmd = [sys.executable, script, "--demo"]
+        
+        if args.safe:
+            cmd.extend(["--safe-demo", "--respect-thresholds"])
+        
+        if args.kappa_method:
+            cmd.extend(["--kappa-method", args.kappa_method])
+        
+        if args.graybody:
+            cmd.extend(["--graybody", args.graybody])
+            
+        if args.output:
+            cmd.extend(["--output-dir", args.output])
+            
+        print(f"Running: {' '.join(cmd)}")
+        result = subprocess.run(cmd)
+        return result.returncode
+    
+    print("Pipeline command - use --demo for demonstration")
+    print("\nExamples:")
+    print("  ahr pipeline --demo                    # Basic demo")
+    print("  ahr pipeline --demo --safe            # Conservative demo")
+    print("  ahr pipeline --demo --kappa-method acoustic_exact --graybody acoustic_wkb")
+    return 0
+
+
+def cmd_sweep(args: argparse.Namespace) -> int:
+    """Parameter sweep execution"""
+    import subprocess
+    
+    if args.gradient:
+        script = "scripts/sweep_gradient_catastrophe.py"
+        cmd = [sys.executable, script]
+        
+        if args.n_samples:
+            cmd.extend(["--n-samples", str(args.n_samples)])
+            
+        if args.output:
+            cmd.extend(["--output", args.output])
+        else:
+            cmd.extend(["--output", "results/gradient_catastrophe"])
+            
+        print(f"Running gradient catastrophe sweep: {' '.join(cmd)}")
+        result = subprocess.run(cmd)
+        return result.returncode
+    
+    print("Sweep command - use --gradient for gradient catastrophe analysis")
+    print("\nExamples:")
+    print("  ahr sweep --gradient                   # Default sweep")
+    print("  ahr sweep --gradient --n-samples 500  # Custom sample count")
+    print("  ahr sweep --gradient --output results/my_sweep")
+    return 0
+
+
+def cmd_analyze(args: argparse.Namespace) -> int:
+    """Analysis and visualization tools"""
+    import subprocess
+    
+    if args.correlation:
+        script = "scripts/correlation_map.py"
+        cmd = [sys.executable, script]
+        
+        if args.input:
+            cmd.extend(["--series", args.input])
+        if args.output:
+            cmd.extend(["--output", args.output])
+            
+        print(f"Running correlation analysis: {' '.join(cmd)}")
+        result = subprocess.run(cmd)
+        return result.returncode
+    
+    print("Analyze command - tools for post-processing")
+    print("\nExamples:")
+    print("  ahr analyze --correlation              # Horizon correlation maps")
+    print("  ahr analyze --kappa-inference          # Infer κ from PSDs")
+    print("  ahr analyze --universality             # Spectrum collapse analysis")
+    return 0
+
+
+def cmd_experiment(args: argparse.Namespace) -> int:
+    """Experiment planning and facility tools"""
+    import subprocess
+    
+    if args.eli:
+        script = "scripts/comprehensive_eli_facility_validator.py"
+        cmd = [sys.executable, script]
+        
+        if args.output:
+            cmd.extend(["--output-dir", args.output])
+            
+        print(f"Running ELI facility validation: {' '.join(cmd)}")
+        result = subprocess.run(cmd)
+        return result.returncode
+    
+    print("Experiment command - facility-specific tools")
+    print("\nExamples:")
+    print("  ahr experiment --eli                   # ELI facility planning")
+    print("  ahr experiment --feasibility           # Detection feasibility analysis")
+    print("  ahr experiment --optimize              # Parameter optimization")
+    return 0
+
+
+def cmd_docs(args: argparse.Namespace) -> int:
+    """Open documentation in browser or show paths"""
+    docs_dir = Path("docs")
+    index_file = docs_dir / "index.md"
+    
+    if args.path:
+        print(f"Documentation directory: {docs_dir.absolute()}")
+        print(f"Main index: {index_file.absolute()}")
+        
+        # List key documentation files
+        print("\nKey documentation files:")
+        key_docs = [
+            "index.md",
+            "playbooks.md", 
+            "GradientCatastropheAnalysis.md",
+            "Methods.md",
+            "Limitations.md",
+            "Glossary.md"
+        ]
+        for doc in key_docs:
+            doc_path = docs_dir / doc
+            if doc_path.exists():
+                print(f"  - {doc}")
+        return 0
+    
+    # Try to open in browser
+    readme_file = Path("README.md")
+    if readme_file.exists():
+        try:
+            if sys.platform == "darwin":
+                subprocess.run(["open", str(readme_file.absolute())])
+            elif sys.platform == "win32":
+                subprocess.run(["start", str(readme_file.absolute())], shell=True)
+            else:
+                subprocess.run(["xdg-open", str(readme_file.absolute())])
+            print(f"Opening documentation: {readme_file.absolute()}")
+        except Exception as e:
+            print(f"Could not open browser: {e}")
+            print(f"Documentation is at: {readme_file.absolute()}")
+    else:
+        print(f"README.md not found at: {readme_file.absolute()}")
+    
+    return 0
+
+
+def cmd_info(args: argparse.Namespace) -> int:
+    """Show system information and capabilities"""
+    import platform
+    
+    info = {
+        "system": platform.system(),
+        "python_version": platform.python_version(),
+        "ahr_version": __version__,
+        "working_directory": str(Path.cwd().absolute()),
+    }
+    
+    # Check for optional dependencies
+    try:
+        import cupy
+        info["cupy"] = cupy.__version__
+    except ImportError:
+        info["cupy"] = "not installed"
+    
+    try:
+        import matplotlib
+        info["matplotlib"] = matplotlib.__version__
+    except ImportError:
+        info["matplotlib"] = "not installed"
+    
+    # Check environment variables
+    info["env_force_cpu"] = os.getenv("ANALOG_HAWKING_FORCE_CPU", "not set")
+    info["env_no_plots"] = os.getenv("ANALOG_HAWKING_NO_PLOTS", "not set")
+    
+    if args.json:
+        print(json.dumps(info, indent=2))
+    else:
+        print("Analog Hawking Radiation System Information")
+        print("=" * 60)
+        print(f"Version:        v{info['ahr_version']}")
+        print(f"Python:         {info['python_version']}")
+        print(f"System:         {info['system']}")
+        print(f"CuPy:           {info['cupy']}")
+        print(f"Working dir:    {info['working_directory']}")
+        print()
+        print("Environment:")
+        print(f"  ANALOG_HAWKING_FORCE_CPU: {info['env_force_cpu']}")
+        print(f"  ANALOG_HAWKING_NO_PLOTS:  {info['env_no_plots']}")
+        print("=" * 60)
+        print("\nCapabilities:")
+        print("  ✅ Horizon finding & analysis")
+        print("  ✅ Graybody & detection modeling")
+        print("  ✅ Parameter sweeps & optimization")
+        if info["cupy"] != "not installed":
+            print("  ✅ GPU acceleration available")
+        else:
+            print("  ⚠️  GPU acceleration not available (install cupy)")
+    
+    return 0
+
+
+def cmd_tutorial(args: argparse.Namespace) -> int:
+    """Interactive tutorial system"""
+    tutorial_num = args.number
+    
+    tutorials = {
+        1: {
+            "title": "What is a Sonic Horizon?",
+            "description": "Learn how plasma flows create analog black hole horizons",
+            "script": "tutorials/01_sonic_horizons.py"
+        },
+        2: {
+            "title": "From Surface Gravity to Hawking Temperature", 
+            "description": "Understand κ → T_H mapping and its physical meaning",
+            "script": "tutorials/02_kappa_to_temperature.py"
+        },
+        3: {
+            "title": "Detection Forecasts in Realistic Experiments",
+            "description": "How we estimate measurable signals from analog radiation",
+            "script": "tutorials/03_detection_forecasts.py"
+        }
+    }
+    
+    if tutorial_num == 0 or args.list:
+        print("Available Tutorials")
+        print("=" * 60)
+        for num, tutorial in tutorials.items():
+            print(f"\n{num}. {tutorial['title']}")
+            print(f"   {tutorial['description']}")
+        print("\nRun: ahr tutorial <number>")
+        return 0
+    
+    if tutorial_num not in tutorials:
+        print(f"Tutorial {tutorial_num} not found. Run 'ahr tutorial --list' to see available tutorials.")
+        return 1
+    
+    tutorial = tutorials[tutorial_num]
+    print(f"\nTutorial {tutorial_num}: {tutorial['title']}")
+    print("=" * 60)
+    print(f"{tutorial['description']}")
+    print("=" * 60)
+    
+    # For now, show what the tutorial would cover
+    # In the future, this would run an interactive notebook or script
+    print("\n🚧 Interactive tutorial system coming soon!")
+    print("\nFor now, try these commands:")
+    print("  ahr quickstart           # See horizons in action")
+    print("  ahr pipeline --demo      # Full pipeline demonstration")
+    print("  ahr docs --path          # Explore documentation")
+    
+    return 0
+
+
+def cmd_dev(args: argparse.Namespace) -> int:
+    """Development and contribution tools"""
+    if args.setup:
+        print("Setting up development environment...")
+        print("=" * 60)
+        
+        # Check Python version
+        import platform
+        py_version = platform.python_version()
+        print(f"✅ Python version: {py_version}")
+        
+        # Install dev dependencies
+        try:
+            import subprocess
+            result = subprocess.run([sys.executable, "-m", "pip", "install", "-e", ".[dev]"], 
+                                  capture_output=True, text=True)
+            if result.returncode == 0:
+                print("✅ Development dependencies installed")
+            else:
+                print("❌ Failed to install dev dependencies")
+                print(result.stderr)
+        except Exception as e:
+            print(f"❌ Error installing dependencies: {e}")
+        
+        # Run smoke tests
+        print("\nRunning smoke tests...")
+        try:
+            result = subprocess.run([sys.executable, "-m", "pytest", "-q", "--tb=short"], 
+                                  capture_output=True, text=True, timeout=60)
+            if result.returncode == 0:
+                print("✅ Tests passing")
+            else:
+                print("⚠️  Some tests failed - check output above")
+        except subprocess.TimeoutExpired:
+            print("⚠️  Tests timed out")
+        except Exception as e:
+            print(f"⚠️  Could not run tests: {e}")
+        
+        print("\n" + "=" * 60)
+        print("Development setup complete!")
+        print("\nNext steps:")
+        print("  ahr validate            # Run full validation suite")
+        print("  ahr tutorial --list     # Explore tutorials")
+        print("  code .                  # Open in VS Code")
+        return 0
+    
+    print("Development tools")
+    print("\nExamples:")
+    print("  ahr dev setup           # Set up development environment")
+    print("  ahr dev test            # Run test suite")
+    print("  ahr dev lint            # Run linting")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="ahr", description="Analog Hawking Radiation CLI")
     p.add_argument("--version", action="version", version=f"ahr {__version__}")
@@ -135,12 +487,16 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("--L", type=float, default=10e-6)
     q.add_argument("--Te", type=float, default=1e6)
     q.add_argument("--out", type=str, default="results/quickstart")
+    q.add_argument("--quiet", action="store_true", help="Suppress explanatory output")
     q.set_defaults(func=cmd_quickstart)
 
     # validate
     v = sub.add_parser("validate", help="Run comprehensive physics validation suite")
     v.add_argument(
         "--report", type=str, help="Write JSON validation summary to this path", default=None
+    )
+    v.add_argument(
+        "--dashboard", action="store_true", help="Show visual dashboard of validation results"
     )
     v.set_defaults(func=cmd_validate)
 
@@ -216,6 +572,57 @@ def build_parser() -> argparse.ArgumentParser:
 
     rg = sub.add_parser("regress", help="Run golden regression checks")
     rg.set_defaults(func=_cmd_regress)
+
+    # pipeline (NEW)
+    pipe = sub.add_parser("pipeline", help="Run analysis pipelines")
+    pipe.add_argument("--demo", action="store_true", help="Run demonstration pipeline")
+    pipe.add_argument("--safe", action="store_true", help="Use conservative settings")
+    pipe.add_argument("--kappa-method", type=str, help="Kappa calculation method")
+    pipe.add_argument("--graybody", type=str, help="Graybody model")
+    pipe.add_argument("--output", type=str, help="Output directory")
+    pipe.set_defaults(func=cmd_pipeline)
+
+    # sweep (NEW)
+    sweep = sub.add_parser("sweep", help="Run parameter sweeps")
+    sweep.add_argument("--gradient", action="store_true", help="Run gradient catastrophe sweep")
+    sweep.add_argument("--n-samples", type=int, help="Number of samples")
+    sweep.add_argument("--output", type=str, help="Output directory")
+    sweep.set_defaults(func=cmd_sweep)
+
+    # analyze (NEW)
+    analyze = sub.add_parser("analyze", help="Analysis and visualization tools")
+    analyze.add_argument("--correlation", action="store_true", help="Run correlation analysis")
+    analyze.add_argument("--input", type=str, help="Input data path")
+    analyze.add_argument("--output", type=str, help="Output path")
+    analyze.set_defaults(func=cmd_analyze)
+
+    # experiment (NEW)
+    exp = sub.add_parser("experiment", help="Experiment planning tools")
+    exp.add_argument("--eli", action="store_true", help="ELI facility planning")
+    exp.add_argument("--output", type=str, help="Output directory")
+    exp.set_defaults(func=cmd_experiment)
+
+    # docs (NEW)
+    docs = sub.add_parser("docs", help="Open documentation")
+    docs.add_argument("--path", action="store_true", help="Show documentation paths")
+    docs.set_defaults(func=cmd_docs)
+
+    # info (NEW)
+    info = sub.add_parser("info", help="Show system information")
+    info.add_argument("--json", action="store_true", help="JSON output format")
+    info.set_defaults(func=cmd_info)
+
+    # tutorial (NEW)
+    tutorial = sub.add_parser("tutorial", help="Interactive tutorials")
+    tutorial.add_argument("number", type=int, nargs="?", default=0, 
+                         help="Tutorial number (0 for list)")
+    tutorial.add_argument("--list", action="store_true", help="List available tutorials")
+    tutorial.set_defaults(func=cmd_tutorial)
+
+    # dev (NEW)
+    dev = sub.add_parser("dev", help="Development tools")
+    dev.add_argument("--setup", action="store_true", help="Set up development environment")
+    dev.set_defaults(func=cmd_dev)
 
     return p
 

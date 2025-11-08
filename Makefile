@@ -1,3 +1,84 @@
+# Analog Hawking Radiation - Makefile
+# This Makefile provides convenient shortcuts to the ahr CLI
+# All commands are thin wrappers around 'ahr' for consistency
+
+# --- Core Workflows (ahr CLI wrappers) ---
+.PHONY: quickstart
+quickstart:
+	@ahr quickstart --out results/quickstart
+
+.PHONY: validate
+validate:
+	@ahr validate
+
+.PHONY: validate-dashboard
+validate-dashboard:
+	@ahr validate --dashboard
+
+.PHONY: bench
+bench:
+	@ahr bench
+
+.PHONY: info
+info:
+	@ahr info
+
+.PHONY: docs
+-docs:
+	@ahr docs
+
+.PHONY: tutorial
+tutorial:
+	@ahr tutorial --list
+
+# --- Pipeline Execution ---
+.PHONY: pipeline-demo
+pipeline-demo:
+	@ahr pipeline --demo --out results/pipeline_demo
+
+.PHONY: pipeline-safe
+pipeline-safe:
+	@ahr pipeline --demo --safe --out results/pipeline_safe
+
+# --- Parameter Sweeps ---
+.PHONY: sweep-gradient
+sweep-gradient:
+	@ahr sweep --gradient --output results/gradient_catastrophe
+
+.PHONY: sweep-gradient-full
+sweep-gradient-full:
+	@ahr sweep --gradient --n-samples 500 --output results/gradient_limits_production
+
+# --- Analysis Tools ---
+.PHONY: analyze-correlation
+analyze-correlation:
+	@ahr analyze --correlation --output figures/correlation_map.png
+
+# --- Experiment Planning ---
+.PHONY: experiment-eli
+experiment-eli:
+	@ahr experiment --eli --output results/eli_planning
+
+# --- Development ---
+.PHONY: dev-setup
+dev-setup:
+	@ahr dev --setup
+
+# --- Comprehensive Analysis Bundle ---
+.PHONY: comprehensive
+comprehensive:
+	@echo "Running comprehensive analysis pipeline..."
+	@ahr pipeline --demo --kappa-method acoustic_exact --graybody acoustic_wkb
+	@ahr sweep --gradient --n-samples 100 --output results/gradient_catastrophe
+	@echo "Comprehensive analysis complete. Check results/ directory."
+
+.PHONY: results-pack
+results-pack:
+	@echo "Building results package..."
+	python3 scripts/build_results_pack.py
+	@echo "Results package created: results/results_pack.zip"
+
+# --- Legacy Commands (maintained for backward compatibility) ---
 .PHONY: figs
 figs:
 	rm -rf figures
@@ -6,35 +87,26 @@ figs:
 demo-bundle:
 	python3 scripts/make_demo_bundle.py
 
-# --- Detection Feasibility Analysis ---
 .PHONY: detection-feasibility
 detection-feasibility:
-	# Run comprehensive detection feasibility analysis
 	python3 scripts/standalone_detection_feasibility_demo.py
 
 .PHONY: detection-feasibility-full
 detection-feasibility-full:
-	# Run full detection feasibility analysis with comprehensive reporting
 	python3 scripts/comprehensive_detection_feasibility_analysis.py --n-configs 50 --generate-report
 
-# --- Orchestration & Reporting ---
 .PHONY: orchestrate
 orchestrate:
-	# Run multi-phase orchestration (override PHASES="phase_1_initial_exploration ..." as needed)
 	python3 -m scripts.orchestration_engine --config configs/orchestration/base.yml $(if $(NAME),--name $(NAME),) $(if $(PHASES),--phases $(PHASES),)
-
 
 .PHONY: aggregate
 aggregate:
-	# Aggregate results and generate a report: make aggregate EXPID=abcd1234
 	python3 scripts/result_aggregator.py $(EXPID)
 
 .PHONY: report
 report:
-	# Perform reporting integration across components: make report EXPID=abcd1234 COMPONENT=all
 	python3 scripts/reporting/integration.py $(EXPID) $(if $(COMPONENT),--component $(COMPONENT),)
 
-# --- nD Utilities ---
 .PHONY: nd-demo
 nd-demo:
 	python3 scripts/run_horizon_nd_demo.py --dim 2 --nx 160 --ny 40 --sigma 4e-7 --v0 2.0e6 --cs0 1.0e6 --x0 5e-6
@@ -59,44 +131,26 @@ nd-test:
 sweep-thresholds:
 	python3 scripts/sweep_kappa_thresholds.py --n-samples 60 --v-fracs 0.4,0.5,0.6 --dv-max 2e12,4e12,8e12 --intensity-max 1e24 --out results/threshold_sensitivity.json
 
-# --- Comprehensive analysis bundle ---
-.PHONY: comprehensive
-comprehensive:
-	python3 scripts/analysis/comprehensive_analysis.py
-	python3 scripts/analysis/optimization_analysis.py
-
-.PHONY: results-pack
-results-pack:
-	# Build a shareable ZIP with figures, data, and a summary
-	python3 scripts/build_results_pack.py
-
-# --- CLI convenience targets ---
-.PHONY: quickstart
-quickstart:
-	ahr quickstart --out results/quickstart
-
-.PHONY: validate
-validate:
-	ahr validate
-
-.PHONY: bench
-bench:
-	ahr bench
-
-# --- Repo maintenance ---
+# --- Quality Assurance ---
 .PHONY: lint
 lint:
 	pre-commit run --all-files
 
-# --- Docs ---
+.PHONY: test
+-test:
+	pytest -q
+
+.PHONY: test-full
+test-full:
+	pytest -v
+
+# --- Documentation ---
 .PHONY: docs-serve
 docs-serve:
-	# Serve MkDocs documentation locally
 	mkdocs serve -a 127.0.0.1:8000
 
 .PHONY: docs-build
 docs-build:
-	# Build MkDocs site
 	mkdocs build --strict
 
 # --- Docker ---
@@ -119,3 +173,43 @@ docker-run-cuda:
 .PHONY: bench-suite
 bench-suite:
 	python3 scripts/benchmarks/bench_kernels.py | tee results/bench_horizon.json
+
+# --- Help ---
+.PHONY: help
+help:
+	@echo "Analog Hawking Radiation - Make Targets"
+	@echo "========================================"
+	@echo ""
+	@echo "Core Workflows (ahr CLI):"
+	@echo "  make quickstart        # Quickstart demo"
+	@echo "  make validate          # Run validation suite"
+	@echo "  make validate-dashboard # Validation with dashboard"
+	@echo "  make bench             # Benchmark kernels"
+	@echo "  make info              # Show system info"
+	@echo "  make docs              # Open documentation"
+	@echo "  make tutorial          # List tutorials"
+	@echo ""
+	@echo "Pipelines:"
+	@echo "  make pipeline-demo     # Demo pipeline"
+	@echo "  make pipeline-safe     # Conservative demo"
+	@echo ""
+	@echo "Sweeps & Analysis:"
+	@echo "  make sweep-gradient    # Gradient catastrophe sweep"
+	@echo "  make analyze-correlation # Correlation analysis"
+	@echo ""
+	@echo "Experiment Planning:"
+	@echo "  make experiment-eli    # ELI facility planning"
+	@echo ""
+	@echo "Development:"
+	@echo "  make dev-setup         # Set up dev environment"
+	@echo "  make lint              # Run linting"
+	@echo "  make test              # Run tests"
+	@echo ""
+	@echo "Comprehensive:"
+	@echo "  make comprehensive     # Full analysis suite"
+	@echo "  make results-pack      # Package results"
+	@echo ""
+	@echo "For more commands, see: ahr --help"
+
+# --- Default Target ---
+.DEFAULT_GOAL := help

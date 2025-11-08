@@ -1,0 +1,1640 @@
+comparative_analysis:
+  best_use_cases:
+    ELI-ALPS: High-statistics parameter space mapping and optimization studies
+    ELI-Beamlines: High-intensity single-shot experiments and proof-of-concept demonstrations
+    ELI-NP: Advanced experiments with dual-beam configuration and enhanced diagnostics
+  capability_comparison:
+    data_quality_potential:
+      ELI-ALPS: !!python/object/apply:numpy._core.multiarray.scalar
+      - &id001 !!python/object/apply:numpy.dtype
+        args:
+        - f8
+        - false
+        - true
+        state: !!python/tuple
+        - 3
+        - <
+        - null
+        - null
+        - null
+        - -1
+        - -1
+        - 0
+      - !!binary |
+        iYiIiIiI6D8=
+      ELI-Beamlines: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        VVVVVVVV5T8=
+      ELI-NP: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        VVVVVVVV5T8=
+    max_intensity_W_m2:
+      ELI-ALPS: 0.0001
+      ELI-Beamlines: 1.0e-06
+      ELI-NP: 1.0e-06
+    repetition_rate_Hz:
+      ELI-ALPS: 86400
+      ELI-Beamlines: 86400
+      ELI-NP: 86400
+    shot_efficiency:
+      ELI-ALPS: 0.9
+      ELI-Beamlines: 0.6
+      ELI-NP: 0.3
+  facility_ranking:
+  - !!python/tuple
+    - ELI-NP
+    - !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        ncpNrfpR6D8=
+  - !!python/tuple
+    - ELI-Beamlines
+    - !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        5f14xmmu5z8=
+  - !!python/tuple
+    - ELI-ALPS
+    - !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        ZmZmZmZm5j8=
+  parameter_optimization:
+    diagnostics_optimization: ELI-NP offers most comprehensive diagnostic suite
+    efficiency_optimization: ELI-ALPS provides most efficient data collection
+    intensity_optimization: ELI-Beamlines and ELI-NP offer highest intensity capabilities
+    statistics_optimization: ELI-ALPS provides best statistical data collection
+experimental_recommendations:
+  experimental_phases:
+  - duration_weeks: 2
+    facility: ELI-ALPS
+    goals:
+    - Plasma mirror optimization
+    - Basic horizon detection
+    - Diagnostic validation
+    phase: Phase 1 - Proof of Concept
+    rationale: High repetition rate for rapid parameter optimization
+  - duration_weeks: 4
+    facility: ELI-Beamlines
+    goals:
+    - "High-\u03BA measurements"
+    - Detailed spectrum analysis
+    - Reproducibility verification
+    phase: Phase 2 - High-Performance Measurements
+    rationale: Maximum intensity for optimal signal strength
+  - duration_weeks: 3
+    facility: ELI-NP
+    goals:
+    - Correlation studies
+    - Magnetic field effects
+    - Comprehensive validation
+    phase: Phase 3 - Advanced Characterization
+    rationale: Enhanced diagnostics and dual-beam capabilities
+  parameter_optimizations:
+  - "Focus on intensity range 1e22-1e24 W/m\xB2 for optimal \u03BA"
+  - "Target plasma density 1e25-1e26 m\u207B\xB3 for horizon formation"
+  - "Optimize density gradient scale 0.3-1.0 \u03BCm for strong gradients"
+  - Maintain flow velocity 0.2-0.4c for good horizon dynamics
+  primary_facility:
+    confidence: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id001
+    - !!binary |
+      ncpNrfpR6D8=
+    name: ELI-NP
+    rationale: Highest overall feasibility score and best match for experimental requirements
+  risk_mitigation_strategies:
+  - Start with conservative parameters and gradually increase
+  - Implement redundant diagnostic systems
+  - Develop detailed plasma mirror timing protocols
+  - Create comprehensive data analysis pipelines
+  - Establish clear success criteria for each phase
+  success_metrics:
+  - "\u03BA measurement with < 20% uncertainty"
+  - "Hawking-like spectrum detection with 5\u03C3 confidence"
+  - Reproducible results across multiple shots
+  - Theoretical-experimental agreement within 50%
+  - Publication-ready data quality
+facility_assessments:
+  ELI-ALPS:
+    facility_config:
+      constraints:
+        max_gradient_s: 4e12
+        max_intensity_W_m2: 1e22
+        max_velocity_c: 0.5
+        target_degradation_limit: 1000
+        thermal_management: active
+        vacuum_level_mbar: 1e-6
+      diagnostics:
+        hawking_specific:
+        - Radio detection system (50K system temp - higher temp due to high rep rate)
+        - High-bandwidth oscilloscopes (>15 GHz)
+        - Low-noise RF amplifiers with fast recovery
+        - Real-time spectrum analysis
+        - Statistical analysis software
+        high_rep_rate_specific:
+        - Fast camera systems (>1 kHz)
+        - Automated data acquisition
+        - Real-time data processing
+        - Shot-to-shot analysis
+        primary:
+        - Attosecond streaking
+        - Frequency-resolved optical gating (FROG)
+        - Spatially-resolved spectroscopy
+        - Photoelectron spectroscopy
+        - Time-of-flight mass spectrometry
+      experimental_parameters:
+        density_gradient_scale_um: 0.7
+        expansion_velocity_ms: 1.5e6
+        expected_reflectivity: 0.65
+        focal_spot_um: 2.5
+        main_pulse_delay_fs: 50
+        mirror_formation_timing_fs: 15
+        peak_density_m3: 2e25
+        pre_plasma_scale_fs: 20
+        pulse_duration_fs: 17
+        rapid_plasma_formation: true
+        target_intensity_W_m2: 5e21
+        target_size_mm: 50x50x10
+        target_translation_speed_mm_s: 10
+        target_type: translating_solid
+        temporal_contrast: 1e-9
+        wavelength_nm: 800
+      facility:
+        experimental_hall: SYLOS
+        location: Szeged, Hungary
+        name: ELI-ALPS
+        status: operational
+      facility_advantages:
+      - High repetition rate for statistical significance
+      - Ultra-short pulses for peak power
+      - Fast diagnostic capabilities
+      - Attosecond-level timing precision
+      - Automated experimental control
+      - Excellent for proof-of-concept and parameter optimization
+      high_rep_rate_configuration:
+        burst_duration_s: 60
+        cooling_time_s: 300
+        enabled: true
+        shot_burst_capability: true
+        target_rep_rate_Hz: 5
+      laser_system:
+        beam_quality_M2: 1.2
+        contrast_ratio: 1e-9
+        max_intensity_W_cm2: 1e22
+        name: SYLOS 2PW
+        peak_power_TW: 2000
+        polarization: linear
+        pulse_duration_fs: 17
+        pulse_energy_J: 34
+        repetition_rate_Hz: 10
+        wavelength_nm: 800
+      optimization:
+        primary_parameters:
+        - Target translation speed optimization
+        - Shot-to-shot consistency improvement
+        - Rapid plasma mirror formation
+        secondary_parameters:
+        - Pulse duration tuning
+        - Focus optimization for stability
+        - Timing jitter reduction
+        statistical_advantages:
+        - Large dataset for improved statistics
+        - Real-time optimization capability
+        - Parameter space mapping
+      performance_targets:
+        detection_confidence: 5
+        hawking_temperature_K: 5e-8
+        reproducibility_metric: 0.9
+        signal_to_noise_ratio: 3.0
+        statistical_uncertainty: 0.1
+        surface_gravity_Hz: 2e12
+      risk_factors:
+        high:
+        - Target degradation at high rep rate
+        - Plasma mirror consistency
+        - Data storage and processing capacity
+        - Thermal management of optics
+        low:
+        - Basic facility operations
+        - Safety systems
+        medium:
+        - Shot-to-shot laser stability
+        - Fast diagnostic synchronization
+        - Automated system reliability
+      success_metrics:
+        minimum_requirements:
+        - Consistent plasma mirror formation (> 50% shots)
+        - Sonic horizon detection on > 30% of shots
+        - Data acquisition on > 95% of shots
+        - Target system reliability > 90%
+        stretch_goals:
+        - Real-time parameter optimization
+        - Automated experiment control
+        - Machine learning integration for shot selection
+        - Complete parameter space mapping
+        target_achievements:
+        - "\u03BA measurement with < 25% uncertainty (statistical)"
+        - Hawking-like spectrum detection through averaging
+        - Reproducibility measurement across 1000 shots
+        - Shot-to-shot variation characterization
+      timeline:
+        alignment_hours: 16
+        data_collection_shots: 1000
+        data_collection_time_hours: 3.3
+        high_rep_rate_testing_hours: 12
+        plasma_mirror_optimization_hours: 8
+        setup_days: 5
+        target_positioning_hours: 6
+        total_campaign_days: 7
+      unique_opportunities:
+      - Statistical validation of analog Hawking radiation
+      - Real-time parameter optimization
+      - Systematic parameter space exploration
+      - Machine learning integration
+      - Rapid prototyping of configurations
+    facility_metrics:
+      experimental_efficiency:
+        data_collection_efficiency: 0.9
+        setup_time_days: 5
+        shots_per_day: 86400
+        total_campaign_days: 7
+      facility_advantages:
+      - High repetition rate
+      - Excellent for statistics
+      - Fast diagnostic capabilities
+      - Automated experimental control
+      facility_limitations:
+      - Lower maximum intensity
+      - Shorter pulse duration challenges
+      - Plasma mirror timing precision
+      performance_indicators:
+        data_quality_potential: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          iYiIiIiI6D8=
+        detection_feasibility_score: true
+        intensity_utilization: 0.0001
+        physics_compliance_rate: 0.8461538461538461
+        shot_efficiency: 142.85714285714286
+    facility_name: ELI-ALPS
+    physics_validation:
+      confidence_score: 0.8461538461538461
+      critical_issues:
+      - "Density gradient 3.00e+14 s\u207B\xB9 exceeds limit"
+      derived_parameters:
+        critical_density_m3: 1.7419596865359529e+27
+        critical_power_W: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          d2QjILINhkI=
+        density_ratio: 0.005740660979293913
+        hawking_temperature_K: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          okdBnSkh/z8=
+        laser_power_W: 70685834705.77036
+        mach_number: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          NWTiYacFFEA=
+        plasma_frequency_Hz: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          Qo5gLMTSuUI=
+        relativistic_parameter_a0: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+        sound_speed_ms: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          W5ztHxtjGEE=
+        surface_gravity_Hz: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZEJwrxtKd0I=
+      facility: ELI-ALPS
+      input_parameters:
+        flow_velocity_ms: 2000000.0
+        gradient_scale_m: 1.0e-06
+        intensity_W_m2: 1.0e+22
+        plasma_density_m3: 1.0e+25
+        pulse_duration_fs: 150
+        wavelength_nm: 800
+      overall_passed: false
+      recommendations:
+      - "CRITICAL: Increase gradient scale to \u22657.49e-05 m"
+      - Optimize for high repetition rate statistics
+      - Use fast target translation system
+      - Focus on parameter space mapping with many shots
+      - "\u2705 Configuration is highly feasible"
+      threshold_validations:
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100.0
+        message: "Intensity 1.00e+22 W/m\xB2 within universal limit"
+        parameter_name: Intensity
+        passed: true
+        recommendation: Intensity is acceptable
+        severity: info
+        threshold_value: 1.0e+24
+        unit: "W/m\xB2"
+        value: 1.0e+22
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 74.9481145
+        message: Flow velocity 2.00e+06 m/s (0.01c) within limit
+        parameter_name: Flow Velocity
+        passed: true
+        recommendation: Velocity is acceptable
+        severity: info
+        threshold_value: 149896229.0
+        unit: m/s
+        value: 2000000.0
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 0.013342563807926082
+        message: "Density gradient 3.00e+14 s\u207B\xB9 exceeds limit"
+        parameter_name: Density Gradient
+        passed: false
+        recommendation: "Increase gradient scale to \u22657.49e-05 m"
+        severity: critical
+        threshold_value: 4000000000000.0
+        unit: "s\u207B\xB9"
+        value: 299792458000000.0
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 1.0
+        message: Intensity within ELI-ALPS capability
+        parameter_name: Facility Intensity (ELI-ALPS)
+        passed: true
+        recommendation: Compatible with ELI-ALPS
+        severity: warning
+        threshold_value: 1.0e+22
+        unit: "W/m\xB2"
+        value: 1.0e+22
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100000.0
+        message: Intensity sufficient for ionization
+        parameter_name: Ionization Threshold
+        passed: true
+        recommendation: Ionization achievable
+        severity: info
+        threshold_value: 10000000000000.0
+        unit: "W/cm\xB2"
+        value: 1.0e+18
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 10000.0
+        message: Intensity sufficient for plasma mirror formation
+        parameter_name: Plasma Mirror Formation
+        passed: true
+        recommendation: Plasma mirror formation possible
+        severity: info
+        threshold_value: 100000000000000.0
+        unit: "W/cm\xB2"
+        value: 1.0e+18
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+        message: "Relativistic parameter a\u2080 = 0.68 (non-relativistic regime)"
+        parameter_name: "Relativistic Parameter (a\u2080)"
+        passed: &id006 !!python/object/apply:numpy._core.multiarray.scalar
+        - &id002 !!python/object/apply:numpy.dtype
+          args:
+          - b1
+          - false
+          - true
+          state: !!python/tuple
+          - 3
+          - '|'
+          - null
+          - null
+          - null
+          - -1
+          - -1
+          - 0
+        - !!binary |
+          AA==
+        recommendation: Non-relativistic regime valid
+        severity: info
+        threshold_value: 1.0
+        unit: dimensionless
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          5XdGZcs9T0A=
+        message: "\u03BA = 1.60e+12 Hz (within valid range [1.0e+09, 1.0e+14] Hz)"
+        parameter_name: "Surface Gravity (\u03BA)"
+        passed: true
+        recommendation: "\u03BA is in valid range"
+        severity: info
+        threshold_value: !!python/tuple
+        - 1000000000.0
+        - 100000000000000.0
+        unit: Hz
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZEJwrxtKd0I=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          KLMbwqkeEkI=
+        message: T_H = 1.95e+00 K (detectable)
+        parameter_name: Hawking Temperature
+        passed: &id003 !!python/object/apply:numpy._core.multiarray.scalar
+        - *id002
+        - !!binary |
+          AQ==
+        recommendation: Temperature potentially detectable
+        severity: info
+        threshold_value: 1.0e-10
+        unit: K
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          okdBnSkh/z8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 10.0
+        message: Gradient scale 1.00e-06 m (within optimal range)
+        parameter_name: Density Gradient Scale
+        passed: true
+        recommendation: Gradient scale is optimal
+        severity: info
+        threshold_value: !!python/tuple
+        - 1.0e-07
+        - 1.0e-05
+        unit: m
+        value: 1.0e-06
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          h4eHh4eH9z8=
+        message: "a\u2080 = 0.68 (weakly relativistic regime)"
+        parameter_name: Relativistic Regime
+        passed: *id003
+        recommendation: Classical treatment valid
+        severity: info
+        threshold_value: 1.0
+        unit: dimensionless
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 74.9481145
+        message: v/c = 0.007 (non-relativistic flow)
+        parameter_name: Flow Velocity Regime
+        passed: true
+        recommendation: Non-relativistic flow valid
+        severity: info
+        threshold_value: 0.5
+        unit: fraction of c
+        value: 0.006671281903963041
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 296.87499999999994
+        message: n/n_c = 0.003 (underdense plasma)
+        parameter_name: Plasma Density Regime
+        passed: true
+        recommendation: Laser propagation in plasma valid
+        severity: info
+        threshold_value: 1.0
+        unit: fraction of critical
+        value: 0.0033684210526315796
+      warnings: []
+    recommendations:
+    - Reduce laser intensity to meet facility constraints
+    - Consider alternative ELI facility with higher capability
+    - 'Physics: Density ratio 0.01 may affect plasma mirror formation'
+    - "\u274C Significant modifications required for feasibility"
+    - "\u274C Reconsider experimental approach or parameter ranges"
+    - 'CRITICAL: Address physics threshold violations for ELI-ALPS'
+    - Optimize for high-statistics data collection
+    - Implement fast target translation system
+    - Focus on parameter space mapping
+    - Utilize automated experimental control
+    - "\u274C Significant modifications required"
+    summary:
+      confidence_level: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        ZmZmZmZm5j8=
+      key_challenges: &id004
+      - Facility compatibility issues
+      key_strengths: &id005
+      - Within physics breakdown thresholds
+      overall_feasibility: LOW
+    validation_result:
+      facility_validation:
+        feasible: false
+        primary_issues:
+        - "Intensity 1.0e+18 W/cm\xB2 exceeds all facility capabilities"
+        - Wavelength 800 nm incompatible with available systems
+        - Pulse duration 150 fs outside operational range
+        recommendations:
+        - "Reduce intensity to \u226410^23 W/cm\xB2 for broader compatibility"
+        - Use 800 nm or 1030 nm wavelength for Ti:Sapphire/Yb:YAG systems
+        - Adjust pulse duration to 30-200 fs range
+        score: 0.0
+      hawking_analysis:
+        detection_feasible: true
+        estimated_detection_time_s: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          +5otL5hScT8=
+        hawking_temperature_K: 0.12156624712070312
+        limitations: []
+        optimization_suggestions: []
+        signal_to_noise_ratio: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          iOy93Kc4U0A=
+        surface_gravity_estimate_Hz: 100000000000.0
+      input_parameters:
+        facility_preference: eli-alps
+        intensity_W_m2: 1.0e+22
+        plasma_density_m3: 1.0e+25
+        pulse_duration_fs: 150
+        target_type: translating_solid
+        wavelength_nm: 800
+      overall_assessment:
+        confidence_level: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZmZmZmZm5j8=
+        facility_recommendation: null
+        key_challenges: *id004
+        key_strengths: *id005
+        overall_feasibility: LOW
+        readiness_level: TRL 1-3
+      physics_validation:
+        critical_issues: []
+        passed_all_checks: true
+        threshold_checks:
+          a0: !!python/object/apply:numpy._core.multiarray.scalar
+          - *id001
+          - !!binary |
+            w/UoXI/C5T8=
+          critical_density_m3: 1.7419596865359529e+27
+          critical_power_GW: 3031.0098545725573
+          density_ratio: 0.005740660979293913
+          laser_power_GW: 70.68583470577036
+        warnings:
+        - Density ratio 0.01 may affect plasma mirror formation
+      plasma_mirror_analysis:
+        expansion_velocity_ms: 10000000.0
+        formation_time_fs: 0.1
+        mirror_formation_feasible: true
+        optimal_timing_fs: 15.1
+        recommendations: []
+        reflectivity_estimate: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZmZmZmZm5j8=
+      recommendations:
+      - Reduce laser intensity to meet facility constraints
+      - Consider alternative ELI facility with higher capability
+      - 'Physics: Density ratio 0.01 may affect plasma mirror formation'
+      - "\u274C Significant modifications required for feasibility"
+      - "\u274C Reconsider experimental approach or parameter ranges"
+  ELI-Beamlines:
+    facility_config:
+      constraints:
+        max_gradient_s: 4e12
+        max_intensity_W_m2: 1e24
+        max_velocity_c: 0.5
+        radiation_shielding: Class-A
+        vacuum_level_mbar: 1e-7
+      diagnostics:
+        hawking_specific:
+        - Radio detection system (30K system temp)
+        - High-bandwidth oscilloscopes (>10 GHz)
+        - Low-noise RF amplifiers
+        - Spectrum analyzers
+        optional:
+        - Interferometry
+        - Shadowgraphy
+        - Plasma interferometry
+        primary:
+        - X-ray spectrometry (1-100 keV)
+        - Electron spectrometry (MeV range)
+        - Optical probing (fs resolution)
+        - Thomson scattering
+      experimental_parameters:
+        density_gradient_scale_um: 0.5
+        expansion_velocity_ms: 2e6
+        expected_reflectivity: 0.75
+        focal_spot_um: 3.0
+        main_pulse_delay_fs: 180
+        mirror_formation_timing_fs: 30
+        peak_density_m3: 5e25
+        pre_plasma_scale_fs: 50
+        pulse_duration_fs: 150
+        target_intensity_W_m2: 8e23
+        target_type: solid
+        temporal_contrast: 1e-10
+        wavelength_nm: 810
+      facility:
+        experimental_hall: E4
+        location: "Doln\xED B\u0159e\u017Eany, Czech Republic"
+        name: ELI-Beamlines
+        status: commissioning
+      laser_system:
+        beam_quality_M2: 1.2
+        contrast_ratio: 1e-10
+        max_intensity_W_cm2: 1e24
+        name: L4 ATON
+        peak_power_TW: 10000
+        polarization: linear
+        pulse_duration_fs: 150
+        pulse_energy_J: 1500
+        repetition_rate_Hz: 0.017
+        wavelength_nm: 810
+      optimization:
+        primary_parameters:
+        - Intensity (via focal spot adjustment)
+        - Plasma mirror timing
+        - Target density profile
+        secondary_parameters:
+        - Pulse duration compression
+        - Beam pointing optimization
+        - Contrast enhancement
+      performance_targets:
+        detection_confidence: 5
+        hawking_temperature_K: 1e-7
+        signal_to_noise_ratio: 5.0
+        surface_gravity_Hz: 5e12
+      risk_factors:
+        high:
+        - Plasma mirror timing precision
+        - Shot-to-shot laser stability
+        - Target surface quality
+        low:
+        - Facility infrastructure
+        - Safety systems
+        medium:
+        - Diagnostic integration
+        - Data acquisition synchronization
+      success_metrics:
+        minimum_requirements:
+        - Successful plasma mirror formation (reflectivity > 50%)
+        - Sonic horizon detection
+        - Data acquisition on > 80% of shots
+        stretch_goals:
+        - Multiple horizon configurations
+        - Parameter optimization completion
+        - Comparison with theoretical predictions
+        target_achievements:
+        - "\u03BA measurement with < 20% uncertainty"
+        - Hawking-like spectrum detection
+        - Reproducible results across shots
+      timeline:
+        alignment_hours: 24
+        data_collection_shots: 20
+        plasma_mirror_optimization_hours: 12
+        setup_days: 7
+        target_positioning_hours: 8
+        total_campaign_days: 10
+    facility_metrics:
+      experimental_efficiency:
+        data_collection_efficiency: 0.6
+        setup_time_days: 7
+        shots_per_day: 86400
+        total_campaign_days: 10
+      facility_advantages:
+      - Highest available intensity (10 PW)
+      - Good focal spot quality
+      - Established plasma physics program
+      facility_limitations:
+      - Low repetition rate (1 shot/minute)
+      - Long experimental campaigns
+      - Limited shot statistics
+      performance_indicators:
+        data_quality_potential: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          VVVVVVVV5T8=
+        detection_feasibility_score: true
+        intensity_utilization: 1.0e-06
+        physics_compliance_rate: 0.8461538461538461
+        shot_efficiency: 2.0
+    facility_name: ELI-Beamlines
+    physics_validation:
+      confidence_score: 0.8461538461538461
+      critical_issues:
+      - "Density gradient 3.00e+14 s\u207B\xB9 exceeds limit"
+      derived_parameters:
+        critical_density_m3: 1.7419596865359529e+27
+        critical_power_W: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          d2QjILINhkI=
+        density_ratio: 0.005740660979293913
+        hawking_temperature_K: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          okdBnSkh/z8=
+        laser_power_W: 70685834705.77036
+        mach_number: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          NWTiYacFFEA=
+        plasma_frequency_Hz: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          Qo5gLMTSuUI=
+        relativistic_parameter_a0: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+        sound_speed_ms: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          W5ztHxtjGEE=
+        surface_gravity_Hz: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZEJwrxtKd0I=
+      facility: ELI-Beamlines
+      input_parameters:
+        flow_velocity_ms: 2000000.0
+        gradient_scale_m: 1.0e-06
+        intensity_W_m2: 1.0e+22
+        plasma_density_m3: 1.0e+25
+        pulse_duration_fs: 150
+        wavelength_nm: 800
+      overall_passed: false
+      recommendations:
+      - "CRITICAL: Increase gradient scale to \u22657.49e-05 m"
+      - Consider L4 ATON system for maximum intensity
+      - Allow 1 minute between shots for thermal recovery
+      - Use E4 experimental hall for optimal conditions
+      - "\u2705 Configuration is highly feasible"
+      threshold_validations:
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100.0
+        message: "Intensity 1.00e+22 W/m\xB2 within universal limit"
+        parameter_name: Intensity
+        passed: true
+        recommendation: Intensity is acceptable
+        severity: info
+        threshold_value: 1.0e+24
+        unit: "W/m\xB2"
+        value: 1.0e+22
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 74.9481145
+        message: Flow velocity 2.00e+06 m/s (0.01c) within limit
+        parameter_name: Flow Velocity
+        passed: true
+        recommendation: Velocity is acceptable
+        severity: info
+        threshold_value: 149896229.0
+        unit: m/s
+        value: 2000000.0
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 0.013342563807926082
+        message: "Density gradient 3.00e+14 s\u207B\xB9 exceeds limit"
+        parameter_name: Density Gradient
+        passed: false
+        recommendation: "Increase gradient scale to \u22657.49e-05 m"
+        severity: critical
+        threshold_value: 4000000000000.0
+        unit: "s\u207B\xB9"
+        value: 299792458000000.0
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100.0
+        message: Intensity within ELI-Beamlines capability
+        parameter_name: Facility Intensity (ELI-Beamlines)
+        passed: true
+        recommendation: Compatible with ELI-Beamlines
+        severity: warning
+        threshold_value: 1.0e+24
+        unit: "W/m\xB2"
+        value: 1.0e+22
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100000.0
+        message: Intensity sufficient for ionization
+        parameter_name: Ionization Threshold
+        passed: true
+        recommendation: Ionization achievable
+        severity: info
+        threshold_value: 10000000000000.0
+        unit: "W/cm\xB2"
+        value: 1.0e+18
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 10000.0
+        message: Intensity sufficient for plasma mirror formation
+        parameter_name: Plasma Mirror Formation
+        passed: true
+        recommendation: Plasma mirror formation possible
+        severity: info
+        threshold_value: 100000000000000.0
+        unit: "W/cm\xB2"
+        value: 1.0e+18
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+        message: "Relativistic parameter a\u2080 = 0.68 (non-relativistic regime)"
+        parameter_name: "Relativistic Parameter (a\u2080)"
+        passed: *id006
+        recommendation: Non-relativistic regime valid
+        severity: info
+        threshold_value: 1.0
+        unit: dimensionless
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          5XdGZcs9T0A=
+        message: "\u03BA = 1.60e+12 Hz (within valid range [1.0e+09, 1.0e+14] Hz)"
+        parameter_name: "Surface Gravity (\u03BA)"
+        passed: true
+        recommendation: "\u03BA is in valid range"
+        severity: info
+        threshold_value: !!python/tuple
+        - 1000000000.0
+        - 100000000000000.0
+        unit: Hz
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZEJwrxtKd0I=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          KLMbwqkeEkI=
+        message: T_H = 1.95e+00 K (detectable)
+        parameter_name: Hawking Temperature
+        passed: *id003
+        recommendation: Temperature potentially detectable
+        severity: info
+        threshold_value: 1.0e-10
+        unit: K
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          okdBnSkh/z8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 10.0
+        message: Gradient scale 1.00e-06 m (within optimal range)
+        parameter_name: Density Gradient Scale
+        passed: true
+        recommendation: Gradient scale is optimal
+        severity: info
+        threshold_value: !!python/tuple
+        - 1.0e-07
+        - 1.0e-05
+        unit: m
+        value: 1.0e-06
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          h4eHh4eH9z8=
+        message: "a\u2080 = 0.68 (weakly relativistic regime)"
+        parameter_name: Relativistic Regime
+        passed: *id003
+        recommendation: Classical treatment valid
+        severity: info
+        threshold_value: 1.0
+        unit: dimensionless
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 74.9481145
+        message: v/c = 0.007 (non-relativistic flow)
+        parameter_name: Flow Velocity Regime
+        passed: true
+        recommendation: Non-relativistic flow valid
+        severity: info
+        threshold_value: 0.5
+        unit: fraction of c
+        value: 0.006671281903963041
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 296.87499999999994
+        message: n/n_c = 0.003 (underdense plasma)
+        parameter_name: Plasma Density Regime
+        passed: true
+        recommendation: Laser propagation in plasma valid
+        severity: info
+        threshold_value: 1.0
+        unit: fraction of critical
+        value: 0.0033684210526315796
+      warnings: []
+    recommendations:
+    - 'Facility: System is in commissioning - operational schedule may be limited'
+    - 'Physics: Density ratio 0.01 may affect plasma mirror formation'
+    - 'Plasma Mirror: Use polished optical quality surface'
+    - 'Plasma Mirror: Consider pre-pulse cleaning with plasma mirror'
+    - "\u2705 Proceed with detailed experimental proposal development"
+    - "\u2705 Contact facility for beam time application"
+    - 'CRITICAL: Address physics threshold violations for ELI-Beamlines'
+    - Focus on high-intensity single-shot experiments
+    - Implement advanced plasma mirror timing control
+    - Plan for long data collection periods
+    - "\u2705 Proceed with detailed experimental proposal"
+    summary:
+      confidence_level: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        5f14xmmu5z8=
+      key_challenges: &id007 []
+      key_strengths: &id008
+      - Compatible with ELI facilities
+      - Within physics breakdown thresholds
+      overall_feasibility: HIGH
+    validation_result:
+      facility_validation:
+        all_compatible_systems:
+        - L4 ATON
+        best_system: L4 ATON
+        duration_match: 1.0
+        experimental_hall: E4
+        facility: ELI-Beamlines
+        feasible: true
+        intensity_margin: 1000000.0
+        operational_status: commissioning
+        recommendations:
+        - System is in commissioning - operational schedule may be limited
+        repetition_rate_Hz: 0.017
+        score: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          4iyehnA+6j8=
+        wavelength_match: 0.9
+      hawking_analysis:
+        detection_feasible: true
+        estimated_detection_time_s: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          +5otL5hScT8=
+        hawking_temperature_K: 0.12156624712070312
+        limitations: []
+        optimization_suggestions: []
+        signal_to_noise_ratio: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          iOy93Kc4U0A=
+        surface_gravity_estimate_Hz: 100000000000.0
+      input_parameters:
+        facility_preference: eli-beamlines
+        intensity_W_m2: 1.0e+22
+        plasma_density_m3: 1.0e+25
+        pulse_duration_fs: 150
+        target_type: solid
+        wavelength_nm: 800
+      overall_assessment:
+        confidence_level: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          5f14xmmu5z8=
+        facility_recommendation: ELI-Beamlines
+        key_challenges: *id007
+        key_strengths: *id008
+        overall_feasibility: HIGH
+        readiness_level: TRL 4-6
+      physics_validation:
+        critical_issues: []
+        passed_all_checks: true
+        threshold_checks:
+          a0: !!python/object/apply:numpy._core.multiarray.scalar
+          - *id001
+          - !!binary |
+            w/UoXI/C5T8=
+          critical_density_m3: 1.7419596865359529e+27
+          critical_power_GW: 3031.0098545725573
+          density_ratio: 0.005740660979293913
+          laser_power_GW: 70.68583470577036
+        warnings:
+        - Density ratio 0.01 may affect plasma mirror formation
+      plasma_mirror_analysis:
+        expansion_velocity_ms: 10000000.0
+        formation_time_fs: 0.1
+        mirror_formation_feasible: true
+        optimal_timing_fs: 15.1
+        recommendations:
+        - Use polished optical quality surface
+        - Consider pre-pulse cleaning with plasma mirror
+        reflectivity_estimate: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZmZmZmZm5j8=
+      recommendations:
+      - 'Facility: System is in commissioning - operational schedule may be limited'
+      - 'Physics: Density ratio 0.01 may affect plasma mirror formation'
+      - 'Plasma Mirror: Use polished optical quality surface'
+      - 'Plasma Mirror: Consider pre-pulse cleaning with plasma mirror'
+      - "\u2705 Proceed with detailed experimental proposal development"
+      - "\u2705 Contact facility for beam time application"
+  ELI-NP:
+    facility_config:
+      constraints:
+        max_gradient_s: 4e12
+        max_intensity_W_m2: 1e24
+        max_velocity_c: 0.5
+        radiation_shielding: Class-B
+        vacuum_level_mbar: 1e-8
+      diagnostics:
+        hawking_specific:
+        - Radio detection system (20K system temp - better cooling)
+        - High-bandwidth oscilloscopes (>20 GHz)
+        - Ultra-low-noise RF amplifiers
+        - Spectrum analyzers with high dynamic range
+        - Correlation analysis equipment
+        plasma_physics:
+        - X-ray spectrometry (1-100 keV)
+        - Electron spectrometry (MeV range)
+        - Optical probing (fs resolution)
+        primary:
+        - Gamma ray detection (20 MeV)
+        - Nuclear activation analysis
+        - High-energy particle spectrometry
+        - Positron production detection
+        - Nuclear reaction monitoring
+      dual_beam_configuration:
+        angle_between_beams_deg: 10
+        enabled: true
+        second_beam_power_TW: 1000
+        second_beam_purpose: plasma_diagnostic
+        timing_precision_fs: 30
+      experimental_parameters:
+        density_gradient_scale_um: 0.3
+        external_magnetic_field_T: 20
+        field_configuration: solenoidal
+        focal_spot_um: 3.5
+        peak_density_m3: 8e25
+        pre_plasma_scale_fs: 30
+        pulse_duration_fs: 150
+        target_intensity_W_m2: 7e23
+        target_type: solid_heavy
+        temporal_contrast: 1e-11
+        wavelength_nm: 810
+      facility:
+        experimental_hall: E1
+        location: "M\u0103gurele, Romania"
+        name: ELI-NP
+        status: operational
+      facility_advantages:
+      - Dual-beam capability for enhanced diagnostics
+      - Superior temporal contrast (1e-11)
+      - Enhanced magnetic field capabilities
+      - Nuclear physics diagnostic expertise
+      - Better cooling and low-noise environment
+      - Heavy element target handling expertise
+      laser_system:
+        beam_quality_M2: 1.3
+        contrast_ratio: 1e-11
+        max_intensity_W_cm2: 1e24
+        name: HPLS 10PW - Arm A
+        peak_power_TW: 10000
+        polarization: linear/circular
+        pulse_duration_fs: 150
+        pulse_energy_J: 1500
+        repetition_rate_Hz: 0.003
+        wavelength_nm: 810
+      optimization:
+        primary_parameters:
+        - Density gradient optimization (using heavy elements)
+        - Magnetic field configuration
+        - Dual-beam timing and geometry
+        secondary_parameters:
+        - Target composition (Z-optimization)
+        - Pulse contrast enhancement
+        - Diagnostic shielding from nuclear products
+        unique_opportunities:
+        - Correlation with nuclear reaction products
+        - Magnetic field effects on horizon dynamics
+        - Heavy ion effects on plasma formation
+      performance_targets:
+        detection_confidence: 5
+        hawking_temperature_K: 1.5e-07
+        nuclear_correlation_strength: 0.8
+        signal_to_noise_ratio: 6.0
+        surface_gravity_Hz: 7e12
+      risk_factors:
+        high:
+        - Radiation safety protocols
+        - Dual-beam synchronization
+        - Heavy target handling
+        - Nuclear product contamination
+        low:
+        - Facility infrastructure
+        - Basic laser operations
+        medium:
+        - Extended shot cycle impact on data collection
+        - Complex diagnostic integration
+        - Magnetic field interference
+      success_metrics:
+        minimum_requirements:
+        - Successful plasma mirror formation (reflectivity > 60%)
+        - Sonic horizon detection with magnetic field effects
+        - Data acquisition on > 90% of shots (lower shot count, higher quality)
+        - Nuclear safety compliance
+        stretch_goals:
+        - Multi-horizon configuration using dual beams
+        - Nuclear product correlation with Hawking signal
+        - Magnetic field optimization demonstration
+        - Comparison with theoretical predictions including nuclear effects
+        target_achievements:
+        - "\u03BA measurement with < 15% uncertainty (better precision)"
+        - Hawking-like spectrum detection with nuclear correlations
+        - Magnetic field effect characterization
+        - Dual-beam configuration validation
+      timeline:
+        alignment_hours: 32
+        data_collection_shots: 12
+        dual_beam_synchronization_hours: 8
+        plasma_mirror_optimization_hours: 16
+        setup_days: 10
+        target_positioning_hours: 12
+        total_campaign_days: 14
+    facility_metrics:
+      experimental_efficiency:
+        data_collection_efficiency: 0.3
+        setup_time_days: 10
+        shots_per_day: 86400
+        total_campaign_days: 14
+      facility_advantages:
+      - Dual-beam capability
+      - Excellent temporal contrast
+      - Magnetic field expertise
+      - Nuclear physics diagnostics
+      facility_limitations:
+      - Very low repetition rate (1 shot/5 min)
+      - Complex safety procedures
+      - Limited shot availability
+      performance_indicators:
+        data_quality_potential: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          VVVVVVVV5T8=
+        detection_feasibility_score: true
+        intensity_utilization: 1.0e-06
+        physics_compliance_rate: 0.8461538461538461
+        shot_efficiency: 0.8571428571428571
+    facility_name: ELI-NP
+    physics_validation:
+      confidence_score: 0.8461538461538461
+      critical_issues:
+      - "Density gradient 3.00e+14 s\u207B\xB9 exceeds limit"
+      derived_parameters:
+        critical_density_m3: 1.7419596865359529e+27
+        critical_power_W: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          d2QjILINhkI=
+        density_ratio: 0.005740660979293913
+        hawking_temperature_K: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          okdBnSkh/z8=
+        laser_power_W: 70685834705.77036
+        mach_number: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          NWTiYacFFEA=
+        plasma_frequency_Hz: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          Qo5gLMTSuUI=
+        relativistic_parameter_a0: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+        sound_speed_ms: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          W5ztHxtjGEE=
+        surface_gravity_Hz: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZEJwrxtKd0I=
+      facility: ELI-NP
+      input_parameters:
+        flow_velocity_ms: 2000000.0
+        gradient_scale_m: 1.0e-06
+        intensity_W_m2: 1.0e+22
+        plasma_density_m3: 1.0e+25
+        pulse_duration_fs: 150
+        wavelength_nm: 800
+      overall_passed: false
+      recommendations:
+      - "CRITICAL: Increase gradient scale to \u22657.49e-05 m"
+      - Leverage dual-beam capability for enhanced diagnostics
+      - Consider magnetic field effects on plasma dynamics
+      - Allow 5 minutes between shots for nuclear safety
+      - "\u2705 Configuration is highly feasible"
+      threshold_validations:
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100.0
+        message: "Intensity 1.00e+22 W/m\xB2 within universal limit"
+        parameter_name: Intensity
+        passed: true
+        recommendation: Intensity is acceptable
+        severity: info
+        threshold_value: 1.0e+24
+        unit: "W/m\xB2"
+        value: 1.0e+22
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 74.9481145
+        message: Flow velocity 2.00e+06 m/s (0.01c) within limit
+        parameter_name: Flow Velocity
+        passed: true
+        recommendation: Velocity is acceptable
+        severity: info
+        threshold_value: 149896229.0
+        unit: m/s
+        value: 2000000.0
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 0.013342563807926082
+        message: "Density gradient 3.00e+14 s\u207B\xB9 exceeds limit"
+        parameter_name: Density Gradient
+        passed: false
+        recommendation: "Increase gradient scale to \u22657.49e-05 m"
+        severity: critical
+        threshold_value: 4000000000000.0
+        unit: "s\u207B\xB9"
+        value: 299792458000000.0
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100.0
+        message: Intensity within ELI-NP capability
+        parameter_name: Facility Intensity (ELI-NP)
+        passed: true
+        recommendation: Compatible with ELI-NP
+        severity: warning
+        threshold_value: 1.0e+24
+        unit: "W/m\xB2"
+        value: 1.0e+22
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 100000.0
+        message: Intensity sufficient for ionization
+        parameter_name: Ionization Threshold
+        passed: true
+        recommendation: Ionization achievable
+        severity: info
+        threshold_value: 10000000000000.0
+        unit: "W/cm\xB2"
+        value: 1.0e+18
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 10000.0
+        message: Intensity sufficient for plasma mirror formation
+        parameter_name: Plasma Mirror Formation
+        passed: true
+        recommendation: Plasma mirror formation possible
+        severity: info
+        threshold_value: 100000000000000.0
+        unit: "W/cm\xB2"
+        value: 1.0e+18
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+        message: "Relativistic parameter a\u2080 = 0.68 (non-relativistic regime)"
+        parameter_name: "Relativistic Parameter (a\u2080)"
+        passed: *id006
+        recommendation: Non-relativistic regime valid
+        severity: info
+        threshold_value: 1.0
+        unit: dimensionless
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          5XdGZcs9T0A=
+        message: "\u03BA = 1.60e+12 Hz (within valid range [1.0e+09, 1.0e+14] Hz)"
+        parameter_name: "Surface Gravity (\u03BA)"
+        passed: true
+        recommendation: "\u03BA is in valid range"
+        severity: info
+        threshold_value: !!python/tuple
+        - 1000000000.0
+        - 100000000000000.0
+        unit: Hz
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZEJwrxtKd0I=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          KLMbwqkeEkI=
+        message: T_H = 1.95e+00 K (detectable)
+        parameter_name: Hawking Temperature
+        passed: *id003
+        recommendation: Temperature potentially detectable
+        severity: info
+        threshold_value: 1.0e-10
+        unit: K
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          okdBnSkh/z8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 10.0
+        message: Gradient scale 1.00e-06 m (within optimal range)
+        parameter_name: Density Gradient Scale
+        passed: true
+        recommendation: Gradient scale is optimal
+        severity: info
+        threshold_value: !!python/tuple
+        - 1.0e-07
+        - 1.0e-05
+        unit: m
+        value: 1.0e-06
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          h4eHh4eH9z8=
+        message: "a\u2080 = 0.68 (weakly relativistic regime)"
+        parameter_name: Relativistic Regime
+        passed: *id003
+        recommendation: Classical treatment valid
+        severity: info
+        threshold_value: 1.0
+        unit: dimensionless
+        value: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          w/UoXI/C5T8=
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 74.9481145
+        message: v/c = 0.007 (non-relativistic flow)
+        parameter_name: Flow Velocity Regime
+        passed: true
+        recommendation: Non-relativistic flow valid
+        severity: info
+        threshold_value: 0.5
+        unit: fraction of c
+        value: 0.006671281903963041
+      - !!python/object:analog_hawking.facilities.eli_physics_validator.PhysicsThresholdResult
+        margin: 296.87499999999994
+        message: n/n_c = 0.003 (underdense plasma)
+        parameter_name: Plasma Density Regime
+        passed: true
+        recommendation: Laser propagation in plasma valid
+        severity: info
+        threshold_value: 1.0
+        unit: fraction of critical
+        value: 0.0033684210526315796
+      warnings: []
+    recommendations:
+    - 'Facility: Parameters are well within system capabilities'
+    - 'Physics: Density ratio 0.01 may affect plasma mirror formation'
+    - "\u2705 Proceed with detailed experimental proposal development"
+    - "\u2705 Contact facility for beam time application"
+    - 'CRITICAL: Address physics threshold violations for ELI-NP'
+    - Leverage dual-beam capability for enhanced diagnostics
+    - Utilize magnetic field expertise for plasma control
+    - Plan extended campaign due to low repetition rate
+    - Implement nuclear safety protocols early
+    - "\u2705 Proceed with detailed experimental proposal"
+    summary:
+      confidence_level: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        ncpNrfpR6D8=
+      key_challenges: &id009 []
+      key_strengths: &id010
+      - Compatible with ELI facilities
+      - Within physics breakdown thresholds
+      overall_feasibility: HIGH
+    validation_result:
+      facility_validation:
+        all_compatible_systems:
+        - HPLS 10PW - Arm A
+        - HPLS 10PW - Arm B
+        best_system: HPLS 10PW - Arm A
+        duration_match: 1.0
+        experimental_hall: E1
+        facility: ELI-NP
+        feasible: true
+        intensity_margin: 1000000.0
+        operational_status: operational
+        recommendations:
+        - Parameters are well within system capabilities
+        repetition_rate_Hz: 0.003
+        score: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          CpMcOyMp7D8=
+        wavelength_match: 0.9
+      hawking_analysis:
+        detection_feasible: true
+        estimated_detection_time_s: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          +5otL5hScT8=
+        hawking_temperature_K: 0.12156624712070312
+        limitations: []
+        optimization_suggestions: []
+        signal_to_noise_ratio: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          iOy93Kc4U0A=
+        surface_gravity_estimate_Hz: 100000000000.0
+      input_parameters:
+        facility_preference: eli-np
+        intensity_W_m2: 1.0e+22
+        plasma_density_m3: 1.0e+25
+        pulse_duration_fs: 150
+        target_type: solid_heavy
+        wavelength_nm: 800
+      overall_assessment:
+        confidence_level: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ncpNrfpR6D8=
+        facility_recommendation: ELI-NP
+        key_challenges: *id009
+        key_strengths: *id010
+        overall_feasibility: HIGH
+        readiness_level: TRL 4-6
+      physics_validation:
+        critical_issues: []
+        passed_all_checks: true
+        threshold_checks:
+          a0: !!python/object/apply:numpy._core.multiarray.scalar
+          - *id001
+          - !!binary |
+            w/UoXI/C5T8=
+          critical_density_m3: 1.7419596865359529e+27
+          critical_power_GW: 3031.0098545725573
+          density_ratio: 0.005740660979293913
+          laser_power_GW: 70.68583470577036
+        warnings:
+        - Density ratio 0.01 may affect plasma mirror formation
+      plasma_mirror_analysis:
+        expansion_velocity_ms: 10000000.0
+        formation_time_fs: 0.1
+        mirror_formation_feasible: true
+        optimal_timing_fs: 15.1
+        recommendations: []
+        reflectivity_estimate: !!python/object/apply:numpy._core.multiarray.scalar
+        - *id001
+        - !!binary |
+          ZmZmZmZm5j8=
+      recommendations:
+      - 'Facility: Parameters are well within system capabilities'
+      - 'Physics: Density ratio 0.01 may affect plasma mirror formation'
+      - "\u2705 Proceed with detailed experimental proposal development"
+      - "\u2705 Contact facility for beam time application"
+feasibility_matrix:
+  facility_scores:
+    ELI-ALPS:
+      high_precision_measurement: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        61G4HoXr4T8=
+      parameter_optimization: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        zMzMzMzM8D8=
+      proof_of_concept: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        4XoUrkfh6j8=
+      reproducibility_study: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        HoXrUbge7T8=
+    ELI-Beamlines:
+      high_precision_measurement: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        rDCRVOVq7D8=
+      parameter_optimization: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        urFUcbCT4D8=
+      proof_of_concept: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        5f14xmmu5z8=
+      reproducibility_study: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        rDCRVOVq3D8=
+    ELI-NP:
+      high_precision_measurement: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        1A1QeS8G8T8=
+      parameter_optimization: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        ncpNrfpR2D8=
+      proof_of_concept: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        Wjb5m2Hj5T8=
+      reproducibility_study: !!python/object/apply:numpy._core.multiarray.scalar
+      - *id001
+      - !!binary |
+        GKKkish00z8=
+  goals:
+    high_precision_measurement:
+      difficulty: HIGH
+      requirement: Detailed spectrum analysis
+    parameter_optimization:
+      difficulty: MEDIUM
+      requirement: Systematic parameter studies
+    proof_of_concept:
+      difficulty: LOW
+      requirement: Basic horizon detection
+    reproducibility_study:
+      difficulty: HIGH
+      requirement: Multiple consistent results
+metadata:
+  analog_hawking_version: 0.3.0
+  base_parameters:
+    intensity_W_m2: 1.0e+22
+    plasma_density_m3: 1.0e+25
+    pulse_duration_fs: 150
+    wavelength_nm: 800
+  generation_date: '2025-11-06T19:40:22.259147'
+  report_type: comprehensive_eli_compatibility
+next_steps:
+- actions:
+  - Contact recommended facilities for beam time inquiries
+  - Develop detailed experimental proposal
+  - Secure funding for campaign
+  - Form collaboration with facility experts
+  priority: HIGH
+  timeline: Immediate (1-2 months)
+- actions:
+  - Complete detailed simulations with PIC codes
+  - Finalize diagnostic specifications
+  - Develop data analysis pipeline
+  - Prepare safety documentation
+  priority: HIGH
+  timeline: Short-term (2-6 months)
+- actions:
+  - Schedule beam time at primary facility
+  - Fabricate and test target systems
+  - Install and validate diagnostic equipment
+  - Perform initial commissioning experiments
+  priority: MEDIUM
+  timeline: Medium-term (6-12 months)
+- actions:
+  - Execute full experimental campaign
+  - Analyze and publish results
+  - Plan follow-up experiments
+  - Explore facility upgrades or alternatives
+  priority: MEDIUM
+  timeline: Long-term (12+ months)
+risk_assessment:
+  facility_risks:
+    ELI-ALPS:
+    - Lower maximum intensity
+    - Plasma mirror timing precision requirements
+    ELI-Beamlines:
+    - Low repetition rate limits statistics
+    - Long experimental campaigns
+    ELI-NP:
+    - Very low repetition rate
+    - Complex safety procedures
+    - Limited beam time
+  mitigation_strategies:
+  - Start with conservative parameter ranges
+  - Implement comprehensive diagnostic suite
+  - Develop real-time data analysis capabilities
+  - Create backup experimental configurations
+  - Establish collaboration with facility experts
+  - Perform detailed simulations before experiments
+  overall_risk_level: MEDIUM
+  physics_risks:
+  - Breakdown of fluid model assumptions at high intensity
+  - Unforeseen relativistic effects
+  - Plasma mirror instabilities
+  - Detection system limitations
+  - Background noise contamination
+  technical_risks:
+    ELI-ALPS:
+    - Detection feasibility concerns
+    ELI-Beamlines:
+    - Detection feasibility concerns
+    ELI-NP:
+    - Detection feasibility concerns

@@ -1,0 +1,83 @@
+{
+  "input_parameters": {
+    "intensity_W_m2": 1e+22,
+    "wavelength_nm": 800,
+    "pulse_duration_fs": 150,
+    "plasma_density_m3": 1e+25,
+    "target_type": "solid",
+    "facility_preference": null
+  },
+  "facility_validation": {
+    "feasible": true,
+    "score": 0.8800216822170068,
+    "best_system": "HPLS 10PW - Arm A",
+    "facility": "ELI-NP",
+    "intensity_margin": 1000000.0,
+    "wavelength_match": 0.9,
+    "duration_match": 1.0,
+    "operational_status": "operational",
+    "repetition_rate_Hz": 0.003,
+    "experimental_hall": "E1",
+    "all_compatible_systems": [
+      "HPLS 10PW - Arm A",
+      "HPLS 10PW - Arm B",
+      "L4 ATON"
+    ],
+    "recommendations": [
+      "Parameters are well within system capabilities"
+    ]
+  },
+  "physics_validation": {
+    "threshold_checks": {
+      "a0": 0.68,
+      "critical_power_GW": 3031.0098545725573,
+      "laser_power_GW": 70.68583470577036,
+      "density_ratio": 0.005740660979293913,
+      "critical_density_m3": 1.7419596865359529e+27
+    },
+    "critical_issues": [],
+    "warnings": [
+      "Density ratio 0.01 may affect plasma mirror formation"
+    ],
+    "passed_all_checks": true
+  },
+  "hawking_analysis": {
+    "surface_gravity_estimate_Hz": 100000000000.0,
+    "hawking_temperature_K": 0.12156624712070312,
+    "detection_feasible": true,
+    "estimated_detection_time_s": 0.004229158849603061,
+    "signal_to_noise_ratio": 76.88524550006161,
+    "limitations": [],
+    "optimization_suggestions": []
+  },
+  "plasma_mirror_analysis": {
+    "mirror_formation_feasible": true,
+    "formation_time_fs": 0.1,
+    "reflectivity_estimate": 0.7,
+    "expansion_velocity_ms": 10000000.0,
+    "optimal_timing_fs": 15.1,
+    "recommendations": [
+      "Use polished optical quality surface",
+      "Consider pre-pulse cleaning with plasma mirror"
+    ]
+  },
+  "overall_assessment": {
+    "overall_feasibility": "HIGH",
+    "confidence_level": 0.760007227405669,
+    "key_strengths": [
+      "Compatible with ELI facilities",
+      "Within physics breakdown thresholds"
+    ],
+    "key_challenges": [],
+    "facility_recommendation": "ELI-NP",
+    "readiness_level": "TRL 4-6"
+  },
+  "recommendations": [
+    "Facility: Parameters are well within system capabilities",
+    "Physics: Density ratio 0.01 may affect plasma mirror formation",
+    "Plasma Mirror: Use polished optical quality surface",
+    "Plasma Mirror: Consider pre-pulse cleaning with plasma mirror",
+    "\u2705 Proceed with detailed experimental proposal development",
+    "\u2705 Contact facility for beam time application"
+  ]
+}

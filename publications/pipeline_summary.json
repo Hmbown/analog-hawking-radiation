@@ -1,0 +1,26 @@
+{
+  "execution_time": "2025-11-07T01:40:15.121727+00:00",
+  "total_journals": 4,
+  "successful_packages": 2,
+  "failed_packages": 2,
+  "pipeline_results": {
+    "Nature Physics": {
+      "status": "SUCCESS",
+      "files_created": 6,
+      "package_location": "publications/submissions/nature_physics"
+    },
+    "Physical Review Letters": {
+      "status": "SUCCESS",
+      "files_created": 6,
+      "package_location": "publications/submissions/physical_review_letters"
+    },
+    "Physical Review E": {
+      "status": "FAILED",
+      "error": "'AcademicPublicationPipeline' object has no attribute '_generate_pre_content'"
+    },
+    "Nature Communications": {
+      "status": "FAILED",
+      "error": "'AcademicPublicationPipeline' object has no attribute '_generate_nature_communications_content'"
+    }
+  }
+}
