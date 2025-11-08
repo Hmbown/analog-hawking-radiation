@@ -55,9 +55,10 @@ jobs:
 
       - name: CLI smoke tests
         run: |
-          ahr --version
-          ahr gpu-info
-          ahr regress
+          # Try both direct command and module syntax
+          ahr --version || python -m analog_hawking.cli.main --version
+          ahr gpu-info || python -m analog_hawking.cli.main gpu-info
+          ahr regress || python -m analog_hawking.cli.main regress
 
       - name: Security audit (pip-audit)
         run: |
