@@ -1,6 +1,6 @@
 # Getting Started: Experimentalist
 
-**Quick Navigation**: [Back to README](../../README.md) | [Quick Links](../QUICKLINKS.md) | [Full Documentation](../index.md)
+**Quick Navigation**: [Back to Overview](../index.md) | [Quick Links](../QUICKLINKS.md) | [Full Documentation](../index.md)
 
 This guide is for **experimental physicists** who want to:
 - Design laser-plasma experiments
@@ -166,9 +166,9 @@ python scripts/validate_eli_constraints.py \
 See: [ELI Experimental Planning Guide](../ELI_Experimental_Planning_Guide.md)
 
 ### Other Facilities
-- [APOLLON Configuration](../configs/facilities/apollon.yaml)
-- [GEMINI Configuration](../configs/facilities/gemini.yaml)
-- [Custom Facility Template](../configs/facilities/template.yaml)
+- ELI ALPS: `configs/eli_alps_config.yaml`
+- ELI NP: `configs/eli_np_config.yaml`
+- Custom: Start from `configs/thresholds.yaml`
 
 ---
 
@@ -273,7 +273,7 @@ well within our allocated beam time."
 
 <div align="center">
 
-**[Back to README](../../README.md)** | **[Quick Links](../QUICKLINKS.md)** | **[Full Documentation](../index.md)**
+**[Back to Overview](../index.md)** | **[Quick Links](../QUICKLINKS.md)** | **[Full Documentation](../index.md)**
 
 *Laboratory Black Hole Detection, Quantified*
 

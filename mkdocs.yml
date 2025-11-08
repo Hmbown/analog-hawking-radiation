@@ -22,34 +22,26 @@ plugins:
             heading_level: 2
             members_order: source
 nav:
-  - Overview: README.md
+  - Overview: index.md
+  - Quick Links: QUICKLINKS.md
   - Getting Started:
-      - Quick Start: Overview.md
-      - Reproducibility: Reproducibility.md
-      - FAQ: FAQ.md
-      - GPU Acceleration: GPU.md
-      - Docker: Docker.md
+      - Choose Your Path: getting-started/experimentalist.md
+      - Experimentalist Guide: getting-started/experimentalist.md
+      - Theorist Guide: getting-started/theorist.md
+      - Student Guide: getting-started/student.md
+      - Developer Guide: getting-started/developer.md
   - User Guide:
       - Methods: Methods.md
       - Validation: Validation.md
       - Results: Results.md
       - Limitations: Limitations.md
-      - Dataset Notes: DatasetNotes.md
-      - Enhanced Models: Enhanced_Physics_Models_Documentation.md
-  - CLI: CLI.md
-  - Benchmarks: Benchmarks.md
-  - Regression: Regression.md
-  - Tutorials:
-      - Overview: Tutorials.md
-      - Horizon nD: horizon_nd.md
-      - Advanced Scenarios: AdvancedScenarios.md
+      - Glossary: Glossary.md
+      - FAQ: FAQ.md
+      - Experiments: Experiments.md
+      - Gradient Catastrophe: GradientCatastropheAnalysis.md
+      - ELI Planning: ELI_Experimental_Planning_Guide.md
   - Reference:
-      - analog_hawking package: reference/analog_hawking.md
-      - Physics engine simulation: reference/physics_engine_simulation.md
-      - Detection module: reference/detection.md
-      - Pipelines module: reference/pipelines.md
-  - Project:
-      - Contributing: project/contributing.md
-      - Code of Conduct: project/code_of_conduct.md
-      - Citation: project/citation.md
-      - Changelog: project/changelog.md
+      - CLI Reference: CLI.md
+      - Gallery: GALLERY.md
+      - Architecture: img/ARCHITECTURE.md
+      - References: REFERENCES.md

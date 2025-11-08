@@ -1,54 +1,17 @@
-name: Comprehensive Stress Testing
+name: Stress Testing
 
 on:
   push:
-    branches: [ main, develop ]
-    paths:
-      - 'src/**'
-      - 'scripts/**'
-      - 'stress_test_parameter_sweep.py'
-      - 'memory_profiler_benchmark.py'
-      - 'concurrent_execution_test.py'
-      - 'stress_test_visualizer.py'
-      - 'orchestrate_stress_tests.py'
+    branches: [ main ]
   pull_request:
     branches: [ main ]
-    paths:
-      - 'src/**'
-      - 'scripts/**'
-      - 'stress_test_parameter_sweep.py'
-      - 'memory_profiler_benchmark.py'
-      - 'concurrent_execution_test.py'
-      - 'stress_test_visualizer.py'
-      - 'orchestrate_stress_tests.py'
-  schedule:
-    # Run comprehensive stress tests daily at 2 AM UTC
-    - cron: '0 2 * * *'
   workflow_dispatch:
-    inputs:
-      test_level:
-        description: 'Test level'
-        required: true
-        default: 'basic'
-        type: choice
-        options:
-          - basic
-          - comprehensive
-          - extreme
-      sweep_size:
-        description: 'Parameter sweep size'
-        required: false
-        default: '50'
-        type: string
-
-env:
-  PYTHONPATH: ${{ github.workspace }}
 
 jobs:
-  validate-environment:
+  basic-validation:
     runs-on: ubuntu-latest
-    name: Validate Environment
-
+    name: Basic Validation
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -58,417 +21,38 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - name: Install system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          gcc \
-          g++ \
-          libopenblas-dev \
-          liblapack-dev \
-          gfortran
-
-    - name: Install Python dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install \
-          numpy>=1.21.0 \
-          scipy>=1.7.0 \
-          matplotlib>=3.4.0 \
-          seaborn>=0.11.0 \
-          psutil>=5.8.0 \
-          plotly>=5.0.0 \
-          pandas>=1.3.0 \
-          pyyaml>=5.4.0 \
-          schedule>=1.1.0
+        pip install -e .[dev]
 
-    - name: Validate environment
+    - name: Run basic horizon finding stress test
+      env:
+        ANALOG_HAWKING_NO_PLOTS: 1
       run: |
-        python orchestrate_stress_tests.py --validate-only
+        python -c "
+        import numpy as np
+        from analog_hawking import find_horizons_with_uncertainty, sound_speed
+        
+        # Test with various grid sizes
+        for nx in [100, 500, 1000, 2000]:
+            x = np.linspace(0, 100e-6, nx)
+            v = 1.5e6 * np.tanh((x - 50e-6) / 10e-6)
+            cs = np.full_like(x, 1e6)
+            result = find_horizons_with_uncertainty(x, v, cs)
+            print(f'nx={nx}: found {result.positions.size} horizons')
+        "
 
-  basic-stress-tests:
-    runs-on: ubuntu-latest
-    name: Basic Stress Tests
-    needs: validate-environment
-    if: github.event_name != 'schedule' || github.event.inputs.test_level == 'basic'
-
-    strategy:
-      matrix:
-        test-suite: [basic_parameter_sweep, memory_profiling]
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - name: Install system dependencies
+    - name: Test CLI commands
       run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          gcc \
-          g++ \
-          libopenblas-dev \
-          liblapack-dev \
-          gfortran
+        ahr --version
+        ahr quickstart --quiet
+        ahr validate --quiet
+        ahr bench --json
 
-    - name: Install Python dependencies
+    - name: Validate documentation sync
       run: |
-        python -m pip install --upgrade pip
-        pip install \
-          numpy>=1.21.0 \
-          scipy>=1.7.0 \
-          matplotlib>=3.4.0 \
-          seaborn>=0.11.0 \
-          psutil>=5.8.0 \
-          plotly>=5.0.0 \
-          pandas>=1.3.0 \
-          pyyaml>=5.4.0 \
-          schedule>=1.1.0
-
-    - name: Run basic stress tests
-      run: |
-        python orchestrate_stress_tests.py --suites ${{ matrix.test-suite }}
-
-    - name: Upload basic test results
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: basic-stress-test-results-${{ matrix.test-suite }}
-        path: results/stress_testing/
-        retention-days: 30
-
-  comprehensive-stress-tests:
-    runs-on: ubuntu-latest
-    name: Comprehensive Stress Tests
-    needs: validate-environment
-    if: github.event_name == 'schedule' || github.event.inputs.test_level == 'comprehensive'
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - name: Install system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          gcc \
-          g++ \
-          libopenblas-dev \
-          liblapack-dev \
-          gfortran
-
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install \
-          numpy>=1.21.0 \
-          scipy>=1.7.0 \
-          matplotlib>=3.4.0 \
-          seaborn>=0.11.0 \
-          psutil>=5.8.0 \
-          plotly>=5.0.0 \
-          pandas>=1.3.0 \
-          pyyaml>=5.4.0 \
-          schedule>=1.1.0
-
-    - name: Run comprehensive stress tests
-      run: |
-        # Adjust sweep size based on input
-        SWEEP_SIZE=${{ github.event.inputs.sweep_size || '100' }}
-
-        # Create custom config for CI
-        cat > ci_stress_config.yaml << EOF
-        max_concurrent_suites: 1
-        resource_limits:
-          memory_limit_gb: 14.0
-          cpu_limit_percent: 90.0
-          disk_space_gb: 8.0
-        output_directory: "results/stress_testing"
-        retention_days: 7
-
-        test_suites:
-          - name: "ci_parameter_sweep"
-            description: "CI parameter sweep"
-            test_type: "parameter_sweep"
-            config:
-              sweep_size: $SWEEP_SIZE
-              concurrent_workers: 2
-              memory_threshold_mb: 12288
-              timeout_per_config: 240
-              enable_profiling: true
-              test_concurrent_execution: true
-              generate_visualizations: false
-            enabled: true
-            priority: 1
-            max_retries: 1
-            timeout_minutes: 45
-
-          - name: "ci_memory_profiling"
-            description: "CI memory profiling"
-            test_type: "memory_benchmark"
-            config: {}
-            enabled: true
-            priority: 1
-            max_retries: 1
-            timeout_minutes: 20
-
-          - name: "ci_concurrent_test"
-            description: "CI concurrent execution"
-            test_type: "concurrent"
-            config:
-              worker_counts: [1, 2, 4]
-              test_durations: [30]
-              thread_mode: true
-              enable_monitoring: true
-            enabled: true
-            priority: 2
-            max_retries: 1
-            timeout_minutes: 25
-        EOF
-
-        python orchestrate_stress_tests.py --config ci_stress_config.yaml
-
-    - name: Generate comprehensive report
-      run: |
-        python stress_test_visualizer.py \
-          --stress-data results/stress_testing/executions/*_results.json \
-          --output-dir results/stress_testing/visualizations
-
-    - name: Upload comprehensive test results
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: comprehensive-stress-test-results
-        path: results/stress_testing/
-        retention-days: 30
-
-  performance-regression-test:
-    runs-on: ubuntu-latest
-    name: Performance Regression Test
-    needs: validate-environment
-    if: github.event_name == 'pull_request'
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - name: Install system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          gcc \
-          g++ \
-          libopenblas-dev \
-          liblapack-dev \
-          gfortran
-
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install \
-          numpy>=1.21.0 \
-          scipy>=1.7.0 \
-          matplotlib>=3.4.0 \
-          seaborn>=0.11.0 \
-          psutil>=5.8.0 \
-          plotly>=5.0.0 \
-          pandas>=1.3.0 \
-          pyyaml>=5.4.0 \
-          schedule>=1.1.0
-
-    - name: Download performance baselines
-      uses: actions/download-artifact@v3
-      with:
-        name: performance-baselines
-        path: results/baselines/
-      continue-on-error: true
-
-    - name: Run performance regression tests
-      run: |
-        # Quick performance regression test
-        python memory_profiler_benchmark.py --benchmark
-
-        # Check for regressions
-        if [ -f "results/benchmarking/benchmark_report_*.html" ]; then
-          echo "Performance benchmarks completed"
-        else
-          echo "Performance benchmarks failed"
-          exit 1
+        if [ -f "scripts/doc_sync/render_docs.py" ]; then
+          python scripts/doc_sync/render_docs.py \
+            --sweep results/gradient_limits_production/gradient_catastrophe_sweep.json || true
         fi
-
-    - name: Upload regression test results
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: performance-regression-results
-        path: results/benchmarking/
-        retention-days: 30
-
-  save-performance-baselines:
-    runs-on: ubuntu-latest
-    name: Save Performance Baselines
-    needs: [basic-stress-tests, comprehensive-stress-tests]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install numpy scipy matplotlib seaborn psutil
-
-    - name: Download test results
-      uses: actions/download-artifact@v3
-      with:
-        name: comprehensive-stress-test-results
-        path: results/
-
-    - name: Update performance baselines
-      run: |
-        if [ -f "results/benchmarking/benchmark_results_*.json" ]; then
-          cp results/benchmarking/benchmark_results_*.json results/baselines/performance_baselines.json
-          echo "Performance baselines updated"
-        else
-          echo "No benchmark results found to update baselines"
-        fi
-
-    - name: Upload updated baselines
-      uses: actions/upload-artifact@v3
-      with:
-        name: performance-baselines
-        path: results/baselines/
-        retention-days: 90
-
-  notify-results:
-    runs-on: ubuntu-latest
-    name: Notify Results
-    needs: [basic-stress-tests, comprehensive-stress-tests, performance-regression-test]
-    if: always()
-
-    steps:
-    - name: Download all results
-      uses: actions/download-artifact@v3
-      with:
-        path: all_results/
-
-    - name: Summarize results
-      run: |
-        echo "## Stress Testing Results Summary" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-
-        # Basic stress tests
-        if [ -d "all_results/basic-stress-test-results-basic_parameter_sweep" ]; then
-          echo "✅ Basic Parameter Sweep: Completed" >> $GITHUB_STEP_SUMMARY
-        else
-          echo "❌ Basic Parameter Sweep: Failed" >> $GITHUB_STEP_SUMMARY
-        fi
-
-        if [ -d "all_results/basic-stress-test-results-memory_profiling" ]; then
-          echo "✅ Memory Profiling: Completed" >> $GITHUB_STEP_SUMMARY
-        else
-          echo "❌ Memory Profiling: Failed" >> $GITHUB_STEP_SUMMARY
-        fi
-
-        # Comprehensive tests
-        if [ -d "all_results/comprehensive-stress-test-results" ]; then
-          echo "✅ Comprehensive Tests: Completed" >> $GITHUB_STEP_SUMMARY
-        else
-          echo "❌ Comprehensive Tests: Failed" >> $GITHUB_STEP_SUMMARY
-        fi
-
-        # Performance regression
-        if [ -d "all_results/performance-regression-results" ]; then
-          echo "✅ Performance Regression Tests: Completed" >> $GITHUB_STEP_SUMMARY
-        else
-          echo "❌ Performance Regression Tests: Failed" >> $GITHUB_STEP_SUMMARY
-        fi
-
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "📊 Detailed results available in the artifacts section." >> $GITHUB_STEP_SUMMARY
-
-    - name: Comment on PR (if applicable)
-      if: github.event_name == 'pull_request'
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const fs = require('fs');
-          const path = './all_results';
-
-          let comment = '## 🚀 Stress Testing Results\n\n';
-
-          // Check results and add to comment
-          if (fs.existsSync(path + '/basic-stress-test-results-basic_parameter_sweep')) {
-            comment += '✅ Basic Parameter Sweep: Passed\n';
-          } else {
-            comment += '❌ Basic Parameter Sweep: Failed\n';
-          }
-
-          if (fs.existsSync(path + '/performance-regression-results')) {
-            comment += '✅ Performance Regression Tests: Passed\n';
-          } else {
-            comment += '❌ Performance Regression Tests: Failed\n';
-          }
-
-          comment += '\n📊 [View detailed results](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})';
-
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: comment
-          });

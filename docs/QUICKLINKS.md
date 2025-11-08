@@ -1,6 +1,6 @@
 # Analog Hawking Radiation - Quick Links
 
-**Navigation Hub** | [Back to README](../README.md) | [Full Documentation Index](./index.md)
+**Navigation Hub** | [Back to README](../index.md) | [Full Documentation Index](./index.md)
 
 This page provides quick access to the most important documentation and resources.
 
@@ -9,7 +9,7 @@ This page provides quick access to the most important documentation and resource
 ## 🚀 Getting Started (5 minutes)
 
 ### Quick Start
-- **Try it now**: `ahr quickstart` → [What just happened?](#what-just-happened)
+- **Try it now**: `ahr quickstart`
 - **System check**: `ahr info` - Verify your setup
 - **Validation**: `ahr validate` - Run physics validation suite
 - **Tutorials**: `ahr tutorial --list` - Interactive learning
@@ -225,7 +225,7 @@ See [CITATION.cff](../CITATION.cff) for full details.
 
 **Just getting started?**
 1. Run `ahr quickstart`
-2. Read [What just happened?](#what-just-happened)
+
 3. Try `ahr tutorial 1`
 4. Choose your path above
 

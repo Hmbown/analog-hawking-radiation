@@ -1,6 +1,6 @@
 # Getting Started: Developer
 
-**Quick Navigation**: [Back to README](../../README.md) | [Quick Links](../QUICKLINKS.md) | [Full Documentation](../index.md)
+**Quick Navigation**: [Back to Overview](../index.md) | [Quick Links](../QUICKLINKS.md) | [Full Documentation](../index.md)
 
 This guide is for **developers** who want to:
 - Contribute code and features
@@ -672,7 +672,7 @@ See [phase timeline](../phase_timeline.md) for detailed roadmap.
 
 <div align="center">
 
-**[Back to README](../../README.md)** | **[Quick Links](../QUICKLINKS.md)** | **[Full Documentation](../index.md)**
+**[Back to Overview](../index.md)** | **[Quick Links](../QUICKLINKS.md)** | **[Full Documentation](../index.md)**
 
 *Laboratory Black Hole Detection, Quantified*
 

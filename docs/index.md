@@ -1,6 +1,6 @@
 # 📚 Analog Hawking Radiation - Documentation Hub
 
-**Quick Navigation**: [README](../README.md) | [Quick Links](./QUICKLINKS.md) | [Getting Started](./getting-started/)
+**Quick Navigation**: [Overview](index.md) | [Quick Links](./QUICKLINKS.md) | [Getting Started](./getting-started/)
 
 Welcome to the documentation hub for the Analog Hawking Radiation toolkit. This page helps you find what you need quickly.
 
@@ -14,7 +14,7 @@ Welcome to the documentation hub for the Analog Hawking Radiation toolkit. This 
 | **Graybody Models** | ✅ Validated | Compute Hawking radiation spectra | [`docs/Methods.md`](./Methods.md) |
 | **Detection Modeling** | ✅ Validated | Forecast radio detection times | [`docs/GradientCatastropheAnalysis.md`](./GradientCatastropheAnalysis.md) |
 | **Parameter Sweeps** | ✅ Validated | Map physics breakdown boundaries | [`ahr sweep --gradient`](./playbooks.md) |
-| **CLI & Pipelines** | ✅ Validated | Reproducible analysis workflows | [`README.md`](../README.md) |
+| **CLI & Pipelines** | ✅ Validated | Reproducible analysis workflows | [`README.md`](../index.md) |
 | **Plasma Mirror Coupling** | ⚠️ Experimental | Hybrid fluid-mirror models | [`docs/Limitations.md`](./Limitations.md) |
 | **Enhanced Relativity** | ⚠️ Experimental | Advanced physics modules | [`docs/Enhanced_Physics_Models_Documentation.md`](./Enhanced_Physics_Models_Documentation.md) |
 | **nD Horizons** | 🔬 Prototype | Multi-dimensional analysis | [`docs/horizon_nd.md`](./horizon_nd.md) |
@@ -154,7 +154,7 @@ See [CITATION.cff](../CITATION.cff) for full metadata.
 
 <div align="center">
 
-**[Back to README](../README.md)** | **[Quick Links](./QUICKLINKS.md)** | **[Getting Started](./getting-started/)**
+**[Back to README](../index.md)** | **[Quick Links](./QUICKLINKS.md)** | **[Getting Started](./getting-started/)**
 
 *Laboratory Black Hole Detection, Quantified*
 

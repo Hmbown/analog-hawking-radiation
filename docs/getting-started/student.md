@@ -1,6 +1,6 @@
 # Getting Started: Student & Researcher
 
-**Quick Navigation**: [Back to README](../../README.md) | [Quick Links](../QUICKLINKS.md) | [Full Documentation](../index.md)
+**Quick Navigation**: [Back to Overview](../index.md) | [Quick Links](../QUICKLINKS.md) | [Full Documentation](../index.md)
 
 This guide is for **students and researchers** who want to:
 - Learn about analog Hawking radiation and black holes
@@ -391,7 +391,7 @@ ahr pipeline --demo --profile results/multi_horizon_profile.npz
 - Plot scaling relationships
 
 **Week 3**: Compare with literature
-- Read [AnaBHEL papers](./REFERENCES.md)
+- Read [AnaBHEL papers](../REFERENCES.md)
 - Reproduce published results
 - Write summary of findings
 
@@ -523,7 +523,7 @@ The analog system lets us test quantum field theory in curved spacetime!
 
 <div align="center">
 
-**[Back to README](../../README.md)** | **[Quick Links](../QUICKLINKS.md)** | **[Full Documentation](../index.md)**
+**[Back to Overview](../index.md)** | **[Quick Links](../QUICKLINKS.md)** | **[Full Documentation](../index.md)**
 
 *Laboratory Black Hole Detection, Quantified*
 
