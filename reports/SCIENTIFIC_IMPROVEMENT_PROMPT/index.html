@@ -1,0 +1,1520 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hmbown.github.io/analog-hawking-radiation/reports/SCIENTIFIC_IMPROVEMENT_PROMPT/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Scientific Rigor Improvement Mission - Analog Hawking Radiation Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scientific-rigor-improvement-mission" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-header__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Analog Hawking Radiation Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scientific Rigor Improvement Mission
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-nav__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Analog Hawking Radiation Simulator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICKLINKS.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/theorist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theorist Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/student/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Student Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Methods.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Validation.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Results.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Results
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Limitations.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Limitations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Experiments.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Experiments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GradientCatastropheAnalysis.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gradient Catastrophe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ELI_Experimental_Planning_Guide.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ELI Planning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CLI.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GALLERY.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gallery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../img/ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFERENCES.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#from-b-to-a-preparing-for-anabhel-collaboration" class="md-nav__link">
+    <span class="md-ellipsis">
+      From B+ to A: Preparing for AnaBHEL Collaboration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-mission-brief" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your Mission Brief
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Your Mission Brief">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-state-assessment-from-scientific_rigor_reviewmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current State Assessment (from SCIENTIFIC_RIGOR_REVIEW.md):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ultimate-goal-anabhel-collaboration-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ultimate Goal: AnaBHEL Collaboration Readiness
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-1-critical-statistical-foundation-repair-week-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: CRITICAL STATISTICAL FOUNDATION REPAIR (Week 1)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1: CRITICAL STATISTICAL FOUNDATION REPAIR (Week 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#immediate-priority-statistical-analysis-c-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      IMMEDIATE PRIORITY - Statistical Analysis (C- → A)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IMMEDIATE PRIORITY - Statistical Analysis (C- → A)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-11-remove-mathematical-artifacts-from-correlation-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1.1: Remove Mathematical Artifacts from Correlation Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-12-implement-statistical-significance-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1.2: Implement Statistical Significance Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-13-expand-dataset-for-statistical-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1.3: Expand Dataset for Statistical Power
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-14-comprehensive-uncertainty-quantification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1.4: Comprehensive Uncertainty Quantification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-2-experimental-reality-validation-week-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: EXPERIMENTAL REALITY VALIDATION (Week 2)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: EXPERIMENTAL REALITY VALIDATION (Week 2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-priority-experimental-design-b-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      HIGH PRIORITY - Experimental Design (B+ → A)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HIGH PRIORITY - Experimental Design (B+ → A)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-21-validate-laser-parameters-against-facility-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2.1: Validate Laser Parameters Against Facility Capabilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-22-enhanced-physics-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2.2: Enhanced Physics Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-23-detection-feasibility-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2.3: Detection Feasibility Assessment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-computational-enhancements-week-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: COMPUTATIONAL ENHANCEMENTS (Week 3)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: COMPUTATIONAL ENHANCEMENTS (Week 3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#medium-priority-computational-methods-a-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      MEDIUM PRIORITY - Computational Methods (A- → A+)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MEDIUM PRIORITY - Computational Methods (A- → A+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-31-enhanced-numerical-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3.1: Enhanced Numerical Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-32-advanced-convergence-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3.2: Advanced Convergence Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-4-collaboration-preparation-week-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: COLLABORATION PREPARATION (Week 4)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4: COLLABORATION PREPARATION (Week 4)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#final-priority-anabhel-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      FINAL PRIORITY - AnaBHEL Readiness
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FINAL PRIORITY - AnaBHEL Readiness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-41-documentation-enhancement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4.1: Documentation Enhancement
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-42-reproducibility-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4.2: Reproducibility Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-43-collaborative-accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4.3: Collaborative Accessibility
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      SUCCESS CRITERIA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SUCCESS CRITERIA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#by-the-end-of-this-mission-the-repository-will-achieve-a-grade-status-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      By the end of this mission, the repository will achieve A-grade status when:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      WORKFLOW INSTRUCTIONS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WORKFLOW INSTRUCTIONS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-this-mission-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Use This Mission Plan:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-making-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Making Framework:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-word" class="md-nav__link">
+    <span class="md-ellipsis">
+      FINAL WORD
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="scientific-rigor-improvement-mission">Scientific Rigor Improvement Mission</h1>
+<h2 id="from-b-to-a-preparing-for-anabhel-collaboration">From B+ to A: Preparing for AnaBHEL Collaboration</h2>
+<p><strong>Mission Goal:</strong> Transform the Analog Hawking Radiation Analysis repository from its current B+ grade to an A-grade scientific resource ready for collaborative research with the AnaBHEL team at the Extreme Light Infrastructure (ELI).</p>
+<p><strong>Context:</strong> You are inheriting a comprehensive scientific review that identified specific, actionable improvements needed across four domains. The review document <code>SCIENTIFIC_RIGOR_REVIEW.md</code> contains detailed assessments, prioritized recommendations, and a clear path forward. Your task is to implement the critical improvements to achieve A-grade scientific rigor.</p>
+<hr />
+<h2 id="your-mission-brief">Your Mission Brief</h2>
+<h3 id="current-state-assessment-from-scientific_rigor_reviewmd"><strong>Current State Assessment (from SCIENTIFIC_RIGOR_REVIEW.md):</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Current Grade</th>
+<th>Target Grade</th>
+<th>Key Issues to Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physics Theory</td>
+<td>A+</td>
+<td>A+</td>
+<td><strong>Maintain excellence</strong> - no changes needed</td>
+</tr>
+<tr>
+<td>Computational Methods</td>
+<td>A-</td>
+<td>A+</td>
+<td>Minor numerical enhancements</td>
+</tr>
+<tr>
+<td>Statistical Analysis</td>
+<td>C-</td>
+<td>A</td>
+<td><strong>CRITICAL</strong> - Complete foundation rebuild</td>
+</tr>
+<tr>
+<td>Experimental Design</td>
+<td>B+</td>
+<td>A</td>
+<td>Significant refinement needed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ultimate-goal-anabhel-collaboration-readiness"><strong>Ultimate Goal: AnaBHEL Collaboration Readiness</strong></h3>
+<p>This repository will be used for collaborative research with the <strong>AnaBHEL</strong> team (ANalog BH Evaporation in the Laboratory), a European research collaboration studying Hawking-like radiation in laser-plasma interactions at ELI facilities. Success requires:</p>
+<ol>
+<li><strong>Publication-Ready Scientific Rigor</strong> - Results that can withstand peer review scrutiny</li>
+<li><strong>Experimental Realism</strong> - Parameters and predictions that match actual ELI capabilities</li>
+<li><strong>Comprehensive Uncertainty Quantification</strong> - Full error budgets and confidence bounds</li>
+<li><strong>Reproducible Research Framework</strong> - Clear, documented, validated computational pipelines</li>
+<li><strong>Collaborative Accessibility</strong> - Code that external researchers can understand, modify, and extend</li>
+</ol>
+<hr />
+<h2 id="phase-1-critical-statistical-foundation-repair-week-1"><strong>Phase 1: CRITICAL STATISTICAL FOUNDATION REPAIR (Week 1)</strong></h2>
+<h3 id="immediate-priority-statistical-analysis-c-a"><strong>IMMEDIATE PRIORITY - Statistical Analysis (C- → A)</strong></h3>
+<p><strong>Your first week must focus entirely on the statistical foundation, which is currently the weakest link (C- grade).</strong></p>
+<h4 id="task-11-remove-mathematical-artifacts-from-correlation-analysis"><strong>Task 1.1: Remove Mathematical Artifacts from Correlation Analysis</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 3, "Critical Statistical Issues"</p>
+<p><strong>Problem:</strong> Perfect correlations (r ≈ 1.0) from mathematical dependencies are treated as physically meaningful.</p>
+<p><strong>Known Mathematical Dependencies (from review):</strong>
+- <code>w_effective = 0.8027 × coupling_strength</code> (creates inevitable r ≈ 1.0)
+- <code>ratio_fluid_over_hybrid</code> shares denominator with constant numerator
+- Any other deterministic relationships you discover</p>
+<p><strong>Action Required:</strong>
+1. <strong>Read</strong> <code>comprehensive_analysis.py</code> and identify all correlation calculations
+2. <strong>Identify</strong> any mathematical dependencies that create artificial correlations
+3. <strong>Remove</strong> these dependencies from correlation analysis entirely
+4. <strong>Document</strong> why each removal was necessary
+5. <strong>Update</strong> correlation matrix visualizations to reflect cleaned data</p>
+<h4 id="task-12-implement-statistical-significance-testing"><strong>Task 1.2: Implement Statistical Significance Testing</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 3, "Overstated Claims Without Statistical Support"</p>
+<p><strong>Problem:</strong> Claims like "4× higher signal temperature, 16× faster detection" lack statistical validation.</p>
+<p><strong>Action Required:</strong>
+1. <strong>Implement</strong> p-value calculations for all correlation analyses
+2. <strong>Add</strong> confidence intervals to all numerical results
+3. <strong>Create</strong> statistical significance tests for the 4×/16× improvement claims
+4. <strong>Update</strong> all visualizations to include error bars and confidence bounds
+5. <strong>Add</strong> statistical significance indicators to correlation plots</p>
+<h4 id="task-13-expand-dataset-for-statistical-power"><strong>Task 1.3: Expand Dataset for Statistical Power</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 3, "Extremely Small Dataset"</p>
+<p><strong>Problem:</strong> Only 20 configurations severely limit statistical inference capabilities.</p>
+<p><strong>Action Required:</strong>
+1. <strong>Analyze</strong> current dataset generation in <code>scripts/sweep_kappa_thresholds.py</code>
+2. <strong>Implement</strong> additional parameter sampling strategies
+3. <strong>Generate</strong> ≥100 new configurations with diverse parameter ranges
+4. <strong>Validate</strong> new configurations against physical constraints
+5. <strong>Update</strong> all analyses to use expanded dataset</p>
+<h4 id="task-14-comprehensive-uncertainty-quantification"><strong>Task 1.4: Comprehensive Uncertainty Quantification</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 3, "Inadequate Uncertainty Quantification"</p>
+<p><strong>Problem:</strong> Current Monte Carlo only addresses numerical uncertainty, missing systematic errors.</p>
+<p><strong>Action Required:</strong>
+1. <strong>Expand</strong> <code>monte_carlo_horizon_uncertainty.py</code> to include systematic uncertainties
+2. <strong>Add</strong> experimental error budgets (laser parameter variations, diagnostic uncertainties)
+3. <strong>Implement</strong> full error propagation through all calculations
+4. <strong>Create</strong> uncertainty visualization tools
+5. <strong>Document</strong> complete uncertainty budget in final results</p>
+<hr />
+<h2 id="phase-2-experimental-reality-validation-week-2"><strong>Phase 2: EXPERIMENTAL REALITY VALIDATION (Week 2)</strong></h2>
+<h3 id="high-priority-experimental-design-b-a"><strong>HIGH PRIORITY - Experimental Design (B+ → A)</strong></h3>
+<p><strong>Week 2 focuses on ensuring experimental parameters and predictions are realistic for ELI facilities.</strong></p>
+<h4 id="task-21-validate-laser-parameters-against-facility-capabilities"><strong>Task 2.1: Validate Laser Parameters Against Facility Capabilities</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 4, "Unrealistic Laser Parameters"</p>
+<p><strong>Action Required:</strong>
+1. <strong>Research</strong> ELI facility specifications (laser intensity, pulse duration, wavelength ranges)
+2. <strong>Compare</strong> current repository parameters against actual facility capabilities
+3. <strong>Identify</strong> any configurations that exceed realistic experimental limits
+4. <strong>Implement</strong> facility-specific parameter constraints
+5. <strong>Document</strong> facility compatibility for all parameter ranges</p>
+<h4 id="task-22-enhanced-physics-models"><strong>Task 2.2: Enhanced Physics Models</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 4, "Missing Physics Models"</p>
+<p><strong>Action Required:</strong>
+1. <strong>Add</strong> relativistic effects to plasma flow calculations where significant
+2. <strong>Implement</strong> more comprehensive ionization models
+3. <strong>Include</strong> plasma-surface interaction physics
+4. <strong>Validate</strong> enhanced models against known physics
+5. <strong>Update</strong> all predictions to reflect enhanced physics</p>
+<h4 id="task-23-detection-feasibility-assessment"><strong>Task 2.3: Detection Feasibility Assessment</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 4, "Detection Feasibility Concerns"</p>
+<p><strong>Action Required:</strong>
+1. <strong>Analyze</strong> predicted signal levels vs. realistic detection thresholds
+2. <strong>Implement</strong> comprehensive noise modeling
+3. <strong>Assess</strong> signal-to-noise ratios for predicted effects
+4. <strong>Identify</strong> most promising detection strategies
+5. <strong>Focus</strong> on achievable near-term experimental goals</p>
+<hr />
+<h2 id="phase-3-computational-enhancements-week-3"><strong>Phase 3: COMPUTATIONAL ENHANCEMENTS (Week 3)</strong></h2>
+<h3 id="medium-priority-computational-methods-a-a"><strong>MEDIUM PRIORITY - Computational Methods (A- → A+)</strong></h3>
+<p><strong>Week 3 addresses the remaining computational improvements to achieve excellence.</strong></p>
+<h4 id="task-31-enhanced-numerical-methods"><strong>Task 3.1: Enhanced Numerical Methods</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 2, "Areas for Enhancement"</p>
+<p><strong>Action Required:</strong>
+1. <strong>Implement</strong> 4th-order central differences for gradient calculations in interior points
+2. <strong>Add</strong> cubic spline interpolation for critical calculations
+3. <strong>Implement</strong> adaptive thresholding for physics breakdown detection
+4. <strong>Validate</strong> all enhancements against test cases
+5. <strong>Document</strong> computational accuracy improvements</p>
+<h4 id="task-32-advanced-convergence-testing"><strong>Task 3.2: Advanced Convergence Testing</strong></h4>
+<p><strong>Reference:</strong> <code>SCIENTIFIC_RIGOR_REVIEW.md</code> Section 2, "Enhanced Convergence Testing"</p>
+<p><strong>Action Required:</strong>
+1. <strong>Add</strong> Richardson extrapolation for convergence order verification
+2. <strong>Implement</strong> grid independence studies
+3. <strong>Create</strong> automated convergence testing pipeline
+4. <strong>Document</strong> convergence characteristics for all methods
+5. <strong>Establish</strong> numerical accuracy standards</p>
+<hr />
+<h2 id="phase-4-collaboration-preparation-week-4"><strong>Phase 4: COLLABORATION PREPARATION (Week 4)</strong></h2>
+<h3 id="final-priority-anabhel-readiness"><strong>FINAL PRIORITY - AnaBHEL Readiness</strong></h3>
+<p><strong>Week 4 ensures the repository is ready for collaborative research.</strong></p>
+<h4 id="task-41-documentation-enhancement"><strong>Task 4.1: Documentation Enhancement</strong></h4>
+<p><strong>Action Required:</strong>
+1. <strong>Update</strong> README.md with improved scientific rigor statements
+2. <strong>Create</strong> detailed methodology documentation
+3. <strong>Add</strong> installation and setup instructions for external researchers
+4. <strong>Document</strong> all assumptions, limitations, and uncertainty bounds
+5. <strong>Create</strong> contribution guidelines for collaborative development</p>
+<h4 id="task-42-reproducibility-framework"><strong>Task 4.2: Reproducibility Framework</strong></h4>
+<p><strong>Action Required:</strong>
+1. <strong>Implement</strong> comprehensive testing suite
+2. <strong>Add</strong> version control for all results and figures
+3. <strong>Create</strong> automated analysis pipelines
+4. <strong>Document</strong> computational environment requirements
+5. <strong>Establish</strong> data and code provenance tracking</p>
+<h4 id="task-43-collaborative-accessibility"><strong>Task 4.3: Collaborative Accessibility</strong></h4>
+<p><strong>Action Required:</strong>
+1. <strong>Review</strong> code for clarity and understandability
+2. <strong>Add</strong> comprehensive inline documentation
+3. <strong>Create</strong> example notebooks and tutorials
+4. <strong>Implement</strong> modular design for easy extension
+5. <strong>Establish</strong> clear API boundaries for collaborative development</p>
+<hr />
+<h2 id="success-criteria"><strong>SUCCESS CRITERIA</strong></h2>
+<h3 id="by-the-end-of-this-mission-the-repository-will-achieve-a-grade-status-when"><strong>By the end of this mission, the repository will achieve A-grade status when:</strong></h3>
+<p><strong>Statistical Analysis (A):</strong>
+- [ ] Dataset includes ≥100 validated configurations
+- [ ] All mathematical artifacts removed from analysis
+- [ ] Statistical significance testing implemented for all claims
+- [ ] Comprehensive uncertainty quantification throughout
+- [ ] Confidence intervals and error bars in all visualizations</p>
+<p><strong>Experimental Design (A):</strong>
+- [ ] All parameters validated against ELI facility capabilities
+- [ ] Enhanced physics models implemented and validated
+- [ ] Detection feasibility thoroughly assessed and documented
+- [ ] Experimental constraints clearly stated and respected
+- [ ] Near-term achievable experimental goals identified</p>
+<p><strong>Computational Methods (A+):</strong>
+- [ ] Higher-order numerical methods implemented
+- [ ] Comprehensive convergence testing completed
+- [ ] All methods validated against analytical solutions
+- [ ] Numerical accuracy standards established
+- [ ] Performance optimizations documented</p>
+<p><strong>Collaboration Readiness:</strong>
+- [ ] Documentation meets publication standards
+- [ ] Reproducibility framework fully implemented
+- [ ] Code is accessible to external researchers
+- [ ] Clear pathways for collaborative extension
+- [ ] Ready for AnaBHEL team integration</p>
+<hr />
+<h2 id="workflow-instructions"><strong>WORKFLOW INSTRUCTIONS</strong></h2>
+<h3 id="how-to-use-this-mission-plan"><strong>How to Use This Mission Plan:</strong></h3>
+<ol>
+<li><strong>Read the Complete Review First:</strong></li>
+<li>Study <code>SCIENTIFIC_RIGOR_REVIEW.md</code> thoroughly</li>
+<li>Understand current assessment grades and specific issues</li>
+<li>
+<p>Review the prioritized recommendations</p>
+</li>
+<li>
+<p><strong>Follow the Phased Approach:</strong></p>
+</li>
+<li>Complete Phase 1 entirely before starting Phase 2</li>
+<li>Each phase builds on the previous</li>
+<li>
+<p>Do not skip phases or tasks</p>
+</li>
+<li>
+<p><strong>Document Your Progress:</strong></p>
+</li>
+<li>Update this file as you complete each task</li>
+<li>Note any deviations from the plan and why</li>
+<li>
+<p>Keep detailed records of changes and their impact</p>
+</li>
+<li>
+<p><strong>Validate Each Improvement:</strong></p>
+</li>
+<li>Test changes against existing functionality</li>
+<li>Ensure improvements don't break existing features</li>
+<li>
+<p>Validate that grades actually improve</p>
+</li>
+<li>
+<p><strong>Focus on the Critical Path:</strong></p>
+</li>
+<li>Statistical foundation is the highest priority</li>
+<li>Don't get distracted by minor optimizations</li>
+<li>Stay focused on A-grade achievement</li>
+</ol>
+<h3 id="decision-making-framework"><strong>Decision Making Framework:</strong></h3>
+<p><strong>When faced with choices, ask:</strong>
+1. Does this improve scientific rigor?
+2. Does this enhance experimental realism?
+3. Does this support AnaBHEL collaboration?
+4. Does this address a specific issue from the review?
+5. Is this necessary for A-grade achievement?</p>
+<p><strong>If answer is no to any question, reconsider the approach.</strong></p>
+<hr />
+<h2 id="final-word"><strong>FINAL WORD</strong></h2>
+<p>You're inheriting a repository with <strong>exceptional theoretical foundations</strong> and <strong>strong computational infrastructure</strong>. The path to A-grade status is clear and achievable. Focus on the statistical foundation first, then address experimental realism, and finish with computational polish.</p>
+<p>The AnaBHEL collaboration represents an incredible opportunity for this research. Your work will directly enable cutting-edge experimental physics at one of the world's most advanced laser facilities.</p>
+<p><strong>We've got this!</strong> The review provides the map, this plan provides the path, and you have the skills to make it happen.</p>
+<p><strong>Let's achieve A-grade scientific rigor and make this repository ready for groundbreaking collaborative research!</strong></p>
+<hr />
+<p><strong>Mission Start Date:</strong> [Current Date]
+<strong>Target Completion:</strong> 4 weeks
+<strong>Success Criteria:</strong> A-grade achievement across all domains
+<strong>Ultimate Goal:</strong> AnaBHEL collaboration readiness</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.sections", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

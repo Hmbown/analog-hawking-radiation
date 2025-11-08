@@ -1,0 +1,2323 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hmbown.github.io/analog-hawking-radiation/getting-started/student/">
+      
+      
+        <link rel="prev" href="../theorist/">
+      
+      
+        <link rel="next" href="../developer/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Student Guide - Analog Hawking Radiation Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started-student-researcher" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-header__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Analog Hawking Radiation Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Student Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-nav__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Analog Hawking Radiation Simulator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICKLINKS.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theorist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theorist Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Student Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Student Guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-5-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Quick Start (5 minutes)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Quick Start (5 minutes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Install &amp; Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-run-your-first-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Run Your First Simulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-look-at-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Look at the Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-take-a-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Take a Tutorial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-physics-in-plain-english" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 The Physics in Plain English
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 The Physics in Plain English">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-sonic-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Sonic Horizon?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-flow-to-hawking-radiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Flow to Hawking Radiation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#surface-gravity-the-key-quantity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surface Gravity (κ) - The Key Quantity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-the-signal-so-weak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why is the Signal So Weak?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎮 Interactive Learning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎮 Interactive Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tutorial-1-what-is-a-sonic-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial 1: What is a Sonic Horizon?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tutorial-2-surface-gravity-and-temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial 2: Surface Gravity and Temperature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tutorial-3-detection-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial 3: Detection Challenges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔬 Understanding the Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔬 Understanding the Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-algorithm-finding-horizons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Algorithm: Finding Horizons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-code-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real Code Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Visualizing Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Visualizing Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-plotting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Plotting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-physical-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 Building Physical Intuition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Building Physical Intuition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-parameter-sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiment: Parameter Sensitivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment-multiple-horizons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiment: Multiple Horizons
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      📖 Understanding the Output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 Understanding the Output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-results-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Results Explained
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-pipeline-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full Pipeline Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-students" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Students
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-researchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Researchers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptual-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Conceptual Questions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Conceptual Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q-why-cant-we-just-detect-this-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Why can't we just detect this directly?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-how-realistic-are-these-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: How realistic are these simulations?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-has-anyone-detected-analog-hawking-radiation-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Has anyone detected analog Hawking radiation yet?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-whats-the-connection-to-real-black-holes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: What's the connection to real black holes?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Further Reading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Further Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-students_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Students
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-researchers_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Researchers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classic-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classic Papers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Project Ideas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Project Ideas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beginner-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beginner Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intermediate Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Projects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      📞 Getting Help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Methods.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Validation.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Results.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Results
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Limitations.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Limitations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Experiments.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Experiments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GradientCatastropheAnalysis.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gradient Catastrophe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ELI_Experimental_Planning_Guide.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ELI Planning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CLI.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GALLERY.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gallery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../img/ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFERENCES.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-5-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Quick Start (5 minutes)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Quick Start (5 minutes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Install &amp; Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-run-your-first-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Run Your First Simulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-look-at-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Look at the Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-take-a-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Take a Tutorial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-physics-in-plain-english" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 The Physics in Plain English
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 The Physics in Plain English">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-sonic-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Sonic Horizon?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-flow-to-hawking-radiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Flow to Hawking Radiation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#surface-gravity-the-key-quantity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surface Gravity (κ) - The Key Quantity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-the-signal-so-weak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why is the Signal So Weak?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎮 Interactive Learning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎮 Interactive Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tutorial-1-what-is-a-sonic-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial 1: What is a Sonic Horizon?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tutorial-2-surface-gravity-and-temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial 2: Surface Gravity and Temperature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tutorial-3-detection-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial 3: Detection Challenges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔬 Understanding the Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔬 Understanding the Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-algorithm-finding-horizons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Algorithm: Finding Horizons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-code-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real Code Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Visualizing Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Visualizing Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-plotting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Plotting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-physical-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 Building Physical Intuition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Building Physical Intuition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-parameter-sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiment: Parameter Sensitivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment-multiple-horizons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiment: Multiple Horizons
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      📖 Understanding the Output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 Understanding the Output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-results-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Results Explained
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-pipeline-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full Pipeline Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-students" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Students
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-researchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Researchers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptual-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Conceptual Questions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Conceptual Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q-why-cant-we-just-detect-this-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Why can't we just detect this directly?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-how-realistic-are-these-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: How realistic are these simulations?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-has-anyone-detected-analog-hawking-radiation-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Has anyone detected analog Hawking radiation yet?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-whats-the-connection-to-real-black-holes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: What's the connection to real black holes?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Further Reading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Further Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-students_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Students
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-researchers_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Researchers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classic-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classic Papers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Project Ideas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Project Ideas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beginner-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beginner Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intermediate Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Projects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      📞 Getting Help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="getting-started-student-researcher">Getting Started: Student &amp; Researcher</h1>
+<p><strong>Quick Navigation</strong>: <a href="../index.md">Back to Overview</a> | <a href="../QUICKLINKS.md">Quick Links</a> | <a href="../index.md">Full Documentation</a></p>
+<p>This guide is for <strong>students and researchers</strong> who want to:
+- Learn about analog Hawking radiation and black holes
+- Understand the physics behind the code
+- Reproduce published results
+- Build intuition for complex phenomena</p>
+<hr />
+<h2 id="learning-objectives">🎓 Learning Objectives</h2>
+<p>By the end of this guide, you will understand:
+- What analog black holes are and why they matter
+- How plasma flows can mimic event horizons
+- The connection between surface gravity and Hawking temperature
+- How to interpret simulation results
+- Where the current research frontiers are</p>
+<hr />
+<h2 id="quick-start-5-minutes">⚡ Quick Start (5 minutes)</h2>
+<h3 id="1-install-setup">1. Install &amp; Setup</h3>
+<pre><code class="language-bash">git clone https://github.com/hmbown/analog-hawking-radiation.git
+cd analog-hawking-radiation
+pip install -e .
+</code></pre>
+<h3 id="2-run-your-first-simulation">2. Run Your First Simulation</h3>
+<pre><code class="language-bash">ahr quickstart
+</code></pre>
+<h3 id="3-look-at-the-results">3. Look at the Results</h3>
+<pre><code class="language-bash">open results/quickstart/quickstart_profile.png
+</code></pre>
+<p><strong>What you should see</strong>: A plot showing:
+- <strong>Blue line</strong>: Flow velocity |v| (how fast plasma moves)
+- <strong>Orange line</strong>: Sound speed c_s (how fast sound travels in plasma)
+- <strong>Red dashed lines</strong>: Where |v| = c_s (the "sonic horizon")</p>
+<h3 id="4-take-a-tutorial">4. Take a Tutorial</h3>
+<pre><code class="language-bash">ahr tutorial 1  # &quot;What is a Sonic Horizon?&quot;
+</code></pre>
+<hr />
+<h2 id="the-physics-in-plain-english">📚 The Physics in Plain English</h2>
+<h3 id="what-is-a-sonic-horizon">What is a Sonic Horizon?</h3>
+<p>Imagine you're swimming in a river:
+- If you swim faster than the current, you can swim upstream
+- If the current is faster than you can swim, you can't go upstream anymore
+- The point where current speed = your swimming speed is like a "horizon"</p>
+<p>In our plasma:
+- <strong>"You"</strong> = sound waves (pressure disturbances)
+- <strong>"River"</strong> = plasma flow moving at velocity v
+- <strong>"Horizon"</strong> = where plasma speed equals sound speed (|v| = c_s)</p>
+<p>Sound waves inside the horizon can't escape, just like light can't escape a black hole!</p>
+<h3 id="from-flow-to-hawking-radiation">From Flow to Hawking Radiation</h3>
+<p>Stephen Hawking discovered that black holes aren't completely black—they emit faint radiation due to quantum effects near the event horizon.</p>
+<p><strong>Amazing fact</strong>: The same mathematics describes:
+1. <strong>Real black holes</strong>: Gravity + quantum mechanics
+2. <strong>Analog black holes</strong>: Fluid flow + sound waves</p>
+<p>This means we can study black hole physics in the lab using plasma!</p>
+<h3 id="surface-gravity-the-key-quantity">Surface Gravity (κ) - The Key Quantity</h3>
+<p>Surface gravity tells us how "steep" the horizon is:
+- <strong>High κ</strong> = sharp horizon = stronger radiation
+- <strong>Low κ</strong> = gentle horizon = weaker radiation</p>
+<p>The Hawking temperature depends on κ:</p>
+<pre><code>T_H = ħ × κ / (2π × k_B)
+</code></pre>
+<p>Where:
+- ħ = Planck's constant (quantum mechanics)
+- k_B = Boltzmann constant (thermodynamics)
+- κ = surface gravity (from fluid dynamics)</p>
+<h3 id="why-is-the-signal-so-weak">Why is the Signal So Weak?</h3>
+<p>Typical values in our simulations:
+- κ ≈ 10¹² s⁻¹
+- T_H ≈ 10⁻⁸ K (extremely cold!)</p>
+<p>For comparison:
+- Cosmic microwave background: 2.7 K
+- Liquid helium: ~1 K
+- Our signal: 0.00000001 K</p>
+<p>This is why detection is challenging but possible with sensitive radio telescopes!</p>
+<hr />
+<h2 id="interactive-learning">🎮 Interactive Learning</h2>
+<h3 id="tutorial-1-what-is-a-sonic-horizon">Tutorial 1: What is a Sonic Horizon?</h3>
+<pre><code class="language-bash">ahr tutorial 1
+</code></pre>
+<p><strong>Hands-on exercise</strong>:</p>
+<pre><code class="language-python"># Create different flow profiles
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Gentle flow (no horizon)
+x = np.linspace(0, 100, 1000)
+v_gentle = 100 * np.tanh((x - 50) / 20)  # Max speed: 100 m/s
+c_s = np.full_like(x, 200)  # Sound speed: 200 m/s
+
+plt.plot(x, v_gentle, label='|v| (gentle)')
+plt.plot(x, c_s, '--', label='c_s')
+plt.xlabel('Position')
+plt.ylabel('Speed (m/s)')
+plt.title('No horizon: |v| &lt; c_s everywhere')
+plt.legend()
+plt.show()
+
+# Fast flow (creates horizon)
+v_fast = 300 * np.tanh((x - 50) / 10)  # Max speed: 300 m/s
+
+plt.plot(x, v_fast, label='|v| (fast)')
+plt.plot(x, c_s, '--', label='c_s')
+plt.axvspan(30, 70, alpha=0.2, label='Horizon region')
+plt.xlabel('Position')
+plt.ylabel('Speed (m/s)')
+plt.title('Horizon forms: |v| &gt; c_s in region')
+plt.legend()
+plt.show()
+</code></pre>
+<h3 id="tutorial-2-surface-gravity-and-temperature">Tutorial 2: Surface Gravity and Temperature</h3>
+<pre><code class="language-bash">ahr tutorial 2
+</code></pre>
+<p><strong>Key insight</strong>: Steeper velocity gradients → higher κ → higher temperature</p>
+<pre><code class="language-python"># Compare different gradient strengths
+gradients = [1e11, 5e11, 1e12, 5e12]  # Different steepness
+
+for grad in gradients:
+    # Create profile with specific gradient at horizon
+    v = 200 * np.tanh((x - 50) * grad / 200)
+
+    # Find horizon and compute kappa
+    # (In real code, use find_horizons_with_uncertainty)
+
+    kappa = grad  # Approximate for demonstration
+    T_H = 1.22e-23 * kappa / (2 * np.pi * 1.38e-23)
+
+    print(f&quot;Gradient: {grad:.1e} s⁻¹, κ: {kappa:.1e} s⁻¹, T_H: {T_H:.1e} K&quot;)
+</code></pre>
+<h3 id="tutorial-3-detection-challenges">Tutorial 3: Detection Challenges</h3>
+<pre><code class="language-bash">ahr tutorial 3
+</code></pre>
+<p><strong>Why is this so hard?</strong></p>
+<pre><code class="language-python"># Calculate signal vs noise
+import numpy as np
+
+# Typical values
+T_H = 1e-8  # Hawking temperature (K)
+bandwidth = 1e9  # Detector bandwidth (Hz)
+T_sys = 30  # System temperature (K)
+
+# Signal power (very approximate)
+P_signal = 1e-23 * bandwidth * T_H  # k_B * Δν * T
+P_noise = 1e-23 * bandwidth * T_sys
+
+print(f&quot;Signal power:   {P_signal:.2e} W&quot;)
+print(f&quot;Noise power:    {P_noise:.2e} W&quot;)
+print(f&quot;Signal/Noise:   {P_signal/P_noise:.2e}&quot;)
+print(f&quot;Need to integrate for ~{int(1/(P_signal/P_noise)**2)} seconds&quot;)
+</code></pre>
+<hr />
+<h2 id="understanding-the-code">🔬 Understanding the Code</h2>
+<h3 id="core-algorithm-finding-horizons">Core Algorithm: Finding Horizons</h3>
+<pre><code class="language-python"># Simplified horizon finding
+import numpy as np
+
+def find_horizons_simple(x, v, cs):
+    &quot;&quot;&quot;
+    Find where |v| = c_s (crossing points)
+    &quot;&quot;&quot;
+    # Look for sign changes in (|v| - c_s)
+    diff = np.abs(v) - cs
+
+    horizons = []
+    for i in range(len(x) - 1):
+        if diff[i] == 0:  # Exact crossing
+            horizons.append(x[i])
+        elif diff[i] * diff[i+1] &lt; 0:  # Sign change
+            # Linear interpolation for better accuracy
+            x_cross = x[i] - diff[i] * (x[i+1] - x[i]) / (diff[i+1] - diff[i])
+            horizons.append(x_cross)
+
+    return np.array(horizons)
+
+# Test it
+x = np.linspace(0, 100e-6, 1000)
+v = 2e6 * np.tanh((x - 50e-6) / 10e-6)
+cs = np.full_like(x, 1e6)
+
+horizons = find_horizons_simple(x, v, cs)
+print(f&quot;Found {len(horizons)} horizon(s) at: {horizons}&quot;)
+</code></pre>
+<h3 id="real-code-structure">Real Code Structure</h3>
+<p>The actual code (<code>src/analog_hawking/physics_engine/horizon.py</code>) is more sophisticated:
+- Handles multiple horizons
+- Computes uncertainties
+- Different κ calculation methods
+- Robust root-finding algorithms</p>
+<p>But the basic principle is the same: find where |v| = c_s!</p>
+<hr />
+<h2 id="visualizing-results">📊 Visualizing Results</h2>
+<h3 id="basic-plotting">Basic Plotting</h3>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Load results
+import json
+with open('results/quickstart/horizons.json', 'r') as f:
+    data = json.load(f)
+
+# Create profile
+x = np.linspace(0, 100e-6, 1000)
+v = 2e6 * np.tanh((x - 50e-6) / 10e-6)
+cs = np.full_like(x, 1e6)
+
+# Plot
+plt.figure(figsize=(10, 6))
+
+plt.subplot(2, 1, 1)
+plt.plot(x*1e6, np.abs(v)/1e6, 'b-', linewidth=2, label='|v| (flow speed)')
+plt.plot(x*1e6, cs/1e6, 'orange', linewidth=2, label='c_s (sound speed)')
+for pos in data['positions_m']:
+    plt.axvline(pos*1e6, color='r', linestyle='--', alpha=0.7, label='Horizon' if pos == data['positions_m'][0] else &quot;&quot;)
+plt.xlabel('Position (μm)')
+plt.ylabel('Speed (×10⁶ m/s)')
+plt.title('Plasma Flow Profile with Sonic Horizon')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.subplot(2, 1, 2)
+kappa = data['kappa_s_inv'][0] if data['kappa_s_inv'] else 0
+T_H = 1.22e-23 * kappa / (2 * np.pi * 1.38e-23)
+plt.text(0.5, 0.5, f'κ = {kappa:.2e} s⁻¹\nT_H = {T_H:.2e} K', 
+         ha='center', va='center', fontsize=14,
+         bbox=dict(boxstyle=&quot;round&quot;, facecolor=&quot;wheat&quot;, alpha=0.5))
+plt.axis('off')
+plt.title('Horizon Properties')
+
+plt.tight_layout()
+plt.savefig('results/quickstart/detailed_analysis.png', dpi=150)
+plt.show()
+</code></pre>
+<hr />
+<h2 id="building-physical-intuition">🎓 Building Physical Intuition</h2>
+<h3 id="experiment-parameter-sensitivity">Experiment: Parameter Sensitivity</h3>
+<pre><code class="language-bash"># Try different parameters
+ahr quickstart --v0 1e6 --out results/slow_flow
+ahr quickstart --v0 3e6 --out results/fast_flow
+ahr quickstart --L 5e-6 --out results/sharp_horizon
+ahr quickstart --L 20e-6 --out results/gentle_horizon
+</code></pre>
+<p><strong>What to look for</strong>:
+- Faster flows → more pronounced horizons
+- Sharper transitions → higher κ → higher temperature
+- Gentler transitions → lower κ → weaker signal</p>
+<h3 id="experiment-multiple-horizons">Experiment: Multiple Horizons</h3>
+<pre><code class="language-python"># Create profile with multiple horizon candidates
+import numpy as np
+
+x = np.linspace(0, 200e-6, 2000)
+
+# Two tanh profiles combined
+v1 = 1.5e6 * np.tanh((x - 50e-6) / 10e-6)
+v2 = 1.5e6 * np.tanh((x - 150e-6) / 10e-6)
+v = v1 + v2
+cs = np.full_like(x, 1e6)
+
+# Save and analyze
+np.savez('results/multi_horizon_profile.npz', x=x, v=v, cs=cs)
+
+# Then run analysis
+ahr pipeline --demo --profile results/multi_horizon_profile.npz
+</code></pre>
+<hr />
+<h2 id="understanding-the-output">📖 Understanding the Output</h2>
+<h3 id="key-results-explained">Key Results Explained</h3>
+<p><strong><code>horizons.json</code></strong>:</p>
+<pre><code class="language-json">{
+  &quot;n_horizons&quot;: 2,              // Number of horizons found
+  &quot;positions_m&quot;: [5e-5, 1.5e-4], // Positions in meters
+  &quot;kappa_s_inv&quot;: [3e12, 2e12],  // Surface gravity [s⁻¹]
+  &quot;kappa_err_s_inv&quot;: [1e10, 1e10] // Uncertainty [s⁻¹]
+}
+</code></pre>
+<p><strong>What it means</strong>:
+- <strong>n_horizons</strong>: How many times flow speed crosses sound speed
+- <strong>positions_m</strong>: Where the horizons are located
+- <strong>kappa_s_inv</strong>: How "steep" each horizon is (higher = better)
+- <strong>kappa_err_s_inv</strong>: Numerical uncertainty (should be small)</p>
+<h3 id="full-pipeline-output">Full Pipeline Output</h3>
+<p><strong><code>full_pipeline_summary.json</code></strong>:</p>
+<pre><code class="language-json">{
+  &quot;kappa&quot;: 3.2e12,           // Surface gravity
+  &quot;T_H_K&quot;: 4.5e-8,           // Hawking temperature [Kelvin]
+  &quot;t5sigma_s&quot;: 2.1e-4,       // Detection time [seconds]
+  &quot;sanity_violation&quot;: false, // Physics bounds OK?
+  &quot;hybrid_enhancement&quot;: 4.2  // Plasma mirror boost
+}
+</code></pre>
+<p><strong>Key metrics</strong>:
+- <strong>T_H_K</strong>: Temperature of Hawking radiation (very cold!)
+- <strong>t5sigma_s</strong>: How long to detect with 5σ confidence
+- <strong>sanity_violation</strong>: Flag if physics bounds exceeded
+- <strong>hybrid_enhancement</strong>: Boost from plasma mirror effects</p>
+<hr />
+<h2 id="next-steps">🚀 Next Steps</h2>
+<h3 id="for-students">For Students</h3>
+<p><strong>Week 1</strong>: Master the basics
+- Run all tutorials
+- Read <a href="../scientific_narrative.md">Scientific Narrative</a>
+- Understand <a href="../Glossary.md">Glossary</a></p>
+<p><strong>Week 2</strong>: Explore parameter space
+- Try different laser intensities
+- Vary plasma densities
+- Plot scaling relationships</p>
+<p><strong>Week 3</strong>: Compare with literature
+- Read <a href="../REFERENCES.md">AnaBHEL papers</a>
+- Reproduce published results
+- Write summary of findings</p>
+<h3 id="for-researchers">For Researchers</h3>
+<p><strong>Reproduce key results</strong>:</p>
+<pre><code class="language-bash"># Gradient catastrophe analysis
+make sweep-gradient-full
+
+# Full validation suite
+ahr validate --dashboard
+
+# Generate results package
+make comprehensive &amp;&amp; make results-pack
+</code></pre>
+<p><strong>Extend the framework</strong>:
+- Add new κ calculation methods
+- Implement different graybody models
+- Test with your own plasma profiles</p>
+<hr />
+<h2 id="conceptual-questions">🧠 Conceptual Questions</h2>
+<h3 id="q-why-cant-we-just-detect-this-directly">Q: Why can't we just detect this directly?</h3>
+<p><strong>A</strong>: The signal is extremely weak—temperatures of 10⁻⁸ K are much colder than the cosmic microwave background (2.7 K). We need:
+- Very sensitive radio detectors
+- Long integration times
+- Careful noise subtraction
+- Optimal plasma parameters</p>
+<h3 id="q-how-realistic-are-these-simulations">Q: How realistic are these simulations?</h3>
+<p><strong>A</strong>: The validated parts (horizon finding, graybody models) are quite robust. However:
+- We use 1D approximations (real plasma is 3D)
+- We assume idealized flow profiles
+- We don't model all plasma instabilities
+- Experimental systematics are not included</p>
+<p>See <a href="../Limitations.md">Limitations</a> for details.</p>
+<h3 id="q-has-anyone-detected-analog-hawking-radiation-yet">Q: Has anyone detected analog Hawking radiation yet?</h3>
+<p><strong>A</strong>: Not definitively. Several experiments have claimed observations:
+- Water waves (Weinfurtner et al. 2011)
+- Bose-Einstein condensates (Steinhauer 2014, 2016)
+- Optical fibers (Drori et al. 2019)</p>
+<p>But plasma experiments (our focus) are still in the planning stage.</p>
+<h3 id="q-whats-the-connection-to-real-black-holes">Q: What's the connection to real black holes?</h3>
+<p><strong>A</strong>: The mathematics is identical, but the physics is different:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Real Black Hole</th>
+<th>Analog Black Hole</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Horizon</td>
+<td>Gravity</td>
+<td>Flow velocity</td>
+</tr>
+<tr>
+<td>Radiation</td>
+<td>Quantum fields</td>
+<td>Sound waves</td>
+</tr>
+<tr>
+<td>Temperature</td>
+<td>~10⁻⁸ K for stellar BH</td>
+<td>~10⁻⁸ K for plasma</td>
+</tr>
+<tr>
+<td>Detection</td>
+<td>Impossible</td>
+<td>Difficult but possible</td>
+</tr>
+</tbody>
+</table>
+<p>The analog system lets us test quantum field theory in curved spacetime!</p>
+<hr />
+<h2 id="further-reading">📚 Further Reading</h2>
+<h3 id="for-students_1">For Students</h3>
+<ul>
+<li><a href="../scientific_narrative.md">Scientific Narrative</a> - Story of analog gravity</li>
+<li><a href="../Overview.md">Overview</a> - Conceptual introduction</li>
+<li><a href="../Glossary.md">Glossary</a> - Key terms</li>
+<li><a href="../FAQ.md">FAQ</a> - Common questions</li>
+</ul>
+<h3 id="for-researchers_1">For Researchers</h3>
+<ul>
+<li><a href="../Methods.md">Methods &amp; Algorithms</a> - Technical details</li>
+<li><a href="../Validation.md">Validation</a> - How we test</li>
+<li><a href="../GradientCatastropheAnalysis.md">Gradient Catastrophe</a> - Physics limits</li>
+<li><a href="../REFERENCES.md">References</a> - Full bibliography</li>
+</ul>
+<h3 id="classic-papers">Classic Papers</h3>
+<ol>
+<li><strong>Unruh (1981)</strong> - "Experimental Black-Hole Evaporation?" (original proposal)</li>
+<li><strong>Visser (1998)</strong> - "Acoustic Black Holes" (theoretical foundation)</li>
+<li><strong>Barceló et al. (2005)</strong> - "Analogue Gravity" (comprehensive review)</li>
+<li><strong>Chen &amp; Mourou (2017)</strong> - Plasma mirror concept</li>
+</ol>
+<hr />
+<h2 id="project-ideas">🎯 Project Ideas</h2>
+<h3 id="beginner-projects">Beginner Projects</h3>
+<ol>
+<li><strong>Parameter Sensitivity Study</strong>: How does κ change with laser intensity?</li>
+<li><strong>Profile Comparison</strong>: Compare tanh vs Gaussian vs linear profiles</li>
+<li><strong>Visualization Gallery</strong>: Create beautiful plots for different scenarios</li>
+<li><strong>Tutorial Enhancement</strong>: Improve existing tutorials with more examples</li>
+</ol>
+<h3 id="intermediate-projects">Intermediate Projects</h3>
+<ol>
+<li><strong>New κ Method</strong>: Implement and test a different κ calculation</li>
+<li><strong>Uncertainty Analysis</strong>: Study how numerical errors propagate</li>
+<li><strong>Literature Review</strong>: Compare our results with published papers</li>
+<li><strong>Educational Material</strong>: Create presentation for your research group</li>
+</ol>
+<h3 id="advanced-projects">Advanced Projects</h3>
+<ol>
+<li><strong>Multi-dimensional Effects</strong>: Extend to 2D or 3D</li>
+<li><strong>New Physics</strong>: Add viscosity or magnetic fields</li>
+<li><strong>Experimental Collaboration</strong>: Work with laser facility</li>
+<li><strong>Publication</strong>: Contribute to research paper</li>
+</ol>
+<hr />
+<h2 id="getting-help">📞 Getting Help</h2>
+<p><strong>Confused about the physics?</strong>
+- <a href="https://github.com/hmbown/analog-hawking-radiation/discussions">Open a Discussion</a>
+- Tag: "student-question"</p>
+<p><strong>Code not working?</strong>
+- Include error message and what you tried
+- Share your Python version and system info (<code>ahr info</code>)</p>
+<p><strong>Want to contribute?</strong>
+- Start with beginner projects above
+- Read <a href="../../CONTRIBUTING.md">Contributing Guide</a>
+- Email: hunter@shannonlabs.dev</p>
+<hr />
+<div align="center">
+
+**[Back to Overview](../index.md)** | **[Quick Links](../QUICKLINKS.md)** | **[Full Documentation](../index.md)**
+
+*Laboratory Black Hole Detection, Quantified*
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.sections", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

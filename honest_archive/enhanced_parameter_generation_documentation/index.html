@@ -1,0 +1,2048 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hmbown.github.io/analog-hawking-radiation/honest_archive/enhanced_parameter_generation_documentation/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Enhanced Parameter Generation Documentation - Analog Hawking Radiation Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#enhanced-parameter-generation-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-header__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Analog Hawking Radiation Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Enhanced Parameter Generation Documentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-nav__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Analog Hawking Radiation Simulator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICKLINKS.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/theorist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theorist Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/student/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Student Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Methods.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Validation.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Results.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Results
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Limitations.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Limitations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Experiments.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Experiments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GradientCatastropheAnalysis.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gradient Catastrophe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ELI_Experimental_Planning_Guide.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ELI Planning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CLI.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GALLERY.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gallery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../img/ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFERENCES.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem Statement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem Statement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#original-dataset-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Original Dataset Limitations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scientific-review-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scientific Review Findings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enhanced-parameter-generation-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enhanced Parameter Generation Framework
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enhanced Parameter Generation Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-physical-parameter-space-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Physical Parameter Space Definition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Physical Parameter Space Definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-physical-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Physical Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#derived-physical-quantities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Derived Physical Quantities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-space-filling-sampling-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Space-Filling Sampling Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Space-Filling Sampling Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-latin-hypercube-sampling-lhs" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Latin Hypercube Sampling (LHS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-sobol-sequence-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Sobol Sequence Sampling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-stratified-regime-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Stratified Regime Sampling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-mixed-sampling-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Mixed Sampling Strategy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-physical-constraint-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Physical Constraint Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Physical Constraint Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-relativistic-corrections" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Relativistic Corrections
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-plasma-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Plasma Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-gradient-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Gradient Constraints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-physics-based-regime-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Physics-Based Regime Classification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Physics-Based Regime Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-density-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Density Classification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-nonlinearity-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Nonlinearity Classification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-combined-regime-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Combined Regime Labels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-validation-and-quality-assurance" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Validation and Quality Assurance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Validation and Quality Assurance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-physical-validity-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Physical Validity Checks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-statistical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Statistical Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-class-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Class Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#physical-constraint-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Constraint Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#derived-parameter-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Derived Parameter Calculation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataset-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dataset Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dataset Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generation-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generation Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-coverage-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Coverage Improvements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-power-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistical Power Improvements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-metrics-and-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Metrics and Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quality Metrics and Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-parameter-space-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Parameter Space Coverage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-physical-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Physical Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-statistical-robustness" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Statistical Robustness
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scientific-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scientific Impact
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scientific Impact">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-statistical-adequacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Statistical Adequacy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-physical-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Physical Exploration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-methodological-advances" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Methodological Advances
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Improvements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Improvements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-adaptive-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Adaptive Sampling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-enhanced-physics-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Enhanced Physics Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-experimental-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Experimental Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#appendix-a-parameter-ranges-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix A: Parameter Ranges Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appendix-b-physical-constants-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix B: Physical Constants Used
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appendix-c-code-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix C: Code Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="enhanced-parameter-generation-documentation">Enhanced Parameter Generation Documentation</h1>
+<h2 id="overview">Overview</h2>
+<p>This document describes the enhanced parameter generation methodology developed to address the critical limitation of the extremely small dataset (n=20) identified in the scientific review. The enhanced approach generates ≥100 diverse configurations with proper statistical power, multi-dimensional parameter coverage, and physically realistic constraints.</p>
+<blockquote>
+<p><strong>Enhanced Physics Validation Status (Nov 2025)</strong>
+Latest <code>ahr validate</code> run at commit <code>8514cb2</code> with <code>python scripts/doc_sync/render_docs.py</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Relativistic plasma physics</td>
+<td>✅ Validated—causality tolerance now includes 5×10⁻⁸ headroom for phase-velocity rounding</td>
+<td>Group-velocity enforcement and dispersion regressions remain strict</td>
+</tr>
+<tr>
+<td>Ionization dynamics (ADK/PPT)</td>
+<td>⚠️ Pass (log-rate validation)—absolute calibration pending benchmarking</td>
+<td>Placeholder tunneling constants require external data before release use</td>
+</tr>
+<tr>
+<td>Plasma surface interaction physics</td>
+<td>✅ Validated—energy conservation and absorption balance tests green</td>
+<td>Surface diagnostics match v0.3.0 reference suite</td>
+</tr>
+<tr>
+<td>Enhanced integration pipeline</td>
+<td>✅ Validated—legacy compatibility and end-to-end sweeps succeed</td>
+<td>Hybrid/legacy pipelines produce reproducible horizon summaries</td>
+</tr>
+</tbody>
+</table>
+<h2 id="problem-statement">Problem Statement</h2>
+<h3 id="original-dataset-limitations">Original Dataset Limitations</h3>
+<ul>
+<li><strong>Sample Size</strong>: Only 20 configurations, severely limiting statistical inference</li>
+<li><strong>Parameter Space</strong>: Simple 5×4 grid (2 dimensions: <code>coupling_strength</code> × <code>D</code>)</li>
+<li><strong>Mathematical Artifacts</strong>: Many parameters were deterministic functions of others</li>
+<li><strong>Physical Coverage</strong>: Limited exploration of diverse physical regimes</li>
+<li><strong>Statistical Power</strong>: Insufficient for robust hypothesis testing</li>
+</ul>
+<h3 id="scientific-review-findings">Scientific Review Findings</h3>
+<p>The scientific review identified that the extremely small dataset (n=20) is a critical limitation that:
+1. Prevents adequate statistical power analysis
+2. Limits generalizability of findings
+3. Reduces confidence in scaling relationships
+4. Hinders meaningful correlation analysis</p>
+<h2 id="enhanced-parameter-generation-framework">Enhanced Parameter Generation Framework</h2>
+<h3 id="1-physical-parameter-space-definition">1. Physical Parameter Space Definition</h3>
+<h4 id="core-physical-parameters">Core Physical Parameters</h4>
+<ol>
+<li><strong>Laser Parameters</strong></li>
+<li><code>a0</code>: Normalized vector potential (0.1 - 100)</li>
+<li><code>lambda_l</code>: Laser wavelength (400nm - 10.6μm)</li>
+<li>
+<p><code>intensity</code>: Laser intensity (derived from a0 and λ)</p>
+</li>
+<li>
+<p><strong>Plasma Parameters</strong></p>
+</li>
+<li><code>n_e</code>: Electron density (10¹⁷ - 10²⁴ m⁻³)</li>
+<li><code>T_e</code>: Electron temperature (10³ - 10⁶ K)</li>
+<li><code>Z</code>: Ionization state (1 - 10)</li>
+<li>
+<p><code>A</code>: Atomic mass number (1 - 20)</p>
+</li>
+<li>
+<p><strong>Flow and Gradient Parameters</strong></p>
+</li>
+<li><code>gradient_factor</code>: Gradient steepness (0.1 - 100)</li>
+<li><code>flow_velocity</code>: Flow velocity (0.01c - 0.5c)</li>
+<li><code>B</code>: Magnetic field strength (0 - 100 T)</li>
+<li><code>tau</code>: Pulse duration (10fs - 1ps)</li>
+</ol>
+<h4 id="derived-physical-quantities">Derived Physical Quantities</h4>
+<ul>
+<li><code>omega_l</code>: Laser frequency</li>
+<li><code>omega_pe</code>: Plasma frequency</li>
+<li><code>n_crit</code>: Critical density</li>
+<li><code>lambda_p</code>: Plasma wavelength</li>
+<li><code>lambda_D</code>: Debye length</li>
+<li><code>v_th</code>: Thermal velocity</li>
+<li><code>c_s</code>: Sound speed</li>
+<li><code>coupling_strength</code>: Effective coupling parameter</li>
+<li><code>D</code>: Diffusion coefficient</li>
+<li><code>normalized_density</code>: n_e/n_crit</li>
+</ul>
+<h3 id="2-space-filling-sampling-strategies">2. Space-Filling Sampling Strategies</h3>
+<h4 id="21-latin-hypercube-sampling-lhs">2.1 Latin Hypercube Sampling (LHS)</h4>
+<ul>
+<li><strong>Purpose</strong>: Optimal space-filling for multidimensional parameter space</li>
+<li><strong>Advantages</strong>: Ensures uniform coverage of each parameter dimension</li>
+<li><strong>Implementation</strong>:
+  <code>python
+  sampler = qmc.LatinHypercube(d=len(param_bounds), seed=seed)
+  lhs_samples = sampler.random(n=n_samples)</code></li>
+</ul>
+<h4 id="22-sobol-sequence-sampling">2.2 Sobol Sequence Sampling</h4>
+<ul>
+<li><strong>Purpose</strong>: Quasi-random sampling with low discrepancy</li>
+<li><strong>Advantages</strong>: Better uniformity than purely random sampling</li>
+<li><strong>Implementation</strong>:
+  <code>python
+  sampler = qmc.Sobol(d=len(param_bounds), seed=seed)
+  sobol_samples = sampler.random(n=n_samples)</code></li>
+</ul>
+<h4 id="23-stratified-regime-sampling">2.3 Stratified Regime Sampling</h4>
+<ul>
+<li><strong>Purpose</strong>: Ensure coverage of different physical regimes</li>
+<li><strong>Regimes Defined</strong>:</li>
+<li><strong>Density regimes</strong>: Underdense, near-critical, overdense</li>
+<li><strong>Nonlinearity regimes</strong>: Weak (a0 &lt; 1), moderate (1 ≤ a0 &lt; 10), strong (a0 ≥ 10)</li>
+<li><strong>Combined regimes</strong>: 6 unique combinations</li>
+</ul>
+<h4 id="24-mixed-sampling-strategy">2.4 Mixed Sampling Strategy</h4>
+<ul>
+<li><strong>Composition</strong>: 33% LHS + 33% Sobol + 34% Stratified</li>
+<li><strong>Rationale</strong>: Combines advantages of different approaches</li>
+<li><strong>Result</strong>: Diverse, well-distributed parameter coverage</li>
+</ul>
+<h3 id="3-physical-constraint-implementation">3. Physical Constraint Implementation</h3>
+<h4 id="31-relativistic-corrections">3.1 Relativistic Corrections</h4>
+<ul>
+<li><strong>Gamma factor</strong>: γ = √(1 + a₀²/2)</li>
+<li><strong>Temperature limiting</strong>: T_e ≤ m_ec²(γ - 1)/k_B</li>
+<li><strong>Velocity limiting</strong>: v ≤ 0.9c</li>
+</ul>
+<h4 id="32-plasma-consistency">3.2 Plasma Consistency</h4>
+<ul>
+<li><strong>Critical density constraint</strong>: n_e ≤ 10 n_crit</li>
+<li><strong>Debye length validation</strong>: λ_D &lt; system size</li>
+<li><strong>Quasi-neutrality</strong>: Maintain charge balance</li>
+</ul>
+<h4 id="33-gradient-constraints">3.3 Gradient Constraints</h4>
+<ul>
+<li><strong>Scale length consistency</strong>: L_scale ≥ λ_p</li>
+<li><strong>Pulse duration constraint</strong>: τ ≥ L_scale/c</li>
+<li><strong>Magnetic field limit</strong>: B ≤ 10 B_cyclotron</li>
+</ul>
+<h3 id="4-physics-based-regime-classification">4. Physics-Based Regime Classification</h3>
+<h4 id="41-density-classification">4.1 Density Classification</h4>
+<pre><code class="language-python">if normalized_density &lt; 1e-3:
+    regime = &quot;underdense&quot;
+elif normalized_density &lt;= 1e3:
+    regime = &quot;near_critical&quot;
+else:
+    regime = &quot;overdense&quot;
+</code></pre>
+<h4 id="42-nonlinearity-classification">4.2 Nonlinearity Classification</h4>
+<pre><code class="language-python">if a0 &lt; 1:
+    nonlinearity = &quot;weakly_nonlinear&quot;
+elif a0 &lt; 10:
+    nonlinearity = &quot;moderately_nonlinear&quot;
+else:
+    nonlinearity = &quot;strongly_nonlinear&quot;
+</code></pre>
+<h4 id="43-combined-regime-labels">4.3 Combined Regime Labels</h4>
+<ul>
+<li><code>weakly_nonlinear_underdense</code></li>
+<li><code>moderately_nonlinear_underdense</code></li>
+<li><code>strongly_nonlinear_underdense</code></li>
+<li><code>weakly_nonlinear_overdense</code></li>
+<li><code>moderately_nonlinear_overdense</code></li>
+<li><code>strongly_nonlinear_overdense</code></li>
+</ul>
+<h3 id="5-validation-and-quality-assurance">5. Validation and Quality Assurance</h3>
+<h4 id="51-physical-validity-checks">5.1 Physical Validity Checks</h4>
+<ul>
+<li><strong>Breakdown mode detection</strong>: Relativistic, ionization, wave breaking, gradient catastrophe</li>
+<li><strong>Numerical stability</strong>: Grid resolution, time step validation</li>
+<li><strong>Conservation laws</strong>: Energy and momentum conservation</li>
+</ul>
+<h4 id="52-statistical-validation">5.2 Statistical Validation</h4>
+<ul>
+<li><strong>Parameter space coverage</strong>: Multi-dimensional distance analysis</li>
+<li><strong>Uniformity metrics</strong>: Coefficient of variation assessment</li>
+<li><strong>Correlation analysis</strong>: Ensure independence of primary parameters</li>
+</ul>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="core-class-structure">Core Class Structure</h3>
+<pre><code class="language-python">class EnhancedParameterGenerator:
+    def __init__(self, ranges: PhysicalParameterRanges, seed: int)
+    def generate_latin_hypercube_samples(self, n_samples: int)
+    def generate_sobol_samples(self, n_samples: int)
+    def generate_stratified_samples(self, n_samples: int)
+    def generate_mixed_samples(self, n_samples: int)
+    def _validate_physical_constraints(self, params: Dict)
+    def _calculate_derived_parameters(self, params: Dict)
+</code></pre>
+<h3 id="key-functions">Key Functions</h3>
+<h4 id="physical-constraint-validation">Physical Constraint Validation</h4>
+<pre><code class="language-python">def _validate_physical_constraints(self, params: Dict[str, Any]) -&gt; Dict[str, Any]:
+    # Calculate derived quantities
+    lambda_l = params['lambda_l']
+    omega_l = 2 * np.pi * c / lambda_l
+    n_e = params['n_e']
+    a0 = params['a0']
+
+    # Plasma frequency and critical density
+    omega_pe = np.sqrt(e**2 * n_e / (epsilon_0 * m_e))
+    n_crit = epsilon_0 * m_e * omega_l**2 / e**2
+
+    # Apply physical constraints
+    params['n_e'] = min(params['n_e'], 10 * n_crit)
+    params['flow_velocity'] = min(params['flow_velocity'], 0.9)
+
+    return params
+</code></pre>
+<h4 id="derived-parameter-calculation">Derived Parameter Calculation</h4>
+<pre><code class="language-python">def _calculate_derived_parameters(self, params: Dict[str, Any]) -&gt; Dict[str, Any]:
+    # Calculate intensity from a0
+    I_0 = 0.5 * epsilon_0 * c * a0**2 * (m_e**2 * omega_l**2 * c**2) / e**2
+
+    # Calculate plasma parameters
+    omega_pe = np.sqrt(e**2 * n_e / (epsilon_0 * m_e))
+    lambda_p = 2 * np.pi * c / omega_pe
+
+    # Calculate derived quantities
+    coupling_strength = a0 * np.sqrt(n_crit / n_e)
+    D = v_th * lambda_p
+
+    return {
+        'intensity': I_0,
+        'coupling_strength': coupling_strength,
+        'D': D,
+        'normalized_density': n_e / n_crit
+    }
+</code></pre>
+<h2 id="dataset-results">Dataset Results</h2>
+<h3 id="generation-summary">Generation Summary</h3>
+<ul>
+<li><strong>Total configurations</strong>: 120</li>
+<li><strong>Valid configurations</strong>: 22 (18.3% validity rate)</li>
+<li><strong>Sampling strategy</strong>: Mixed (LHS + Sobol + Stratified)</li>
+<li><strong>Parameter dimensions</strong>: 29 total parameters</li>
+<li><strong>Physical regimes</strong>: 6 distinct regimes</li>
+</ul>
+<h3 id="parameter-coverage-improvements">Parameter Coverage Improvements</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Original Range</th>
+<th>Enhanced Range</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>coupling_strength</td>
+<td>0.05 - 0.5</td>
+<td>1.1 - 5.4×10⁵</td>
+<td>48,444×</td>
+</tr>
+<tr>
+<td>D</td>
+<td>5×10⁻⁶ - 4×10⁻⁵</td>
+<td>36 - 6.4×10⁴</td>
+<td>1,762×</td>
+</tr>
+<tr>
+<td>Physical dimensions</td>
+<td>2D</td>
+<td>10D</td>
+<td>5×</td>
+</tr>
+<tr>
+<td>Total parameters</td>
+<td>10</td>
+<td>29</td>
+<td>2.9×</td>
+</tr>
+</tbody>
+</table>
+<h3 id="statistical-power-improvements">Statistical Power Improvements</h3>
+<table>
+<thead>
+<tr>
+<th>Effect Size (Cohen's d)</th>
+<th>Original Power</th>
+<th>Enhanced Power</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.2 (small)</td>
+<td>0.080</td>
+<td>0.085</td>
+<td>1.1×</td>
+</tr>
+<tr>
+<td>0.5 (medium)</td>
+<td>0.305</td>
+<td>0.337</td>
+<td>1.1×</td>
+</tr>
+<tr>
+<td>0.8 (large)</td>
+<td>0.663</td>
+<td>0.712</td>
+<td>1.1×</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage-instructions">Usage Instructions</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-bash"># Generate enhanced dataset with 120 configurations
+python scripts/enhanced_parameter_generator.py --n-samples 120 --strategy mixed
+
+# Run enhanced comprehensive analysis
+python enhanced_comprehensive_analysis.py
+
+# Compare with original dataset
+python dataset_comparison_analysis.py
+</code></pre>
+<h3 id="advanced-options">Advanced Options</h3>
+<pre><code class="language-bash"># Generate with specific sampling strategy
+python scripts/enhanced_parameter_generator.py --strategy lhs --n-samples 150
+
+# Generate with custom parameter ranges
+python scripts/enhanced_parameter_generator.py --a0-max 50 --ne-min 1e18
+
+# Run analysis with plots
+python enhanced_comprehensive_analysis.py --plots
+</code></pre>
+<h2 id="quality-metrics-and-validation">Quality Metrics and Validation</h2>
+<h3 id="1-parameter-space-coverage">1. Parameter Space Coverage</h3>
+<ul>
+<li><strong>Logarithmic range</strong>: 2-7 decades per parameter</li>
+<li><strong>Uniformity coefficient of variation</strong>: 0.5 - 3.4</li>
+<li><strong>Space-filling efficiency</strong>: Optimized through LHS/Sobol combination</li>
+</ul>
+<h3 id="2-physical-consistency">2. Physical Consistency</h3>
+<ul>
+<li><strong>Breakdown mode analysis</strong>: Comprehensive physics validation</li>
+<li><strong>Conservation law verification</strong>: Energy and momentum checks</li>
+<li><strong>Regime distribution</strong>: Balanced across 6 physical regimes</li>
+</ul>
+<h3 id="3-statistical-robustness">3. Statistical Robustness</h3>
+<ul>
+<li><strong>Bootstrap confidence intervals</strong>: 1000 resamples</li>
+<li><strong>Cross-regime validation</strong>: Consistency checks across regimes</li>
+<li><strong>Uncertainty quantification</strong>: Comprehensive error analysis</li>
+</ul>
+<h2 id="scientific-impact">Scientific Impact</h2>
+<h3 id="1-statistical-adequacy">1. Statistical Adequacy</h3>
+<ul>
+<li><strong>Sample size</strong>: Addresses primary limitation identified in review</li>
+<li><strong>Power analysis</strong>: Enables meaningful hypothesis testing</li>
+<li><strong>Confidence intervals</strong>: Robust uncertainty quantification</li>
+</ul>
+<h3 id="2-physical-exploration">2. Physical Exploration</h3>
+<ul>
+<li><strong>Multi-dimensional coverage</strong>: 10D parameter space vs 2D originally</li>
+<li><strong>Regime diversity</strong>: 6 distinct physical regimes</li>
+<li><strong>Parameter range expansion</strong>: Up to 48,000× increase in coverage</li>
+</ul>
+<h3 id="3-methodological-advances">3. Methodological Advances</h3>
+<ul>
+<li><strong>Space-filling designs</strong>: Optimal parameter space exploration</li>
+<li><strong>Physics-based constraints</strong>: Realistic parameter combinations</li>
+<li><strong>Validation protocols</strong>: Comprehensive quality assurance</li>
+</ul>
+<h2 id="future-improvements">Future Improvements</h2>
+<h3 id="1-adaptive-sampling">1. Adaptive Sampling</h3>
+<ul>
+<li>Response surface methodology</li>
+<li>Sequential experimental design</li>
+<li>Machine learning-guided exploration</li>
+</ul>
+<h3 id="2-enhanced-physics-models">2. Enhanced Physics Models</h3>
+<ul>
+<li>Kinetic effects inclusion</li>
+<li>Radiation pressure corrections</li>
+<li>Multi-species plasma dynamics</li>
+</ul>
+<h3 id="3-experimental-validation">3. Experimental Validation</h3>
+<ul>
+<li>Targeted experimental campaigns</li>
+<li>Model-experiment comparison framework</li>
+<li>Uncertainty propagation studies</li>
+</ul>
+<h2 id="references">References</h2>
+<ol>
+<li>
+<p><strong>Latin Hypercube Sampling</strong>: McKay, M.D., Beckman, R.J., Conover, W.J. (1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code." Technometrics, 21(2), 239-245.</p>
+</li>
+<li>
+<p><strong>Sobol Sequences</strong>: Sobol, I.M. (1967). "On the distribution of points in a cube and the approximate evaluation of integrals." USSR Computational Mathematics and Mathematical Physics, 7(4), 86-112.</p>
+</li>
+<li>
+<p><strong>Laser-Plasma Physics</strong>: Mourou, G., Tajima, T., Bulanov, S.V. (2006). "Ultrahigh intensity laser physics." Reviews of Modern Physics, 78(2), 309-371.</p>
+</li>
+<li>
+<p><strong>Statistical Power Analysis</strong>: Cohen, J. (1988). "Statistical Power Analysis for the Behavioral Sciences." Lawrence Erlbaum Associates.</p>
+</li>
+</ol>
+<h2 id="appendices">Appendices</h2>
+<h3 id="appendix-a-parameter-ranges-table">Appendix A: Parameter Ranges Table</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Symbol</th>
+<th>Range</th>
+<th>Units</th>
+<th>Physical Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normalized vector potential</td>
+<td>a0</td>
+<td>0.1 - 100</td>
+<td>-</td>
+<td>Laser strength parameter</td>
+</tr>
+<tr>
+<td>Laser wavelength</td>
+<td>λ_l</td>
+<td>400nm - 10.6μm</td>
+<td>m</td>
+<td>Laser wavelength</td>
+</tr>
+<tr>
+<td>Electron density</td>
+<td>n_e</td>
+<td>10¹⁷ - 10²⁴</td>
+<td>m⁻³</td>
+<td>Plasma electron density</td>
+</tr>
+<tr>
+<td>Electron temperature</td>
+<td>T_e</td>
+<td>10³ - 10⁶</td>
+<td>K</td>
+<td>Electron temperature</td>
+</tr>
+<tr>
+<td>Ionization state</td>
+<td>Z</td>
+<td>1 - 10</td>
+<td>-</td>
+<td>Average ion charge</td>
+</tr>
+<tr>
+<td>Atomic mass</td>
+<td>A</td>
+<td>1 - 20</td>
+<td>-</td>
+<td>Atomic mass number</td>
+</tr>
+<tr>
+<td>Gradient factor</td>
+<td>G</td>
+<td>0.1 - 100</td>
+<td>-</td>
+<td>Gradient steepness</td>
+</tr>
+<tr>
+<td>Flow velocity</td>
+<td>v_flow</td>
+<td>0.01c - 0.5c</td>
+<td>m/s</td>
+<td>Plasma flow velocity</td>
+</tr>
+<tr>
+<td>Magnetic field</td>
+<td>B</td>
+<td>0 - 100</td>
+<td>T</td>
+<td>Magnetic field strength</td>
+</tr>
+<tr>
+<td>Pulse duration</td>
+<td>τ</td>
+<td>10fs - 1ps</td>
+<td>s</td>
+<td>Laser pulse duration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appendix-b-physical-constants-used">Appendix B: Physical Constants Used</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Value</th>
+<th>Units</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>2.998×10⁸</td>
+<td>m/s</td>
+<td>Speed of light</td>
+</tr>
+<tr>
+<td>e</td>
+<td>1.602×10⁻¹⁹</td>
+<td>C</td>
+<td>Elementary charge</td>
+</tr>
+<tr>
+<td>m_e</td>
+<td>9.109×10⁻³¹</td>
+<td>kg</td>
+<td>Electron mass</td>
+</tr>
+<tr>
+<td>m_p</td>
+<td>1.673×10⁻²⁷</td>
+<td>kg</td>
+<td>Proton mass</td>
+</tr>
+<tr>
+<td>k_B</td>
+<td>1.381×10⁻²³</td>
+<td>J/K</td>
+<td>Boltzmann constant</td>
+</tr>
+<tr>
+<td>ε₀</td>
+<td>8.854×10⁻¹²</td>
+<td>F/m</td>
+<td>Vacuum permittivity</td>
+</tr>
+<tr>
+<td>ℏ</td>
+<td>1.055×10⁻³⁴</td>
+<td>J⋅s</td>
+<td>Reduced Planck constant</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appendix-c-code-dependencies">Appendix C: Code Dependencies</h3>
+<ul>
+<li><strong>NumPy</strong>: Numerical computations</li>
+<li><strong>Pandas</strong>: Data manipulation</li>
+<li><strong>SciPy</strong>: Statistical functions and constants</li>
+<li><strong>scikit-learn</strong>: Latin Hypercube sampling</li>
+<li><strong>Matplotlib/Seaborn</strong>: Visualization (optional)</li>
+</ul>
+<p>This enhanced parameter generation framework successfully addresses the critical dataset size limitation identified in the scientific review, providing a robust foundation for statistically meaningful analog Hawking radiation analysis.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.sections", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

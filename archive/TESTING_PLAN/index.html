@@ -1,0 +1,1447 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hmbown.github.io/analog-hawking-radiation/archive/TESTING_PLAN/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Testing and Validation Plan - Analog Hawking Radiation Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#testing-and-validation-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-header__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Analog Hawking Radiation Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Testing and Validation Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-nav__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Analog Hawking Radiation Simulator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICKLINKS.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/theorist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theorist Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/student/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Student Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Methods.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Validation.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Results.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Results
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Limitations.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Limitations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Experiments.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Experiments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GradientCatastropheAnalysis.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gradient Catastrophe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ELI_Experimental_Planning_Guide.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ELI Planning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CLI.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GALLERY.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gallery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../img/ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFERENCES.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-physics-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Physics Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Physics Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-hawking-radiation-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Hawking Radiation Theory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-plasma-physics" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Plasma Physics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-numerical-methods-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Numerical Methods Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Numerical Methods Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-horizon-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Horizon Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-multi-beam-superposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Multi-Beam Superposition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-detection-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Detection Modeling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-experimental-parameter-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Experimental Parameter Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Experimental Parameter Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-physical-realizability" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Physical Realizability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-detection-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Detection Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-reproducibility-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Reproducibility Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Reproducibility Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-figure-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Figure Generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-data-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Data Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-installation-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Installation Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integration-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Integration Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Integration Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-module-interactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Module Interactions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-backend-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Backend Integration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-suite-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Suite Execution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Suite Execution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automated Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Success Criteria
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Success Criteria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-must-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required (Must Pass)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-should-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected (Should Pass)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desirable-nice-to-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      Desirable (Nice to Have)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Protocols
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analytical-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analytical Benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numerical-convergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical Convergence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Consistency
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Validation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="testing-and-validation-plan">Testing and Validation Plan</h1>
+<h2 id="overview">Overview</h2>
+<p>This document outlines the validation strategy for the analog Hawking radiation computational framework. The goal is to ensure all physics implementations are correct, numerically stable, and reproducible.</p>
+<h2 id="validation-categories">Validation Categories</h2>
+<h3 id="1-physics-validation">1. Physics Validation</h3>
+<h4 id="11-hawking-radiation-theory">1.1 Hawking Radiation Theory</h4>
+<ul>
+<li>Verify Hawking temperature formula: T_H = ħκ/(2πk_B)</li>
+<li>Validate quantum field theory spectrum implementation against analytical solutions</li>
+<li>Check graybody transmission calculations against WKB theory</li>
+<li>Verify surface gravity (κ) derivation and numerical uncertainty estimates</li>
+</ul>
+<h4 id="12-plasma-physics">1.2 Plasma Physics</h4>
+<ul>
+<li>Confirm sound speed calculation: c_s = √(γkT_e/m_i)</li>
+<li>Validate relativistic parameter a₀ = eE₀/(mₑωc) against analytical formula</li>
+<li>Check plasma frequency calculations against standard expressions</li>
+<li>Verify magnetosonic speed approximations</li>
+</ul>
+<h3 id="2-numerical-methods-validation">2. Numerical Methods Validation</h3>
+<h4 id="21-horizon-detection">2.1 Horizon Detection</h4>
+<ul>
+<li>Test root finding algorithm (bracketing and bisection) on known profiles</li>
+<li>Validate multi-stencil finite difference uncertainty quantification</li>
+<li>Verify adaptive smoothing and κ-plateau diagnostics</li>
+<li>Test edge cases: no horizons, multiple horizons, weak gradients</li>
+</ul>
+<h4 id="22-multi-beam-superposition">2.2 Multi-Beam Superposition</h4>
+<ul>
+<li>Confirm power conservation across all beam configurations</li>
+<li>Validate envelope-scale coarse-graining assumptions</li>
+<li>Test geometric configurations: rings, crossings, standing waves</li>
+<li>Verify gradient enhancement calculations</li>
+</ul>
+<h4 id="23-detection-modeling">2.3 Detection Modeling</h4>
+<ul>
+<li>Test radiometer equation: SNR = (T_sig/T_sys)√(B·t)</li>
+<li>Validate quantum field theory spectrum integration</li>
+<li>Check frequency band gating logic for radio/microwave regime</li>
+<li>Verify graybody transmission integration</li>
+</ul>
+<h3 id="3-experimental-parameter-validation">3. Experimental Parameter Validation</h3>
+<h4 id="31-physical-realizability">3.1 Physical Realizability</h4>
+<ul>
+<li>Verify laser intensities are achievable (10¹⁷-10¹⁸ W/m²)</li>
+<li>Check plasma densities are realistic (10²³-10²⁴ m⁻³)</li>
+<li>Validate temperature ranges (10⁶-10⁷ K)</li>
+<li>Assess detection time estimates for reasonableness</li>
+</ul>
+<h4 id="32-detection-requirements">3.2 Detection Requirements</h4>
+<ul>
+<li>Validate system temperature assumptions (10-100K range)</li>
+<li>Check bandwidth requirements (MHz-GHz)</li>
+<li>Verify integration time calculations</li>
+<li>Assess 5σ detection feasibility</li>
+</ul>
+<h3 id="4-reproducibility-testing">4. Reproducibility Testing</h3>
+<h4 id="41-figure-generation">4.1 Figure Generation</h4>
+<ul>
+<li>Regenerate all figures: <code>make figures</code></li>
+<li>Verify figure captions match actual content</li>
+<li>Check data consistency between figures and JSON result files</li>
+<li>Validate enhancement statistics match bar chart data</li>
+</ul>
+<h4 id="42-data-consistency">4.2 Data Consistency</h4>
+<ul>
+<li>Cross-check <code>results/enhancement_stats.json</code> with code outputs</li>
+<li>Verify <code>results/horizon_summary.json</code> data integrity</li>
+<li>Check numerical precision and uncertainty bounds</li>
+<li>Validate unit consistency across all results</li>
+</ul>
+<h4 id="43-installation-testing">4.3 Installation Testing</h4>
+<ul>
+<li>Test installation in clean Python environment</li>
+<li>Verify all dependencies resolve correctly</li>
+<li>Execute key scripts and validate outputs</li>
+<li>Test on Python 3.8, 3.9, 3.10+</li>
+</ul>
+<h3 id="5-integration-testing">5. Integration Testing</h3>
+<h4 id="51-module-interactions">5.1 Module Interactions</h4>
+<ul>
+<li>Test data flow: Plasma Models → Horizon Detection → QFT → Detection</li>
+<li>Validate parameter passing between modules</li>
+<li>Check error handling for edge cases</li>
+<li>Verify memory usage is reasonable</li>
+</ul>
+<h4 id="52-backend-integration">5.2 Backend Integration</h4>
+<ul>
+<li>Test fluid backend calculations against analytical limits</li>
+<li>Validate WarpX backend mock implementation</li>
+<li>Check adaptive sigma integration</li>
+<li>Verify fluctuation injector functionality</li>
+</ul>
+<h2 id="test-suite-execution">Test Suite Execution</h2>
+<h3 id="automated-tests">Automated Tests</h3>
+<pre><code class="language-bash"># Run complete test suite
+pytest tests/ -v
+
+# Run with coverage report
+pytest tests/ --cov=src/analog_hawking
+
+# Run specific test categories
+pytest tests/test_horizon_kappa_analytic.py -v
+pytest tests/test_graybody.py -v
+pytest tests/integration_test.py -v
+</code></pre>
+<h3 id="manual-validation">Manual Validation</h3>
+<pre><code class="language-bash"># Validate all figures and analysis
+make all
+
+# Run full pipeline demonstration
+python scripts/run_full_pipeline.py --demo
+
+# Execute formation frontier analysis
+python scripts/compute_formation_frontier.py
+</code></pre>
+<h2 id="success-criteria">Success Criteria</h2>
+<h3 id="required-must-pass">Required (Must Pass)</h3>
+<ul>
+<li>All unit tests pass (<code>pytest</code>)</li>
+<li>All integration tests pass</li>
+<li>Theoretical formulas match analytical solutions within numerical precision</li>
+<li>Parameter ranges are physically achievable</li>
+<li>Code executes without errors on supported Python versions</li>
+</ul>
+<h3 id="expected-should-pass">Expected (Should Pass)</h3>
+<ul>
+<li>Enhancement factors match documented values within ±5%</li>
+<li>Horizon detection uncertainty &lt; 10% for well-resolved profiles</li>
+<li>Detection time estimates within factor of 2 of independent calculation</li>
+<li>Multi-beam power conservation within 1%</li>
+<li>Numerical convergence demonstrated with grid refinement</li>
+</ul>
+<h3 id="desirable-nice-to-have">Desirable (Nice to Have)</h3>
+<ul>
+<li>Performance benchmarks within expected ranges</li>
+<li>Memory usage scales appropriately with problem size</li>
+<li>Documentation matches code behavior exactly</li>
+<li>All cross-references resolve correctly</li>
+</ul>
+<h2 id="validation-protocols">Validation Protocols</h2>
+<h3 id="analytical-benchmarks">Analytical Benchmarks</h3>
+<ul>
+<li>Compare numerical horizon finding with known linear profile solutions</li>
+<li>Validate Hawking spectrum against Planck distribution in appropriate limits</li>
+<li>Check Rayleigh-Jeans limit for low frequencies</li>
+<li>Verify graybody transmission limits</li>
+</ul>
+<h3 id="numerical-convergence">Numerical Convergence</h3>
+<ul>
+<li>Grid refinement studies for spatial convergence</li>
+<li>Time step refinement for temporal convergence</li>
+<li>Verify second-order convergence where expected</li>
+<li>Check numerical stability under parameter variations</li>
+</ul>
+<h3 id="physical-consistency">Physical Consistency</h3>
+<ul>
+<li>Verify dimensional analysis of all quantities</li>
+<li>Check limiting behavior (low T, high T, weak field, strong field)</li>
+<li>Validate parameter sensitivities are physically reasonable</li>
+<li>Ensure energy/power conservation where applicable</li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p>All validation results should be documented with:
+- Test conditions and parameters
+- Expected vs actual results
+- Uncertainty estimates
+- References to analytical solutions or literature values
+- Any discrepancies and their explanations</p>
+<h2 id="continuous-validation">Continuous Validation</h2>
+<p>As the codebase evolves:
+- Run full test suite before any commit
+- Update tests when adding new features
+- Document any changes to physics models
+- Maintain backward compatibility or document breaking changes
+- Keep validation documentation up to date</p>
+<p>This testing plan ensures scientific rigor and reproducibility of all results.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.sections", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

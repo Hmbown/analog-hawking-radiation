@@ -1,0 +1,1621 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hmbown.github.io/analog-hawking-radiation/archive/RELEASE_NOTES_v0.3.0/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Release Notes: v0.3.0 — GPU Acceleration & PIC Integration - Analog Hawking Radiation Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#release-notes-v030-gpu-acceleration-pic-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-header__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Analog Hawking Radiation Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Release Notes: v0.3.0 — GPU Acceleration &amp; PIC Integration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Analog Hawking Radiation Simulator" class="md-nav__button md-logo" aria-label="Analog Hawking Radiation Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Analog Hawking Radiation Simulator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hmbown/analog-hawking-radiation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hmbown/analog-hawking-radiation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICKLINKS.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Links
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/experimentalist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choose Your Path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/theorist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theorist Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/student/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Student Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Methods.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Validation.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Results.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Results
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Limitations.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Limitations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Experiments.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Experiments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GradientCatastropheAnalysis.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gradient Catastrophe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ELI_Experimental_Planning_Guide.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ELI Planning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CLI.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GALLERY.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gallery
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../img/ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFERENCES.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executive Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Executive Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#headline-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Headline Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-gpu-acceleration-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. GPU Acceleration Infrastructure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-bayesian-inference-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Bayesian κ-Inference System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-complete-warpxpic-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Complete WarpX/PIC Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-horizon-crossing-correlation-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Horizon-Crossing Correlation Diagnostics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-comprehensive-physics-validation-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Comprehensive Physics Validation Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-enhanced-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Enhanced Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Improvements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Improvements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-acceleration-benchmarks-rtx-3080-wsl2-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Acceleration Benchmarks (RTX 3080, WSL2 Ubuntu)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Efficiency
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Breaking Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Breaking Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#none" class="md-nav__link">
+    <span class="md-ellipsis">
+      None
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upgrading-from-v020" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading from v0.2.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-workflows-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Workflows Enabled
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bug Fixes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-issues-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Known Issues &amp; Limitations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation &amp; Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation &amp; Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-suite-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Suite Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency Updates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency Updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-required-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Required Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-optional-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Optional Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acknowledgments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next-v040-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's Next: v0.4.0 Roadmap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s Next: v0.4.0 Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-features-target-q1-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned Features (Target: Q1 2026)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-5-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4-5 Milestones
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Citation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="release-notes-v030-gpu-acceleration-pic-integration">Release Notes: v0.3.0 — GPU Acceleration &amp; PIC Integration</h1>
+<p><strong>Release Date</strong>: 2025-10-26
+<strong>Major Theme</strong>: First-Principles Validation &amp; Performance</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Version 0.3.0 closes the validation gap between analytic fluid models and first-principles particle-in-cell (PIC) simulations, adds GPU acceleration for production workflows, and introduces Bayesian κ-inference for experimental data fitting. This release transforms the simulator from a design tool into a complete experimental validation platform capable of processing real plasma diagnostic data and recovering physical parameters with quantified uncertainties.</p>
+<h3 id="headline-features">Headline Features</h3>
+<ul>
+<li><strong>GPU Acceleration</strong>: 10-100x speedups via CuPy with automatic CPU fallback</li>
+<li><strong>κ-Inference</strong>: Bayesian parameter recovery from experimental power spectra</li>
+<li><strong>WarpX Integration</strong>: Complete PIC simulation workflow with openPMD ingestion</li>
+<li><strong>Correlation Diagnostics</strong>: Hawking-partner correlation extraction from density fluctuations</li>
+<li><strong>Physics Validation</strong>: Comprehensive testing framework for conservation laws and theoretical consistency</li>
+</ul>
+<hr />
+<h2 id="new-features">New Features</h2>
+<h3 id="1-gpu-acceleration-infrastructure">1. GPU Acceleration Infrastructure</h3>
+<p><strong>Module</strong>: <a href="src/analog_hawking/utils/array_module.py"><code>src/analog_hawking/utils/array_module.py</code></a></p>
+<ul>
+<li><strong>Backend-aware array dispatch</strong> supporting both NumPy (CPU) and CuPy (GPU)</li>
+<li><strong>Automatic fallback mechanism</strong>: Tests for GPU availability at import time and gracefully falls back to CPU if CuPy is unavailable or GPU initialization fails</li>
+<li><strong>Zero code changes required</strong>: Existing algorithms automatically benefit from GPU acceleration when CuPy is installed</li>
+<li><strong>Accelerated operations</strong>:</li>
+<li>Graybody transmission calculations (WKB integration, tortoise coordinates)</li>
+<li>Horizon sweeps and κ uncertainty quantification</li>
+<li>Correlation map density fluctuation analysis</li>
+<li>Gradient computations with backend-specific implementations</li>
+</ul>
+<p><strong>Performance Impact</strong>: 10–100× speedup on RTX 3080 for acoustic‑WKB graybody transmission on 2048‑point grids (see <code>scripts/benchmarks/bench_graybody_gpu.py</code>).</p>
+<p><strong>Compatibility</strong>: Maintains full CPU compatibility for CI/CD and systems without CUDA support.</p>
+<h3 id="2-bayesian-inference-system">2. Bayesian κ-Inference System</h3>
+<p><strong>Modules</strong>:
+- <a href="src/analog_hawking/inference/kappa_mle.py"><code>src/analog_hawking/inference/kappa_mle.py</code></a>
+- <a href="scripts/infer_kappa_from_psd.py"><code>scripts/infer_kappa_from_psd.py</code></a></p>
+<ul>
+<li><strong>Gaussian Process optimization</strong> via scikit-optimize for efficient parameter space exploration</li>
+<li><strong>Credible interval estimation</strong> using posterior sampling (95% CI reported by default)</li>
+<li><strong>Trace diagnostics</strong> for convergence monitoring</li>
+<li><strong>Model flexibility</strong>: Supports all graybody methods (dimensionless, WKB, acoustic_WKB) with optional profile inputs</li>
+<li><strong>CLI integration</strong> for batch processing of experimental PSDs</li>
+</ul>
+<p><strong>Use Cases</strong>:
+- Recover surface gravity from measured power spectra
+- Validate theoretical predictions against experimental data
+- Quantify κ uncertainty from noisy measurements
+- Compare competing horizon models via Bayesian model selection</p>
+<p><strong>Example Output</strong> (from synthetic test):</p>
+<pre><code>κ̂ = (2.40 ± 0.02) × 10¹⁰ s⁻¹
+95% CI: [2.36×10¹⁰, 2.44×10¹⁰] s⁻¹
+</code></pre>
+<h3 id="3-complete-warpxpic-integration">3. Complete WarpX/PIC Integration</h3>
+<p><strong>Modules</strong>:
+- <a href="src/analog_hawking/pipelines/pic_adapter.py"><code>src/analog_hawking/pipelines/pic_adapter.py</code></a>
+- <a href="scripts/warpx_runner.py"><code>scripts/warpx_runner.py</code></a>
+- <a href="protocols/inputs_downramp_1d.in"><code>protocols/inputs_downramp_1d.in</code></a></p>
+<ul>
+<li><strong>openPMD HDF5 ingestion</strong>: Parse WarpX diagnostics (electric fields, particle densities, velocities) with full metadata preservation</li>
+<li><strong>1D slice extraction</strong>: Convert 2D/3D PIC data to horizon-ready 1D profiles via spatial averaging or specific cuts</li>
+<li><strong>Sound speed calculation</strong>: Automatic derivation from electron temperature with configurable equation of state</li>
+<li><strong>Horizon detection</strong>: Direct feeding of PIC profiles into <code>find_horizons_with_uncertainty</code> for κ extraction</li>
+<li><strong>Reference deck</strong>: AnaBHEL-style laser down-ramp configuration for reproducible simulations</li>
+</ul>
+<p><strong>Workflow</strong>:</p>
+<pre><code class="language-bash"># 1. Run WarpX simulation
+python scripts/warpx_runner.py --deck protocols/inputs_downramp_1d.in \
+  --output diags/openpmd --max-step 400
+
+# 2. Extract profiles and detect horizons
+python scripts/run_pic_pipeline.py --profile results/warpx_profile.npz \
+  --graybody acoustic_wkb --kappa-method acoustic_exact
+
+# 3. Recover κ from PSD
+python scripts/infer_kappa_from_psd.py results/pic_pipeline_psd.npz \
+  --graybody-profile results/warpx_profile.npz
+</code></pre>
+<p><strong>Validation</strong>: Successfully processed synthetic WarpX‑like output. Example physically scaled profiles yield κ values in the 10¹⁰ s⁻¹ range (see <code>results/pic_synth/</code> and <code>scripts/openpmd_slice_to_profile.py</code>).</p>
+<h3 id="4-horizon-crossing-correlation-diagnostics">4. Horizon-Crossing Correlation Diagnostics</h3>
+<p><strong>Module</strong>: <a href="scripts/correlation_map.py"><code>scripts/correlation_map.py</code></a></p>
+<ul>
+<li><strong>Two-point correlation extraction</strong>: Compute g²(x₁,x₂) = ⟨δn(x₁) δn(x₂)⟩ from PIC density fluctuations</li>
+<li><strong>Horizon-centered windowing</strong>: Focus on correlations across the sonic horizon to isolate Hawking-partner signatures</li>
+<li><strong>Heat map visualization</strong>: Publication-ready correlation matrices with horizon position overlay</li>
+<li><strong>Stationarity checks</strong>: Validate statistical assumptions before interpreting correlations</li>
+</ul>
+<p><strong>Physics Motivation</strong>: Inspired by BEC analog experiments (Steinhauer 2016), correlations between ingoing (negative norm) and outgoing (positive norm) modes reveal Hawking radiation signatures distinct from thermal noise.</p>
+<p><strong>Output</strong>: <code>g2_horizon.npz</code> with correlation matrix, horizon metadata, and diagnostic plots.</p>
+<h3 id="5-comprehensive-physics-validation-framework">5. Comprehensive Physics Validation Framework</h3>
+<p><strong>Module</strong>: <a href="src/analog_hawking/physics_engine/plasma_models/validation_protocols.py"><code>src/analog_hawking/physics_engine/plasma_models/validation_protocols.py</code></a></p>
+<ul>
+<li><strong>Conservation law validation</strong>:</li>
+<li>Energy conservation (electromagnetic + particle kinetic)</li>
+<li>Momentum conservation (accounting for laser ponderomotive force)</li>
+<li>Particle number conservation (ionization/recombination tracking)</li>
+<li><strong>Physical bounds checking</strong>:</li>
+<li>Velocity limits (v &lt; 0.99c with numerical tolerance)</li>
+<li>Temperature positivity and Planck-scale reasonableness</li>
+<li>Density positivity and causality constraints</li>
+<li><strong>Numerical stability tests</strong>:</li>
+<li>NaN/Inf detection across all fields</li>
+<li>CFL condition validation for time stepping</li>
+<li>Extreme value detection (|values| &lt; 10⁵⁰)</li>
+<li><strong>Theoretical consistency</strong>:</li>
+<li>Hawking temperature-surface gravity relation (T_H = ℏκ / 2πk_B)</li>
+<li>Classical limit recovery (low-frequency occupation numbers)</li>
+<li>Entropy monotonicity with temperature</li>
+</ul>
+<p><strong>Integration</strong>: Automatically runs during PIC pipeline execution and exports validation reports to <code>results/validation_report.txt</code>.</p>
+<p><strong>Test Results</strong> (v0.3.0):</p>
+<pre><code>COMPREHENSIVE VALIDATION: PASS
+  Conservation laws: PASS
+  Physical bounds: PASS
+  Numerical stability: PASS
+  Theoretical consistency: PASS
+</code></pre>
+<h3 id="6-enhanced-documentation">6. Enhanced Documentation</h3>
+<p><strong>New Files</strong>:
+- <a href="docs/pc_cuda_workflow.md"><code>docs/pc_cuda_workflow.md</code></a>: Step-by-step GPU setup for Windows/WSL2
+- <a href="docs/phase_timeline.md"><code>docs/phase_timeline.md</code></a>: Updated roadmap through Phase 5 (Validation &amp; Impact)
+- <a href="docs/upgrade_plan/requirements.md"><code>docs/upgrade_plan/requirements.md</code></a>: Phase 3-5 technical requirements
+- <a href="configs/orchestration/pic_downramp.yml"><code>configs/orchestration/pic_downramp.yml</code></a>: PIC-specific orchestration configuration</p>
+<p><strong>Updated Files</strong>:
+- <code>README.md</code>: New v0.3 feature highlights, GPU acceleration guide, κ-inference examples
+- <code>docs/AdvancedScenarios.md</code>: WarpX workflow recipes, correlation analysis examples
+- <code>docs/Methods.md</code>: κ-inference methodology, correlation formalism</p>
+<hr />
+<h2 id="performance-improvements">Performance Improvements</h2>
+<h3 id="gpu-acceleration-benchmarks-rtx-3080-wsl2-ubuntu">GPU Acceleration Benchmarks (RTX 3080, WSL2 Ubuntu)</h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Grid Size</th>
+<th>CPU (NumPy)</th>
+<th>GPU (CuPy)</th>
+<th>Speedup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acoustic-WKB graybody</td>
+<td>2048 pts</td>
+<td>1.2s</td>
+<td>18ms</td>
+<td><strong>67x</strong></td>
+</tr>
+<tr>
+<td>Tortoise coordinate construction</td>
+<td>4096 pts</td>
+<td>0.85s</td>
+<td>9ms</td>
+<td><strong>94x</strong></td>
+</tr>
+<tr>
+<td>Horizon uncertainty sweep (100 samples)</td>
+<td>1024 pts</td>
+<td>12.5s</td>
+<td>0.6s</td>
+<td><strong>21x</strong></td>
+</tr>
+<tr>
+<td>Correlation map (256x256 density grid)</td>
+<td>256²</td>
+<td>4.1s</td>
+<td>0.15s</td>
+<td><strong>27x</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="memory-efficiency">Memory Efficiency</h3>
+<ul>
+<li><strong>Lazy GPU allocation</strong>: CuPy arrays only allocated when computation begins</li>
+<li><strong>Automatic cleanup</strong>: GPU memory released after each major pipeline stage</li>
+<li><strong>Mixed precision support</strong>: Float32 for intermediate calculations, Float64 for final κ values</li>
+</ul>
+<hr />
+<h2 id="breaking-changes">Breaking Changes</h2>
+<h3 id="none">None</h3>
+<p>All existing scripts and workflows continue to work unchanged. GPU acceleration and new features are purely additive.</p>
+<hr />
+<h2 id="migration-guide">Migration Guide</h2>
+<h3 id="upgrading-from-v020">Upgrading from v0.2.0</h3>
+<ol>
+<li>
+<p><strong>Update dependencies</strong> (optional, for GPU support):
+   <code>bash
+   pip install cupy-cuda12x  # or cupy-cuda11x for CUDA 11
+   pip install scikit-optimize==0.8.1  # for κ-inference
+   pip install openpmd-api  # for PIC workflows</code></p>
+</li>
+<li>
+<p><strong>Verify GPU availability</strong> (if using CuPy):
+   <code>bash
+   python3 -c "import cupy as cp; print(f'GPU devices: {cp.cuda.runtime.getDeviceCount()}')"</code></p>
+</li>
+<li>
+<p><strong>No code changes required</strong>: Existing workflows automatically benefit from GPU acceleration when CuPy is installed.</p>
+</li>
+<li>
+<p><strong>Optional: Enable κ-inference</strong>:
+   <code>bash
+   python scripts/infer_kappa_from_psd.py results/full_pipeline_psd.npz \
+     --graybody-method acoustic_wkb --calls 40</code></p>
+</li>
+</ol>
+<h3 id="new-workflows-enabled">New Workflows Enabled</h3>
+<ul>
+<li><strong>PIC-driven horizon detection</strong>: <code>scripts/run_pic_pipeline.py</code> replaces manual profile construction</li>
+<li><strong>Experimental parameter fitting</strong>: <code>scripts/infer_kappa_from_psd.py</code> for model validation</li>
+<li><strong>Correlation-based signatures</strong>: <code>scripts/correlation_map.py</code> for partner detection</li>
+</ul>
+<hr />
+<h2 id="bug-fixes">Bug Fixes</h2>
+<ol>
+<li><strong>Fixed CuPy gradient compatibility</strong> (<a href="src/analog_hawking/utils/array_module.py#L87-L98"><code>array_module.py:87-98</code></a>):</li>
+<li>Added backend-specific gradient implementations</li>
+<li>Resolved <code>cupy.gradient</code> signature mismatch with NumPy</li>
+<li>
+<p>Maintains exact numerical parity between CPU and GPU results</p>
+</li>
+<li>
+<p><strong>Resolved NVRTC driver fallback</strong> (<a href="src/analog_hawking/utils/array_module.py#L31-L40"><code>array_module.py:31-40</code></a>):</p>
+</li>
+<li>Tests GPU kernel launch at import time</li>
+<li>Gracefully falls back to NumPy if driver initialization fails</li>
+<li>
+<p>Eliminates runtime crashes on systems with incomplete CUDA installations</p>
+</li>
+<li>
+<p><strong>Fixed universality test numerical stability</strong> (<a href="tests/test_experiment_universality.py#L24-L48"><code>tests/test_experiment_universality.py:24-48</code></a>):</p>
+</li>
+<li>Resolved divide-by-zero in collapse statistics for edge cases</li>
+<li>All 2/2 tests passing</li>
+</ol>
+<hr />
+<h2 id="known-issues-limitations">Known Issues &amp; Limitations</h2>
+<ol>
+<li>
+<p><strong>WarpX Installation Required</strong>: PIC workflows require a separate WarpX installation. See <a href="docs/pc_cuda_workflow.md#phase-1--generate-pic-data-warpx"><code>docs/pc_cuda_workflow.md</code></a> for build instructions.</p>
+</li>
+<li>
+<p><strong>Test Collection on Incomplete Environments</strong>: Running <code>pytest</code> without <code>physics_engine.*</code> dependencies causes collection failures (not a code bug—optional packages missing). Install all optional dependencies or use markers: <code>pytest -m "not gpu"</code>.</p>
+</li>
+<li>
+<p><strong>Correlation Analysis Scope</strong>: Current implementation assumes 1D horizons. Extension to RZ/3D geometry planned for Phase 4.</p>
+</li>
+<li>
+<p><strong>κ-Inference Prior Assumptions</strong>: Log-uniform prior over [10⁴, 10¹²] Hz works well for laser-plasma analogs. Adjust bounds for other systems (BECs, flowing water).</p>
+</li>
+</ol>
+<hr />
+<h2 id="validation-testing">Validation &amp; Testing</h2>
+<h3 id="test-suite-status">Test Suite Status</h3>
+<ul>
+<li><strong>Total tests</strong>: 48</li>
+<li><strong>New tests</strong>:</li>
+<li><code>test_experiment_universality.py::test_universality_pipeline_shapes_and_metrics</code> (PASS)</li>
+<li><code>test_experiment_universality.py::test_control_no_horizon_yields_no_spectrum</code> (PASS)</li>
+<li><strong>GPU tests</strong>: CPU↔GPU parity covered where CuPy is available (skipped otherwise)</li>
+<li><strong>CI status</strong>: All CPU tests passing on GitHub Actions</li>
+</ul>
+<h3 id="physical-validation">Physical Validation</h3>
+<ul>
+<li><strong>Demo pipeline</strong> (acoustic-WKB, α_gray=0.8):</li>
+<li>Detected 6 horizons in synthetic down-ramp profile</li>
+<li>First horizon: κ ≈ 3.15×10¹⁴ s⁻¹, T_H ≈ 383K</li>
+<li>Detection time: t₅σ ≈ 2.5×10⁻¹⁰ s (100 MHz bandwidth, 30K system temp)</li>
+<li>
+<p>Conservation laws: PASS (energy δ=0.02%, momentum δ=0.08%)</p>
+</li>
+<li>
+<p><strong>PIC pipeline</strong> (synthetic WarpX profile):</p>
+</li>
+<li>Single horizon at x ≈ 5.20×10⁻⁵ m</li>
+<li>κ ≈ 2.40×10¹⁰ s⁻¹ (±0.87% uncertainty)</li>
+<li>Theoretical consistency: PASS</li>
+</ul>
+<hr />
+<h2 id="dependency-updates">Dependency Updates</h2>
+<h3 id="new-required-dependencies">New Required Dependencies</h3>
+<ul>
+<li>None (all new features use optional dependencies)</li>
+</ul>
+<h3 id="new-optional-dependencies">New Optional Dependencies</h3>
+<ul>
+<li><strong>CuPy</strong> (≥10.0): GPU acceleration</li>
+<li><strong>scikit-optimize</strong> (0.8.1): Bayesian κ-inference</li>
+<li><strong>openPMD-api</strong> (≥0.14): PIC data ingestion</li>
+<li><strong>h5py</strong> (≥3.0): HDF5 backend for openPMD</li>
+</ul>
+<h3 id="installation">Installation</h3>
+<pre><code class="language-bash"># Minimal (CPU-only, no inference or PIC support)
+pip install -e .
+
+# Full (GPU + all features)
+pip install -e .
+pip install cupy-cuda12x scikit-optimize==0.8.1 openpmd-api h5py
+</code></pre>
+<hr />
+<h2 id="contributors">Contributors</h2>
+<ul>
+<li><strong>Hunter Bown</strong> (@hmbown): Core development, GPU acceleration, PIC integration</li>
+<li><strong>GPT-5 Codex</strong> (OpenAI): Validation framework, test suite, correlation diagnostics</li>
+</ul>
+<hr />
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>This release builds on foundational work from:
+- The <strong>AnaBHEL Collaboration</strong> (Chen, Mourou, et al.) for laser-plasma analog concepts
+- The <strong>WarpX Development Team</strong> for open-source PIC infrastructure
+- The <strong>CuPy Project</strong> for GPU-accelerated NumPy semantics
+- The <strong>scikit-optimize Team</strong> for Bayesian optimization tools</p>
+<hr />
+<h2 id="whats-next-v040-roadmap">What's Next: v0.4.0 Roadmap</h2>
+<h3 id="planned-features-target-q1-2026">Planned Features (Target: Q1 2026)</h3>
+<ol>
+<li><strong>3D Graybody Solver</strong>: Extend beyond 1D WKB to RZ wave equation with PML boundaries</li>
+<li><strong>Trans-Planckian Dispersion Studies</strong>: Controlled cutoff frequency experiments</li>
+<li><strong>Multi-GPU Orchestration</strong>: Distribute parameter sweeps across GPU clusters</li>
+<li><strong>Entanglement Metrics</strong>: Quantify mode entanglement from correlation data</li>
+<li><strong>Experimental Hardware Interface</strong>: Direct integration with radio telescope data pipelines</li>
+</ol>
+<h3 id="phase-4-5-milestones">Phase 4-5 Milestones</h3>
+<p>See <a href="docs/phase_timeline.md"><code>docs/phase_timeline.md</code></a> for complete roadmap through May 2026, including:
+- Digital twin validation against laboratory measurements
+- Publication-ready artifact bundles for Nature Physics / PRL
+- Open benchmark dataset release (Zenodo DOI)</p>
+<hr />
+<h2 id="getting-help">Getting Help</h2>
+<ul>
+<li><strong>Documentation</strong>: <a href="docs/"><code>docs/</code></a> — start with <code>Overview.md</code> and <code>Methods.md</code></li>
+<li><strong>Examples</strong>: <a href="README.md#example-workflows"><code>README.md#example-workflows</code></a></li>
+<li><strong>Issues</strong>: <a href="https://github.com/hmbown/analog-hawking-radiation/issues">GitHub Issues</a></li>
+<li><strong>GPU Setup</strong>: <a href="docs/pc_cuda_workflow.md"><code>docs/pc_cuda_workflow.md</code></a></li>
+</ul>
+<hr />
+<h2 id="citation">Citation</h2>
+<p>If you use v0.3.0 in your research, please cite:</p>
+<pre><code class="language-bibtex">@software{bown2025analog_v0_3,
+  author = {Bown, Hunter},
+  title = {Analog Hawking Radiation Simulator},
+  version = {0.3.0},
+  year = {2025},
+  url = {https://github.com/hmbown/analog-hawking-radiation},
+  doi = {10.5281/zenodo.XXXXXXX},  # Zenodo DOI pending
+  note = {GPU-accelerated PIC validation framework}
+}
+</code></pre>
+<hr />
+<p><strong>Full Changelog</strong>: <a href="https://github.com/hmbown/analog-hawking-radiation/compare/v0.2.0...v0.3.0">v0.2.0...v0.3.0</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.sections", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
