@@ -1,13 +1,22 @@
 cff-version: 1.2.0
-title: "Analog Hawking Radiation: Gradient-Limited Horizon Formation and Radio-Band Detection Modeling"
-message: "If you use this repository, please cite it as below."
+title: "Laser-Plasma Sonic Horizon Simulator (Alpha Research Code)"
+message: "Research prototype implementing theoretical models for analog Hawking radiation. NOT experimentally validated. If used, cite as software method description only."
 type: software
 authors:
   - family-names: Bown
     given-names: Hunter
     email: hunter@shannonlabs.dev
     affiliation: Independent Researcher
+    orcid: "https://orcid.org/0000-0000-0000-0000"
 repository-code: "https://github.com/hmbown/analog-hawking-radiation"
-version: "0.2.0"
-date-released: "2025-10-18"
+version: "0.3.1-alpha"
+date-released: "2025-11-08"
 url: "https://github.com/hmbown/analog-hawking-radiation"
+keywords:
+  - "laser-plasma"
+  - "analog-hawking-radiation"
+  - "sonic-horizon"
+  - "research-prototype"
+  - "not-validated"
+license: MIT
+abstract: "A fluid-dynamics approximation toolkit for exploring analog Hawking radiation concepts in laser-plasma systems. Implements horizon detection, surface gravity estimation, and graybody factor calculations. This is alpha research code that has not been validated against experimental data. Use for method exploration and educational purposes only."
