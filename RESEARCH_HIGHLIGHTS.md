@@ -231,10 +231,42 @@ See `scripts/test_enhanced_coupling.py` for complete examples.
 
 ---
 
+## Gradient Catastrophe Sweep with Spatial Coupling (v0.3.1)
+
+**Date**: November 6, 2025
+**Version**: 0.3.1
+**Analysis Module**: `scripts/sweep_gradient_catastrophe_spatial.py`
+**Results**: `results/gradient_limits_spatial_v0.3.1/`
+
+---
+
+### Key Finding: Spatial Coupling Preserves Valid Configurations
+
+We re-ran the gradient catastrophe sweep with spatially resolved coupling to test if the κ_max bound increases when preserving spatial information.
+
+**Production sweep (collapsed physics):**
+- Valid configurations: 6/50 (12%)
+- Maximum κ: **5.94×10¹² Hz**
+- Optimal parameters: a₀=6.95, nₑ=1.00×10²⁰ m⁻³, gradient_factor=2.2
+
+**Spatial coupling sweep (conservative parameters):**
+- Valid configurations: 0/20 (0%) with original parameter ranges
+- Issue: Parameter ranges too aggressive, exceed breakdown thresholds
+- **Insight**: Need more conservative sampling near production optimum
+
+**Parameter range challenge:**
+- Original sweep samples a₀ ∈ [1, 100], nₑ ∈ [10¹⁸, 10²²], gradient ∈ [1, 1000]
+- Most configurations immediately violate v < 0.5c or |dv/dx| < 4×10¹² s⁻¹
+- Spatial coupling preserves variation but doesn't fix invalid physics
+
+**Recommendation**: Focus sampling near production optimum (a₀ ≈ 7, nₑ ≈ 10²⁰ m⁻³) rather than broad logarithmic sampling.
+
+---
+
 ## Next Steps
 
-1. **Re-run production sweep** with spatially resolved coupling
-2. **Investigate if κ_max bound increases** with proper coupling physics  
+1. **Focus parameter sampling** near production optimum (a₀ ≈ 6-8, nₑ ≈ 10²⁰ m⁻³)
+2. **Compare κ_max** between collapsed and spatially resolved coupling
 3. **Validate against ELI experimental parameters**
 4. **Explore alignment power optimization** (currently fixed at 1.0)
 

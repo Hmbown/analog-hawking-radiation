@@ -1,28 +1,59 @@
 name: Feature Request
 description: Suggest a new feature or enhancement
 title: "[Feature]: "
-labels: ["enhancement", "needs-triage"]
+labels: ["enhancement", "triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for suggesting a new feature! Please describe your idea below.
+        Thanks for suggesting a feature! Please fill out this form to help us understand your needs.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I have searched existing issues to avoid duplicates
+          required: true
+        - label: This feature is not already implemented in the latest version
+          required: true
+        - label: I have read the documentation and FAQ
+          required: true
+
+  - type: dropdown
+    id: user_type
+    attributes:
+      label: User Type
+      description: What type of user are you?
+      options:
+        - Experimentalist (planning experiments)
+        - Theorist (testing physics models)
+        - Student (learning the concepts)
+        - Developer (contributing code)
+        - Other
+    validations:
+      required: true
 
   - type: textarea
     id: problem
     attributes:
-      label: Problem Statement
-      description: Is your feature request related to a problem? Please describe.
-      placeholder: I'm always frustrated when...
+      label: Problem or Need
+      description: What problem are you trying to solve? What need are you addressing?
+      placeholder: |
+        Currently, I have to manually edit configuration files to test different laser parameters.
+        It would be much easier if I could pass them directly on the command line...
     validations:
-      required: true
+        required: true
 
   - type: textarea
     id: solution
     attributes:
       label: Proposed Solution
-      description: Describe the solution you'd like to see
-      placeholder: I would like to...
+      description: Describe your proposed solution or feature
+      placeholder: |
+        Add command-line options to `ahr pipeline` for laser intensity, plasma density, etc.:
+        
+        `ahr pipeline --demo --intensity 1e22 --density 1e25`
     validations:
       required: true
 
@@ -30,51 +61,73 @@ body:
     id: alternatives
     attributes:
       label: Alternatives Considered
-      description: Have you considered any alternative solutions or features?
-      placeholder: I also thought about...
-    validations:
-      required: false
+      description: What alternatives have you considered?
+      placeholder: |
+        - Using shell scripts to modify config files
+        - Creating multiple config files
+        - Using environment variables
 
   - type: dropdown
-    id: use-case
-    attributes:
-      label: Use Case Category
-      description: What type of use case does this relate to?
-      options:
-        - Experimental physics / lab setup
-        - Simulation workflows
-        - Data analysis / post-processing
-        - Performance optimization
-        - Documentation
-        - Testing / validation
-        - Other
-    validations:
-      required: true
-
-  - type: textarea
     id: impact
     attributes:
-      label: Expected Impact
-      description: Who would benefit from this feature and how?
-      placeholder: This would help researchers by...
+      label: Impact
+      description: How many users would this affect?
+      options:
+        - All users (core functionality)
+        - Most users (common workflow)
+        - Some users (specific use case)
+        - Few users (niche application)
     validations:
       required: true
 
-  - type: textarea
-    id: additional
+  - type: dropdown
+    id: difficulty
     attributes:
-      label: Additional Context
-      description: Add any other context, screenshots, references, or examples
-      placeholder: Related papers, similar implementations, etc.
+      label: Implementation Difficulty
+      description: How difficult do you think this would be to implement?
+      options:
+        - Easy (few lines of code)
+        - Medium (requires some changes)
+        - Hard (requires significant refactoring)
+        - Expert (requires deep knowledge)
 
   - type: checkboxes
-    id: checklist
+    id: willing
     attributes:
-      label: Checklist
+      label: Contribution
       options:
-        - label: I have searched existing issues to avoid duplicates
-          required: true
-        - label: This feature aligns with the project's scientific goals
-          required: true
-        - label: I am willing to contribute to implementation if possible
-          required: false
+        - label: I can help implement this feature
+        - label: I can help test this feature
+        - label: I can help document this feature
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Usage Examples
+      description: Provide concrete examples of how you would use this feature
+      placeholder: |
+        ```bash
+        # Example 1: Quick parameter scan
+        for intensity in 1e21 1e22 1e23; do
+          ahr pipeline --demo --intensity $intensity --output results/$intensity
+        done
+        
+        # Example 2: Optimization workflow
+        ahr optimize --target kappa --max-intensity 1e23 --output optimal_params.yaml
+        ```
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any additional context, screenshots, or references
+      placeholder: This would be particularly useful for my research on...
+
+  - type: checkboxes
+    id: physics_validation
+    attributes:
+      label: Physics Validation
+      options:
+        - label: This feature would need new physics validation
+        - label: This feature would need new tests
+        - label: This feature would need documentation updates
