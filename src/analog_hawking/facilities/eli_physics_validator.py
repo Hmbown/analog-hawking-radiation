@@ -12,7 +12,9 @@ Version: 1.0.0
 
 import numpy as np
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
+import yaml
 
 from .eli_capabilities import ELIFacility
 
@@ -54,14 +56,48 @@ class ELIPhysicsValidator:
         self.thresholds = self._initialize_eli_thresholds()
 
     def _initialize_eli_thresholds(self) -> Dict[str, Any]:
-        """Initialize ELI-specific physics thresholds"""
+        """Initialize ELI-specific physics thresholds from YAML file"""
+        
+        # Load from thresholds.yaml if available
+        thresholds_path = Path(__file__).parent.parent.parent / "configs" / "thresholds.yaml"
+        if thresholds_path.exists():
+            try:
+                with open(thresholds_path, 'r') as f:
+                    yaml_thresholds = yaml.safe_load(f)
+                
+                # Convert string scientific notation to floats
+                for key, value in yaml_thresholds.items():
+                    if isinstance(value, str) and 'e' in value.lower():
+                        try:
+                            yaml_thresholds[key] = float(value)
+                        except (ValueError, TypeError):
+                            pass  # Keep as string if conversion fails
+                
+                # Map YAML keys to internal threshold names
+                base_thresholds = {
+                    "velocity_fraction_c_max": yaml_thresholds.get("v_max_fraction_c", 0.5),
+                    "gradient_max_s": yaml_thresholds.get("dv_dx_max_s", 4.0e12),
+                    "intensity_max_W_m2": yaml_thresholds.get("intensity_max_W_m2", 1.0e24),
+                }
+            except Exception:
+                # Fallback to defaults if YAML loading fails
+                base_thresholds = {
+                    "velocity_fraction_c_max": 0.5,
+                    "gradient_max_s": 4.0e12,
+                    "intensity_max_W_m2": 1.0e24,
+                }
+        else:
+            # Fallback defaults if YAML file not found
+            base_thresholds = {
+                "velocity_fraction_c_max": 0.5,
+                "gradient_max_s": 4.0e12,
+                "intensity_max_W_m2": 1.0e24,
+            }
 
+        # Combine with facility-specific and physics thresholds
         return {
-            # Universal physics limits (from thresholds.yaml)
-            "velocity_fraction_c_max": 0.5,
-            "gradient_max_s": 4.0e12,
-            "intensity_max_W_m2": 1.0e24,
-
+            **base_thresholds,
+            
             # ELI facility-specific limits
             "eli_beamlines": {
                 "intensity_max_W_m2": 1e24,
@@ -282,7 +318,7 @@ class ELIPhysicsValidator:
 
         # 1. Intensity limit
         max_intensity = self.thresholds["intensity_max_W_m2"]
-        intensity_margin = max_intensity / intensity_W_m2
+        intensity_margin = max_intensity / intensity_W_m2 if intensity_W_m2 > 0 else float('inf')
         results.append(PhysicsThresholdResult(
             parameter_name="Intensity",
             value=intensity_W_m2,

@@ -129,6 +129,22 @@ class VariationPreservingArray:
             return self.mean(axis=self.axis, keepdims=self.keepdims)
         elif operation == 'sum':
             return self.sum(axis=self.axis, keepdims=self.keepdims)
+        elif operation == 'std':
+            # For std, we can't preserve variation in the same way, so compute directly
+            result = np.std(self.data, axis=self.axis, keepdims=self.keepdims)
+            
+            # Track the variation
+            tracker = VariationTracker(
+                operation='std',
+                input_shape=self.data.shape,
+                axis=self.axis,
+                std_before=np.std(self.data),
+                std_after=np.std(result) if hasattr(result, 'shape') else 0.0,
+                metadata={'keepdims': self.keepdims}
+            )
+            self.variation_history.append(tracker)
+            
+            return result
         else:
             raise ValueError(f"Unknown operation: {operation}")
     
@@ -297,24 +313,38 @@ def aggregate_patchwise_graybody(
     if not specs:
         return AggregatedSpectrum(success=False)
 
+    # Create common frequency grid that covers all spectra
+    all_frequencies = []
+    for sp in specs:
+        all_frequencies.extend(sp["frequencies"])
+    
+    if not all_frequencies:
+        return AggregatedSpectrum(success=False)
+        
+    # Use the global min/max frequency range with fixed number of points
+    f_min = min(all_frequencies)
+    f_max = max(all_frequencies)
+    n_points = max(len(sp["frequencies"]) for sp in specs)
+    f_common = np.linspace(f_min, f_max, n_points)
+    
     # Align and average spectra with variation tracking
-    f0 = np.asarray(specs[0]["frequencies"])  # type: ignore[index]
     P_mat = []
     
     for sp in specs:
         f = np.asarray(sp["frequencies"])  # type: ignore[index]
         P = np.asarray(sp["power_spectrum"])  # type: ignore[index]
-        if f.shape != f0.shape or not np.allclose(f, f0):
-            # Use variation-preserving interpolation if enabled
-            if preserve_variation:
-                P_variation = VariationPreservingArray(P, name="power_interpolation")
-                P = P_variation.collapse('mean')
-            else:
-                P = np.interp(f0, f, P)
-        P_mat.append(P)
+        
+        # Interpolate to common frequency grid
+        if preserve_variation:
+            P_variation = VariationPreservingArray(P, name="power_interpolation")
+            P_interp = P_variation.collapse('mean')
+        else:
+            P_interp = np.interp(f_common, f, P)
+        P_mat.append(P_interp)
     
     # Stack and compute statistics with variation tracking
     P_stack = np.vstack(P_mat)
+    f0 = f_common  # Use the common frequency grid
     
     if preserve_variation:
         # Use variation-preserving mean
@@ -324,9 +354,7 @@ def aggregate_patchwise_graybody(
         
         # Use variation-preserving std
         P_std_variation = VariationPreservingArray(P_stack, axis=0, name="power_std")
-        P_std = P_std_variation.collapse('std' if hasattr(P_std_variation, 'collapse') else 'mean')
-        # For actual std, we need to compute it properly
-        P_std = np.std(P_stack, axis=0)
+        P_std = P_std_variation.collapse('std')  # Now supports 'std' operation
     else:
         P_mean = np.mean(P_stack, axis=0)
         P_std = np.std(P_stack, axis=0)
@@ -421,3 +449,101 @@ def compute_graybody_with_variation_preservation(
         result['graybody_factor'] = np.mean(omega**2 / (exp_term - 1 + 1e-12))
     
     return result
+
+
+class GraybodySpectrumND:
+    """Compatibility wrapper providing graybody spectra for enhanced pipeline.
+
+    The previous implementation exposed a class with ``calculate_spectrum``.
+    Recent refactors replaced it with functional utilities. CI workflows and
+    integration tests still rely on the class API, so we provide a lightweight
+    shim that reproduces the behaviour used by the enhanced physics engine.
+
+    We model the graybody transmission with the conservative dimensionless
+    prescription Ω ↦ r²/(1+r²), where r = ω / (α·κ). This matches the default
+    behaviour in the legacy implementation and serves as a safe fallback when
+    higher fidelity multidimensional data are unavailable.
+    """
+
+    def __init__(
+        self,
+        grid_shape: Union[int, Sequence[int]],
+        *,
+        default_method: str = "dimensionless",
+        alpha_gray: float = 1.0,
+    ) -> None:
+        if isinstance(grid_shape, int):
+            grid_tuple: Tuple[int, ...] = (max(int(grid_shape), 1),)
+        else:
+            grid_list = [max(int(g), 1) for g in grid_shape] or [1]
+            grid_tuple = tuple(grid_list)
+        self.grid_shape = grid_tuple
+        self.default_method = default_method
+        self.default_alpha = float(alpha_gray if alpha_gray > 0.0 else 1.0)
+
+    @staticmethod
+    def _planck_spectrum(frequencies: np.ndarray, temperature: float) -> np.ndarray:
+        """Return spectral radiance using Planck's law (per unit Hz, unit area, unit sr)."""
+        if temperature is None or temperature <= 0.0 or not np.isfinite(temperature):
+            # Avoid division by zero; return zeros for non-physical temperatures.
+            return np.zeros_like(frequencies)
+        freq = np.asarray(frequencies, dtype=float)
+        numerator = 2.0 * h * (freq**3) / (c**2)
+        exponent = h * freq / (k * temperature)
+        with np.errstate(over="ignore", invalid="ignore"):
+            denom = np.expm1(exponent)
+        denom = np.where(denom <= 0.0, np.inf, denom)
+        return numerator / denom
+
+    @staticmethod
+    def _dimensionless_transmission(
+        frequencies: np.ndarray, kappa: float, alpha: float
+    ) -> np.ndarray:
+        """Dimensionless graybody transmission used in legacy code paths."""
+        if kappa is None or not np.isfinite(kappa) or kappa <= 0.0:
+            kappa_eff = 1.0
+        else:
+            kappa_eff = float(kappa)
+        alpha_eff = float(alpha if alpha > 0.0 else 1.0)
+        omega = 2.0 * np.pi * np.asarray(frequencies, dtype=float)
+        omega_c = alpha_eff * kappa_eff
+        if omega_c <= 0.0:
+            omega_c = 1.0
+        r = omega / omega_c
+        transmission = (r**2) / (1.0 + r**2)
+        return np.clip(transmission, 0.0, 1.0)
+
+    def calculate_spectrum(
+        self,
+        frequencies: Iterable[float],
+        hawking_temperature: float,
+        kappa: float,
+        extra_params: Dict[str, float] | None = None,
+    ) -> np.ndarray:
+        """Compute the graybody-modulated Hawking spectrum."""
+        freq_array = np.asarray(list(frequencies), dtype=float)
+        params = dict(extra_params or {})
+
+        method = str(params.get("graybody_method", self.default_method)).lower()
+        alpha = float(params.get("alpha_gray", params.get("alpha", self.default_alpha)))
+        area = float(params.get("emitting_area_m2", params.get("area", 1e-6)))
+        solid_angle = float(params.get("solid_angle_sr", params.get("solid_angle", 1.0)))
+        coupling = float(params.get("coupling_efficiency", params.get("coupling", 1.0)))
+
+        if method not in {"dimensionless", "wkb", "acoustic_wkb"}:
+            warnings.warn(
+                f"Unknown graybody method '{method}', using dimensionless fallback.", RuntimeWarning
+            )
+            method = "dimensionless"
+
+        if method in {"wkb", "acoustic_wkb"}:
+            warnings.warn(
+                f"Method '{method}' requires multidimensional profiles; using dimensionless fallback.",
+                RuntimeWarning,
+            )
+
+        transmission = self._dimensionless_transmission(freq_array, kappa, alpha)
+        planck = self._planck_spectrum(freq_array, hawking_temperature)
+
+        spectrum = planck * transmission * area * solid_angle * coupling
+        return np.nan_to_num(spectrum, nan=0.0, posinf=0.0, neginf=0.0)

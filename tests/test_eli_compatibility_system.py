@@ -106,7 +106,7 @@ class TestELICapabilities:
         assert "compatible_facilities" in result
 
         # Test intensity too high
-        result_high = validate_intensity_range(1e25)  # W/m²
+        result_high = validate_intensity_range(1e29)  # W/m² (exceeds 1e24 W/cm² limit)
         assert result_high["valid"] is False
         assert "issue" in result_high
 
@@ -119,7 +119,7 @@ class TestELICapabilities:
         assert "✅" in check  # Should be compatible
 
         # Test incompatible intensity
-        check_high = quick_facility_check(1e25, 800)
+        check_high = quick_facility_check(1e29, 800)
         assert "❌" in check_high  # Should be incompatible
 
 
@@ -299,9 +299,15 @@ class TestELIIntegration:
 
             # Check that physics validator has consistent thresholds
             validator = ELIPhysicsValidator()
-            assert validator.thresholds["velocity_fraction_c_max"] == thresholds["v_max_fraction_c"]
-            assert validator.thresholds["gradient_max_s"] == thresholds["dv_dx_max_s"]
-            assert validator.thresholds["intensity_max_W_m2"] == thresholds["intensity_max_W_m2"]
+            
+            # Convert YAML values to float for comparison (handles scientific notation strings)
+            yaml_velocity = float(thresholds["v_max_fraction_c"])
+            yaml_gradient = float(thresholds["dv_dx_max_s"]) if isinstance(thresholds["dv_dx_max_s"], (int, float)) else float(thresholds["dv_dx_max_s"])
+            yaml_intensity = float(thresholds["intensity_max_W_m2"]) if isinstance(thresholds["intensity_max_W_m2"], (int, float)) else float(thresholds["intensity_max_W_m2"])
+            
+            assert validator.thresholds["velocity_fraction_c_max"] == yaml_velocity
+            assert validator.thresholds["gradient_max_s"] == yaml_gradient
+            assert validator.thresholds["intensity_max_W_m2"] == yaml_intensity
 
 
 class TestParameterRanges:
@@ -426,7 +432,7 @@ def test_facility_specific_validation(facility):
         pytest.fail(f"No compatible systems found for {facility.value} with moderate parameters")
 
 
-@pytest.mark.parametrize("intensity", [1e18, 1e20, 1e22, 1e24])
+@pytest.mark.parametrize("intensity", [1e18, 1e20, 1e22, 1e24, 1e26, 1e28])
 def test_intensity_dependent_validation(intensity):
     """Test validation across intensity ranges"""
     result = validate_intensity_range(intensity)
@@ -436,10 +442,15 @@ def test_intensity_dependent_validation(intensity):
     assert "intensity_W_cm2" in result
     assert "feasibility_level" in result
 
-    # Higher intensities should be more restrictive
-    if intensity > 1e23:
+    # Check based on converted intensity (W/cm²)
+    intensity_W_cm2 = result["intensity_W_cm2"]
+    if intensity_W_cm2 > 1e23:
         # Very high intensities may have restrictions
         assert result["feasibility_level"] in ["LOW - Only compatible with 10 PW systems", "INCOMPATIBLE"]
+    elif intensity_W_cm2 > 1e22:
+        assert result["feasibility_level"] == "MEDIUM - Compatible with ELI-Beamlines and ELI-NP"
+    else:
+        assert result["feasibility_level"] == "HIGH - Compatible with all ELI facilities"
 
 
 if __name__ == "__main__":
