@@ -19,6 +19,21 @@ Use for method exploration, not production research—yet.
 
 ---
 
+## About This Repository
+
+**Author:** Law student exploring plasma physics & scientific computing  
+**Method:** AI-assisted rapid prototyping ("vibe coding")  
+**Status:** Exploratory toy model, not validated research  
+**Goal:** Learn by building, see what the abyss whispers back  
+
+**If you're an expert in this domain:**  
+I'm probably wrong about key things. Your feedback is gold.  
+
+**If you're also an explorer:**  
+Let's compare notes, not citations.
+
+---
+
 ## What This Code Does
 
 Implements a **fluid-dynamics approximation** of analog Hawking radiation in laser-plasma systems:
