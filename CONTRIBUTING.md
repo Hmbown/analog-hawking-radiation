@@ -2,6 +2,32 @@
 
 Thank you for your interest in contributing to this research project. This repository contains a computational framework for simulating analog Hawking radiation in laser-plasma systems.
 
+## AI Tool Usage Policy for Contributors
+
+**Allowed:**
+- AI code completion (Copilot, etc.) for boilerplate and tests
+- AI documentation assistant (Claude) for drafting
+- Human must review ALL AI-generated content before commit
+
+**NOT Allowed:**
+- AI commits under bot names (use your own GitHub account)
+- AI-generated commits without human review
+- Claiming AI tools as co-authors
+
+**Commit Message Convention:**
+If AI significantly assisted a commit, add "[AI-assisted]" to the message:
+
+```bash
+git commit -m "Add graybody model tests [AI-assisted]"
+```
+
+This maintains transparency without polluting the contributor graph.
+
+**Why This Policy?**
+We believe AI are tools, not collaborators. But we also believe in transparency.
+This policy balances both values.
+See HONESTY.md for the project's full AI disclosure statement.
+
 ## Scientific Standards
 
 All contributions should maintain rigorous scientific standards:

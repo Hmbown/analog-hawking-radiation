@@ -1,10 +1,21 @@
 # Laser-Plasma Sonic Horizon Simulator (Alpha Research Code)
 
-[![Python Version](https://img.shields.io/badge/python-3.9%E2%80%933.11-blue.svg)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](tests/) [![Version](https://img.shields.io/badge/version-0.3.1--alpha-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
+[![Python Version](https://img.shields.io/badge/python-3.9%E2%80%933.11-blue.svg)](https://www.python.org/downloads/) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](tests/)
+[![Version](https://img.shields.io/badge/version-0.3.1--alpha-blue.svg)](https://github.com/hmbown/analog-hawking-radiation/releases)
 
-**⚠️ RESEARCH PROTOTYPE - NOT VALIDATED AGAINST EXPERIMENTAL DATA ⚠️**
+⚠️ **ALPHA RESEARCH CODE - NOT EXPERIMENTALLY VALIDATED** ⚠️
 
-This code implements theoretical models that have **NOT** been benchmarked against ELI or other laser facilities. All "validation" claims refer to unit tests only, not experimental verification. Use for method exploration only.
+**AI Usage:** This repository was developed with AI coding assistants (Copilot, Claude, Gemini). 
+Core physics is human-designed; documentation/tests were AI-assisted. 
+**AI contributors are listed in commit history for transparency—they are tools, not co-authors.**
+See [HONESTY.md](HONESTY.md) for detailed disclosure and our authorship policy.
+
+**Status:** Not validated against ELI or other facilities. Unit tests only. 
+Use for method exploration, not production research—yet.
+
+**Seeking:** Domain expert collaborators for experimental validation.
 
 ---
 

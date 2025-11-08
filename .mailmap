@@ -1,0 +1,13 @@
+# AI Tool Commit Attribution Mapping
+# This file reattributes AI-generated commits to the human developer
+# per academic authorship standards (AI are tools, not authors)
+
+# Maps AI bot commits to human author for those who run "git log --use-mailmap"
+Hunter Bown <hunterbown@example.com> Copilot <copilot@github.com>
+Hunter Bown <hunterbown@example.com> claude <claude@github.com>
+Hunter Bown <hunterbown@example.com> google-labs-jules[bot] <bot@github.com>
+Hunter Bown <hunterbown@example.com> gemini-code-assist[bot] <bot@github.com>
+
+# Note: This does NOT rewrite history or affect GitHub API.
+# It only cleans up git log output for humans who choose to use it.
+# The actual commit history remains unchanged for transparency.
