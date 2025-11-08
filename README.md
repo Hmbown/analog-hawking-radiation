@@ -11,13 +11,20 @@
 
 ---
 
-## ⚡ Try It Now (15 seconds)
+## ⚡ Try It Now
+
+### Quick Start (2 minutes first time, 15 seconds subsequently)
 
 ```bash
-# Clone and run
+# Clone and install (first time only, ~2 minutes)
 git clone https://github.com/hmbown/analog-hawking-radiation.git
 cd analog-hawking-radiation
 pip install -e .
+
+# Verify installation (optional but recommended)
+ahr dev check
+
+# Run quickstart (~15 seconds)
 ahr quickstart
 ```
 
@@ -34,6 +41,18 @@ ahr quickstart
 ahr pipeline --demo       # Full detection pipeline
 ahr tutorial 1            # Learn the physics
 ahr docs                  # Open documentation
+```
+
+### Troubleshooting Installation
+
+If `ahr` command is not found, use the Python module syntax:
+```bash
+python -m analog_hawking.cli.main quickstart
+```
+
+Or verify your installation:
+```bash
+ahr dev check    # Comprehensive health check
 ```
 
 ---

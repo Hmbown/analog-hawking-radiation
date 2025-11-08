@@ -29,7 +29,7 @@ This page provides quick access to the most important documentation and resource
 **Start here**:
 - [Experimental Planning Guide](./ELI_Experimental_Planning_Guide.md)
 - `ahr experiment --eli` - ELI facility validation
-- [Detection Feasibility Analysis](./docs/GradientCatastropheAnalysis.md)
+- [Detection Feasibility Analysis](./GradientCatastropheAnalysis.md)
 
 **Key workflows**:
 1. `ahr pipeline --demo` - See detection pipeline
